@@ -1,12 +1,12 @@
-[![Build Status](https://travis-ci.org/appnexus/cmp.svg?branch=master)](https://travis-ci.org/appnexus/cmp)
-
-# AppNexus CMP
+# DigiTrust CMP
 CMP is a tool for publishers to engage users of their properties and gather & store end user consent.
+
+This code was forked from https://github.com/appnexus/cmp.
 
 ### Installation
 
 ```sh
-git clone https://github.com/appnexus/cmp.git
+git clone https://github.com/digi-trust/cmp.git
 cd cmp
 yarn install
 ```
