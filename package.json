@@ -1,5 +1,5 @@
 {
-  "name": "appnexus-cmp",
+  "name": "digitrust-cmp",
   "version": "0.0.0",
   "scripts": {
     "clean": "rm -rf build",
@@ -16,10 +16,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/appnexus/cmp.git"
+    "url": "https://github.com/digi-trust/cmp.git"
   },
   "license": "Apache-2.0",
-  "author": "AppNexus",
+  "author": "DigiTrust",
   "jest": {
     "setupFiles": [
       "./test/setup.js"
