@@ -37,4 +37,4 @@ jobs:
       - run: yarn test
 
       - deploy:
-        command: aws s3 sync build s3://cmp-origin.digitru.st/builds/dev --delete
+          command: aws s3 sync build s3://cmp-origin.digitru.st/builds/dev --delete
