@@ -37,5 +37,6 @@ jobs:
       - run: yarn test
 
       - deploy:
-          command: sudo apt-get -y -qq install awscli
-          command: aws s3 sync build s3://cmp-origin.digitru.st/builds/dev --delete
+          command: |
+            sudo apt-get -y -qq install awscli
+            aws s3 sync build s3://cmp-origin.digitru.st/builds/dev --delete
