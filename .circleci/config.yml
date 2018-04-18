@@ -38,7 +38,7 @@ jobs:
 
 
 deployment:
-  prod:
+  dev:
     branch: master
     commands:
       - aws s3 sync build s3://cmp-origin.digitru.st/builds/master --delete
