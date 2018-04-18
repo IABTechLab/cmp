@@ -36,9 +36,8 @@ jobs:
       # run tests!
       - run: yarn test
 
-
-deployment:
-  dev:
-    branch: master
-    commands:
-      - aws s3 sync build s3://cmp-origin.digitru.st/builds/master --delete
+  deploy:
+    steps:
+      - run:
+        name: publish to s3
+        command: aws s3 sync build s3://cmp-origin.digitru.st/builds/dev --delete
