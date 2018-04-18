@@ -38,5 +38,6 @@ jobs:
 
       - deploy:
           command: |
+            npm run build
             sudo apt-get -y -qq install awscli
             aws s3 sync build s3://cmp-origin.digitru.st/builds/dev --delete
