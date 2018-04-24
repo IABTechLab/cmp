@@ -1,24 +1,199 @@
 import log from './log';
 import Promise from 'promise-polyfill';
 import pack from '../../package.json';
-import {
-	encodeVendorConsentData
-} from './cookie/cookie';
+import { encodeVendorConsentData } from './cookie/cookie';
 
+const MAX_COOKIE_LIFESPAN_DAYS = 390;
+const EU_COUNTRY_CODES = [
+	"bg",
+	"hr",
+	"tr",
+	"cs",
+	"da",
+	"et",
+	"fi",
+	"fr",
+	"fr-be",
+	"fr-fr",
+	"fr-lu",
+	"fr-mc",
+	"fr-ch",
+	"de",
+	"de-at",
+	"de-de",
+	"de-li",
+	"de-lu",
+	"de-ch",
+	"el",
+	"hu",
+	"gd-ie",
+	"ga",
+	"it",
+	"it-ch",
+	"lv",
+	"lt",
+	"lb",
+	"mt",
+	"nl",
+	"nl-be",
+	"pl",
+	"pt",
+	"rm",
+	"ro",
+	"ro-mo",
+	"sk",
+	"sl",
+	"es",
+	"es-es",
+	"cy",
+	"sv",
+	"sv-fi",
+	"sv-sv",
+	"en-gb",
+	"en-ie",
+	"mo",
+	"ru-mo",
+	"eu",
+	"ca",
+	"co",
+	"fo",
+	"fy",
+	"fur",
+	"gd",
+	"gl",
+	"is",
+	"la",
+	"no",
+	"nb",
+	"nn",
+	"oc",
+	"sc",
+	"sb",
+	"hsb",
+	"vo",
+	"wa",
+	"ar",
+	"ast",
+	"br",
+	"eo",
+];
 const CMP_VERSION = pack.version;
 export const CMP_GLOBAL_NAME = '__cmp';
 
 export default class Cmp {
-	constructor(store) {
+	constructor(store, config) {
 		this.isLoaded = false;
 		this.cmpReady = false;
 		this.eventListeners = {};
 		this.store = store;
+		this.config = config;
 		this.processCommand.receiveMessage = this.receiveMessage;
 		this.processCommand.VERSION = CMP_VERSION;
 	}
 
+	utils = {
+		checkReprompt: (repromptOptions, vendorConsents, presentVendors) => {
+			const self = this;
+
+			const consentGiven = self.utils.getAmountOfConsentGiven(vendorConsents, presentVendors.length);
+			let days = repromptOptions[consentGiven];
+			return self.utils.checkIfCookieIsOld(days);
+		},
+		checkIfLanguageLocaleApplies: (languages) => {
+			for (let idx in languages) {
+				if (EU_COUNTRY_CODES.indexOf(languages[idx].toLowerCase()) !== -1) {
+					return true;
+				}
+			}
+			return false;
+		},
+		getAmountOfConsentGiven: (vendorConsents, totalPossibleVendors) => {
+			let consentGiven;
+			const allowedVendorsCount = Object.keys(vendorConsents).map((vendor) => { return vendorConsents[vendor]; }).filter((bool) => bool).length;
+			if (allowedVendorsCount === 0) {
+				consentGiven = "noConsentGiven";
+			} else if (allowedVendorsCount < totalPossibleVendors) {
+				consentGiven = "someConsentGiven";
+			} else {
+				consentGiven = "fullConsentGiven";
+			}
+			return consentGiven;
+		},
+		checkIfCookieIsOld: (days) => {
+			const self = this;
+
+			// cookie not present; this particular branch should only ever be hit by non-EU people
+			if (!self.store.getVendorConsentsObject().lastUpdated && !self.store.getPublisherConsentsObject().lastUpdated) return false;
+
+			const globalConsentCookieTimestamp = self.store.getVendorConsentsObject().lastUpdated.getTime();
+			const publisherConsentCookieTimestamp = self.store.getPublisherConsentsObject().lastUpdated.getTime();
+			const oldestCookieTimestamp = (globalConsentCookieTimestamp > publisherConsentCookieTimestamp) ? publisherConsentCookieTimestamp : globalConsentCookieTimestamp;
+
+			const now = Date.now();
+			if (days > MAX_COOKIE_LIFESPAN_DAYS) days = MAX_COOKIE_LIFESPAN_DAYS;
+			const daysInMS = (1000 * 60 * 60 * 24 * days);
+			return ((now - daysInMS) > oldestCookieTimestamp) ? true : false;
+		},
+	};
+
 	commands = {
+		renderCmpIfNeeded: (_, callback = () => {}) => {
+			const self = this;
+			const store = self.store;
+			const config = self.config;
+			const cmp = window.__cmp;
+			if (!cmp) {
+				log.error('CMP failed to load');
+			}
+			else if (!window.navigator.cookieEnabled) {
+				log.warn('Cookies are disabled. Ignoring CMP consent check');
+			}
+			else {
+				Promise.all([
+					cmp('getVendorConsents'),
+					cmp('getVendorList')
+				]).then(([{vendorConsents}, {vendors}]) => {
+					// Can also grab vendorListVersion from the first promise here ^^
+
+					let needsPublisherCookie = false;
+					if (config.storePublisherData && !store.getPublisherConsentsObject().lastUpdated) needsPublisherCookie = true;
+					let needsGlobalCookie = false;
+					if (config.storeConsentGlobally && !store.getVendorConsentsObject().lastUpdated) needsGlobalCookie = true;
+
+					if (config.alwaysShowConsentTool) {
+						// if no cookie, show tool
+						if (needsPublisherCookie || needsGlobalCookie) {
+							cmp('showConsentTool');
+						}
+						// if cookie present and current, don't show tool
+						// if cookie present and old, show tool
+						else if (self.utils.checkReprompt(config.repromptOptions, vendorConsents, vendors)) {
+							cmp('showConsentTool');
+						}
+						else {
+							log.debug("rendering the CMP is not needed");
+						}
+					}
+					else {
+						// if not in EU, no cookie present, don't show tool
+						// if geolocation in EU, show tool
+						if ( (needsPublisherCookie || needsGlobalCookie) && self.utils.checkIfLanguageLocaleApplies(navigator.languages)) {
+							cmp('showConsentTool');
+						}
+						// if cookie present and current, don't show tool
+						// if cookie present and old, show tool
+						else if (self.utils.checkReprompt(config.repromptOptions, vendorConsents, vendors)) {
+							cmp('showConsentTool');
+						}
+						else {
+							log.debug("rendering the CMP is not needed");
+						}
+					}
+				});
+				callback();
+			}
+		},
+
 		/**
 		 * Get all publisher consent data from the data store.
 		 */

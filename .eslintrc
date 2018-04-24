@@ -47,7 +47,7 @@
     "no-console": 0,
     "no-empty-pattern": 0,
     "no-cond-assign": 1,
-    "semi": 2,
+    "semi": 1,
     "camelcase": 0,
     "comma-style": 2,
     "comma-dangle": 0,
