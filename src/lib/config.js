@@ -8,7 +8,7 @@ const defaultConfig = {
 	logging: false,
 	localization: {},
 	forceLocale: null,
-	alwaysShowConsentTool: false,
+	hasGlobalScope: false,
 	repromptOptions: {
 		fullConsentGiven: 30,
 		someConsentGiven: 30,

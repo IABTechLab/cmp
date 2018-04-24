@@ -160,7 +160,7 @@ export default class Cmp {
 					let needsGlobalCookie = false;
 					if (config.storeConsentGlobally && !store.getVendorConsentsObject().lastUpdated) needsGlobalCookie = true;
 
-					if (config.alwaysShowConsentTool) {
+					if (config.hasGlobalScope) {
 						// if no cookie, show tool
 						if (needsPublisherCookie || needsGlobalCookie) {
 							cmp('showConsentTool');
