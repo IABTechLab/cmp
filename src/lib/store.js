@@ -276,7 +276,6 @@ export default class Store {
 	};
 
 	updateVendorList = vendorList => {
-
 		const {
 			created,
 			maxVendorId = 0
