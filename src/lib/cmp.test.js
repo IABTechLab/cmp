@@ -117,6 +117,8 @@ describe('cmp', () => {
 					lastUpdated: nonExpiredDate
 				};
 				expect(cmp.utils.checkIfCookieIsOld(3)).eq(false);
+
+				expect(cmp.utils.checkIfCookieIsOld(undefined)).eq(false);
 			});
 		});
 	});
