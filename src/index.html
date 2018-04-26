@@ -34,13 +34,13 @@
 				};
 				cmp.config = {
 					customPurposeListLocation: 'docs/purposes.json',
-					globalConsentLocation: 'docs/portal.html'
+					globalConsentLocation: 'docs/portal.html',
 				};
 				return cmp;
 			}());
 		})(window);
 
-		__cmp('showConsentTool');
+		window.__cmp('renderCmpIfNeeded');
 	</script>
 </head>
 <body>

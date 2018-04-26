@@ -7,7 +7,13 @@ const defaultConfig = {
 	storePublisherData: false,
 	logging: false,
 	localization: {},
-	forceLocale: null
+	forceLocale: null,
+	hasGlobalScope: false,
+	repromptOptions: {
+		fullConsentGiven: 30,
+		someConsentGiven: 30,
+		noConsentGiven: 30,
+	},
 };
 
 class Config {
