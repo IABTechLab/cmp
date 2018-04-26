@@ -14,6 +14,7 @@ const defaultConfig = {
 		someConsentGiven: 30,
 		noConsentGiven: 30,
 	},
+	geoIPVendor: 'http://cmp.digitru.st/geoip-demo.html',
 };
 
 class Config {

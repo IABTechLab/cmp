@@ -2,9 +2,39 @@ import log from './log';
 import Promise from 'promise-polyfill';
 import pack from '../../package.json';
 import { encodeVendorConsentData } from './cookie/cookie';
+import 'whatwg-fetch';
 
 const MAX_COOKIE_LIFESPAN_DAYS = 390;
-const EU_COUNTRY_CODES = [
+const EU_COUNTRY_CODES = new Set([
+	"GB",
+	"DE",
+	"PL",
+	"FR",
+	"ES",
+	"IT",
+	"RO",
+	"SE",
+	"BG",
+	"GR",
+	"NL",
+	"HR",
+	"IE",
+	"CZ",
+	"AT",
+	"HU",
+	"FI",
+	"DK",
+	"BE",
+	"PT",
+	"MT",
+	"CY",
+	"LT",
+	"SK",
+	"SI",
+	"EE",
+	"LV",
+]);
+const EU_LANGUAGE_CODES = new Set([
 	"bg",
 	"hr",
 	"tr",
@@ -76,7 +106,7 @@ const EU_COUNTRY_CODES = [
 	"ast",
 	"br",
 	"eo",
-];
+]);
 const CMP_VERSION = pack.version;
 export const CMP_GLOBAL_NAME = '__cmp';
 
@@ -99,13 +129,28 @@ export default class Cmp {
 			let days = repromptOptions[consentGiven];
 			return self.utils.checkIfCookieIsOld(days);
 		},
+		checkIfGDPRApplies: () => {
+			const self = this;
+
+			if (self.utils.checkIfLanguageLocaleApplies(navigator.languages)) return true;
+			return self.utils.checkIfUserInEU();
+		},
 		checkIfLanguageLocaleApplies: (languages) => {
 			for (let idx in languages) {
-				if (EU_COUNTRY_CODES.indexOf(languages[idx].toLowerCase()) !== -1) {
+				if (EU_LANGUAGE_CODES.has(languages[idx])) {
 					return true;
 				}
 			}
 			return false;
+		},
+		checkIfUserInEU: () => {
+			const config = this.config;
+
+			return fetch(config.geoIPVendor)
+				.then(resp => {
+				  let countryISO = resp.headers.get("X-GeoIP-Country");
+				  return EU_COUNTRY_CODES.has(countryISO);
+				});
 		},
 		getAmountOfConsentGiven: (vendorConsents, totalPossibleVendors) => {
 			let consentGiven;
@@ -176,8 +221,8 @@ export default class Cmp {
 					}
 					else {
 						// if not in EU, no cookie present, don't show tool
-						// if geolocation in EU, show tool
-						if ( (needsPublisherCookie || needsGlobalCookie) && self.utils.checkIfLanguageLocaleApplies(navigator.languages)) {
+						// if geolocation in EU, no cookie present, show tool
+						if (self.utils.checkIfGDPRApplies() && (needsPublisherCookie || needsGlobalCookie)) {
 							cmp('showConsentTool');
 						}
 						// if cookie present and current, don't show tool
