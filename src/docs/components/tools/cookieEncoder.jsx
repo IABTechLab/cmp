@@ -85,6 +85,12 @@ export default class CookieEncoder extends Component {
 					}
 					break;
 				}
+				case '6bitchar': {
+					if (text.match(/[A-z]*/)) {
+						_.set(decodedObject, propertyPath, text);
+					}
+					break;
+				}
 			}
 
 			this.setState({
@@ -144,6 +150,7 @@ export default class CookieEncoder extends Component {
 					onChange={this.handleInputChanged(field, objectPath)}
 					isSelected={_.get(decodedObject, propertyPath, false)}
 				/>;
+			case '6bitchar':
 			case 'int':
 			case 'bits':
 				return <input
@@ -214,7 +221,6 @@ export default class CookieEncoder extends Component {
 						if (!validator || validator(fieldObject)) {
 							const listEntryCount = typeof listCount === 'function' ?
 								listCount(fieldObject) : typeof listCount === 'number' ? listCount : 0;
-
 							for (let i = 0; i < listEntryCount; i++) {
 								_.forEach(field.fields, f => {
 									rows.push(this.renderInputRow(f, _.filter([objectPath, name, `[${i}]`]).join('.')));
