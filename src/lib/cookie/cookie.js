@@ -9,8 +9,8 @@ import {
 } from './cookieutils';
 
 import { sendPortalCommand } from '../portal';
-import pack from '../../../package.json';
 import config from '../config';
+const pack = require('../../../package.json');
 
 const PUBLISHER_CONSENT_COOKIE_NAME = 'pubconsent';
 const PUBLISHER_CONSENT_COOKIE_MAX_AGE = 33696000;

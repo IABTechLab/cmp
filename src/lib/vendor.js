@@ -6,20 +6,12 @@ import { sendPortalCommand } from './portal';
 
 const LOCAL_VENDOR_LIST_LOCATION = `//${window.location.host}/cmp/vendors.json`;
 
+/**
+	* Attempt to load a vendor list from the local domain. If a
+	* list is not found attempt to load it from the global list location
+	* using the "portal" for cross domain communication.
+*/
 function fetchVendorList() {
-	/**
-	 * Global consent triggered should always load all vendors.
-	 */
-	if (config.storeConsentGlobally) {
-		log.debug('Consent to be stored globally. Requesting global list');
-		return sendPortalCommand({command: 'readVendorList'});
-	}
-
-	/**
-	 * Attempt to load a vendor list from the local domain. If a
-	 * list is not found attempt to load it from the global list location
-	 * using the "portal" for cross domain communication.
-	 */
 	return fetch(LOCAL_VENDOR_LIST_LOCATION)
 		.then(res => res.json())
 		.catch(() => {

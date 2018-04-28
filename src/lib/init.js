@@ -5,9 +5,8 @@ import Cmp, { CMP_GLOBAL_NAME } from './cmp';
 import { readVendorConsentCookie, readPublisherConsentCookie } from './cookie/cookie';
 import { fetchVendorList, fetchPurposeList } from './vendor';
 import log from './log';
-import pack from '../../package.json';
 import config from './config';
-
+const pack = require('../../package.json');
 
 export function init(configUpdates) {
 	config.update(configUpdates);
@@ -18,7 +17,13 @@ export function init(configUpdates) {
 		.then(vendorConsentData => {
 
 			// Initialize the store with all of our consent data
-			const store = new Store({vendorConsentData, publisherConsentData: readPublisherConsentCookie()});
+			const store = new Store({
+				vendorConsentData,
+				publisherConsentData: readPublisherConsentCookie(),
+				cmpId: 1,
+				cmpVersion: pack.version,
+				cookieVersion: 1
+			});
 
 			// Request lists
 			return Promise.all([

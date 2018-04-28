@@ -45,6 +45,7 @@
     "jest/no-identical-title": 2,
     "no-empty": 0,
     "no-console": 0,
+    "no-unused-vars": 1,
     "no-empty-pattern": 0,
     "no-cond-assign": 1,
     "semi": 1,

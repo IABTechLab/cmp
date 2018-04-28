@@ -1,8 +1,8 @@
 import log from './log';
 import Promise from 'promise-polyfill';
-import pack from '../../package.json';
-import { encodeVendorConsentData } from './cookie/cookie';
+import { encodeVendorConsentData, readGlobalVendorConsentCookie } from './cookie/cookie';
 import 'whatwg-fetch';
+const pack = require('../../package.json');
 
 const MAX_COOKIE_LIFESPAN_DAYS = 390;
 const EU_COUNTRY_CODES = new Set([
@@ -197,9 +197,7 @@ export default class Cmp {
 				Promise.all([
 					cmp('getVendorConsents'),
 					cmp('getVendorList')
-				]).then(([{vendorConsents}, {vendors}]) => {
-					// Can also grab vendorListVersion from the first promise here ^^
-
+				]).then(([{vendorConsents, vendorListVersion}, {vendors}]) => {
 					let needsPublisherCookie = false;
 					if (config.storePublisherData && !store.getPublisherConsentsObject().lastUpdated) needsPublisherCookie = true;
 					let needsGlobalCookie = false;
