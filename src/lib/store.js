@@ -1,6 +1,7 @@
 import { writePublisherConsentCookie, writeVendorConsentCookie } from "./cookie/cookie";
 import config from './config';
 import { findLocale } from './localize';
+const pack = require('../../package.json');
 
 /**
  * Copy a data object and make sure to replace references
@@ -21,8 +22,8 @@ function copyData(dataObject) {
 
 export default class Store {
 	constructor({
-		cmpId = 1,
-		cmpVersion = 1,
+		cmpId = pack.cmpId,
+		cmpVersion = pack.cmpVersion,
 		cookieVersion = 1,
 		vendorConsentData,
 		publisherConsentData,
@@ -67,9 +68,9 @@ export default class Store {
 		} = this;
 
 		const {
-			cookieVersion,
 			created,
 			lastUpdated,
+			cookieVersion,
 			cmpId,
 			cmpVersion,
 			consentScreen,

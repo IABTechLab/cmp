@@ -72,13 +72,16 @@ function convertVendorsToRanges(vendors, selectedIds) {
 }
 
 function encodeVendorConsentData(vendorData) {
-	const {vendorList = {}, selectedPurposeIds, selectedVendorIds, maxVendorId} = vendorData;
+	const {vendorList = {}, selectedPurposeIds, selectedVendorIds, maxVendorId, cmpId, cmpVersion, cookieVersion} = vendorData;
 	const {vendors = [], purposes = []} = vendorList;
 
 	// Encode the data with and without ranges and return the smallest encoded payload
 	const noRangesData = encodeVendorCookieValue({
 		...vendorData,
 		maxVendorId,
+		cmpId,
+		cmpVersion,
+		cookieVersion,
 		purposeIdBitString: encodePurposeIdsToBits(purposes, selectedPurposeIds),
 		isRange: false,
 		vendorIdBitString: encodeVendorIdsToBits(maxVendorId, selectedVendorIds)
@@ -88,6 +91,9 @@ function encodeVendorConsentData(vendorData) {
 	const rangesData = encodeVendorCookieValue({
 		...vendorData,
 		maxVendorId,
+		cmpId,
+		cmpVersion,
+		cookieVersion,
 		purposeIdBitString: encodePurposeIdsToBits(purposes, selectedPurposeIds),
 		isRange: true,
 		defaultConsent: false,
@@ -262,7 +268,7 @@ function writeGlobalVendorConsentCookie(vendorConsentData) {
 		command: 'writeVendorConsent',
 		encodedValue: encodeVendorConsentData(vendorConsentData),
 		vendorConsentData,
-		cmpVersion: pack.version
+		cmpVersion: pack.cmpVersion
 	}).catch(err => {
 		log.error('Failed writing global vendor consent cookie', err);
 	});

@@ -20,8 +20,8 @@ export function init(configUpdates) {
 			const store = new Store({
 				vendorConsentData,
 				publisherConsentData: readPublisherConsentCookie(),
-				cmpId: 1,
-				cmpVersion: pack.version,
+				cmpId: pack.cmpId,
+				cmpVersion: pack.cmpVersion,
 				cookieVersion: 1
 			});
 
@@ -62,7 +62,7 @@ export function init(configUpdates) {
 				render(<App store={store} notify={cmp.notify} />, document.body);
 
 				// Notify listeners that the CMP is loaded
-				log.debug(`Successfully loaded CMP version: ${pack.version}`);
+				log.debug(`Successfully loaded CMP version: ${pack.cmpVersion}`);
 				cmp.isLoaded = true;
 				cmp.notify('isLoaded');
 				cmp.cmpReady = true;

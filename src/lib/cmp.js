@@ -1,6 +1,6 @@
 import log from './log';
 import Promise from 'promise-polyfill';
-import { encodeVendorConsentData, readGlobalVendorConsentCookie } from './cookie/cookie';
+import { encodeVendorConsentData } from './cookie/cookie';
 import 'whatwg-fetch';
 const pack = require('../../package.json');
 
@@ -107,7 +107,7 @@ const EU_LANGUAGE_CODES = new Set([
 	"br",
 	"eo",
 ]);
-const CMP_VERSION = pack.version;
+const CMP_VERSION = pack.cmpVersion;
 export const CMP_GLOBAL_NAME = '__cmp';
 
 export default class Cmp {
@@ -197,7 +197,7 @@ export default class Cmp {
 				Promise.all([
 					cmp('getVendorConsents'),
 					cmp('getVendorList')
-				]).then(([{vendorConsents, vendorListVersion}, {vendors}]) => {
+				]).then(([{vendorConsents}, {vendors}]) => {
 					let needsPublisherCookie = false;
 					if (config.storePublisherData && !store.getPublisherConsentsObject().lastUpdated) needsPublisherCookie = true;
 					let needsGlobalCookie = false;
