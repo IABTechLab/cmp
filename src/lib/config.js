@@ -10,7 +10,7 @@ const defaultConfig = {
 	forceLocale: null,
 	hasGlobalScope: false,
 	repromptOptions: {
-		fullConsentGiven: 30,
+		fullConsentGiven: 360,
 		someConsentGiven: 30,
 		noConsentGiven: 30,
 	},
