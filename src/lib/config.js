@@ -8,7 +8,7 @@ const defaultConfig = {
 	logging: false,
 	localization: {},
 	forceLocale: null,
-	hasGlobalScope: false,
+	gdprAppliesGlobally: false,
 	repromptOptions: {
 		fullConsentGiven: 360,
 		someConsentGiven: 30,
