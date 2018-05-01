@@ -6,7 +6,7 @@ import { readVendorConsentCookie, readPublisherConsentCookie } from './cookie/co
 import { fetchVendorList, fetchPurposeList } from './vendor';
 import log from './log';
 import config from './config';
-const pack = require('../../package.json');
+const metadata = require('../../metadata.json');
 
 export function init(configUpdates) {
 	config.update(configUpdates);
@@ -20,8 +20,8 @@ export function init(configUpdates) {
 			const store = new Store({
 				vendorConsentData,
 				publisherConsentData: readPublisherConsentCookie(),
-				cmpId: pack.cmpId,
-				cmpVersion: pack.cmpVersion,
+				cmpId: metadata.cmpId,
+				cmpVersion: metadata.cmpVersion,
 				cookieVersion: 1
 			});
 
@@ -62,7 +62,7 @@ export function init(configUpdates) {
 				render(<App store={store} notify={cmp.notify} />, document.body);
 
 				// Notify listeners that the CMP is loaded
-				log.debug(`Successfully loaded CMP version: ${pack.cmpVersion}`);
+				log.debug(`Successfully loaded CMP version: ${metadata.cmpVersion}`);
 				cmp.isLoaded = true;
 				cmp.notify('isLoaded');
 				cmp.cmpReady = true;

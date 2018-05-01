@@ -1,7 +1,7 @@
 import { writePublisherConsentCookie, writeVendorConsentCookie } from "./cookie/cookie";
 import config from './config';
 import { findLocale } from './localize';
-const pack = require('../../package.json');
+const metadata = require('../../metadata.json');
 
 /**
  * Copy a data object and make sure to replace references
@@ -22,8 +22,8 @@ function copyData(dataObject) {
 
 export default class Store {
 	constructor({
-		cmpId = pack.cmpId,
-		cmpVersion = pack.cmpVersion,
+		cmpId = metadata.cmpId,
+		cmpVersion = metadata.cmpVersion,
 		cookieVersion = 1,
 		vendorConsentData,
 		publisherConsentData,
@@ -68,6 +68,7 @@ export default class Store {
 		} = this;
 
 		const {
+			consentString,
 			created,
 			lastUpdated,
 			cookieVersion,
@@ -116,6 +117,7 @@ export default class Store {
 		}
 
 		return {
+			consentString,
 			cookieVersion,
 			created,
 			lastUpdated,

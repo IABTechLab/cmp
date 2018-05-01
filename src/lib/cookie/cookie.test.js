@@ -103,8 +103,9 @@ describe('cookie', () => {
 
 		const encodedString = encodeVendorConsentData({...vendorConsentData, vendorList});
 		const decoded = decodeVendorConsentData(encodedString);
+		const output = Object.assign({consentString: encodedString}, vendorConsentData);
 
-		expect(decoded).to.deep.equal(vendorConsentData);
+		expect(decoded).to.deep.equal(output);
 	});
 
 	it('encodes and decodes the publisher cookie object back to original value', () => {

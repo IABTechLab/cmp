@@ -2,7 +2,7 @@ import log from './log';
 import Promise from 'promise-polyfill';
 import { encodeVendorConsentData } from './cookie/cookie';
 import 'whatwg-fetch';
-const pack = require('../../package.json');
+const metadata = require('../../metadata.json');
 
 const MAX_COOKIE_LIFESPAN_DAYS = 390;
 const EU_COUNTRY_CODES = new Set([
@@ -107,7 +107,7 @@ const EU_LANGUAGE_CODES = new Set([
 	"br",
 	"eo",
 ]);
-const CMP_VERSION = pack.cmpVersion;
+const CMP_VERSION = metadata.cmpVersion;
 export const CMP_GLOBAL_NAME = '__cmp';
 
 export default class Cmp {

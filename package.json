@@ -1,7 +1,5 @@
 {
   "name": "digitrust-cmp",
-  "cmpVersion": 1,
-  "cmpId": 1,
   "version": "0.0.0",
   "scripts": {
     "clean": "rm -rf build",

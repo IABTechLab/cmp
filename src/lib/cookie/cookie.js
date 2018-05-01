@@ -10,7 +10,7 @@ import {
 
 import { sendPortalCommand } from '../portal';
 import config from '../config';
-const pack = require('../../../package.json');
+const metadata = require('../../../metadata.json');
 
 const PUBLISHER_CONSENT_COOKIE_NAME = 'pubconsent';
 const PUBLISHER_CONSENT_COOKIE_MAX_AGE = 33696000;
@@ -123,6 +123,7 @@ function decodeVendorConsentData(cookieValue) {
 	} = decodeVendorCookieValue(cookieValue);
 
 	const cookieData = {
+		consentString: cookieValue,
 		cookieVersion,
 		cmpId,
 		cmpVersion,
@@ -134,6 +135,7 @@ function decodeVendorConsentData(cookieValue) {
 		created,
 		lastUpdated
 	};
+
 
 	if (isRange) {
 		const idMap = vendorRangeList.reduce((acc, {isRange, startVendorId, endVendorId}) => {
@@ -268,7 +270,7 @@ function writeGlobalVendorConsentCookie(vendorConsentData) {
 		command: 'writeVendorConsent',
 		encodedValue: encodeVendorConsentData(vendorConsentData),
 		vendorConsentData,
-		cmpVersion: pack.cmpVersion
+		cmpVersion: metadata.cmpVersion
 	}).catch(err => {
 		log.error('Failed writing global vendor consent cookie', err);
 	});
