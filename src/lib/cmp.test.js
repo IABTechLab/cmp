@@ -117,6 +117,8 @@ describe('cmp', () => {
 					lastUpdated: nonExpiredDate
 				};
 				expect(cmp.utils.checkIfCookieIsOld(3)).eq(false);
+
+				expect(cmp.utils.checkIfCookieIsOld(undefined)).eq(false);
 			});
 		});
 	});
@@ -152,7 +154,7 @@ describe('cmp', () => {
 
 		it('getVendorConsents executes', (done) => {
 			cmp.processCommand('getVendorConsents', null, data => {
-				expect(Object.keys(data.purposes).length).to.equal(vendorList.purposes.length);
+				expect(Object.keys(data.purposeConsents).length).to.equal(vendorList.purposes.length);
 				expect(Object.keys(data.vendorConsents).length).to.equal(vendorList.vendors.length);
 				done();
 			});

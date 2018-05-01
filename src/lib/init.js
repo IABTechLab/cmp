@@ -5,9 +5,8 @@ import Cmp, { CMP_GLOBAL_NAME } from './cmp';
 import { readVendorConsentCookie, readPublisherConsentCookie } from './cookie/cookie';
 import { fetchVendorList, fetchPurposeList } from './vendor';
 import log from './log';
-import pack from '../../package.json';
 import config from './config';
-
+const metadata = require('../../metadata.json');
 
 export function init(configUpdates) {
 	config.update(configUpdates);
@@ -18,7 +17,13 @@ export function init(configUpdates) {
 		.then(vendorConsentData => {
 
 			// Initialize the store with all of our consent data
-			const store = new Store({vendorConsentData, publisherConsentData: readPublisherConsentCookie()});
+			const store = new Store({
+				vendorConsentData,
+				publisherConsentData: readPublisherConsentCookie(),
+				cmpId: metadata.cmpId,
+				cmpVersion: metadata.cmpVersion,
+				cookieVersion: 1
+			});
 
 			// Request lists
 			return Promise.all([
@@ -57,7 +62,7 @@ export function init(configUpdates) {
 				render(<App store={store} notify={cmp.notify} />, document.body);
 
 				// Notify listeners that the CMP is loaded
-				log.debug(`Successfully loaded CMP version: ${pack.version}`);
+				log.debug(`Successfully loaded CMP version: ${metadata.cmpVersion}`);
 				cmp.isLoaded = true;
 				cmp.notify('isLoaded');
 				cmp.cmpReady = true;

@@ -1,22 +1,56 @@
-import { writePublisherConsentCookie, writeVendorConsentCookie } from "./cookie/cookie";
+import {
+	writePublisherConsentCookie,
+	writeVendorConsentCookie,
+	readVendorConsentCookie
+} from "./cookie/cookie";
 import config from './config';
+import { findLocale } from './localize';
+const metadata = require('../../metadata.json');
+
+/**
+ * Copy a data object and make sure to replace references
+ * of Set objects with new ones.
+ */
+function copyData(dataObject) {
+	if (typeof dataObject !== 'object') {
+		return dataObject;
+	}
+	const copy = {...dataObject};
+	for (let key in copy) {
+		if (copy.hasOwnProperty(key) && copy[key] instanceof Set) {
+			copy[key] = new Set(copy[key]);
+		}
+	}
+	return copy;
+}
 
 export default class Store {
-	constructor({vendorConsentData, publisherConsentData, vendorList, customPurposeList} = {}) {
+	constructor({
+		cmpId = metadata.cmpId,
+		cmpVersion = metadata.cmpVersion,
+		cookieVersion = 1,
+		vendorConsentData,
+		publisherConsentData,
+		vendorList,
+		customPurposeList
+	} = {}) {
 		// Keep track of data that has already been persisted
-		this.persistedVendorConsentData = vendorConsentData;
-		this.persistedPublisherConsentData = publisherConsentData;
+		this.persistedVendorConsentData = copyData(vendorConsentData);
+		this.persistedPublisherConsentData = copyData(publisherConsentData);
 
 		this.vendorConsentData = Object.assign({
-			cookieVersion: 1,
-			cmpId: 1,
+			cookieVersion,
+			cmpId,
+			cmpVersion,
+			consentLanguage: findLocale().substr(0, 2).toUpperCase(),
 			selectedPurposeIds: new Set(),
-			selectedVendorIds: new Set()
+			selectedVendorIds: new Set(),
+			isEU: null
 		}, vendorConsentData);
 
 		this.publisherConsentData = Object.assign({
-			cookieVersion: 1,
-			cmpId: 1,
+			cookieVersion,
+			cmpId,
 			selectedCustomPurposeIds: new Set()
 		}, publisherConsentData);
 
@@ -39,10 +73,16 @@ export default class Store {
 		} = this;
 
 		const {
-			cookieVersion,
+			isEU,
+			consentString,
+			source,
 			created,
 			lastUpdated,
+			cookieVersion,
 			cmpId,
+			cmpVersion,
+			consentScreen,
+			consentLanguage,
 			vendorListVersion,
 			maxVendorId = 0,
 			selectedVendorIds = new Set(),
@@ -84,16 +124,46 @@ export default class Store {
 		}
 
 		return {
+			isEU,
+			consentString,
+			source,
 			cookieVersion,
 			created,
 			lastUpdated,
 			cmpId,
+			cmpVersion,
+			consentScreen,
+			consentLanguage,
 			vendorListVersion,
 			maxVendorId,
-			purposes: purposeMap,
+			purposeConsents: purposeMap,
 			vendorConsents: vendorMap
 		};
 	};
+
+	getFullVendorConsentsObject = () => {
+		const self = this;
+		return readVendorConsentCookie().then(cookie => {
+			var isEU;
+			var consentString;
+			var source;
+			var consentScreen;
+
+			if (cookie) {
+				isEU = cookie.isEU;
+				consentString = cookie.consentString;
+				source = cookie.source;
+				consentScreen = cookie.consentScreen;
+			}
+
+			return Object.assign(self.getVendorConsentsObject(), {
+				isEU,
+				consentString,
+				source,
+				consentScreen
+			});
+		});
+	}
 
 	/**
 	 * Build publisher consent object from data that has already been persisted.
@@ -188,8 +258,8 @@ export default class Store {
 		}
 
 		// Store the persisted data
-		this.persistedVendorConsentData = {...vendorConsentData};
-		this.persistedPublisherConsentData = {...publisherConsentData};
+		this.persistedVendorConsentData = copyData(vendorConsentData);
+		this.persistedPublisherConsentData = copyData(publisherConsentData);
 
 		// Notify of date changes
 		this.storeUpdate();
@@ -319,4 +389,15 @@ export default class Store {
 		this.customPurposeList = customPurposeList;
 		this.storeUpdate();
 	};
+
+	updateIsEU = boolean => {
+		const {
+			vendorConsentData,
+		} = this;
+
+		this.vendorConsentData.isEU = boolean;
+
+		// Store the persisted data
+		this.persistedVendorConsentData = copyData(vendorConsentData);
+	}
 }

@@ -9,8 +9,8 @@ import {
 } from './cookieutils';
 
 import { sendPortalCommand } from '../portal';
-import pack from '../../../package.json';
 import config from '../config';
+const metadata = require('../../../metadata.json');
 
 const PUBLISHER_CONSENT_COOKIE_NAME = 'pubconsent';
 const PUBLISHER_CONSENT_COOKIE_MAX_AGE = 33696000;
@@ -49,34 +49,39 @@ function decodeBitsToIds(bitString) {
 
 function convertVendorsToRanges(vendors, selectedIds) {
 	let range = [];
-	return vendors.reduce((acc, {id}, index) => {
-		if (selectedIds.has(id)) {
-			range.push(id);
-		}
+	return vendors
+		.sort((vendor1, vendor2) => vendor1.id === vendor2.id ? 0 : vendor1.id < vendor2.id ? -1 : 1)
+		.reduce((acc, {id}, index) => {
+			if (selectedIds.has(id)) {
+				range.push(id);
+			}
 
-		// If the range has ended or at the end of vendors add entry to the list
-		if ((!selectedIds.has(id) || index === vendors.length - 1) && range.length) {
-			const startVendorId = range.shift();
-			const endVendorId = range.pop();
-			range = [];
-			return [...acc, {
-				isRange: typeof endVendorId === 'number',
-				startVendorId,
-				endVendorId
-			}];
-		}
-		return acc;
-	}, []);
+			// If the range has ended or at the end of vendors add entry to the list
+			if ((!selectedIds.has(id) || index === vendors.length - 1) && range.length) {
+				const startVendorId = range.shift();
+				const endVendorId = range.pop();
+				range = [];
+				return [...acc, {
+					isRange: typeof endVendorId === 'number',
+					startVendorId,
+					endVendorId
+				}];
+			}
+			return acc;
+		}, []);
 }
 
 function encodeVendorConsentData(vendorData) {
-	const {vendorList = {}, selectedPurposeIds, selectedVendorIds, maxVendorId} = vendorData;
+	const {vendorList = {}, selectedPurposeIds, selectedVendorIds, maxVendorId, cmpId, cmpVersion, cookieVersion} = vendorData;
 	const {vendors = [], purposes = []} = vendorList;
 
 	// Encode the data with and without ranges and return the smallest encoded payload
 	const noRangesData = encodeVendorCookieValue({
 		...vendorData,
 		maxVendorId,
+		cmpId,
+		cmpVersion,
+		cookieVersion,
 		purposeIdBitString: encodePurposeIdsToBits(purposes, selectedPurposeIds),
 		isRange: false,
 		vendorIdBitString: encodeVendorIdsToBits(maxVendorId, selectedVendorIds)
@@ -86,6 +91,9 @@ function encodeVendorConsentData(vendorData) {
 	const rangesData = encodeVendorCookieValue({
 		...vendorData,
 		maxVendorId,
+		cmpId,
+		cmpVersion,
+		cookieVersion,
 		purposeIdBitString: encodePurposeIdsToBits(purposes, selectedPurposeIds),
 		isRange: true,
 		defaultConsent: false,
@@ -96,10 +104,13 @@ function encodeVendorConsentData(vendorData) {
 	return noRangesData.length < rangesData.length ? noRangesData : rangesData;
 }
 
-function decodeVendorConsentData(cookieValue) {
+function decodeVendorConsentData(cookieValue, source) {
 	const {
 		cookieVersion,
 		cmpId,
+		cmpVersion,
+		consentScreen,
+		consentLanguage,
 		vendorListVersion,
 		purposeIdBitString,
 		maxVendorId,
@@ -112,14 +123,20 @@ function decodeVendorConsentData(cookieValue) {
 	} = decodeVendorCookieValue(cookieValue);
 
 	const cookieData = {
+		consentString: cookieValue,
+		source,
 		cookieVersion,
 		cmpId,
+		cmpVersion,
+		consentScreen,
+		consentLanguage,
 		vendorListVersion,
 		selectedPurposeIds: decodeBitsToIds(purposeIdBitString),
 		maxVendorId,
 		created,
 		lastUpdated
 	};
+
 
 	if (isRange) {
 		const idMap = vendorRangeList.reduce((acc, {isRange, startVendorId, endVendorId}) => {
@@ -203,14 +220,13 @@ function writeCookie(name, value, maxAgeSeconds, path = '/') {
 }
 
 function readPublisherConsentCookie() {
-	// If not configured to store publisher data return an empty object
-	if (!config.storePublisherData) {
-		return {};
-	}
-	const cookie = readCookie(PUBLISHER_CONSENT_COOKIE_NAME);
-	log.debug('Read publisher consent data from local cookie', cookie);
-	if (cookie) {
-		return decodePublisherConsentData(cookie);
+	// If configured try to read publisher cookie
+	if (config.storePublisherData) {
+		const cookie = readCookie(PUBLISHER_CONSENT_COOKIE_NAME);
+		log.debug('Read publisher consent data from local cookie', cookie);
+		if (cookie) {
+			return decodePublisherConsentData(cookie);
+		}
 	}
 }
 
@@ -236,7 +252,7 @@ function readGlobalVendorConsentCookie() {
 	}).then(result => {
 		log.debug('Read consent data from global cookie', result);
 		if (result) {
-			return decodeVendorConsentData(result);
+			return decodeVendorConsentData(result, "global");
 		}
 	}).catch(err => {
 		log.error('Failed reading global vendor consent cookie', err);
@@ -255,7 +271,7 @@ function writeGlobalVendorConsentCookie(vendorConsentData) {
 		command: 'writeVendorConsent',
 		encodedValue: encodeVendorConsentData(vendorConsentData),
 		vendorConsentData,
-		cmpVersion: pack.version
+		cmpVersion: metadata.cmpVersion
 	}).catch(err => {
 		log.error('Failed writing global vendor consent cookie', err);
 	});
@@ -270,7 +286,7 @@ function writeGlobalVendorConsentCookie(vendorConsentData) {
 function readLocalVendorConsentCookie() {
 	const cookie = readCookie(VENDOR_CONSENT_COOKIE_NAME);
 	log.debug('Read consent data from local cookie', cookie);
-	return Promise.resolve(cookie && decodeVendorConsentData(cookie));
+	return Promise.resolve(cookie && decodeVendorConsentData(cookie, "local"));
 }
 
 /**
@@ -301,6 +317,8 @@ export {
 	writeCookie,
 	encodeVendorConsentData,
 	decodeVendorConsentData,
+
+	convertVendorsToRanges,
 
 	encodePublisherConsentData,
 	decodePublisherConsentData,

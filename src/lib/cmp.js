@@ -1,10 +1,41 @@
 import log from './log';
 import Promise from 'promise-polyfill';
-import pack from '../../package.json';
 import { encodeVendorConsentData } from './cookie/cookie';
+import 'whatwg-fetch';
+
+const metadata = require('../../metadata.json');
 
 const MAX_COOKIE_LIFESPAN_DAYS = 390;
-const EU_COUNTRY_CODES = [
+const EU_COUNTRY_CODES = new Set([
+	"GB",
+	"DE",
+	"PL",
+	"FR",
+	"ES",
+	"IT",
+	"RO",
+	"SE",
+	"BG",
+	"GR",
+	"NL",
+	"HR",
+	"IE",
+	"CZ",
+	"AT",
+	"HU",
+	"FI",
+	"DK",
+	"BE",
+	"PT",
+	"MT",
+	"CY",
+	"LT",
+	"SK",
+	"SI",
+	"EE",
+	"LV",
+]);
+const EU_LANGUAGE_CODES = new Set([
 	"bg",
 	"hr",
 	"tr",
@@ -76,8 +107,8 @@ const EU_COUNTRY_CODES = [
 	"ast",
 	"br",
 	"eo",
-];
-const CMP_VERSION = pack.version;
+]);
+const CMP_VERSION = metadata.cmpVersion;
 export const CMP_GLOBAL_NAME = '__cmp';
 
 export default class Cmp {
@@ -99,13 +130,32 @@ export default class Cmp {
 			let days = repromptOptions[consentGiven];
 			return self.utils.checkIfCookieIsOld(days);
 		},
+		checkIfGDPRApplies: () => {
+			const self = this;
+
+			if (self.utils.checkIfLanguageLocaleApplies(navigator.languages)) return true;
+			return self.utils.checkIfUserInEU();
+		},
 		checkIfLanguageLocaleApplies: (languages) => {
 			for (let idx in languages) {
-				if (EU_COUNTRY_CODES.indexOf(languages[idx].toLowerCase()) !== -1) {
+				if (EU_LANGUAGE_CODES.has(languages[idx])) {
 					return true;
 				}
 			}
 			return false;
+		},
+		checkIfUserInEU: () => {
+			const self = this;
+
+			return fetch(self.config.geoIPVendor)
+				.then(resp => {
+				  let countryISO = resp.headers.get("X-GeoIP-Country");
+				  if (EU_COUNTRY_CODES.has(countryISO)) {
+						self.store.updateIsEU(true);
+						return true;
+				  }
+				  return false;
+				});
 		},
 		getAmountOfConsentGiven: (vendorConsents, totalPossibleVendors) => {
 			let consentGiven;
@@ -153,14 +203,12 @@ export default class Cmp {
 					cmp('getVendorConsents'),
 					cmp('getVendorList')
 				]).then(([{vendorConsents}, {vendors}]) => {
-					// Can also grab vendorListVersion from the first promise here ^^
-
 					let needsPublisherCookie = false;
 					if (config.storePublisherData && !store.getPublisherConsentsObject().lastUpdated) needsPublisherCookie = true;
 					let needsGlobalCookie = false;
 					if (config.storeConsentGlobally && !store.getVendorConsentsObject().lastUpdated) needsGlobalCookie = true;
 
-					if (config.hasGlobalScope) {
+					if (config.gdprAppliesGlobally) {
 						// if no cookie, show tool
 						if (needsPublisherCookie || needsGlobalCookie) {
 							cmp('showConsentTool');
@@ -176,8 +224,8 @@ export default class Cmp {
 					}
 					else {
 						// if not in EU, no cookie present, don't show tool
-						// if geolocation in EU, show tool
-						if ( (needsPublisherCookie || needsGlobalCookie) && self.utils.checkIfLanguageLocaleApplies(navigator.languages)) {
+						// if geolocation in EU, no cookie present, show tool
+						if (self.utils.checkIfGDPRApplies() && (needsPublisherCookie || needsGlobalCookie)) {
 							cmp('showConsentTool');
 						}
 						// if cookie present and current, don't show tool
@@ -208,9 +256,11 @@ export default class Cmp {
 		 * @param {Array} vendorIds Array of vendor IDs to retrieve.  If empty return all vendors.
 		 */
 		getVendorConsents: (vendorIds, callback = () => {}) => {
-			const consent = this.store.getVendorConsentsObject(vendorIds);
-			callback(consent);
-			return consent;
+			return this.store.getFullVendorConsentsObject(vendorIds)
+				.then(consent => {
+					callback(consent);
+					return consent;
+				});
 		},
 
 		/**

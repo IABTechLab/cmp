@@ -8,12 +8,13 @@ const defaultConfig = {
 	logging: false,
 	localization: {},
 	forceLocale: null,
-	hasGlobalScope: false,
+	gdprAppliesGlobally: false,
 	repromptOptions: {
-		fullConsentGiven: 30,
+		fullConsentGiven: 360,
 		someConsentGiven: 30,
 		noConsentGiven: 30,
 	},
+	geoIPVendor: 'http://cmp.digitru.st/geoip.json',
 };
 
 class Config {

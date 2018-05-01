@@ -45,6 +45,7 @@
     "jest/no-identical-title": 2,
     "no-empty": 0,
     "no-console": 0,
+    "no-unused-vars": 1,
     "no-empty-pattern": 0,
     "no-cond-assign": 1,
     "semi": 1,
@@ -78,7 +79,7 @@
     "no-const-assign": 2,
     "prefer-spread": 2,
     "no-useless-concat": 2,
-    "no-var": 2,
+    "no-var": 0,
     "object-shorthand": 2,
     "prefer-arrow-callback": 2
   }

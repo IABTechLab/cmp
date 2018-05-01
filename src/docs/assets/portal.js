@@ -12,13 +12,13 @@ const COOKIE_NAME = 'euconsent';
 
 const readVendorListPromise = fetch(LOCAL_VENDOR_LIST_DOMAIN)
 	.then(res => res.json())
-	.catch(err => {
+	.catch(() => {
 		log.error(`Failed to load local vendor list from vendors.json, trying global`);
 		return fetch(GLOBAL_VENDOR_LIST_DOMAIN)
 			.then(resp => resp.json())
 			.catch(error => {
-				log.error(`Failed to load global vendor list`, err);
-			})
+				log.error(`Failed to load global vendor list`, error);
+			});
 	});
 
 function readCookie(name) {
