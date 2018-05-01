@@ -1,4 +1,8 @@
-import { writePublisherConsentCookie, writeVendorConsentCookie } from "./cookie/cookie";
+import {
+	writePublisherConsentCookie,
+	writeVendorConsentCookie,
+	readVendorConsentCookie
+} from "./cookie/cookie";
 import config from './config';
 import { findLocale } from './localize';
 const metadata = require('../../metadata.json');
@@ -136,6 +140,30 @@ export default class Store {
 			vendorConsents: vendorMap
 		};
 	};
+
+	getFullVendorConsentsObject = () => {
+		const self = this;
+		return readVendorConsentCookie().then(cookie => {
+			var isEU;
+			var consentString;
+			var source;
+			var consentScreen;
+
+			if (cookie) {
+				isEU = cookie.isEU;
+				consentString = cookie.consentString;
+				source = cookie.source;
+				consentScreen = cookie.consentScreen;
+			}
+
+			return Object.assign(self.getVendorConsentsObject(), {
+				isEU,
+				consentString,
+				source,
+				consentScreen
+			});
+		});
+	}
 
 	/**
 	 * Build publisher consent object from data that has already been persisted.
