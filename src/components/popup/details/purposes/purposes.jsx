@@ -98,7 +98,7 @@ export default class Purposes extends Component {
 							</div>
 						</div>
 						<div class={style.body}>
-							<LocalLabel localizeKey={`${currentPurposeLocalizePrefix}.description`} />
+							<LocalLabel textValue={selectedPurpose.description} localizeKey={`${currentPurposeLocalizePrefix}.description`} />
 							<a class={style.vendorLink} onClick={onShowVendors}><LocalLabel localizeKey='showVendors'>Show full vendor list</LocalLabel></a>
 						</div>
 					</div>

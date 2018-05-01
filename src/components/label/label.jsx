@@ -7,9 +7,9 @@ export default class Label extends Component {
 	};
 
 	render(props, state) {
-		const { prefix, localizeKey, className, children } = props;
+		const { prefix, localizeKey, className, children, textValue } = props;
 		const key = prefix ? `${prefix}.${localizeKey}` : localizeKey;
-		const localizedContent = Localize.lookup(key);
+		const localizedContent = textValue || Localize.lookup(key);
 
 		return (
 			<span
