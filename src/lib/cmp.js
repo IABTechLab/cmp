@@ -2,6 +2,7 @@ import log from './log';
 import Promise from 'promise-polyfill';
 import { encodeVendorConsentData } from './cookie/cookie';
 import 'whatwg-fetch';
+
 const metadata = require('../../metadata.json');
 
 const MAX_COOKIE_LIFESPAN_DAYS = 390;
@@ -144,12 +145,16 @@ export default class Cmp {
 			return false;
 		},
 		checkIfUserInEU: () => {
-			const config = this.config;
+			const self = this;
 
-			return fetch(config.geoIPVendor)
+			return fetch(self.config.geoIPVendor)
 				.then(resp => {
 				  let countryISO = resp.headers.get("X-GeoIP-Country");
-				  return EU_COUNTRY_CODES.has(countryISO);
+				  if (EU_COUNTRY_CODES.has(countryISO)) {
+						self.store.updateIsEU(true);
+						return true;
+				  }
+				  return false;
 				});
 		},
 		getAmountOfConsentGiven: (vendorConsents, totalPossibleVendors) => {

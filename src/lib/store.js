@@ -40,7 +40,8 @@ export default class Store {
 			cmpVersion,
 			consentLanguage: findLocale().substr(0, 2).toUpperCase(),
 			selectedPurposeIds: new Set(),
-			selectedVendorIds: new Set()
+			selectedVendorIds: new Set(),
+			isEU: null
 		}, vendorConsentData);
 
 		this.publisherConsentData = Object.assign({
@@ -68,7 +69,9 @@ export default class Store {
 		} = this;
 
 		const {
+			isEU,
 			consentString,
+			source,
 			created,
 			lastUpdated,
 			cookieVersion,
@@ -117,7 +120,9 @@ export default class Store {
 		}
 
 		return {
+			isEU,
 			consentString,
+			source,
 			cookieVersion,
 			created,
 			lastUpdated,
@@ -356,4 +361,15 @@ export default class Store {
 		this.customPurposeList = customPurposeList;
 		this.storeUpdate();
 	};
+
+	updateIsEU = boolean => {
+		const {
+			vendorConsentData,
+		} = this;
+
+		this.vendorConsentData.isEU = boolean;
+
+		// Store the persisted data
+		this.persistedVendorConsentData = copyData(vendorConsentData);
+	}
 }

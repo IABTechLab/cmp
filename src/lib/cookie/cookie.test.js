@@ -102,8 +102,8 @@ describe('cookie', () => {
 		};
 
 		const encodedString = encodeVendorConsentData({...vendorConsentData, vendorList});
-		const decoded = decodeVendorConsentData(encodedString);
-		const output = Object.assign({consentString: encodedString}, vendorConsentData);
+		const decoded = decodeVendorConsentData(encodedString, "local");
+		const output = Object.assign({consentString: encodedString, source: "local"}, vendorConsentData);
 
 		expect(decoded).to.deep.equal(output);
 	});

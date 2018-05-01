@@ -104,7 +104,7 @@ function encodeVendorConsentData(vendorData) {
 	return noRangesData.length < rangesData.length ? noRangesData : rangesData;
 }
 
-function decodeVendorConsentData(cookieValue) {
+function decodeVendorConsentData(cookieValue, source) {
 	const {
 		cookieVersion,
 		cmpId,
@@ -124,6 +124,7 @@ function decodeVendorConsentData(cookieValue) {
 
 	const cookieData = {
 		consentString: cookieValue,
+		source,
 		cookieVersion,
 		cmpId,
 		cmpVersion,
@@ -251,7 +252,7 @@ function readGlobalVendorConsentCookie() {
 	}).then(result => {
 		log.debug('Read consent data from global cookie', result);
 		if (result) {
-			return decodeVendorConsentData(result);
+			return decodeVendorConsentData(result, "global");
 		}
 	}).catch(err => {
 		log.error('Failed reading global vendor consent cookie', err);
@@ -285,7 +286,7 @@ function writeGlobalVendorConsentCookie(vendorConsentData) {
 function readLocalVendorConsentCookie() {
 	const cookie = readCookie(VENDOR_CONSENT_COOKIE_NAME);
 	log.debug('Read consent data from local cookie', cookie);
-	return Promise.resolve(cookie && decodeVendorConsentData(cookie));
+	return Promise.resolve(cookie && decodeVendorConsentData(cookie, "local"));
 }
 
 /**
