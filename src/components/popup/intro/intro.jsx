@@ -2,7 +2,6 @@ import { h, Component } from 'preact';
 import style from './intro.less';
 import Button from '../../button/button';
 import Label from '../../label/label';
-import CloseButton from '../../closebutton/closebutton';
 
 class LocalLabel extends Label {
 	static defaultProps = {
@@ -27,10 +26,6 @@ export default class Intro extends Component {
 
 		return (
 			<div class={style.intro}>
-				<CloseButton
-					class={style.close}
-					onClick={onClose}
-				/>
 				<div class={style.title}>
 					<LocalLabel localizeKey='title'>Thanks for visiting</LocalLabel> {DOMAIN}
 				</div>

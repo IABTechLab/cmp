@@ -33,10 +33,7 @@ export default class Popup extends Component {
 		});
 	};
 
-	handleClose = () => {
-		const { store } = this.props;
-		store.toggleFooterShowing(true);
-	};
+	handleClose = () => {};
 
 	render(props, state) {
 		const { store } = props;
