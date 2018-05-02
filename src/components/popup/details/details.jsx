@@ -26,6 +26,14 @@ export default class Details extends Component {
 		});
 	};
 
+	handleEnableAll = () => {
+		const { onSave } = this.props;
+		const { selectAllVendors } = this.props.store;
+
+		selectAllVendors(true);
+		onSave();
+	}
+
 	handleBack = () => {
 		const { onCancel } = this.props;
 		const { selectedPanelIndex } = this.state;
@@ -65,7 +73,11 @@ export default class Details extends Component {
 		return (
 			<div class={style.details}>
 				<div class={style.header}>
-					<LocalLabel localizeKey='title'>User Privacy Preferences</LocalLabel>
+					<LocalLabel class={style.title} localizeKey='title'>Privacy Preferences</LocalLabel>
+					<Button class={style.save} onClick={this.handleEnableAll}><LocalLabel localizeKey='enableAll'>Enable all</LocalLabel></Button>
+				</div>
+				<div class={style.content}>
+					<LocalLabel localizeKey='content'>We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the complete list of companies here.</LocalLabel>
 				</div>
 				<div class={style.body}>
 					<Panel selectedIndex={selectedPanelIndex}>
@@ -87,8 +99,13 @@ export default class Details extends Component {
 					</Panel>
 				</div>
 				<div class={style.footer}>
-					<a class={style.cancel} onClick={this.handleBack}><LocalLabel localizeKey='back'>Back</LocalLabel></a>
-					<Button class={style.save} onClick={onSave}><LocalLabel localizeKey='save'>Save and Exit</LocalLabel></Button>
+					<div class={style.leftFooter}>
+						<a class={style.vendorLink} onClick={this.handleShowVendors}><LocalLabel localizeKey='showVendors'>Show all companies</LocalLabel></a>
+					</div>
+					<div class={style.rightFooter}>
+						<a class={style.cancel} onClick={this.handleBack}><LocalLabel localizeKey='back'>Back</LocalLabel></a>
+						<Button class={style.save} onClick={onSave}><LocalLabel localizeKey='save'>OK, Continue to site</LocalLabel></Button>
+					</div>
 				</div>
 			</div>
 		);

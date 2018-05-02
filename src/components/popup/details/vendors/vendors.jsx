@@ -74,6 +74,7 @@ export default class Vendors extends Component {
 						<thead>
 						<tr>
 							<th><LocalLabel localizeKey='company'>Company</LocalLabel></th>
+							<th><LocalLabel localizeKey='privacyPolicy'>Privacy Policy</LocalLabel></th>
 							{editingConsents &&
 							<th><LocalLabel localizeKey='offOn'>Allow</LocalLabel></th>
 							}
@@ -84,9 +85,10 @@ export default class Vendors extends Component {
 				<div class={style.vendorContent}>
 					<table class={style.vendorList}>
 						<tbody>
-						{vendors.map(({ id, name }, index) => (
+						{vendors.map(({ id, name, policyUrl, purposeIds, legIntPurposeIds, featureIds }, index) => (
 							<tr key={id} class={index % 2 === 1 ? style.even : ''}>
 								<td><div class={style.vendorName}>{name}</div></td>
+								<td><a class={style.vendorContent} href={policyUrl} target='_blank'>{policyUrl}</a></td>
 								{editingConsents &&
 								<td>
 									<Switch

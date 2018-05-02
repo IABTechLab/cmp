@@ -9,11 +9,21 @@
 	.header {
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
 		text-transform: uppercase;
 		font-weight: bold;
-		border-bottom: 1px solid @color-border;
 		flex: 0 0 60px;
+		border-bottom: 1px solid @color-border;
+	}
+	.title {
+		padding-left: 10px;
+		font-size: 24px;
+		font-weight: 700;
+	}
+	.content {
+		font-size: 12px;
+		padding: 10px;
+		border-bottom: 1px solid @color-border;
 	}
 	.body {
 		flex: 1;
@@ -23,14 +33,22 @@
 	.footer {
 		display: flex;
 		align-items: center;
-		justify-content: flex-end;
+		justify-content: space-between;
 		flex: 0 1 80px;
 		border-top: 1px solid @color-border;
 	}
-
+	.leftFooter {
+	}
+	.rightFooter {
+	}
+	.vendorLink {
+		padding-left: 10px;
+		display: block;
+		font-size: 12px;
+	}
 	.save {
 		margin-right: 20px;
-		width: 205px;
+		min-width: 220px;
 	}
 	.cancel {
 		margin-right: 25px;
