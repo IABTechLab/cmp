@@ -15,7 +15,6 @@ export default {
 		},
 		details: {
 			title: 'Privacy preferences',
-			content: 'We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the complete list of companies here.',
 			cancel: 'Back',
 			save: 'OK, Continue to site',
 			showVendors: 'Show all companies',
@@ -23,6 +22,7 @@ export default {
 		},
 		purposes: {
 			active: '',
+			disclaimer: 'We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the complete list of companies here.',
 			showVendors: '',
 			cookies: {
 				menu: '',

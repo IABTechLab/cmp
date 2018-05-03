@@ -72,38 +72,43 @@ export default class Purposes extends Component {
 		const currentPurposeLocalizePrefix = `${selectedPurposeIndex >= purposes.length ? 'customPurpose' : 'purpose'}${selectedPurposeId}`;
 
 		return (
-			<div class={style.purposes}>
-				<div class={style.purposeList}>
-					{allPurposes.map((purpose, index) => (
-						<div class={[style.purposeItem, selectedPurposeIndex === index ? style.selectedPurpose : ''].join(' ')}
-							 onClick={this.handleSelectPurposeDetail(index)}
-						>
-							<LocalLabel localizeKey={`${index >= purposes.length ? 'customPurpose' : 'purpose'}${purpose.id}.menu`}>{purpose.name}</LocalLabel>
-						</div>
-					))}
+			<div class={style.container}>
+				<div class={style.disclaimer}>
+					<LocalLabel localizeKey='disclaimer'>We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the complete list of companies here.</LocalLabel>
 				</div>
-				{selectedPurpose &&
-				<div class={style.purposeDescription}>
-					<div class={style.purposeDetail}>
-						<div class={style.detailHeader}>
-							<div class={style.title}>
-								<LocalLabel localizeKey={`${currentPurposeLocalizePrefix}.title`}>{selectedPurpose.name}</LocalLabel>
+				<div class={style.purposes}>
+					<div class={style.purposeList}>
+						{allPurposes.map((purpose, index) => (
+							<div class={[style.purposeItem, selectedPurposeIndex === index ? style.selectedPurpose : ''].join(' ')}
+								 onClick={this.handleSelectPurposeDetail(index)}
+							>
+								<LocalLabel localizeKey={`${index >= purposes.length ? 'customPurpose' : 'purpose'}${purpose.id}.menu`}>{purpose.name}</LocalLabel>
 							</div>
-							<div class={style.active}>
-								<LocalLabel localizeKey='active'>Active</LocalLabel>
-								<Switch
-									isSelected={purposeIsActive}
-									onClick={this.handleSelectPurpose}
-								/>
+						))}
+					</div>
+					{selectedPurpose &&
+					<div class={style.purposeDescription}>
+						<div class={style.purposeDetail}>
+							<div class={style.detailHeader}>
+								<div class={style.title}>
+									<LocalLabel localizeKey={`${currentPurposeLocalizePrefix}.title`}>{selectedPurpose.name}</LocalLabel>
+								</div>
+								<div class={style.active}>
+									<LocalLabel localizeKey='active'>Active</LocalLabel>
+									<Switch
+										isSelected={purposeIsActive}
+										onClick={this.handleSelectPurpose}
+									/>
+								</div>
 							</div>
-						</div>
-						<div class={style.body}>
-							<LocalLabel textValue={selectedPurpose.description} localizeKey={`${currentPurposeLocalizePrefix}.description`} />
-							<a class={style.vendorLink} onClick={onShowVendors}><LocalLabel localizeKey='showVendors'>Show full vendor list</LocalLabel></a>
+							<div class={style.body}>
+								<LocalLabel textValue={selectedPurpose.description} localizeKey={`${currentPurposeLocalizePrefix}.description`} />
+								<a class={style.vendorLink} onClick={onShowVendors}><LocalLabel localizeKey='showVendors'>Show full vendor list</LocalLabel></a>
+							</div>
 						</div>
 					</div>
+					}
 				</div>
-				}
 			</div>
 		);
 	}

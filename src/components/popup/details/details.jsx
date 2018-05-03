@@ -76,9 +76,6 @@ export default class Details extends Component {
 					<LocalLabel class={style.title} localizeKey='title'>Privacy Preferences</LocalLabel>
 					<Button class={style.save} onClick={this.handleEnableAll}><LocalLabel localizeKey='enableAll'>Enable all</LocalLabel></Button>
 				</div>
-				<div class={style.content}>
-					<LocalLabel localizeKey='content'>We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the complete list of companies here.</LocalLabel>
-				</div>
 				<div class={style.body}>
 					<Panel selectedIndex={selectedPanelIndex}>
 						<Purposes
