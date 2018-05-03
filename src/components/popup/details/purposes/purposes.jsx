@@ -56,6 +56,7 @@ export default class Purposes extends Component {
 		const {
 			onShowVendors,
 			purposes,
+			features,
 			customPurposes,
 			selectedPurposeIds,
 			selectedCustomPurposeIds
@@ -72,7 +73,7 @@ export default class Purposes extends Component {
 		const currentPurposeLocalizePrefix = `${selectedPurposeIndex >= purposes.length ? 'customPurpose' : 'purpose'}${selectedPurposeId}`;
 
 		return (
-			<div class={style.container}>
+			<div class={style.container} >
 				<div class={style.disclaimer}>
 					<LocalLabel localizeKey='disclaimer'>We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the complete list of companies here.</LocalLabel>
 				</div>
@@ -102,7 +103,13 @@ export default class Purposes extends Component {
 								</div>
 							</div>
 							<div class={style.body}>
-								<LocalLabel textValue={selectedPurpose.description} localizeKey={`${currentPurposeLocalizePrefix}.description`} />
+								<p><LocalLabel textValue={selectedPurpose.description} localizeKey={`${currentPurposeLocalizePrefix}.description`} /></p>
+								<p><LocalLabel localizeKey='featureHeader'>This will include the following features:</LocalLabel></p>
+								<ul>
+								{features.map((feature, index) => (
+									<li><LocalLabel class='featureItem' textValue={feature.description} /></li>
+								))}
+								</ul>
 								<a class={style.vendorLink} onClick={onShowVendors}><LocalLabel localizeKey='showVendors'>Show full vendor list</LocalLabel></a>
 							</div>
 						</div>
