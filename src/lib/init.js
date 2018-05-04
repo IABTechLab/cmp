@@ -59,7 +59,7 @@ export function init(configUpdates) {
 
 				// Render the UI
 				const App = require('../components/app').default;
-				render(<App store={store} notify={cmp.notify} />, document.body);
+				render(<App store={store} notify={cmp.notify} config={config} />, document.body);
 
 				// Notify listeners that the CMP is loaded
 				log.debug(`Successfully loaded CMP version: ${metadata.cmpVersion}`);

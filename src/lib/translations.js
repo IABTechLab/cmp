@@ -7,7 +7,8 @@
 export default {
 	en: {
 		intro: {
-			title: 'Thanks for visiting',
+			title: 'Thanks for visiting ',
+			domain: '',
 			description: 'Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.',
 			acceptAll: 'OK, Continue to site',
 			rejectAll: '',
@@ -84,7 +85,8 @@ export default {
 	},
 	de: {
 		intro: {
-			title: 'Diese Website verwendet Cookies',
+			title: 'Diese Website verwendet Cookies ',
+			domain: '',
 			description: 'Wir und unsere Partner verwenden sogenannte Cookies (kleine Textdateien) im Webbrowser um zu verstehen, was unsere Besucher interessiert und entsprechend relevante Inhalte und Werbung anbieten zu können. Zukünftig benötigen wir wahrscheinlich ihr/euer Einverständnis dazu. Ein Beispiel, wie dies aussehen könnte, finden sie/findet ihr unter dieser Erklärung ',
 			acceptAll: 'Alle Cookies akzeptieren',
 			rejectAll: 'Alle Cookies ablehnen',

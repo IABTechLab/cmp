@@ -56,7 +56,8 @@ export default class Details extends Component {
 			onCancel,
 			onSave,
 			onClose,
-			store
+			store,
+			localization
 		} = props;
 		const { selectedPanelIndex } = state;
 
@@ -79,12 +80,15 @@ export default class Details extends Component {
 		return (
 			<div class={style.details}>
 				<div class={style.header}>
-					<LocalLabel class={style.title} localizeKey='title'>Privacy Preferences</LocalLabel>
-					<Button class={style.save} onClick={this.handleEnableAll}><LocalLabel localizeKey='enableAll'>Enable all</LocalLabel></Button>
+					<LocalLabel class={style.title} providedValue={localization && localization.details ? localization.details.title : ''} localizeKey='title'>Privacy Preferences</LocalLabel>
+					<Button class={style.save} onClick={this.handleEnableAll}>
+						<LocalLabel providedValue={localization && localization.details ? localization.details.enableAll : ''} localizeKey='enableAll'>Enable all</LocalLabel>
+					</Button>
 				</div>
 				<div class={style.body}>
 					<Panel selectedIndex={selectedPanelIndex}>
 						<Purposes
+							localization={localization}
 							purposes={purposes}
 							features={features}
 							vendors={vendors}
@@ -96,6 +100,7 @@ export default class Details extends Component {
 							onShowVendors={this.handleShowVendors}
 						/>
 						<Vendors
+							localization={localization}
 							selectedVendorIds={selectedVendorIds}
 							selectAllVendors={selectAllVendors}
 							selectVendor={selectVendor}
@@ -106,11 +111,17 @@ export default class Details extends Component {
 				</div>
 				<div class={style.footer}>
 					<div class={style.leftFooter}>
-						<a class={style.vendorLink} onClick={this.handleShowVendors}><LocalLabel localizeKey='showVendors'>Show all companies</LocalLabel></a>
+						<a class={style.vendorLink} onClick={this.handleShowVendors}>
+							<LocalLabel providedValue={localization && localization.details ? localization.details.showVendors : ''} localizeKey='showVendors'>Show all companies</LocalLabel>
+						</a>
 					</div>
 					<div class={style.rightFooter}>
-						<a class={style.cancel} onClick={this.handleBack}><LocalLabel localizeKey='back'>Back</LocalLabel></a>
-						<Button class={style.save} onClick={onSave}><LocalLabel localizeKey='save'>OK, Continue to site</LocalLabel></Button>
+						<a class={style.cancel} onClick={this.handleBack}>
+							<LocalLabel providedValue={localization && localization.details ? localization.details.back : ''} localizeKey='back'>Back</LocalLabel>
+						</a>
+						<Button class={style.save} onClick={onSave}>
+							<LocalLabel providedValue={localization && localization.details ? localization.details.save : ''} localizeKey='save'>OK, Continue to site</LocalLabel>
+						</Button>
 					</div>
 				</div>
 			</div>

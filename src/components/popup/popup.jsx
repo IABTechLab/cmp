@@ -36,7 +36,7 @@ export default class Popup extends Component {
 	handleClose = () => {};
 
 	render(props, state) {
-		const { store } = props;
+		const { store, localization } = props;
 		const { selectedPanelIndex } = state;
 		const { isConsentToolShowing } = store;
 
@@ -55,12 +55,15 @@ export default class Popup extends Component {
 							onAcceptAll={this.onAcceptAll}
 							onShowPurposes={this.handleShowDetails}
 							onClose={this.handleClose}
+							localization={localization}
 						/>
 						<Details
 							onSave={this.props.onSave}
 							onCancel={this.onCancel}
 							store={this.props.store}
-							onClose={this.handleClose} />
+							onClose={this.handleClose}
+							localization={localization}
+						/>
 					</Panel>
 				</div>
 			</div>

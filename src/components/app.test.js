@@ -25,13 +25,13 @@ describe('App', () => {
 
 
 	it('should render app content', () => {
-		render(<App store={new Store()} />, scratch);
+		render(<App store={new Store()} config={{localization: {}}} />, scratch);
 		expect(scratch.innerHTML).to.contain(style.gdpr);
 	});
 
 	it('add a listener to the store to receive updates', () => {
 		const store = new Store();
-		render(<App store={store} />, scratch);
+		render(<App store={store} config={{localization: {}}} />, scratch);
 		expect(store.listeners.size).to.equal(1);
 	});
 
@@ -45,6 +45,7 @@ describe('App', () => {
 		render(<App
 			store={store}
 			notify={notify}
+			config={{localization: {}}}
 			ref={ref => app = ref}
 		/>, scratch);
 
@@ -62,6 +63,7 @@ describe('App', () => {
 		render(<App
 			store={store}
 			notify={() => {}}
+			config={{localization: {}}}
 			ref={ref => app = ref}
 		/>, scratch);
 

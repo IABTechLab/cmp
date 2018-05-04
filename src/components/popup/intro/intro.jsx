@@ -21,16 +21,18 @@ export default class Intro extends Component {
 		const {
 			onAcceptAll,
 			onShowPurposes,
-			onClose
+			onClose,
+			localization
 		} = props;
 
 		return (
 			<div class={style.intro}>
 				<div class={style.title}>
-					<LocalLabel localizeKey='title'>Thanks for visiting</LocalLabel> {DOMAIN}
+					<LocalLabel providedValue={localization && localization.intro ? localization.intro.title : ''} localizeKey='title'>Thanks for visiting </LocalLabel>
+					<LocalLabel providedValue={localization && localization.intro ? localization.intro.domain : ''} localizeKey='domain'>{DOMAIN}</LocalLabel>
 				</div>
 				<div class={style.description}>
-					<LocalLabel localizeKey='description'>Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.</LocalLabel>
+					<LocalLabel providedValue={localization && localization.intro ? localization.intro.description : ''} localizeKey='description'>Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.</LocalLabel>
 				</div>
 				<div class={style.options}>
 					<Button
@@ -38,13 +40,13 @@ export default class Intro extends Component {
 						invert={true}
 						onClick={onShowPurposes}
 					>
-						<LocalLabel localizeKey='showPurposes'>Learn more</LocalLabel>
+						<LocalLabel providedValue={localization && localization.intro ? localization.intro.showPurposes : ''} localizeKey='showPurposes'>Learn more</LocalLabel>
 					</Button>
 					<Button
 						class={style.acceptAll}
 						onClick={onAcceptAll}
 					>
-						<LocalLabel localizeKey='acceptAll'>OK, Continue to site</LocalLabel>
+						<LocalLabel providedValue={localization && localization.intro ? localization.intro.acceptAll : ''} localizeKey='acceptAll'>OK, Continue to site</LocalLabel>
 					</Button>
 				</div>
 			</div>

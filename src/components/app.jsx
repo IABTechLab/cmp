@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import style from './app.less';
+import { currentLocale } from '../lib/localize';
 
 import Popup from './popup/popup';
 import Footer from './footer/footer';
@@ -23,22 +24,27 @@ export default class App extends Component {
 	};
 
 	componentWillMount() {
-		const { store } = this.props;
+		const { store, config } = this.props;
 		store.subscribe(this.updateState);
 	}
 
 	render(props, state) {
 
-		const {
-			store,
-		} = state;
+		const { store } = state;
+		const { config } = props;
+		const userLocalization = config.localization[currentLocale];
 
 		return (
 			<div class={style.gdpr}>
-				<Popup store={store}
-					   onSave={this.onSave}
+				<Popup
+					store={store}
+					localization={userLocalization}
+					onSave={this.onSave}
 				/>
-				<Footer store={store} />
+				<Footer
+					store={store}
+					localization={userLocalization}
+				/>
 			</div>
 		);
 	}

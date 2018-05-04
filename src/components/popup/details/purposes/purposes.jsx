@@ -82,7 +82,8 @@ export default class Purposes extends Component {
 			features,
 			customPurposes,
 			selectedPurposeIds,
-			selectedCustomPurposeIds
+			selectedCustomPurposeIds,
+			localization
 		} = props;
 
 		const {
@@ -104,8 +105,10 @@ export default class Purposes extends Component {
 		return (
 			<div class={style.container} >
 				<div class={style.disclaimer}>
-					<LocalLabel localizeKey='disclaimer'>We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the </LocalLabel>
-					<a class={style.vendorLink} onClick={onShowVendors}><LocalLabel localizeKey='disclaimerVendorLink'>complete list of companies here.</LocalLabel></a>
+					<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.disclaimer : ''} localizeKey='disclaimer'>We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the </LocalLabel>
+					<a class={style.vendorLink} onClick={onShowVendors}>
+						<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.disclaimerVendorLink : ''} localizeKey='disclaimerVendorLink'>complete list of companies here.</LocalLabel>
+					</a>
 				</div>
 				<div class={style.purposes}>
 					<div class={style.purposeList}>
@@ -125,7 +128,7 @@ export default class Purposes extends Component {
 									<LocalLabel localizeKey={`${currentPurposeLocalizePrefix}.title`}>{selectedPurpose.name}</LocalLabel>
 								</div>
 								<div class={style.active}>
-									<LocalLabel localizeKey='active'>Active</LocalLabel>
+									<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.active : ''} localizeKey='active'>Active</LocalLabel>
 									<Switch
 										isSelected={purposeIsActive}
 										onClick={this.handleSelectPurpose}
@@ -133,18 +136,22 @@ export default class Purposes extends Component {
 								</div>
 							</div>
 							<div class={style.body}>
-								<p><LocalLabel textValue={selectedPurpose.description} localizeKey={`${currentPurposeLocalizePrefix}.description`} /></p>
-								<p><LocalLabel localizeKey='featureHeader'>This will include the following features:</LocalLabel></p>
+								<p><LocalLabel providedValue={selectedPurpose.description} localizeKey={`${currentPurposeLocalizePrefix}.description`} /></p>
+								<p><LocalLabel providedValue={localization && localization.purposes ? localization.purposes.featureHeader : ''} localizeKey='featureHeader'>This will include the following features:</LocalLabel></p>
 								<ul>
 								{features.map((feature, index) => (
-									<li><LocalLabel class='featureItem' textValue={feature.description} /></li>
+									<li><LocalLabel class='featureItem' providedValue={feature.description} /></li>
 								))}
 								</ul>
 								{!showLocalVendors &&
-								<a class={style.vendorLink} onClick={this.onShowLocalVendors}><LocalLabel localizeKey='showVendors'>Show companies</LocalLabel></a>
+								<a class={style.vendorLink} onClick={this.onShowLocalVendors}>
+									<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.showVendors : ''} localizeKey='showVendors'>Show companies</LocalLabel>
+								</a>
 								}
 								{showLocalVendors &&
-								<a class={style.vendorLink} onClick={this.onHideLocalVendors}><LocalLabel localizeKey='hideVendors'>Hide companies</LocalLabel></a>
+								<a class={style.vendorLink} onClick={this.onHideLocalVendors}>
+									<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.hideVendors : ''} localizeKey='hideVendors'>Hide companies</LocalLabel>
+								</a>
 								}
 								{showLocalVendors &&
 									(<div>
@@ -152,7 +159,7 @@ export default class Purposes extends Component {
 											<table class={style.vendorList}>
 												<thead>
 												<tr>
-													<th><LocalLabel localizeKey='company'>Company</LocalLabel></th>
+													<th><LocalLabel providedValue={localization && localization.purposes ? localization.purposes.company : ''} localizeKey='company'>Company</LocalLabel></th>
 												</tr>
 												</thead>
 											</table>
