@@ -37,8 +37,6 @@ export default class Store {
 		vendorList,
 		customPurposeList
 	} = {}) {
-		updateLocalizationSettings({forceLocale: config.forceLocale, localization: config.localization});
-
 		// Keep track of data that has already been persisted
 		this.persistedVendorConsentData = copyData(vendorConsentData);
 		this.persistedPublisherConsentData = copyData(publisherConsentData);
@@ -47,11 +45,12 @@ export default class Store {
 			cookieVersion,
 			cmpId,
 			cmpVersion,
-			consentLanguage: currentLocale.substr(0, 2).toUpperCase(),
 			selectedPurposeIds: new Set(),
 			selectedVendorIds: new Set(),
 			isEU: null
 		}, vendorConsentData);
+
+		this.vendorConsentData.consentLanguage = updateLocalizationSettings({forceLocale: config.forceLocale, localization: config.localization});
 
 		this.publisherConsentData = Object.assign({
 			cookieVersion,

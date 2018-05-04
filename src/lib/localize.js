@@ -28,6 +28,7 @@ export function updateLocalizationSettings(userConfig) {
 		...localizedMap[language],
 		...localizedMap[currentLocale]
 	};
+	return currentLocale.substr(0, 2).toUpperCase();
 }
 
 function processLocalized(data = {}) {
