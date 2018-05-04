@@ -11,7 +11,9 @@ class LocalLabel extends Label {
 
 export default class Purposes extends Component {
 	state = {
-		selectedPurposeIndex: 0
+		selectedPurposeIndex: 0,
+		showLocalVendors: false,
+		localVendors: []
 	};
 
 	static defaultProps = {
@@ -26,7 +28,9 @@ export default class Purposes extends Component {
 	handleSelectPurposeDetail = index => {
 		return () => {
 			this.setState({
-				selectedPurposeIndex: index
+				selectedPurposeIndex: index,
+				showLocalVendors: false,
+				localVendors: []
 			});
 		};
 	};
@@ -50,9 +54,28 @@ export default class Purposes extends Component {
 		}
 	};
 
+	onShowLocalVendors = () => {
+		const { selectedPurposeIndex } = this.state;
+		const { vendors } = this.props;
+		const localVendors = vendors.map((vendor) => {
+			let purposeId = selectedPurposeIndex + 1;
+			if (	vendor.purposeIds.indexOf(purposeId) !== -1 ||
+						vendor.legIntPurposeIds.indexOf(purposeId) !== -1 ) return vendor;
+		}).filter((vendor) => vendor);
+		this.setState({
+			showLocalVendors: true,
+			localVendors: localVendors
+		});
+	};
+
+	onHideLocalVendors = () => {
+		this.setState({
+			showLocalVendors: false,
+			localVendors: []
+		});
+	};
 
 	render(props, state) {
-
 		const {
 			onShowVendors,
 			purposes,
@@ -62,7 +85,13 @@ export default class Purposes extends Component {
 			selectedCustomPurposeIds
 		} = props;
 
-		const {selectedPurposeIndex} = state;
+		const {
+			selectedPurposeIndex,
+			showLocalVendors,
+		} = state;
+		let {
+			localVendors
+		} = state;
 
 		const allPurposes = [...purposes, ...customPurposes];
 		const selectedPurpose = allPurposes[selectedPurposeIndex];
@@ -75,7 +104,8 @@ export default class Purposes extends Component {
 		return (
 			<div class={style.container} >
 				<div class={style.disclaimer}>
-					<LocalLabel localizeKey='disclaimer'>We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the complete list of companies here.</LocalLabel>
+					<LocalLabel localizeKey='disclaimer'>We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the </LocalLabel>
+					<a class={style.vendorLink} onClick={onShowVendors}><LocalLabel localizeKey='disclaimerVendorLink'>complete list of companies here.</LocalLabel></a>
 				</div>
 				<div class={style.purposes}>
 					<div class={style.purposeList}>
@@ -110,7 +140,36 @@ export default class Purposes extends Component {
 									<li><LocalLabel class='featureItem' textValue={feature.description} /></li>
 								))}
 								</ul>
-								<a class={style.vendorLink} onClick={onShowVendors}><LocalLabel localizeKey='showVendors'>Show full vendor list</LocalLabel></a>
+								{!showLocalVendors &&
+								<a class={style.vendorLink} onClick={this.onShowLocalVendors}><LocalLabel localizeKey='showVendors'>Show companies</LocalLabel></a>
+								}
+								{showLocalVendors &&
+								<a class={style.vendorLink} onClick={this.onHideLocalVendors}><LocalLabel localizeKey='hideVendors'>Hide companies</LocalLabel></a>
+								}
+								{showLocalVendors &&
+									(<div>
+										<div class={style.vendorHeader}>
+											<table class={style.vendorList}>
+												<thead>
+												<tr>
+													<th><LocalLabel localizeKey='company'>Company</LocalLabel></th>
+												</tr>
+												</thead>
+											</table>
+										</div>
+										<div class={style.vendorContent}>
+											<table class={style.vendorList}>
+												<tbody>
+												{localVendors.map((vendor, index) => (
+													<tr key={index + vendor.name} class={index % 2 === 1 ? style.even : ''}>
+														<td><div class={style.vendorName}>{vendor.name}</div></td>
+													</tr>
+												))}
+												</tbody>
+											</table>
+										</div>
+									</div>)
+								}
 							</div>
 						</div>
 					</div>

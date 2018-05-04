@@ -26,13 +26,19 @@ export default class Details extends Component {
 		});
 	};
 
+	handleShowPurposes = () => {
+		this.setState({
+			selectedPanelIndex: SECTION_PURPOSES
+		});
+	};
+
 	handleEnableAll = () => {
 		const { onSave } = this.props;
 		const { selectAllVendors } = this.props.store;
 
 		selectAllVendors(true);
 		onSave();
-	}
+	};
 
 	handleBack = () => {
 		const { onCancel } = this.props;
@@ -81,6 +87,7 @@ export default class Details extends Component {
 						<Purposes
 							purposes={purposes}
 							features={features}
+							vendors={vendors}
 							customPurposes={customPurposes}
 							selectedPurposeIds={selectedPurposeIds}
 							selectedCustomPurposeIds={selectedCustomPurposeIds}
@@ -93,6 +100,7 @@ export default class Details extends Component {
 							selectAllVendors={selectAllVendors}
 							selectVendor={selectVendor}
 							vendors={vendors}
+							onShowPurposes={this.handleShowPurposes}
 						/>
 					</Panel>
 				</div>

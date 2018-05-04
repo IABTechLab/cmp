@@ -22,8 +22,10 @@ export default {
 		},
 		purposes: {
 			active: '',
-			disclaimer: 'We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the complete list of companies here.',
-			showVendors: '',
+			disclaimer: 'We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the ',
+			disclaimerVendorLink: 'complete list of companies here.',
+			showVendors: 'Show companies',
+			hideVendors: 'Hide companies',
 			featureHeader: 'This will include the following features:',
 			cookies: {
 				menu: '',
@@ -72,7 +74,11 @@ export default {
 			acceptAll: '',
 			company: '',
 			offOn: '',
-			description: '',
+			description: 'Companies carefully selected by us will use your information. Depending on the type of data they collect, use, process and other factors, certain companies rely on your consent while others require you to opt-out. For information on each partner and to exercise your choices, see below. Or to opt-out, visit the ',
+			or: 'or ',
+			sites: 'sites.',
+			description2: 'Customise how these companies use data on the ',
+			description2Link: 'previous page.',
 			privacyPolicy: 'Privacy Policy'
 		}
 	},
