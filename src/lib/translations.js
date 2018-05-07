@@ -19,10 +19,12 @@ export default {
 			cancel: 'Back',
 			save: 'OK, Continue to site',
 			showVendors: 'Show all companies',
-			enableAll: 'Enable all'
+			enableAll: 'Enable all',
+			disableAll: 'Disable all'
 		},
 		purposes: {
-			active: '',
+			active: 'Active',
+			inactive: 'Inactive',
 			disclaimer: 'We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the ',
 			disclaimerVendorLink: 'complete list of companies here.',
 			showVendors: 'Show companies',
