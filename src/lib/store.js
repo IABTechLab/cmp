@@ -6,7 +6,6 @@ import {
 import config from './config';
 import {
 	updateLocalizationSettings,
-	currentLocale
 } from './localize';
 const metadata = require('../../metadata.json');
 
