@@ -256,6 +256,16 @@ export default class Cmp {
 		 * @param {Array} vendorIds Array of vendor IDs to retrieve.  If empty return all vendors.
 		 */
 		getVendorConsents: (vendorIds, callback = () => {}) => {
+			const consent = this.store.getVendorConsentsObject(vendorIds)
+			callback(consent);
+			return consent;
+		},
+
+		/**
+		 * Get all current vendor consent cookie data from the data store.
+		 * @param {Array} vendorIds Array of vendor IDs to retrieve.  If empty return all vendors.
+		 */
+		getUnpackedVendorCookie: (vendorIds, callback = () => {}) => {
 			return this.store.getFullVendorConsentsObject(vendorIds)
 				.then(consent => {
 					callback(consent);

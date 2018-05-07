@@ -1,72 +1,133 @@
 @import '../../../../style/variables';
 
-.purposes {
+.container {
 	display: flex;
-	flex: 1;
+	flex-direction: column;
 
-	.purposeList {
+	.disclaimer {
 		font-size: 12px;
-		font-weight: bold;
-		flex: 1;
-		max-width: 200px;
-		border-right: 1px solid @color-border;
-		overflow-y: auto;
-		overflow-x: hidden;
+		padding: 10px;
+		border-bottom: 1px solid @color-border;
 	}
-	.purposeItem {
+
+	.purposes {
 		display: flex;
-		align-items: center;
-		height: 50px;
-		padding-left: 10px;
-		background-color: @color-border;
-		border-bottom: 1px solid white;
-		cursor: pointer;
-
-		&:last-child {
-			border-bottom: 1px solid @color-border;
-		}
-
-		&.selectedPurpose {
-			background-color: white;
-			cursor: auto;
-		}
-	}
-	.purposeDescription {
 		flex: 1;
-		padding: 20px;
-		overflow: auto;
-	}
-	.purposeDetail {
 
-		.detailHeader {
-			display: flex;
-			flex-wrap: wrap;
-		}
-		.title {
-			font-size: 24px;
+		.purposeList {
+			font-size: 12px;
 			font-weight: bold;
-			flex: 1 1 auto;
-			@media @smartphone {
-				font-size: 20px;
-				padding-bottom: 5px;
-			}
+			flex: 1;
+			max-width: 200px;
+			border-right: 1px solid @color-border;
+			overflow-y: auto;
+			overflow-x: hidden;
 		}
-		.active {
-			color: @color-primary;
-			font-weight: bold;
+		.purposeItem {
 			display: flex;
 			align-items: center;
-			@media @smartphone {
-				flex: 1 1 auto;
+			height: 50px;
+			padding-left: 10px;
+			background-color: @color-border;
+			border-bottom: 1px solid white;
+			cursor: pointer;
+
+			&:last-child {
+				border-bottom: 1px solid @color-border;
+			}
+
+			&.selectedPurpose {
+				background-color: white;
+				cursor: auto;
 			}
 		}
-		.body {
-			margin: 5% 0;
+		.featureItem {
+
 		}
-	}
-	.vendorLink {
-		display: block;
-		margin-top: 30px;
-		font-size: 12px;
+		.purposeDescription {
+			flex: 1;
+			padding: 20px;
+			overflow: auto;
+		}
+		.purposeDetail {
+
+			.detailHeader {
+				display: flex;
+				flex-wrap: wrap;
+			}
+			.title {
+				font-size: 24px;
+				font-weight: bold;
+				flex: 1 1 auto;
+				@media @smartphone {
+					font-size: 20px;
+					padding-bottom: 5px;
+				}
+			}
+			.active {
+				color: @color-primary;
+				font-weight: bold;
+				display: flex;
+				align-items: center;
+				@media @smartphone {
+					flex: 1 1 auto;
+				}
+			}
+			.body {
+				margin: 5% 0;
+			}
+		}
+		.vendorLink {
+			display: block;
+			margin-top: 30px;
+			font-size: 12px;
+			margin-bottom: 20px;
+		}
+		.vendorHeader {
+			display: flex;
+			flex-shrink: 0;
+		}
+		.vendorContent {
+			display: flex;
+		}
+		.vendorList {
+			border: 1px solid @color-border;
+		}
+		.vendorName {
+			min-height: 30px;
+			display: flex;
+			align-items: center;
+		}
+		table {
+			width: 100%;
+			border-collapse: collapse;
+
+			thead tr {
+				background-color: @color-table-background;
+				border: 1px solid @color-border;
+				text-transform: uppercase;
+			}
+
+			tr {
+				min-height: 40px;
+				th {
+					font-weight: bold;
+				}
+				td, th {
+					text-align: left;
+					padding: 5px;
+					&:first-child {
+						width: 100%;
+					}
+					&:last-child {
+						padding-right: 25px;
+					}
+				}
+			}
+
+			tr.even {
+				background-color: @color-table-background;
+			}
+		}
 	}
 }

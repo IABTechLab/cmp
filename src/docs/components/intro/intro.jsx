@@ -84,13 +84,6 @@ export default class Intro extends Component {
 				standard detailed below, are a work-in-progress and currently designed to be used for testing.
 				</p>
 
-				<p>
-				AppNexus is supporting and contributing to the IAB Europe Transparency and Consent Framework. Our
-				adserver, SSP, and headerbidding tags will fully support the protocol in order to ingest information on
-				approved vendors and user consent. We also have a proof-of-concept UI communicating with our CMP to
-				demonstrate how vendor information and consent is captured and stored based on the framework.
-				</p>
-
 				<h1 className={style.header}>What is a CMP</h1>
 				<p>
 				Within the framework, a CMP is a company that can capture and store the consent status of a user  and

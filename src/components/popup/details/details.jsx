@@ -1,7 +1,6 @@
 import { h, Component } from 'preact';
 import style from './details.less';
 import Button from '../../button/button';
-import CloseButton from '../../closebutton/closebutton';
 import Purposes from './purposes/purposes';
 import Vendors from './vendors/vendors';
 import Panel from '../../panel/panel';
@@ -27,6 +26,20 @@ export default class Details extends Component {
 		});
 	};
 
+	handleShowPurposes = () => {
+		this.setState({
+			selectedPanelIndex: SECTION_PURPOSES
+		});
+	};
+
+	handleEnableAll = () => {
+		const { onSave } = this.props;
+		const { selectAllVendors } = this.props.store;
+
+		selectAllVendors(true);
+		onSave();
+	};
+
 	handleBack = () => {
 		const { onCancel } = this.props;
 		const { selectedPanelIndex } = this.state;
@@ -43,7 +56,8 @@ export default class Details extends Component {
 			onCancel,
 			onSave,
 			onClose,
-			store
+			store,
+			localization
 		} = props;
 		const { selectedPanelIndex } = state;
 
@@ -59,23 +73,25 @@ export default class Details extends Component {
 		} = store;
 		const { selectedPurposeIds, selectedVendorIds } = vendorConsentData;
 		const { selectedCustomPurposeIds } = publisherConsentData;
-		const { purposes = [], vendors = [] } = vendorList;
+		const { purposes = [], vendors = [], features = [] } = vendorList;
 		const { purposes: customPurposes = [] } = customPurposeList;
 
 
 		return (
 			<div class={style.details}>
-				<CloseButton
-					class={style.close}
-					onClick={onClose}
-				/>
 				<div class={style.header}>
-					<LocalLabel localizeKey='title'>User Privacy Preferences</LocalLabel>
+					<LocalLabel class={style.title} providedValue={localization && localization.details ? localization.details.title : ''} localizeKey='title'>Privacy Preferences</LocalLabel>
+					<Button class={style.save} onClick={this.handleEnableAll}>
+						<LocalLabel providedValue={localization && localization.details ? localization.details.enableAll : ''} localizeKey='enableAll'>Enable all</LocalLabel>
+					</Button>
 				</div>
 				<div class={style.body}>
 					<Panel selectedIndex={selectedPanelIndex}>
 						<Purposes
+							localization={localization}
 							purposes={purposes}
+							features={features}
+							vendors={vendors}
 							customPurposes={customPurposes}
 							selectedPurposeIds={selectedPurposeIds}
 							selectedCustomPurposeIds={selectedCustomPurposeIds}
@@ -84,16 +100,29 @@ export default class Details extends Component {
 							onShowVendors={this.handleShowVendors}
 						/>
 						<Vendors
+							localization={localization}
 							selectedVendorIds={selectedVendorIds}
 							selectAllVendors={selectAllVendors}
 							selectVendor={selectVendor}
 							vendors={vendors}
+							onShowPurposes={this.handleShowPurposes}
 						/>
 					</Panel>
 				</div>
 				<div class={style.footer}>
-					<a class={style.cancel} onClick={this.handleBack}><LocalLabel localizeKey='back'>Back</LocalLabel></a>
-					<Button class={style.save} onClick={onSave}><LocalLabel localizeKey='save'>Save and Exit</LocalLabel></Button>
+					<div class={style.leftFooter}>
+						<a class={style.vendorLink} onClick={this.handleShowVendors}>
+							<LocalLabel providedValue={localization && localization.details ? localization.details.showVendors : ''} localizeKey='showVendors'>Show all companies</LocalLabel>
+						</a>
+					</div>
+					<div class={style.rightFooter}>
+						<a class={style.cancel} onClick={this.handleBack}>
+							<LocalLabel providedValue={localization && localization.details ? localization.details.back : ''} localizeKey='back'>Back</LocalLabel>
+						</a>
+						<Button class={style.save} onClick={onSave}>
+							<LocalLabel providedValue={localization && localization.details ? localization.details.save : ''} localizeKey='save'>OK, Continue to site</LocalLabel>
+						</Button>
+					</div>
 				</div>
 			</div>
 		);

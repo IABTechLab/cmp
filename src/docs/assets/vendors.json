@@ -47,48 +47,53 @@
 		}
 	],
   "vendors": [
-	{
-	  "id": 1,
-	  "name": "Globex",
-	  "policyUrl":"https://www.example.com/",
-	  "purposeIds": [1,2,4],
-	  "legIntPurposeIds": [3,5],
-	  "featureIds":[1,2]
-	},
-	{
-	  "id": 2,
-	  "name": "Initech",
-		"purposeIds":[1,3,5],
-		"legIntPurposeIds":[],
-		"featureIds":[3]
-	},
-	{
-	  "id": 3,
-	  "name": "CRS",
-		"purposeIds":[1,2,3,4,5],
-		"legIntPurposeIds":[],
-		"featureIds":[1,2,3]
-	},
-	{
-	  "id": 4,
-	  "name": "Umbrella",
-		"purposeIds":[1,3,5],
-		"legIntPurposeIds":[4],
-		"featureIds":[1,3]
-	},
-	{
-	  "id": 5,
-	  "name": "Aperture",
-		"purposeIds":[1,3,5],
-		"legIntPurposeIds":[],
-		"featureIds":[3]
-	},
-	{
-	  "id": 6,
-	  "name": "Pierce and Pierce",
-		"purposeIds":[1,3,5],
-		"legIntPurposeIds":[],
-		"featureIds":[3]
-	}
-  ]
+		{
+		  "id": 1,
+		  "name": "Globex",
+		  "policyUrl":"https://www.example.com/",
+		  "purposeIds": [1,2,4],
+		  "legIntPurposeIds": [3,5],
+		  "featureIds":[1,2]
+		},
+		{
+		  "id": 2,
+		  "name": "Initech",
+		  "policyUrl":"https://www.example.com/",
+			"purposeIds":[1,3,5],
+			"legIntPurposeIds":[],
+			"featureIds":[3]
+		},
+		{
+		  "id": 3,
+		  "name": "CRS",
+		  "policyUrl":"https://www.example.com/",
+			"purposeIds":[1,2,3,4,5],
+			"legIntPurposeIds":[],
+			"featureIds":[1,2,3]
+		},
+		{
+		  "id": 4,
+		  "name": "Umbrella",
+		  "policyUrl":"https://www.example.com/",
+			"purposeIds":[1,3,5],
+			"legIntPurposeIds":[4],
+			"featureIds":[1,3]
+		},
+		{
+		  "id": 5,
+		  "name": "Aperture",
+		  "policyUrl":"https://www.example.com/",
+			"purposeIds":[1,3,5],
+			"legIntPurposeIds":[],
+			"featureIds":[3]
+		},
+		{
+		  "id": 6,
+		  "name": "Pierce and Pierce",
+		  "policyUrl":"https://www.example.com/",
+			"purposeIds":[1,3,5],
+			"legIntPurposeIds":[],
+			"featureIds":[3]
+		}
+	]
 }

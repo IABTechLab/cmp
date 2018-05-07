@@ -21,10 +21,30 @@ describe('Purposes', () => {
 			customPurposes={[
 				{ id: 1, name: 'Custom Purpose 1' },
 			]}
+			features={[]}
 		/>, scratch);
 
 		const purposeLinks = purposes.querySelectorAll(`.${style.purposeItem}`);
 		expect(purposeLinks.length).to.equal(3);
+	});
+
+	it('should render li elements for each Feature', () => {
+		const purposes = render(<Purposes
+			purposes={[
+				{ id: 1, name: 'Purpose 1' },
+				{ id: 2, name: 'Purpose 2' }
+			]}
+			customPurposes={[
+				{ id: 1, name: 'Custom Purpose 1' },
+			]}
+			features={[
+				{ id: 1, name: 'Feature 1' },
+				{ id: 2, name: 'Feature 2' },
+			]}
+		/>, scratch);
+
+		const features = purposes.querySelectorAll(`.${style.featureItem}`);
+		expect(features.length).to.equal(2);
 	});
 
 	it('should select a standard purpose', () => {
@@ -38,6 +58,7 @@ describe('Purposes', () => {
 				{ id: 1, name: 'Purpose 1' },
 				{ id: 2, name: 'Purpose 2' }
 			]}
+			features={[]}
 			selectPurpose={selectPurpose}
 			selectCustomPurpose={selectCustomPurpose}
 		/>, scratch);
@@ -64,6 +85,7 @@ describe('Purposes', () => {
 			customPurposes={[
 				{ id: 1, name: 'Custom Purpose 1' },
 			]}
+			features={[]}
 			selectPurpose={selectPurpose}
 			selectCustomPurpose={selectCustomPurpose}
 		/>, scratch);
