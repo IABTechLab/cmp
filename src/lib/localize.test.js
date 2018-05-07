@@ -1,12 +1,13 @@
 /* eslint-disable max-nested-callbacks */
 import { expect } from 'chai';
-import {Localize} from './localize';
+import {
+	flattenObject
+} from './localize';
 
 describe('localize', () => {
 
 	it('flatten objects', () => {
-		const localize = new Localize();
-		const result = localize.flattenObject({
+		const result = flattenObject({
 			one: {
 				prop1: 'prop1',
 				two: {

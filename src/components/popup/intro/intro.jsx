@@ -2,7 +2,6 @@ import { h, Component } from 'preact';
 import style from './intro.less';
 import Button from '../../button/button';
 import Label from '../../label/label';
-import CloseButton from '../../closebutton/closebutton';
 
 class LocalLabel extends Label {
 	static defaultProps = {
@@ -11,7 +10,6 @@ class LocalLabel extends Label {
 }
 
 const HOST_PARTS = ((window && window.location && window.location.hostname) || '').split('.');
-const DOMAIN = HOST_PARTS.length > 0 ? HOST_PARTS.slice(-2).join('.') : '';
 
 export default class Intro extends Component {
 
@@ -22,20 +20,18 @@ export default class Intro extends Component {
 		const {
 			onAcceptAll,
 			onShowPurposes,
-			onClose
+			onClose,
+			localization
 		} = props;
 
 		return (
 			<div class={style.intro}>
-				<CloseButton
-					class={style.close}
-					onClick={onClose}
-				/>
 				<div class={style.title}>
-					<LocalLabel localizeKey='title'>Thanks for visiting</LocalLabel> {DOMAIN}
+					<LocalLabel providedValue={localization && localization.intro ? localization.intro.title : ''} localizeKey='title'>Thanks for visiting </LocalLabel>
+					<LocalLabel providedValue={localization && localization.intro ? localization.intro.domain : ''} localizeKey='domain'></LocalLabel>
 				</div>
 				<div class={style.description}>
-					<LocalLabel localizeKey='description'>In order to run a successful website, we and certain third parties are setting cookies and accessing and storing information on your device for various purposes. Various third parties are also collecting data to show you personalized content and ads. Some third parties require your consent to collect data to serve you personalized content and ads.</LocalLabel>
+					<LocalLabel providedValue={localization && localization.intro ? localization.intro.description : ''} localizeKey='description'>Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.</LocalLabel>
 				</div>
 				<div class={style.options}>
 					<Button
@@ -43,13 +39,13 @@ export default class Intro extends Component {
 						invert={true}
 						onClick={onShowPurposes}
 					>
-						<LocalLabel localizeKey='showPurposes'>Manage your choices</LocalLabel>
+						<LocalLabel providedValue={localization && localization.intro ? localization.intro.showPurposes : ''} localizeKey='showPurposes'>Learn more</LocalLabel>
 					</Button>
 					<Button
 						class={style.acceptAll}
 						onClick={onAcceptAll}
 					>
-						<LocalLabel localizeKey='acceptAll'>Got it, thanks!</LocalLabel>
+						<LocalLabel providedValue={localization && localization.intro ? localization.intro.acceptAll : ''} localizeKey='acceptAll'>OK, Continue to site</LocalLabel>
 					</Button>
 				</div>
 			</div>

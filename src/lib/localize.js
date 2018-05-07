@@ -1,8 +1,12 @@
 import translations from './translations';
 import config from './config';
 
-export function findLocale() {
-	const locale = config.forceLocale ||
+export let currentLocale = 'en-us';
+let localizedValues = {};
+let localizedMap = {};
+
+function findLocale(forceLocale) {
+	const locale = forceLocale ||
 		(navigator && (
 			navigator.language ||
 			navigator.browserLanguage ||
@@ -13,55 +17,63 @@ export function findLocale() {
 	return locale.toLowerCase();
 }
 
+export function updateLocalizationSettings(userConfig) {
+	const {
+		forceLocale,
+	} = userConfig;
+
+	currentLocale = findLocale(forceLocale);
+	const [language] = currentLocale.split('-');
+	localizedValues = {
+		...localizedMap[language],
+		...localizedMap[currentLocale]
+	};
+	return currentLocale.substr(0, 2).toUpperCase();
+}
+
+function processLocalized(data = {}) {
+	const locales = Object.keys(data);
+	return locales.reduce((acc, locale) => {
+		const [language] = locale.toLowerCase().split('-');
+		return {
+			...acc,
+			[locale]: {
+				...acc[locale],
+				...flattenObject(data[language]),
+				...flattenObject(data[locale])
+			}
+		};
+	}, {});
+}
+
+export function flattenObject(data) {
+	const flattened = {};
+
+	function flatten(part, prefix) {
+		Object.keys(part).forEach(key => {
+			const prop = prefix ? `${prefix}.${key}` : key;
+			const val = part[key];
+
+			if (typeof val === 'object') {
+				return flatten(val, prop);
+			}
+
+			flattened[prop] = val;
+		});
+	}
+
+	flatten(data);
+	return flattened;
+}
 
 export class Localize {
 	constructor(localizedData) {
-		const localizedMap = this.processLocalized(localizedData);
-		const currentLocal = findLocale();
-		const [language] = currentLocal.split('-');
-		this.localizedValues = {
-			...localizedMap[language],
-			...localizedMap[currentLocal]
-		};
+		localizedMap = processLocalized(localizedData);
+		updateLocalizationSettings(localizedData, findLocale());
 	}
 
 	lookup = key => {
-		return this.localizedValues[key];
-	};
-
-	processLocalized = (data = {}) => {
-		const locales = Object.keys(data);
-		return locales.reduce((acc, locale) => {
-			const [language] = locale.toLowerCase().split('-');
-			return {
-				...acc,
-				[locale]: {
-					...acc[locale],
-					...this.flattenObject(data[language]),
-					...this.flattenObject(data[locale])
-				}
-			};
-		}, {});
-	};
-
-	flattenObject = (data) => {
-		const flattened = {};
-
-		function flatten(part, prefix) {
-			Object.keys(part).forEach(key => {
-				const prop = prefix ? `${prefix}.${key}` : key;
-				const val = part[key];
-
-				if (typeof val === 'object') {
-					return flatten(val, prop);
-				}
-
-				flattened[prop] = val;
-			});
-		}
-
-		flatten(data);
-		return flattened;
+		return localizedValues[key];
 	};
 }
 

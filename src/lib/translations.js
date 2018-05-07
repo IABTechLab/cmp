@@ -7,20 +7,27 @@
 export default {
 	en: {
 		intro: {
-			title: '',
-			description: '',
-			acceptAll: '',
+			title: 'Thanks for visiting ',
+			domain: '',
+			description: 'Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.',
+			acceptAll: 'OK, Continue to site',
 			rejectAll: '',
-			showPurposes: ''
+			showPurposes: 'Learn more'
 		},
 		details: {
-			title: '',
-			cancel: '',
-			save: ''
+			title: 'Privacy preferences',
+			cancel: 'Back',
+			save: 'OK, Continue to site',
+			showVendors: 'Show all companies',
+			enableAll: 'Enable all'
 		},
 		purposes: {
 			active: '',
-			showVendors: '',
+			disclaimer: 'We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the ',
+			disclaimerVendorLink: 'complete list of companies here.',
+			showVendors: 'Show companies',
+			hideVendors: 'Hide companies',
+			featureHeader: 'This will include the following features:',
 			cookies: {
 				menu: '',
 				title: '',
@@ -39,7 +46,7 @@ export default {
 				</ul>`
 			},
 			purpose3: {
-				description: `Allow processing of a user’s data to deliver content or advertisements and measure the delivery of such content or advertisements, extract insights and generate reports to understand service usage; and/or accessing or storing information on devices for that purpose.  
+				description: `Allow processing of a user’s data to deliver content or advertisements and measure the delivery of such content or advertisements, extract insights and generate reports to understand service usage; and/or accessing or storing information on devices for that purpose.
 				Will include following Features:
 				<ul>
 					<li>Matching Data to Offline Sources - combining data from offline sources that were initially collected in other contexts.</li>
@@ -48,7 +55,7 @@ export default {
 				</ul>`
 			},
 			purpose4: {
-				description: `Allow processing of a user’s data to provide and inform personalised content (including delivery, measurement, and reporting) based on a user’s preferences or interests known or inferred from data collected across multiple sites, apps, or devices; and/or accessing or storing information on devices for that purpose.  
+				description: `Allow processing of a user’s data to provide and inform personalised content (including delivery, measurement, and reporting) based on a user’s preferences or interests known or inferred from data collected across multiple sites, apps, or devices; and/or accessing or storing information on devices for that purpose.
 				Will include following Features:
 				<ul>
 					<li>Matching Data to Offline Sources - combining data from offline sources that were initially collected in other contexts.</li>
@@ -68,12 +75,18 @@ export default {
 			acceptAll: '',
 			company: '',
 			offOn: '',
-			description: ''
+			description: 'Companies carefully selected by us will use your information. Depending on the type of data they collect, use, process and other factors, certain companies rely on your consent while others require you to opt-out. For information on each partner and to exercise your choices, see below. Or to opt-out, visit the ',
+			or: 'or ',
+			sites: 'sites.',
+			description2: 'Customise how these companies use data on the ',
+			description2Link: 'previous page.',
+			privacyPolicy: 'Privacy Policy'
 		}
 	},
 	de: {
 		intro: {
-			title: 'Diese Website verwendet Cookies',
+			title: 'Diese Website verwendet Cookies ',
+			domain: '',
 			description: 'Wir und unsere Partner verwenden sogenannte Cookies (kleine Textdateien) im Webbrowser um zu verstehen, was unsere Besucher interessiert und entsprechend relevante Inhalte und Werbung anbieten zu können. Zukünftig benötigen wir wahrscheinlich ihr/euer Einverständnis dazu. Ein Beispiel, wie dies aussehen könnte, finden sie/findet ihr unter dieser Erklärung ',
 			acceptAll: 'Alle Cookies akzeptieren',
 			rejectAll: 'Alle Cookies ablehnen',
@@ -119,7 +132,8 @@ export default {
 			acceptAll: 'Alle akzeptieren',
 			company: 'Unternehmen',
 			offOn: 'Aus/An',
-			description: 'Helfen Sie uns, Ihnen einen besseren Service zu bieten! Unsere Partner verwenden Cookies Ihres Browsers, um quer durch das Web zu verstehen, was Sie interessiert und Ihnen entsprechend relevante Inhalte und Werbung anzubieten.'
+			description: 'Helfen Sie uns, Ihnen einen besseren Service zu bieten! Unsere Partner verwenden Cookies Ihres Browsers, um quer durch das Web zu verstehen, was Sie interessiert und Ihnen entsprechend relevante Inhalte und Werbung anzubieten.',
+			privacyPolicy: ''
 		}
 	}
 };

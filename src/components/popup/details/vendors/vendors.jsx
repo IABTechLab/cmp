@@ -14,11 +14,11 @@ export default class Vendors extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			editingConsents: false
 		};
 	}
 
 	static defaultProps = {
+		onShowPurposes: () => {},
 		vendors: [],
 		selectedVendorIds: new Set(),
 		selectVendor: () => {}
@@ -36,47 +36,38 @@ export default class Vendors extends Component {
 		this.props.selectVendor(dataId, isSelected);
 	};
 
-	handleMoreChoices = () => {
-		this.setState({
-			editingConsents: true
-		});
-	};
-
 	render(props, state) {
 
 		const {
 			vendors,
 			selectedVendorIds,
+			onShowPurposes,
+			localization
 		} = props;
-		const { editingConsents } = this.state;
 
 		return (
 			<div class={style.vendors}>
-				<div class={style.header}>
-					<div class={style.title}>
-						<LocalLabel localizeKey='title'>Our partners</LocalLabel>
-					</div>
-				</div>
 				<div class={style.description}>
-					<LocalLabel localizeKey='description'>
-						Help us provide you with a better online experience! Our partners set cookies and collect information from your browser across the web to provide you with website content, deliver relevant advertising and understand web audiences.
-					</LocalLabel>
-						{!editingConsents &&
-						<div>
-							<a onClick={this.handleMoreChoices}>
-								<LocalLabel localizeKey='moreChoices'>Make More Choices</LocalLabel>
-							</a>
-						</div>
-						}
+					<p>
+						<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description : ''} localizeKey='description'>Companies carefully selected by us will use your information. Depending on the type of data they collect, use, process and other factors, certain companies rely on your consent while others require you to opt-out. For information on each partner and to exercise your choices, see below. Or to opt-out, visit the </LocalLabel>
+						<a href='http://optout.networkadvertising.org/?c=1#!/' target='_blank'>NAI,</a><a href='http://optout.aboutads.info/?c=2#!/' target='_blank'> DAA, </a>
+						<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.or : ''} localizeKey='or'>or </LocalLabel>
+						<a href='http://youronlinechoices.eu/' target='_blank'>EDAA </a>
+						<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.sites : ''} localizeKey='sites'>sites.</LocalLabel>
+					</p>
+					<p>
+						<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description2 : ''} localizeKey="description2">Customise how these companies use data on the </LocalLabel>
+						<a style={style.vendorLink} onClick={onShowPurposes}>
+							<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description2Link : ''} localizeKey="description2Link">previous page.</LocalLabel>
+						</a>
+					</p>
 				</div>
 				<div class={style.vendorHeader}>
 					<table class={style.vendorList}>
 						<thead>
 						<tr>
-							<th><LocalLabel localizeKey='company'>Company</LocalLabel></th>
-							{editingConsents &&
-							<th><LocalLabel localizeKey='offOn'>Allow</LocalLabel></th>
-							}
+							<th><LocalLabel providedValue={localization && localization.vendors ? localization.vendors.company : ''} localizeKey='company'>Company</LocalLabel></th>
+							<th><LocalLabel providedValue={localization && localization.vendors ? localization.vendors.offOn : ''} localizeKey='offOn'>Allow</LocalLabel></th>
 						</tr>
 						</thead>
 					</table>
@@ -84,10 +75,9 @@ export default class Vendors extends Component {
 				<div class={style.vendorContent}>
 					<table class={style.vendorList}>
 						<tbody>
-						{vendors.map(({ id, name }, index) => (
+						{vendors.map(({ id, name, policyUrl, purposeIds, legIntPurposeIds, featureIds }, index) => (
 							<tr key={id} class={index % 2 === 1 ? style.even : ''}>
 								<td><div class={style.vendorName}>{name}</div></td>
-								{editingConsents &&
 								<td>
 									<Switch
 										dataId={id}
@@ -95,7 +85,6 @@ export default class Vendors extends Component {
 										onClick={this.handleSelectVendor}
 									/>
 								</td>
-								}
 							</tr>
 						))}
 						</tbody>

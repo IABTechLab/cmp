@@ -4,7 +4,10 @@ import {
 	readVendorConsentCookie
 } from "./cookie/cookie";
 import config from './config';
-import { findLocale } from './localize';
+import {
+	updateLocalizationSettings,
+	currentLocale
+} from './localize';
 const metadata = require('../../metadata.json');
 
 /**
@@ -42,11 +45,12 @@ export default class Store {
 			cookieVersion,
 			cmpId,
 			cmpVersion,
-			consentLanguage: findLocale().substr(0, 2).toUpperCase(),
 			selectedPurposeIds: new Set(),
 			selectedVendorIds: new Set(),
 			isEU: null
 		}, vendorConsentData);
+
+		this.vendorConsentData.consentLanguage = updateLocalizationSettings({forceLocale: config.forceLocale, localization: config.localization});
 
 		this.publisherConsentData = Object.assign({
 			cookieVersion,
