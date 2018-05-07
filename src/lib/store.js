@@ -237,10 +237,17 @@ export default class Store {
 			customPurposeList
 		} = this;
 
+		const {
+			vendorListVersion = 1
+		} = vendorList || {};
+
 		// Update modification dates and write the cookies
 		const now = new Date();
 		vendorConsentData.created = vendorConsentData.created || now;
 		vendorConsentData.lastUpdated = now;
+
+		// Update version of list to one we are using
+		vendorConsentData.vendorListVersion = vendorListVersion;
 
 		publisherConsentData.created = publisherConsentData.created || now;
 		publisherConsentData.lastUpdated = now;

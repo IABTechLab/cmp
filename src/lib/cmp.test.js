@@ -6,6 +6,7 @@ import customPurposeList from '../docs/assets/purposes.json';
 import Store from './store';
 import Cmp from './cmp';
 
+jest.setTimeout(100);
 jest.mock('./log');
 const mockLog = require('./log').default;
 
@@ -66,11 +67,13 @@ describe('cmp', () => {
 			fullConsentGiven: 30,
 			someConsentGiven: 20,
 			noConsentGiven: 1
-		}
+		},
+		geoIPVendor: 'http://cmp.digitru.st/geoip.json'
 	};
 
 	beforeEach(() => {
 		cmp = new Cmp(new Store({ vendorList, customPurposeList }), config);
+		cmp.store.persist();
 	});
 
 	describe('utils', () => {
@@ -140,13 +143,13 @@ describe('cmp', () => {
 		});
 
 		it('getPublisherConsents returns only persisted data', (done) => {
-			cmp.store.selectPurpose(1, true);
+			cmp.store.selectPurpose(1, false);
 			cmp.processCommand('getPublisherConsents', null, data => {
-				expect(data.standardPurposes['1']).to.be.false;
+				expect(data.standardPurposes['1']).to.be.true;
 				cmp.store.persist();
 
 				cmp.processCommand('getPublisherConsents', null, data => {
-					expect(data.standardPurposes['1']).to.be.true;
+					expect(data.standardPurposes['1']).to.be.false;
 					done();
 				});
 			});
@@ -161,13 +164,13 @@ describe('cmp', () => {
 		});
 
 		it('getVendorConsents returns only persisted data', (done) => {
-			cmp.store.selectVendor(1, true);
+			cmp.store.selectVendor(1, false);
 			cmp.processCommand('getVendorConsents', null, data => {
-				expect(data.vendorConsents['1']).to.be.false;
+				expect(data.vendorConsents['1']).to.be.true;
 				cmp.store.persist();
 
 				cmp.processCommand('getVendorConsents', null, data => {
-					expect(data.vendorConsents['1']).to.be.true;
+					expect(data.vendorConsents['1']).to.be.false;
 					done();
 				});
 			});
@@ -175,7 +178,7 @@ describe('cmp', () => {
 
 		it('getConsentData executes', (done) => {
 			cmp.processCommand('getConsentData', null, data => {
-				expect(data).to.be.undefined;
+				expect(typeof data.consentData).to.equal('string');
 				done();
 			});
 		});
@@ -183,8 +186,7 @@ describe('cmp', () => {
 		it('getConsentData returns persisted data', (done) => {
 			cmp.store.persist();
 			cmp.processCommand('getConsentData', null, data => {
-				expect(typeof data).to.equal('string');
-				expect(data).to.not.be.empty;
+				expect(typeof data.consentData).to.equal('string');
 				done();
 			});
 		});
@@ -271,7 +273,7 @@ describe('cmp', () => {
 		const processSpy = jest.spyOn(cmp, 'processCommand');
 		cmp.receiveMessage({
 			data: {
-				__cmp: { command: 'showConsentTool' }
+				__cmpCall: { command: 'showConsentTool' }
 			},
 			origin: {},
 			source

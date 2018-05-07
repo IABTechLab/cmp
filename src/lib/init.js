@@ -40,33 +40,27 @@ export function init(configUpdates) {
 				window[CMP_GLOBAL_NAME] = cmp.processCommand;
 
 				// Execute any previously queued command
-				commandQueue.forEach(({callId, command, parameter, callback, event}) => {
-					// If command is queued with an event we will relay its result via postMessage
-					if (event) {
-						cmp.processCommand(command, parameter, result =>
-							event.source.postMessage({
-								[CMP_GLOBAL_NAME]: {
-									callId,
-									command,
-									result
-								}
-							}, event.origin));
-					}
-					else {
-						cmp.processCommand(command, parameter, callback);
-					}
-				});
+				cmp.commandQueue = commandQueue;
+				cmp.processCommandQueue();
 
 				// Render the UI
 				const App = require('../components/app').default;
 				render(<App store={store} notify={cmp.notify} />, document.body);
+				// Request lists
+				return Promise.all([
+					fetchVendorList().then(store.updateVendorList),
+					fetchPurposeList().then(store.updateCustomPurposeList)
+				]).then(() => {
+					// Notify listeners that the CMP is loaded
+					log.debug(`Successfully loaded CMP version: ${metadata.cmpVersion}`);
+					cmp.isLoaded = true;
+					cmp.notify('isLoaded');
+					cmp.cmpReady = true;
+					cmp.notify('cmpReady');
+				}).catch(err => {
+					log.error('Failed to load lists. CMP not ready', err);
+				});
 
-				// Notify listeners that the CMP is loaded
-				log.debug(`Successfully loaded CMP version: ${metadata.cmpVersion}`);
-				cmp.isLoaded = true;
-				cmp.notify('isLoaded');
-				cmp.cmpReady = true;
-				cmp.notify('cmpReady');
 			});
 		})
 		.catch(err => {
