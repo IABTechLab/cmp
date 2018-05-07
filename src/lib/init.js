@@ -43,14 +43,16 @@ export function init(configUpdates) {
 				cmp.commandQueue = commandQueue;
 				cmp.processCommandQueue();
 
-				// Render the UI
-				const App = require('../components/app').default;
-				render(<App store={store} notify={cmp.notify} />, document.body);
 				// Request lists
 				return Promise.all([
 					fetchVendorList().then(store.updateVendorList),
 					fetchPurposeList().then(store.updateCustomPurposeList)
 				]).then(() => {
+
+					// Render the UI
+					const App = require('../components/app').default;
+					render(<App store={store} notify={cmp.notify} />, document.body);
+
 					// Notify listeners that the CMP is loaded
 					log.debug(`Successfully loaded CMP version: ${metadata.cmpVersion}`);
 					cmp.isLoaded = true;
