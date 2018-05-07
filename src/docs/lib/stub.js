@@ -3,11 +3,13 @@ function buildScript(config, cmpLocation='../cmp.bundle.js') {
 	return `(function(window, document) {
 		if (!window.__cmp) {
 			window.__cmp = (function() {
-				var listen = window.attachEvent || window.addEventListener;
-				listen('message', function(event) {
-					window.__cmp.receiveMessage(event);
-				}, false);
-				
+				function listen(_name, callback) {
+					if (window.addEventListener) {
+						window.addEventListener(_name, callback, false);
+					} else if (window.attachEvent) {
+						window.attachEvent('on'+ _name, callback);
+					}
+				}
 				function addLocatorFrame() {
 					if (!window.frames['__cmpLocator']) {
 						if (document.body) {
@@ -21,8 +23,12 @@ function buildScript(config, cmpLocation='../cmp.bundle.js') {
 						}
 					}
 				}
+
+				listen('message', function(event) {
+					window.__cmp.receiveMessage(event);
+				}, false);
 				addLocatorFrame();
-				
+
 				var commandQueue = [];
 				var cmp = function(command, parameter, callback) {
 					if (command === 'ping') {
