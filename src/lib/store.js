@@ -5,8 +5,7 @@ import {
 } from "./cookie/cookie";
 import config from './config';
 import {
-	updateLocalizationSettings,
-	currentLocale
+	updateLocalizationSettings
 } from './localize';
 const metadata = require('../../metadata.json');
 
@@ -204,7 +203,7 @@ export default class Store {
 
 		const lastCustomPurposeId = Math.max(
 			...customPurposes.map(({id}) => id),
-			...Array.from(selectedPurposeIds));
+			...Array.from(selectedCustomPurposeIds));
 
 		// Map all purpose IDs
 		const standardPurposeMap = {};
