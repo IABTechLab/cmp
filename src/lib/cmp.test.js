@@ -76,56 +76,6 @@ describe('cmp', () => {
 		cmp.store.persist();
 	});
 
-	describe('utils', () => {
-		describe('checkIfLanguageLocaleApplies', () => {
-			it('returns true or false depending on if the language locale is a known locale in the EU', () => {
-				expect(cmp.utils.checkIfLanguageLocaleApplies(["en-US", "ja"])).to.eq(false);
-				expect(cmp.utils.checkIfLanguageLocaleApplies(["en-US", "pt-BR", "cy", "es-mx"])).to.eq(true);
-			});
-		});
-
-		describe('getAmountOfConsentGiven', () => {
-			it('returns the amount of consent given to look up in the configuration object for how long it should be before the user is reprompted', () => {
-				let totalPossibleVendors = 7;
-
-				let vendorConsents = {1: false, 2: true, 3: false, 4: false, 5: true, 6: false, 7: false};
-				expect(cmp.utils.getAmountOfConsentGiven(vendorConsents, totalPossibleVendors)).to.eq('someConsentGiven');
-
-				vendorConsents = {1: true, 2: true, 3: true, 4: true, 5: true, 6: true, 7: true};
-				expect(cmp.utils.getAmountOfConsentGiven(vendorConsents, totalPossibleVendors)).to.eq('fullConsentGiven');
-
-				vendorConsents = {1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false};
-				expect(cmp.utils.getAmountOfConsentGiven(vendorConsents, totalPossibleVendors)).to.eq('noConsentGiven');
-			});
-		});
-
-		describe('checkIfCookieIsOld', () => {
-			it('returns whether or not the cookie is old enough to reprompt the user for consent', () => {
-				let expiredDate = new Date();
-				let nonExpiredDate = new Date();
-				expiredDate.setDate(new Date().getDate() - 8);
-
-				cmp.store.persistedVendorConsentData = {
-					lastUpdated: expiredDate
-				};
-				cmp.store.persistedPublisherConsentData = {
-					lastUpdated: nonExpiredDate
-				};
-				expect(cmp.utils.checkIfCookieIsOld(3)).eq(true);
-
-				cmp.store.persistedVendorConsentData = {
-					lastUpdated: nonExpiredDate
-				};
-				cmp.store.persistedPublisherConsentData = {
-					lastUpdated: nonExpiredDate
-				};
-				expect(cmp.utils.checkIfCookieIsOld(3)).eq(false);
-
-				expect(cmp.utils.checkIfCookieIsOld(undefined)).eq(false);
-			});
-		});
-	});
-
 	describe('processCommand', () => {
 
 		it('logs error on invalid command', () => {

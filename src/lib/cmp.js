@@ -1,193 +1,25 @@
+// jshint esversion: 6
+
 import log from './log';
-import Promise from 'promise-polyfill';
 import { encodeVendorConsentData } from './cookie/cookie';
-import 'whatwg-fetch';
-import config from './config';
+import { checkReprompt, checkIfGDPRApplies } from './utils';
 
 const metadata = require('../../metadata.json');
-
-
-const MAX_COOKIE_LIFESPAN_DAYS = 390;
-const EU_COUNTRY_CODES = new Set([
-	"GB",
-	"DE",
-	"PL",
-	"FR",
-	"ES",
-	"IT",
-	"RO",
-	"SE",
-	"BG",
-	"GR",
-	"NL",
-	"HR",
-	"IE",
-	"CZ",
-	"AT",
-	"HU",
-	"FI",
-	"DK",
-	"BE",
-	"PT",
-	"MT",
-	"CY",
-	"LT",
-	"SK",
-	"SI",
-	"EE",
-	"LV",
-]);
-const EU_LANGUAGE_CODES = new Set([
-	"bg",
-	"hr",
-	"tr",
-	"cs",
-	"da",
-	"et",
-	"fi",
-	"fr",
-	"fr-be",
-	"fr-fr",
-	"fr-lu",
-	"fr-mc",
-	"fr-ch",
-	"de",
-	"de-at",
-	"de-de",
-	"de-li",
-	"de-lu",
-	"de-ch",
-	"el",
-	"hu",
-	"gd-ie",
-	"ga",
-	"it",
-	"it-ch",
-	"lv",
-	"lt",
-	"lb",
-	"mt",
-	"nl",
-	"nl-be",
-	"pl",
-	"pt",
-	"rm",
-	"ro",
-	"ro-mo",
-	"sk",
-	"sl",
-	"es",
-	"es-es",
-	"cy",
-	"sv",
-	"sv-fi",
-	"sv-sv",
-	"en-gb",
-	"en-ie",
-	"mo",
-	"ru-mo",
-	"eu",
-	"ca",
-	"co",
-	"fo",
-	"fy",
-	"fur",
-	"gd",
-	"gl",
-	"is",
-	"la",
-	"no",
-	"nb",
-	"nn",
-	"oc",
-	"sc",
-	"sb",
-	"hsb",
-	"vo",
-	"wa",
-	"ar",
-	"ast",
-	"br",
-	"eo",
-]);
 const CMP_VERSION = metadata.cmpVersion;
-export const CMP_GLOBAL_NAME = '__cmp';
+
+export const CMP_GLOBAL_NAME = metadata.cmpGlobalName;
 
 export default class Cmp {
 	constructor(store, config) {
 		this.isLoaded = false;
 		this.cmpReady = false;
+		this.gdprApplies = config.gdprAppliesGlobally;
 		this.eventListeners = {};
 		this.store = store;
 		this.config = config;
 		this.processCommand.receiveMessage = this.receiveMessage;
 		this.processCommand.VERSION = CMP_VERSION;
-		this.commandQueue = [];
 	}
-
-	utils = {
-		checkReprompt: (repromptOptions, vendorConsents, presentVendors) => {
-			const self = this;
-
-			const consentGiven = self.utils.getAmountOfConsentGiven(vendorConsents, presentVendors.length);
-			let days = repromptOptions[consentGiven];
-			return self.utils.checkIfCookieIsOld(days);
-		},
-		checkIfGDPRApplies: () => {
-			const self = this;
-
-			if (self.utils.checkIfLanguageLocaleApplies(navigator.languages)) return true;
-			return self.utils.checkIfUserInEU();
-		},
-		checkIfLanguageLocaleApplies: (languages) => {
-			for (let idx in languages) {
-				if (EU_LANGUAGE_CODES.has(languages[idx])) {
-					return true;
-				}
-			}
-			return false;
-		},
-		checkIfUserInEU: () => {
-			const self = this;
-
-			return fetch(self.config.geoIPVendor)
-				.then(resp => {
-				  let countryISO = resp.headers.get("X-GeoIP-Country");
-				  if (EU_COUNTRY_CODES.has(countryISO)) {
-						self.store.updateIsEU(true);
-						return true;
-				  }
-				  return false;
-				});
-		},
-		getAmountOfConsentGiven: (vendorConsents, totalPossibleVendors) => {
-			let consentGiven;
-			const allowedVendorsCount = Object.keys(vendorConsents).map((vendor) => { return vendorConsents[vendor]; }).filter((bool) => bool).length;
-			if (allowedVendorsCount === 0) {
-				consentGiven = "noConsentGiven";
-			} else if (allowedVendorsCount < totalPossibleVendors) {
-				consentGiven = "someConsentGiven";
-			} else {
-				consentGiven = "fullConsentGiven";
-			}
-			return consentGiven;
-		},
-		checkIfCookieIsOld: (days) => {
-			const self = this;
-
-			// cookie not present; this particular branch should only ever be hit by non-EU people
-			if (!self.store.getVendorConsentsObject().lastUpdated && !self.store.getPublisherConsentsObject().lastUpdated) return false;
-
-			const globalConsentCookieTimestamp = new Date(self.store.getVendorConsentsObject().lastUpdated).getTime();
-			const publisherConsentCookieTimestamp = new Date(self.store.getPublisherConsentsObject().lastUpdated).getTime();
-			const oldestCookieTimestamp = (globalConsentCookieTimestamp > publisherConsentCookieTimestamp) ? publisherConsentCookieTimestamp : globalConsentCookieTimestamp;
-
-			const now = Date.now();
-			if (days > MAX_COOKIE_LIFESPAN_DAYS) days = MAX_COOKIE_LIFESPAN_DAYS;
-			const daysInMS = (1000 * 60 * 60 * 24 * days);
-			return ((now - daysInMS) > oldestCookieTimestamp) ? true : false;
-		},
-	};
 
 	commands = {
 		renderCmpIfNeeded: (_, callback = () => {}) => {
@@ -202,49 +34,27 @@ export default class Cmp {
 				log.warn('Cookies are disabled. Ignoring CMP consent check');
 			}
 			else {
-				Promise.all([
-					cmp('getVendorConsents'),
-					cmp('getVendorList')
-				]).then(([{vendorConsents}, {vendors}]) => {
-					let needsPublisherCookie = false;
-					if (config.storePublisherData && !store.getPublisherConsentsObject().lastUpdated) needsPublisherCookie = true;
-					let needsGlobalCookie = false;
-					if (!store.getVendorConsentsObject().lastUpdated) needsGlobalCookie = true;
-					if (config.gdprAppliesGlobally) {
-						// if no cookie, show tool
-						if (needsPublisherCookie || needsGlobalCookie) {
-							cmp('showConsentTool');
-						}
-						// if cookie present and current, don't show tool
-						// if cookie present and old, show tool
-						else if (self.utils.checkReprompt(config.repromptOptions, vendorConsents, vendors)) {
-							cmp('showConsentTool');
-						}
-						else {
+				const vendorConsents = store.getVendorConsentsObject();
+				const publisherConsents = (config.storePublisherData && store.getPublisherConsentsObject()) || { lastUpdated: Date.now() };
+				const shouldBePromted = checkReprompt(config.repromptOptions, vendorConsents, publisherConsents);
+
+				if (config.gdprAppliesGlobally) {
+					self.gdprApplies = true;
+					if (shouldBePromted) {
+						cmp('showConsentTool', callback);
+					} else {
+						log.debug("rendering the CMP is not needed");
+					}
+				} else {
+					checkIfGDPRApplies(config.geoIPVendor, (applies => {
+						self.gdprApplies = applies;
+						if (applies && shouldBePromted) {
+							cmp('showConsentTool', callback);
+						} else {
 							log.debug("rendering the CMP is not needed");
 						}
-					}
-					else {
-						// if not in EU, no cookie present, don't show tool
-						// if geolocation in EU, no cookie present, show tool
-						if (self.utils.checkIfGDPRApplies()) {
-							if (needsPublisherCookie || needsGlobalCookie) {
-								cmp('showConsentTool');
-							} else {
-								store.toggleFooterShowing(true);
-							}
-						}
-						// if cookie present and current, don't show tool
-						// if cookie present and old, show tool
-						else if (self.utils.checkReprompt(config.repromptOptions, vendorConsents, vendors)) {
-							cmp('showConsentTool');
-						}
-						else {
-							log.debug("rendering the CMP is not needed");
-						}
-					}
-				});
-				callback();
+					}));
+				}
 			}
 		},
 
