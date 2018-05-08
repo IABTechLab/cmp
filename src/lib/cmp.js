@@ -178,8 +178,8 @@ export default class Cmp {
 			// cookie not present; this particular branch should only ever be hit by non-EU people
 			if (!self.store.getVendorConsentsObject().lastUpdated && !self.store.getPublisherConsentsObject().lastUpdated) return false;
 
-			const globalConsentCookieTimestamp = self.store.getVendorConsentsObject().lastUpdated.getTime();
-			const publisherConsentCookieTimestamp = self.store.getPublisherConsentsObject().lastUpdated.getTime();
+			const globalConsentCookieTimestamp = new Date(self.store.getVendorConsentsObject().lastUpdated).getTime();
+			const publisherConsentCookieTimestamp = new Date(self.store.getPublisherConsentsObject().lastUpdated).getTime();
 			const oldestCookieTimestamp = (globalConsentCookieTimestamp > publisherConsentCookieTimestamp) ? publisherConsentCookieTimestamp : globalConsentCookieTimestamp;
 
 			const now = Date.now();
@@ -209,8 +209,7 @@ export default class Cmp {
 					let needsPublisherCookie = false;
 					if (config.storePublisherData && !store.getPublisherConsentsObject().lastUpdated) needsPublisherCookie = true;
 					let needsGlobalCookie = false;
-					if (config.storeConsentGlobally && !store.getVendorConsentsObject().lastUpdated) needsGlobalCookie = true;
-
+					if (!store.getVendorConsentsObject().lastUpdated) needsGlobalCookie = true;
 					if (config.gdprAppliesGlobally) {
 						// if no cookie, show tool
 						if (needsPublisherCookie || needsGlobalCookie) {
@@ -228,8 +227,12 @@ export default class Cmp {
 					else {
 						// if not in EU, no cookie present, don't show tool
 						// if geolocation in EU, no cookie present, show tool
-						if (self.utils.checkIfGDPRApplies() && (needsPublisherCookie || needsGlobalCookie)) {
-							cmp('showConsentTool');
+						if (self.utils.checkIfGDPRApplies()) {
+							if (needsPublisherCookie || needsGlobalCookie) {
+								cmp('showConsentTool');
+							} else {
+								store.toggleFooterShowing(true);
+							}
 						}
 						// if cookie present and current, don't show tool
 						// if cookie present and old, show tool
