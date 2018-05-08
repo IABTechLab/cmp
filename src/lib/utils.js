@@ -58,6 +58,7 @@ function checkReprompt(repromptOptions, vendorConsents, publisherConsents) {
 }
 
 function checkIfGDPRApplies(geoVendor, callback) {
+	const navigator = window.navigator;
 	const browserLanguageCheckResult = checkIfLanguageLocaleApplies(navigator.languages || [ navigator.browserLanguage ]);
 	if (browserLanguageCheckResult) {
 		callback(true);
@@ -79,7 +80,7 @@ function checkIfUserInEU(geoVendor, callback) {
 	return fetch(geoVendor)
 		.then(resp => {
 			const countryISO = resp.headers.get("X-GeoIP-Country");
-			const result = EU_COUNTRY_CODES.has(countryISO.toUpperCase());
+			const result = !! countryISO && EU_COUNTRY_CODES.has(countryISO.toUpperCase());
 			callback(result);
 			return Promise.resolve(result);
 		});
