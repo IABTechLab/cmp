@@ -64,8 +64,8 @@ export default class Cmp {
 		getPublisherConsents: (purposeIds, callback = () => {}) => {
 			const consent = {
 				metadata: this.generateConsentString(),
-				gdprApplies: this.utils.checkIfGDPRApplies(),
-				hasGlobalScope: config.storeConsentGlobally,
+				gdprApplies: this.gdprApplies,
+				hasGlobalScope: this.config.storeConsentGlobally,
 				...this.store.getPublisherConsentsObject()
 			};
 			callback(consent, true);
@@ -78,8 +78,8 @@ export default class Cmp {
 		getVendorConsents: (vendorIds, callback = () => {}) => {
 			const consent = {
 				metadata: this.generateConsentString(),
-				gdprApplies: this.config.gdprApplies,
-				hasGlobalScope: config.storeConsentGlobally,
+				gdprApplies: this.gdprApplies,
+				hasGlobalScope: this.config.storeConsentGlobally,
 				...this.store.getVendorConsentsObject(vendorIds)
 			};
 
@@ -103,8 +103,8 @@ export default class Cmp {
 		 */
 		getConsentData: (_, callback = () => {}) => {
 			const consentData = {
-				gdprApplies: this.utils.checkIfGDPRApplies(),
-				hasGlobalScope: config.storeConsentGlobally,
+				gdprApplies: this.gdprApplies,
+				hasGlobalScope: this.config.storeConsentGlobally,
 				consentData: this.generateConsentString()
 			};
 			callback(consentData, true);
@@ -126,7 +126,7 @@ export default class Cmp {
 
 		ping: (_, callback = () => {}) => {
 			const result = {
-				gdprAppliesGlobally: config.storeConsentGlobally,
+				gdprAppliesGlobally: this.config.gdprAppliesGlobally,
 				cmpLoaded: true
 			};
 			callback(result, true);

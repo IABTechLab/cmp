@@ -4,6 +4,7 @@ import Store from './store';
 import Cmp, { CMP_GLOBAL_NAME } from './cmp';
 import { readVendorConsentCookie, readPublisherConsentCookie } from './cookie/cookie';
 import { fetchVendorList, fetchPurposeList } from './vendor';
+import { checkIfUserInEU } from './utils';
 import log from './log';
 import config from './config';
 const metadata = require('../../metadata.json');
@@ -46,7 +47,10 @@ export function init(configUpdates) {
 				// Request lists
 				return Promise.all([
 					fetchVendorList().then(store.updateVendorList),
-					fetchPurposeList().then(store.updateCustomPurposeList)
+					fetchPurposeList().then(store.updateCustomPurposeList),
+					checkIfUserInEU(config.geoIPVendor, (inEU) => {
+						cmp.gdprApplies = inEU;
+					}).then(store.updateIsEU)
 				]).then(() => {
 
 					// Render the UI
