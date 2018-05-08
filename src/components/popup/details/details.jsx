@@ -125,9 +125,11 @@ export default class Details extends Component {
 				</div>
 				<div class={style.footer}>
 					<div class={style.leftFooter}>
+					{(selectedPanelIndex === SECTION_PURPOSES) &&
 						<a class={style.vendorLink} onClick={this.handleShowVendors}>
 							<LocalLabel providedValue={localization && localization.details ? localization.details.showVendors : ''} localizeKey='showVendors'>Show all companies</LocalLabel>
 						</a>
+					}
 					</div>
 					<div class={style.rightFooter}>
 						<a class={style.cancel} onClick={this.handleBack}>
