@@ -1,7 +1,7 @@
 {
   "cmpVersion": 1,
   "cmpId": 1,
-  "maxCookieLifespanDays" : 300,
+  "maxCookieLifespanDays" : 390,
   "cmpGlobalName": "__cmp",
   "countryCodes": [
     "GB",
