@@ -9,7 +9,33 @@ export default {
 		intro: {
 			title: 'Thanks for visiting ',
 			domain: '',
-			description: 'Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.',
+			description: 'Ads help us run this site. When you use our site selected companies may access and use ',
+			description2: ' for various ',
+			description3: ' including to serve relevant ads or personalised content.',
+			deviceInformation: 'information on your device',
+			deviceInformationPopover: `
+				<strong>Information that may be used:</strong>
+				<ul>
+					<li>Type of browser and its settings</li>
+					<li>Information about the device's operating system</li>
+					<li>Cookie information</li>
+					<li>Information about other identifiers assigned to the device</li>
+					<li>The IP address from which the device accesses a client's website or mobile application</li>
+					<li>Information about the user's activity on that device, including web pages and mobile apps visited or used</li>
+					<li>Information about the geographic location of the device when it accesses a website or mobile application</li>
+				</ul>
+			`,
+			purposes: 'purposes',
+			purposesPopover: `
+				<strong>Purposes for storing information:</strong>
+				<ul>
+					<li>Storage and access of information</li>
+					<li>Ad selection and delivery</li>
+					<li>Content selection and delivery</li>
+					<li>Personalization</li>
+					<li>Measurement</li>
+				</ul>
+			`,
 			acceptAll: 'OK, Continue to site',
 			rejectAll: '',
 			showPurposes: 'Learn more'
@@ -19,10 +45,12 @@ export default {
 			cancel: 'Back',
 			save: 'OK, Continue to site',
 			showVendors: 'Show all companies',
-			enableAll: 'Enable all'
+			enableAll: 'Enable all',
+			disableAll: 'Disable all'
 		},
 		purposes: {
-			active: '',
+			active: 'Active',
+			inactive: 'Inactive',
 			disclaimer: 'We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the ',
 			disclaimerVendorLink: 'complete list of companies here.',
 			showVendors: 'Show companies',
