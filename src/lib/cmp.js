@@ -203,16 +203,6 @@ export default class Cmp {
 					cmp('getVendorConsents'),
 					cmp('getVendorList')
 				]).then(([{vendorConsents}, {vendors}]) => {
-					if (config.testingMode === 'always show') {
-						log.debug("Testing mode set to ALWAYS SHOW; rendering the CMP");
-						cmp('showConsentTool');
-						return;
-					} else if (config.testingMode === 'never show') {
-						log.debug("Testing mode set to NEVER SHOW; not rendering the CMP");
-						return;
-					}
-					log.debug("Testing mode set to NORMAL; checking to see if CMP needs to be rendered...");
-
 					let needsPublisherCookie = false;
 					if (config.storePublisherData && !store.getPublisherConsentsObject().lastUpdated) needsPublisherCookie = true;
 					let needsGlobalCookie = false;
