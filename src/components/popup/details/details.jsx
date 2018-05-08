@@ -17,7 +17,8 @@ class LocalLabel extends Label {
 
 export default class Details extends Component {
 	state = {
-		selectedPanelIndex: SECTION_PURPOSES
+		selectedPanelIndex: SECTION_PURPOSES,
+		showEnableAll: true
 	};
 
 	handleShowVendors = () => {
@@ -33,11 +34,15 @@ export default class Details extends Component {
 	};
 
 	handleEnableAll = () => {
-		const { onSave } = this.props;
-		const { selectAllVendors } = this.props.store;
+		const shouldSelectAll = this.state.showEnableAll;
+		const {
+			selectAllVendors,
+			selectAllPurposes
+		} = this.props.store;
 
-		selectAllVendors(true);
-		onSave();
+		selectAllVendors(shouldSelectAll);
+		selectAllPurposes(shouldSelectAll);
+		this.setState({showEnableAll: !this.state.showEnableAll});
 	};
 
 	handleBack = () => {
@@ -59,7 +64,11 @@ export default class Details extends Component {
 			store,
 			localization
 		} = props;
-		const { selectedPanelIndex } = state;
+
+		const {
+			selectedPanelIndex,
+			showEnableAll
+		} = state;
 
 		const {
 			vendorList = {},
@@ -82,7 +91,12 @@ export default class Details extends Component {
 				<div class={style.header}>
 					<LocalLabel class={style.title} providedValue={localization && localization.details ? localization.details.title : ''} localizeKey='title'>Privacy Preferences</LocalLabel>
 					<Button class={style.save} onClick={this.handleEnableAll}>
+						{state.showEnableAll &&
 						<LocalLabel providedValue={localization && localization.details ? localization.details.enableAll : ''} localizeKey='enableAll'>Enable all</LocalLabel>
+						}
+						{!state.showEnableAll &&
+						<LocalLabel providedValue={localization && localization.details ? localization.details.disableAll : ''} localizeKey='disableAll'>Disable all</LocalLabel>
+						}
 					</Button>
 				</div>
 				<div class={style.body}>
@@ -111,9 +125,11 @@ export default class Details extends Component {
 				</div>
 				<div class={style.footer}>
 					<div class={style.leftFooter}>
+					{(selectedPanelIndex === SECTION_PURPOSES) &&
 						<a class={style.vendorLink} onClick={this.handleShowVendors}>
 							<LocalLabel providedValue={localization && localization.details ? localization.details.showVendors : ''} localizeKey='showVendors'>Show all companies</LocalLabel>
 						</a>
+					}
 					</div>
 					<div class={style.rightFooter}>
 						<a class={style.cancel} onClick={this.handleBack}>
