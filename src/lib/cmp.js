@@ -150,7 +150,7 @@ export default class Cmp {
 			return fetch(self.config.geoIPVendor)
 				.then(resp => {
 				  let countryISO = resp.headers.get("X-GeoIP-Country");
-				  if (EU_COUNTRY_CODES.has(countryISO.toUpperCase())) {
+				  if (EU_COUNTRY_CODES.has(countryISO)) {
 						self.store.updateIsEU(true);
 						return true;
 				  }
@@ -210,13 +210,11 @@ export default class Cmp {
 					if (config.gdprAppliesGlobally) {
 						// if no cookie, show tool
 						if (needsPublisherCookie || needsGlobalCookie) {
-							log.debug("GDPR applies globally and user needs a cookie");
 							cmp('showConsentTool');
 						}
 						// if cookie present and current, don't show tool
 						// if cookie present and old, show tool
 						else if (self.utils.checkReprompt(config.repromptOptions, vendorConsents, vendors)) {
-							log.debug("GDPR applies globally and user's cookie is old enough to show reprompt window");
 							cmp('showConsentTool');
 						}
 						else {
@@ -224,29 +222,23 @@ export default class Cmp {
 						}
 					}
 					else {
-						self.utils.checkIfGDPRApplies()
-							.then(applies => {
-								if (applies) {
-									// if geolocation in EU, no cookie present, show tool
-									if (needsPublisherCookie || needsGlobalCookie) {
-										log.debug("User is either in the EU or their language is set to an EU code and user needs a cookie");
-										cmp('showConsentTool');
-									} else {
-										log.debug("User is either in the EU or their language is set to an EU code and user's cookie is current");
-										store.toggleFooterShowing(true);
-									}
-								}
-								// if cookie present and current, don't show tool
-								// if cookie present and old, show tool
-								else if (self.utils.checkReprompt(config.repromptOptions, vendorConsents, vendors)) {
-									log.debug("User is either in the EU or their language is set to an EU code and user's cookie is old enough to show reprompt window");
-									cmp('showConsentTool');
-								}
-								else {
-									// if not in EU, no cookie present, don't show tool
-									log.debug("rendering the CMP is not needed");
-								}
-							});
+						// if not in EU, no cookie present, don't show tool
+						// if geolocation in EU, no cookie present, show tool
+						if (self.utils.checkIfGDPRApplies()) {
+							if (needsPublisherCookie || needsGlobalCookie) {
+								cmp('showConsentTool');
+							} else {
+								store.toggleFooterShowing(true);
+							}
+						}
+						// if cookie present and current, don't show tool
+						// if cookie present and old, show tool
+						else if (self.utils.checkReprompt(config.repromptOptions, vendorConsents, vendors)) {
+							cmp('showConsentTool');
+						}
+						else {
+							log.debug("rendering the CMP is not needed");
+						}
 					}
 				});
 				callback();
@@ -267,7 +259,7 @@ export default class Cmp {
 		 * @param {Array} vendorIds Array of vendor IDs to retrieve.  If empty return all vendors.
 		 */
 		getVendorConsents: (vendorIds, callback = () => {}) => {
-			const consent = this.store.getVendorConsentsObject(vendorIds);
+			const consent = this.store.getVendorConsentsObject(vendorIds)
 			callback(consent);
 			return consent;
 		},
