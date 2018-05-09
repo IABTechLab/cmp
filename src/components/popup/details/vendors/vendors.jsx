@@ -77,7 +77,7 @@ export default class Vendors extends Component {
 						<tbody>
 						{vendors.map(({ id, name, policyUrl, purposeIds, legIntPurposeIds, featureIds }, index) => (
 							<tr key={id} class={index % 2 === 1 ? style.even : ''}>
-								<td><a href={policyUrl}><div class={style.vendorName}>{name}</div></a></td>
+								<td><a href={policyUrl} target='_blank'><div class={style.vendorName}>{name}</div></a></td>
 								<td>
 									<Switch
 										dataId={id}

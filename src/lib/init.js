@@ -44,10 +44,7 @@ export function init(configUpdates) {
 				cmp.commandQueue = commandQueue;
 				cmp.processCommandQueue();
 
-				// Request lists
 				return Promise.all([
-					fetchVendorList().then(store.updateVendorList),
-					fetchPurposeList().then(store.updateCustomPurposeList),
 					checkIfUserInEU(config.geoIPVendor, (inEU) => {
 						cmp.gdprApplies = inEU;
 					}).then(store.updateIsEU)
