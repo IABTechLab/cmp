@@ -217,6 +217,10 @@ describe('cmp', () => {
 				config.gdprAppliesGlobally = false;
 				checkReprompt.mockReturnValue(true);
 				checkIfGDPRApplies.mockImplementation((a, b) => { b(true); });
+				Object.defineProperty(window.navigator, 'cookieEnabled', {
+					get: () => true,
+					configurable: true
+				});
 			});
 
 			it('renders cmp toolbox if gdprAppliesGlobally', () => {
@@ -257,6 +261,25 @@ describe('cmp', () => {
 				mockLog.warn.mockReset();
 				cmp.processCommand('renderCmpIfNeeded');
 				expect(mockLog.warn.mock.calls[0][0]).to.eq('Cookies are disabled. Ignoring CMP consent check');
+			});
+
+			it('renders cmp toolbox if testing mode enabled', () => {
+				config.testingMode = true;
+				cmp.processCommand('renderCmpIfNeeded');
+
+				expect(_cmp.mock.calls.length).to.eq(1);
+				expect(_cmp.mock.calls[0][0]).to.eq('showConsentTool');
+			});
+
+			it('renders cmp footer if testing mode enabled and user has a cookie', () => {
+				const toogle = cmp.store.toggleFooterShowing = jest.fn();
+				config.testingMode = true;
+				checkReprompt.mockReturnValue(false);
+				cmp.processCommand('renderCmpIfNeeded');
+
+				expect(_cmp.mock.calls.length).to.eq(0);
+				expect(toogle.mock.calls.length).to.eq(1);
+				expect(toogle.mock.calls[0][0]).to.eq(true);
 			});
 		});
 	});

@@ -38,7 +38,13 @@ export default class Cmp {
 				const publisherConsents = (config.storePublisherData && store.getPublisherConsentsObject()) || { lastUpdated: Date.now() }; // if publisher consent is not enabled mark - cookie as valid
 				const shouldBePromted = checkReprompt(config.repromptOptions, vendorConsents, publisherConsents);
 
-				if (config.gdprAppliesGlobally) {
+				if (config.testingMode) {
+					if (shouldBePromted) {
+						cmp('showConsentTool', callback);
+					} else {
+						store.toggleFooterShowing(true);
+					}
+				} else if (config.gdprAppliesGlobally) {
 					self.gdprApplies = true;
 					if (shouldBePromted) {
 						cmp('showConsentTool', callback);
