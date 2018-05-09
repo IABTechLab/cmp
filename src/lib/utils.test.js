@@ -13,21 +13,168 @@ import {
 	getTimestamp,
 	getConsentsCount
 } from './utils';
+import config from './config';
 
 
 describe('utils', () => {
+	describe('checkReprompt', () => {
+		let { repromptOptions } = config;
+
+		it('returns true if there are no cookies set', () => {
+			const vendorConsent = {
+				"purposeConsents": {
+					"1": false
+				},
+				"vendorConsents": {
+					"1": false,
+				}
+			};
+			const publisherConsent = {
+				"customPurposes": {
+					"1": false,
+				},
+				"standardPurposes": {
+					"1": false,
+				}
+			};
+			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(true);
+		});
+
+		it('returns true if atleast one cookie is not set', () => {
+			const vendorConsent = {
+				"purposeConsents": {
+					"1": false
+				},
+				"vendorConsents": {
+					"1": false,
+				}
+			};
+			const publisherConsent = {
+				"lastUpdated": Date.now(),
+				"customPurposes": {
+					"1": false,
+				},
+				"standardPurposes": {
+					"1": false,
+				}
+			};
+			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(true);
+		});
+
+		it('returns false if for new cookies', () => {
+			const vendorConsent = {
+				"lastUpdated": Date.now(),
+				"purposeConsents": {
+					"1": false
+				},
+				"vendorConsents": {
+					"1": false,
+				}
+			};
+			const publisherConsent = {
+				"lastUpdated": Date.now(),
+				"customPurposes": {
+					"1": true,
+				},
+				"standardPurposes": {
+					"1": false,
+				}
+			};
+			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(false);
+		});
+
+		it('handles reprompt options', () => {
+			const day = 1000 * 60 * 60 * 24;
+			const vendorConsent = {
+				"lastUpdated": Date.now() - 29 * day,
+				"purposeConsents": {
+					"1": true
+				},
+				"vendorConsents": {
+					"1": true,
+				}
+			};
+			const publisherConsent = {
+				"lastUpdated": Date.now(),
+				"customPurposes": {
+					"1": true,
+				},
+				"standardPurposes": {
+					"1": true,
+				}
+			};
+
+			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(false);
+
+			vendorConsent.lastUpdated = Date.now() - 100 * day;
+			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(false);
+
+			vendorConsent.lastUpdated = Date.now() - 361 * day;
+			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(true);
+			vendorConsent.lastUpdated = Date.now() - 500 * day;
+			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(true);
+
+			vendorConsent.purposeConsents['1'] = false;
+			vendorConsent.lastUpdated = Date.now() - 29 * day;
+			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(false);
+			vendorConsent.lastUpdated = Date.now() - 31 * day;
+			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(true);
+
+			vendorConsent.vendorConsents['1'] = false;
+			publisherConsent.customPurposes['1'] = false;
+			publisherConsent.standardPurposes['1'] = false;
+			vendorConsent.lastUpdated = Date.now() - 29 * day;
+			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(false);
+			vendorConsent.lastUpdated = Date.now() - 31 * day;
+			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(true);
+		});
+	});
+
 	describe('checkIfGDPRApplies', () => {
+		const returnValues = [ [ 'lt' ], null, 'lt', null ];
+
 		beforeEach(() => {
 			window.fetch = jest.fn().mockImplementation(() => Promise.resolve({ headers: new Map([]) }));
+			const langMock = jest.fn();
+			langMock.mockImplementation(() => returnValues.shift());
 			Object.defineProperty(window.navigator, 'languages', {
-				get: () => [ 'lt' ]
+				get: langMock,
+				configurable: true
+			});
+			Object.defineProperty(window.navigator, 'browserLanguage', {
+				get: langMock,
+				configurable: true
 			});
 		});
 
 		it('returns value from browser languages', (done) => {
 			checkIfGDPRApplies('url', (res) => {
 				expect(res).eq(true);
+				expect(window.fetch.mock.calls.length).to.equal(0);
 				done();
+			});
+		});
+
+		it('handles Internet Explorer navigator implementation', (done) => {
+			checkIfGDPRApplies('url', (res) => {
+				expect(res).eq(true);
+				expect(window.fetch.mock.calls.length).to.equal(0);
+				done();
+			});
+		});
+
+		it('fallbacks to ip resolution', (done) => {
+			checkIfGDPRApplies('url', (res) => {
+
+				expect(res).eq(false);
+				expect(window.fetch.mock.calls.length).to.equal(1);
+
+				window.fetch.mockImplementation(() => Promise.resolve({ headers: new Map([ [ 'X-GeoIP-Country', 'LT' ] ]) }));
+				checkIfGDPRApplies('url', (res) => {
+					expect(res).eq(true);
+					expect(window.fetch.mock.calls.length).to.equal(2);
+					done();
+				});
 			});
 		});
 	});
@@ -137,6 +284,7 @@ describe('utils', () => {
 			expect(checkIfCookieIsOld(Date.now(), 3)).eq(false);
 			expect(checkIfCookieIsOld(Date.now() - day * 2, 3)).eq(false);
 			expect(checkIfCookieIsOld(Date.now() - day * 4, 3)).eq(true);
+			expect(checkIfCookieIsOld(Date.now() - day * 4, 400)).eq(false);
 		 });
 	});
 

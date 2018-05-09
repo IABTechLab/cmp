@@ -42,7 +42,7 @@ function getTimestamp(dateString) {
 }
 
 function checkReprompt(repromptOptions, vendorConsents, publisherConsents) {
-	const oldestCookieTime = Math.min.apply(null, [ vendorConsents.lastUpdated || 0, publisherConsents.lastUpdated || 0 ].map(getTimestamp));
+	const oldestCookieTime = Math.min(...[ vendorConsents.lastUpdated || 0, publisherConsents.lastUpdated || 0 ].map(getTimestamp));
 
 	const { total, consented } = [ vendorConsents, publisherConsents ].reduce((previous, current) => {
 		current = getConsentsCount(current);
