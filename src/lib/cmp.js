@@ -5,7 +5,6 @@ import { encodeVendorConsentData } from './cookie/cookie';
 import { checkReprompt, checkIfGDPRApplies } from './utils';
 
 const metadata = require('../../metadata.json');
-const CMP_VERSION = metadata.cmpVersion;
 
 export const CMP_GLOBAL_NAME = metadata.cmpGlobalName;
 
@@ -18,7 +17,6 @@ export default class Cmp {
 		this.store = store;
 		this.config = config;
 		this.processCommand.receiveMessage = this.receiveMessage;
-		this.processCommand.VERSION = CMP_VERSION;
 	}
 
 	commands = {
