@@ -1,16 +1,16 @@
 import Promise from 'promise-polyfill';
 import 'whatwg-fetch';
 import log from "../../lib/log";
+import config from "../../lib/config";
 
 const host = (window && window.location && window.location.hostname) || '';
 const parts = host.split('.');
-const LOCAL_VENDOR_LIST_DOMAIN = './vendors.json';
 const GLOBAL_VENDOR_LIST_DOMAIN = 'https://vendorlist.consensu.org/vendorlist.json';
 const COOKIE_DOMAIN = parts.length > 1 ? `;domain=.${parts.slice(-2).join('.')}` : '';
 const COOKIE_MAX_AGE = 33696000;
 const COOKIE_NAME = 'euconsent';
 
-const readVendorListPromise = fetch(LOCAL_VENDOR_LIST_DOMAIN)
+const readVendorListPromise = fetch(config.globalVendorListLocation)
 	.then(res => res.json())
 	.catch(() => {
 		log.error(`Failed to load local vendor list from vendors.json, trying global`);
