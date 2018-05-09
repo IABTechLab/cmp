@@ -93,6 +93,19 @@ describe('cmp', () => {
 			});
 		});
 
+		it('ping executes', (done) => {
+			cmp.processCommand('ping', null, (data, success) => {
+				expect(success).to.be.true;
+				expect(Object.keys(data)).to.deep.equal(['gdprAppliesGlobally', 'cmpLoaded']);
+
+				cmp.processCommand('ping', (data, success) => {
+					expect(Object.keys(data)).to.deep.equal(['gdprAppliesGlobally', 'cmpLoaded']);
+					expect(success).to.be.true;
+					done();
+				});
+			});
+		});
+
 		it('getPublisherConsents returns only persisted data', (done) => {
 			cmp.store.selectPurpose(1, false);
 			cmp.processCommand('getPublisherConsents', null, data => {
