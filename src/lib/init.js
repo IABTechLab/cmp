@@ -4,6 +4,7 @@ import Store from './store';
 import Cmp, { CMP_GLOBAL_NAME } from './cmp';
 import { readVendorConsentCookie, readPublisherConsentCookie } from './cookie/cookie';
 import { fetchVendorList, fetchPurposeList } from './vendor';
+import { checkIfUserInEU } from './utils';
 import log from './log';
 import config from './config';
 const metadata = require('../../metadata.json');
@@ -40,33 +41,32 @@ export function init(configUpdates) {
 				window[CMP_GLOBAL_NAME] = cmp.processCommand;
 
 				// Execute any previously queued command
-				commandQueue.forEach(({callId, command, parameter, callback, event}) => {
-					// If command is queued with an event we will relay its result via postMessage
-					if (event) {
-						cmp.processCommand(command, parameter, result =>
-							event.source.postMessage({
-								[CMP_GLOBAL_NAME]: {
-									callId,
-									command,
-									result
-								}
-							}, event.origin));
-					}
-					else {
-						cmp.processCommand(command, parameter, callback);
-					}
+				cmp.commandQueue = commandQueue;
+				cmp.processCommandQueue();
+
+				// Request lists
+				return Promise.all([
+					fetchVendorList().then(store.updateVendorList),
+					fetchPurposeList().then(store.updateCustomPurposeList),
+					checkIfUserInEU(config.geoIPVendor, (inEU) => {
+						cmp.gdprApplies = inEU;
+					}).then(store.updateIsEU)
+				]).then(() => {
+
+					// Render the UI
+					const App = require('../components/app').default;
+					render(<App store={store} notify={cmp.notify} config={config} />, document.body);
+
+					// Notify listeners that the CMP is loaded
+					log.debug(`Successfully loaded CMP version: ${metadata.cmpVersion}`);
+					cmp.isLoaded = true;
+					cmp.notify('isLoaded');
+					cmp.cmpReady = true;
+					cmp.notify('cmpReady');
+				}).catch(err => {
+					log.error('Failed to load lists. CMP not ready', err);
 				});
 
-				// Render the UI
-				const App = require('../components/app').default;
-				render(<App store={store} notify={cmp.notify} config={config} />, document.body);
-
-				// Notify listeners that the CMP is loaded
-				log.debug(`Successfully loaded CMP version: ${metadata.cmpVersion}`);
-				cmp.isLoaded = true;
-				cmp.notify('isLoaded');
-				cmp.cmpReady = true;
-				cmp.notify('cmpReady');
 			});
 		})
 		.catch(err => {

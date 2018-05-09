@@ -5,7 +5,7 @@ import {
 } from "./cookie/cookie";
 import config from './config';
 import {
-	updateLocalizationSettings,
+	updateLocalizationSettings
 } from './localize';
 const metadata = require('../../metadata.json');
 
@@ -147,13 +147,12 @@ export default class Store {
 	getFullVendorConsentsObject = () => {
 		const self = this;
 		return readVendorConsentCookie().then(cookie => {
-			var isEU;
 			var consentString;
 			var source;
 			var consentScreen;
+			const isEU = this.persistedVendorConsentData.isEU;
 
 			if (cookie) {
-				isEU = cookie.isEU;
 				consentString = cookie.consentString;
 				source = cookie.source;
 				consentScreen = cookie.consentScreen;
@@ -203,7 +202,7 @@ export default class Store {
 
 		const lastCustomPurposeId = Math.max(
 			...customPurposes.map(({id}) => id),
-			...Array.from(selectedPurposeIds));
+			...Array.from(selectedCustomPurposeIds));
 
 		// Map all purpose IDs
 		const standardPurposeMap = {};
@@ -240,10 +239,17 @@ export default class Store {
 			customPurposeList
 		} = this;
 
+		const {
+			vendorListVersion = 1
+		} = vendorList || {};
+
 		// Update modification dates and write the cookies
 		const now = new Date();
 		vendorConsentData.created = vendorConsentData.created || now;
 		vendorConsentData.lastUpdated = now;
+
+		// Update version of list to one we are using
+		vendorConsentData.vendorListVersion = vendorListVersion;
 
 		publisherConsentData.created = publisherConsentData.created || now;
 		publisherConsentData.lastUpdated = now;

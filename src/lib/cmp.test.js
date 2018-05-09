@@ -3,9 +3,11 @@
 import { expect } from 'chai';
 import customPurposeList from '../docs/assets/purposes.json';
 
+jest.mock('./utils');
 import Store from './store';
 import Cmp from './cmp';
 
+jest.setTimeout(100);
 jest.mock('./log');
 const mockLog = require('./log').default;
 
@@ -66,61 +68,13 @@ describe('cmp', () => {
 			fullConsentGiven: 30,
 			someConsentGiven: 20,
 			noConsentGiven: 1
-		}
+		},
+		geoIPVendor: 'http://cmp.digitru.st/geoip.json'
 	};
 
 	beforeEach(() => {
 		cmp = new Cmp(new Store({ vendorList, customPurposeList }), config);
-	});
-
-	describe('utils', () => {
-		describe('checkIfLanguageLocaleApplies', () => {
-			it('returns true or false depending on if the language locale is a known locale in the EU', () => {
-				expect(cmp.utils.checkIfLanguageLocaleApplies(["en-US", "ja"])).to.eq(false);
-				expect(cmp.utils.checkIfLanguageLocaleApplies(["en-US", "pt-BR", "cy", "es-mx"])).to.eq(true);
-			});
-		});
-
-		describe('getAmountOfConsentGiven', () => {
-			it('returns the amount of consent given to look up in the configuration object for how long it should be before the user is reprompted', () => {
-				let totalPossibleVendors = 7;
-
-				let vendorConsents = {1: false, 2: true, 3: false, 4: false, 5: true, 6: false, 7: false};
-				expect(cmp.utils.getAmountOfConsentGiven(vendorConsents, totalPossibleVendors)).to.eq('someConsentGiven');
-
-				vendorConsents = {1: true, 2: true, 3: true, 4: true, 5: true, 6: true, 7: true};
-				expect(cmp.utils.getAmountOfConsentGiven(vendorConsents, totalPossibleVendors)).to.eq('fullConsentGiven');
-
-				vendorConsents = {1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false};
-				expect(cmp.utils.getAmountOfConsentGiven(vendorConsents, totalPossibleVendors)).to.eq('noConsentGiven');
-			});
-		});
-
-		describe('checkIfCookieIsOld', () => {
-			it('returns whether or not the cookie is old enough to reprompt the user for consent', () => {
-				let expiredDate = new Date();
-				let nonExpiredDate = new Date();
-				expiredDate.setDate(new Date().getDate() - 8);
-
-				cmp.store.persistedVendorConsentData = {
-					lastUpdated: expiredDate
-				};
-				cmp.store.persistedPublisherConsentData = {
-					lastUpdated: nonExpiredDate
-				};
-				expect(cmp.utils.checkIfCookieIsOld(3)).eq(true);
-
-				cmp.store.persistedVendorConsentData = {
-					lastUpdated: nonExpiredDate
-				};
-				cmp.store.persistedPublisherConsentData = {
-					lastUpdated: nonExpiredDate
-				};
-				expect(cmp.utils.checkIfCookieIsOld(3)).eq(false);
-
-				expect(cmp.utils.checkIfCookieIsOld(undefined)).eq(false);
-			});
-		});
+		cmp.store.persist();
 	});
 
 	describe('processCommand', () => {
@@ -139,14 +93,27 @@ describe('cmp', () => {
 			});
 		});
 
+		it('ping executes', (done) => {
+			cmp.processCommand('ping', null, (data, success) => {
+				expect(success).to.be.true;
+				expect(Object.keys(data)).to.deep.equal(['gdprAppliesGlobally', 'cmpLoaded']);
+
+				cmp.processCommand('ping', (data, success) => {
+					expect(Object.keys(data)).to.deep.equal(['gdprAppliesGlobally', 'cmpLoaded']);
+					expect(success).to.be.true;
+					done();
+				});
+			});
+		});
+
 		it('getPublisherConsents returns only persisted data', (done) => {
-			cmp.store.selectPurpose(1, true);
+			cmp.store.selectPurpose(1, false);
 			cmp.processCommand('getPublisherConsents', null, data => {
-				expect(data.standardPurposes['1']).to.be.false;
+				expect(data.standardPurposes['1']).to.be.true;
 				cmp.store.persist();
 
 				cmp.processCommand('getPublisherConsents', null, data => {
-					expect(data.standardPurposes['1']).to.be.true;
+					expect(data.standardPurposes['1']).to.be.false;
 					done();
 				});
 			});
@@ -161,13 +128,13 @@ describe('cmp', () => {
 		});
 
 		it('getVendorConsents returns only persisted data', (done) => {
-			cmp.store.selectVendor(1, true);
+			cmp.store.selectVendor(1, false);
 			cmp.processCommand('getVendorConsents', null, data => {
-				expect(data.vendorConsents['1']).to.be.false;
+				expect(data.vendorConsents['1']).to.be.true;
 				cmp.store.persist();
 
 				cmp.processCommand('getVendorConsents', null, data => {
-					expect(data.vendorConsents['1']).to.be.true;
+					expect(data.vendorConsents['1']).to.be.false;
 					done();
 				});
 			});
@@ -175,7 +142,7 @@ describe('cmp', () => {
 
 		it('getConsentData executes', (done) => {
 			cmp.processCommand('getConsentData', null, data => {
-				expect(data).to.be.undefined;
+				expect(typeof data.consentData).to.equal('string');
 				done();
 			});
 		});
@@ -183,8 +150,7 @@ describe('cmp', () => {
 		it('getConsentData returns persisted data', (done) => {
 			cmp.store.persist();
 			cmp.processCommand('getConsentData', null, data => {
-				expect(typeof data).to.equal('string');
-				expect(data).to.not.be.empty;
+				expect(typeof data.consentData).to.equal('string');
 				done();
 			});
 		});
@@ -253,6 +219,81 @@ describe('cmp', () => {
 				expect(cmp.eventListeners).to.deep.equal({});
 			});
 		});
+
+		describe('renderCmpIfNeeded', () => {
+			let _cmp, checkReprompt, checkIfGDPRApplies;
+			beforeEach(() => {
+				_cmp = window.__cmp = jest.fn().mockImplementation((a, b) => { b(); });
+				const utils = require('./utils');
+				checkReprompt = utils.checkReprompt;
+				checkIfGDPRApplies = utils.checkIfGDPRApplies;
+
+				config.gdprAppliesGlobally = false;
+				config.testingMode = 'normal';
+
+				checkReprompt.mockReturnValue(true);
+				checkIfGDPRApplies.mockImplementation((a, b) => { b(true); });
+				Object.defineProperty(window.navigator, 'cookieEnabled', {
+					get: () => true,
+					configurable: true
+				});
+			});
+
+			it('renders cmp toolbox if gdprAppliesGlobally', () => {
+				config.gdprAppliesGlobally = true;
+				cmp.processCommand('renderCmpIfNeeded');
+
+				expect(_cmp.mock.calls.length).to.eq(1);
+				expect(_cmp.mock.calls[0][0]).to.eq('showConsentTool');
+			});
+
+			it('renders cmp toolbox if user is in EU', () => {
+				cmp.processCommand('renderCmpIfNeeded');
+
+				expect(_cmp.mock.calls.length).to.eq(1);
+				expect(_cmp.mock.calls[0][0]).to.eq('showConsentTool');
+			});
+
+			it('not renders cmp toolbox if user was alredy prompted', () => {
+				checkReprompt.mockReturnValue(false);
+				cmp.processCommand('renderCmpIfNeeded');
+				config.gdprAppliesGlobally = true;
+				cmp.processCommand('renderCmpIfNeeded', null, () => {});
+				expect(_cmp.mock.calls.length).to.eq(0);
+			});
+
+			it('not renders cmp toolbox __cmp not initialised', () => {
+				window.__cmp = null;
+				mockLog.error.mockReset();
+				cmp.processCommand('renderCmpIfNeeded');
+				expect(mockLog.error.mock.calls[0][0]).to.eq('CMP failed to load');
+			});
+
+			it('not renders cmp toolbox if cookies dissabled', () => {
+				Object.defineProperty(window.navigator, 'cookieEnabled', {
+					get: () => false,
+					configurable: true
+				});
+				mockLog.warn.mockReset();
+				cmp.processCommand('renderCmpIfNeeded');
+				expect(mockLog.warn.mock.calls[0][0]).to.eq('Cookies are disabled. Ignoring CMP consent check');
+			});
+
+			it('renders cmp toolbox if testing mode enabled', () => {
+				config.testingMode = 'always show';
+				cmp.processCommand('renderCmpIfNeeded');
+
+				expect(_cmp.mock.calls.length).to.eq(1);
+				expect(_cmp.mock.calls[0][0]).to.eq('showConsentTool');
+			});
+
+			it('not renders cmp cmp toolbox if testing mode set to other value', () => {
+				config.testingMode = 'never show';
+				cmp.processCommand('renderCmpIfNeeded');
+
+				expect(_cmp.mock.calls.length).to.eq(0);
+			});
+		});
 	});
 
 
@@ -271,7 +312,7 @@ describe('cmp', () => {
 		const processSpy = jest.spyOn(cmp, 'processCommand');
 		cmp.receiveMessage({
 			data: {
-				__cmp: { command: 'showConsentTool' }
+				__cmpCall: { command: 'showConsentTool' }
 			},
 			origin: {},
 			source
