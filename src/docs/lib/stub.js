@@ -49,7 +49,7 @@ function buildScript(config, cmpLocation='../cmp.bundle.js') {
 				}
 				cmp.commandQueue = commandQueue;
 				cmp.receiveMessage = function(event) {
-					var data = event && event.data && event.data.__cmp;
+					var data = event && event.data && event.data.__cmpCall;
 					if (data) {
 						commandQueue.push({
 							callId: data.callId,

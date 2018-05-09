@@ -135,7 +135,7 @@ export default class Cmp {
 
 		ping: (_ = () => {}, callback) => {
 			const result = {
-				gdprAppliesGlobally: this.config.gdprAppliesGlobally,
+				gdprAppliesGlobally: this.config.storeConsentGlobally,
 				cmpLoaded: true
 			};
 			if ( ! callback) {
