@@ -26,7 +26,7 @@ export default class Cmp {
 			const self = this;
 			const store = self.store;
 			const config = self.config;
-			const cmp = window.__cmp;
+			const cmp = window[CMP_GLOBAL_NAME];
 			if (!cmp) {
 				log.error('CMP failed to load');
 			}
@@ -35,7 +35,7 @@ export default class Cmp {
 			}
 			else {
 				const vendorConsents = store.getVendorConsentsObject();
-				const publisherConsents = (config.storePublisherData && store.getPublisherConsentsObject()) || { lastUpdated: Date.now() };
+				const publisherConsents = (config.storePublisherData && store.getPublisherConsentsObject()) || { lastUpdated: Date.now() }; // if publisher consent is not enabled mark - cookie as valid
 				const shouldBePromted = checkReprompt(config.repromptOptions, vendorConsents, publisherConsents);
 
 				if (config.gdprAppliesGlobally) {

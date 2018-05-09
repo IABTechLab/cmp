@@ -3,6 +3,7 @@
 import { expect } from 'chai';
 import customPurposeList from '../docs/assets/purposes.json';
 
+jest.mock('./utils');
 import Store from './store';
 import Cmp from './cmp';
 
@@ -203,6 +204,59 @@ describe('cmp', () => {
 				cmp.processCommand('removeEventListener');
 
 				expect(cmp.eventListeners).to.deep.equal({});
+			});
+		});
+
+		describe('renderCmpIfNeeded', () => {
+			let _cmp, checkReprompt, checkIfGDPRApplies;
+			beforeEach(() => {
+				_cmp = window.__cmp = jest.fn().mockImplementation((a, b) => { b(); });
+				const utils = require('./utils');
+				checkReprompt = utils.checkReprompt;
+				checkIfGDPRApplies = utils.checkIfGDPRApplies;
+				config.gdprAppliesGlobally = false;
+				checkReprompt.mockReturnValue(true);
+				checkIfGDPRApplies.mockImplementation((a, b) => { b(true); });
+			});
+
+			it('renders cmp toolbox if gdprAppliesGlobally', () => {
+				config.gdprAppliesGlobally = true;
+				cmp.processCommand('renderCmpIfNeeded');
+
+				expect(_cmp.mock.calls.length).to.eq(1);
+				expect(_cmp.mock.calls[0][0]).to.eq('showConsentTool');
+			});
+
+			it('renders cmp toolbox if user is in EU', () => {
+				cmp.processCommand('renderCmpIfNeeded');
+
+				expect(_cmp.mock.calls.length).to.eq(1);
+				expect(_cmp.mock.calls[0][0]).to.eq('showConsentTool');
+			});
+
+			it('not renders cmp toolbox if user was alredy prompted', () => {
+				checkReprompt.mockReturnValue(false);
+				cmp.processCommand('renderCmpIfNeeded');
+				config.gdprAppliesGlobally = true;
+				cmp.processCommand('renderCmpIfNeeded', null, () => {});
+				expect(_cmp.mock.calls.length).to.eq(0);
+			});
+
+			it('not renders cmp toolbox __cmp not initialised', () => {
+				window.__cmp = null;
+				mockLog.error.mockReset();
+				cmp.processCommand('renderCmpIfNeeded');
+				expect(mockLog.error.mock.calls[0][0]).to.eq('CMP failed to load');
+			});
+
+			it('not renders cmp toolbox if cookies dissabled', () => {
+				Object.defineProperty(window.navigator, 'cookieEnabled', {
+					get: () => false,
+					configurable: true
+				});
+				mockLog.warn.mockReset();
+				cmp.processCommand('renderCmpIfNeeded');
+				expect(mockLog.warn.mock.calls[0][0]).to.eq('Cookies are disabled. Ignoring CMP consent check');
 			});
 		});
 	});
