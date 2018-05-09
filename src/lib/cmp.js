@@ -37,12 +37,14 @@ export default class Cmp {
 				const vendorConsents = store.getVendorConsentsObject();
 				const publisherConsents = (config.storePublisherData && store.getPublisherConsentsObject()) || { lastUpdated: Date.now() }; // if publisher consent is not enabled mark - cookie as valid
 				const shouldBePromted = checkReprompt(config.repromptOptions, vendorConsents, publisherConsents);
+				const { testingMode } = config;
 
-				if (config.testingMode) {
-					if (shouldBePromted) {
+				if (testingMode !== 'normal') {
+					if (testingMode === 'always show') {
 						cmp('showConsentTool', callback);
 					} else {
-						store.toggleFooterShowing(true);
+						log.debug('Toolbox can be rendered only manualy');
+						callback(false);
 					}
 				} else if (config.gdprAppliesGlobally) {
 					self.gdprApplies = true;

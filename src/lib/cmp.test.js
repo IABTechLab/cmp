@@ -227,7 +227,10 @@ describe('cmp', () => {
 				const utils = require('./utils');
 				checkReprompt = utils.checkReprompt;
 				checkIfGDPRApplies = utils.checkIfGDPRApplies;
+
 				config.gdprAppliesGlobally = false;
+				config.testingMode = 'normal';
+
 				checkReprompt.mockReturnValue(true);
 				checkIfGDPRApplies.mockImplementation((a, b) => { b(true); });
 				Object.defineProperty(window.navigator, 'cookieEnabled', {
@@ -277,22 +280,18 @@ describe('cmp', () => {
 			});
 
 			it('renders cmp toolbox if testing mode enabled', () => {
-				config.testingMode = true;
+				config.testingMode = 'always show';
 				cmp.processCommand('renderCmpIfNeeded');
 
 				expect(_cmp.mock.calls.length).to.eq(1);
 				expect(_cmp.mock.calls[0][0]).to.eq('showConsentTool');
 			});
 
-			it('renders cmp footer if testing mode enabled and user has a cookie', () => {
-				const toogle = cmp.store.toggleFooterShowing = jest.fn();
-				config.testingMode = true;
-				checkReprompt.mockReturnValue(false);
+			it('not renders cmp cmp toolbox if testing mode set to other value', () => {
+				config.testingMode = 'never show';
 				cmp.processCommand('renderCmpIfNeeded');
 
 				expect(_cmp.mock.calls.length).to.eq(0);
-				expect(toogle.mock.calls.length).to.eq(1);
-				expect(toogle.mock.calls[0][0]).to.eq(true);
 			});
 		});
 	});
