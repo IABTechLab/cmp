@@ -69,7 +69,8 @@ describe('cmp', () => {
 			someConsentGiven: 20,
 			noConsentGiven: 1
 		},
-		geoIPVendor: 'http://cmp.digitru.st/geoip.json'
+		geoIPVendor: 'http://cmp.digitru.st/geoip.json',
+		storeConsentGlobally: false
 	};
 
 	beforeEach(() => {
@@ -97,6 +98,7 @@ describe('cmp', () => {
 			cmp.processCommand('ping', null, (data, success) => {
 				expect(success).to.be.true;
 				expect(Object.keys(data)).to.deep.equal(['gdprAppliesGlobally', 'cmpLoaded']);
+				expect(data.gdprAppliesGlobally).to.eq(false);
 
 				cmp.processCommand('ping', (data, success) => {
 					expect(Object.keys(data)).to.deep.equal(['gdprAppliesGlobally', 'cmpLoaded']);

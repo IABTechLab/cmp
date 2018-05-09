@@ -150,7 +150,7 @@ export default class Store {
 			var consentString;
 			var source;
 			var consentScreen;
-			const isEU = this.persistedVendorConsentData.isEU;
+			const isEU = this.vendorConsentData.isEU;
 
 			if (cookie) {
 				consentString = cookie.consentString;
@@ -400,13 +400,6 @@ export default class Store {
 	};
 
 	updateIsEU = boolean => {
-		const {
-			vendorConsentData,
-		} = this;
-
 		this.vendorConsentData.isEU = boolean;
-
-		// Store the persisted data
-		this.persistedVendorConsentData = copyData(vendorConsentData);
 	}
 }
