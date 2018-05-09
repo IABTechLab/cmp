@@ -172,9 +172,9 @@ export default class Purposes extends Component {
 										<div class={style.vendorContent}>
 											<table class={style.vendorList}>
 												<tbody>
-												{localVendors.map((vendor, index) => (
-													<tr key={index + vendor.name} class={index % 2 === 1 ? style.even : ''}>
-														<td><div class={style.vendorName}>{vendor.name}</div></td>
+												{localVendors.map(({name, policyUrl}, index) => (
+													<tr key={index + name} class={index % 2 === 1 ? style.even : ''}>
+														<td><a href={policyUrl} target='_blank'><div class={style.vendorName}>{name}</div></a></td>
 													</tr>
 												))}
 												</tbody>
