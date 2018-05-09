@@ -99,6 +99,7 @@ export default class Cmp {
 		getUnpackedVendorCookie: (vendorIds, callback = () => {}) => {
 			return this.store.getFullVendorConsentsObject(vendorIds)
 				.then(consent => {
+					consent.gdprApplies = this.gdprApplies;
 					callback(consent);
 					return consent;
 				});

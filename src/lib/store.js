@@ -147,13 +147,12 @@ export default class Store {
 	getFullVendorConsentsObject = () => {
 		const self = this;
 		return readVendorConsentCookie().then(cookie => {
-			var isEU;
 			var consentString;
 			var source;
 			var consentScreen;
+			const isEU = this.persistedVendorConsentData.isEU;
 
 			if (cookie) {
-				isEU = cookie.isEU;
 				consentString = cookie.consentString;
 				source = cookie.source;
 				consentScreen = cookie.consentScreen;
