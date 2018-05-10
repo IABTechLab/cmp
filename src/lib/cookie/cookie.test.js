@@ -159,7 +159,7 @@ describe('cookie', () => {
 		});
 	});
 
-	it('writes the global cookie when globalConsent = true', () => {
+	it('writes the global cookie to the local domain when globalConsent = true and writing to portal domain is unsupported', () => {
 		config.update({
 			storeConsentGlobally: true
 		});
@@ -173,8 +173,8 @@ describe('cookie', () => {
 		};
 
 		return writeVendorConsentCookie(vendorConsentData).then(() => {
-			expect(document.cookie).to.not.contain(VENDOR_CONSENT_COOKIE_NAME);
 			expect(mockPortal.sendPortalCommand.mock.calls[0][0].command).to.deep.equal('writeVendorConsent');
+			expect(document.cookie).to.contain(VENDOR_CONSENT_COOKIE_NAME);
 		});
 	});
 
