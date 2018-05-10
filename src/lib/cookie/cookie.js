@@ -241,7 +241,8 @@ function writePublisherConsentCookie(publisherConsentData) {
 
 /**
  * Read vendor consent data from third-party cookie on the
- * global vendor list domain.
+ * global vendor list domain. Fallback to first-party cookie
+ * if the operation fails.
  *
  * @returns Promise resolved with decoded cookie object
  */
@@ -253,9 +254,8 @@ function readGlobalVendorConsentCookie() {
 		log.debug('Read consent data from global cookie', result);
 		if (result) {
 			return decodeVendorConsentData(result, "global");
-		} else {
-			return readLocalVendorConsentCookie();
 		}
+		return readLocalVendorConsentCookie();
 	}).catch(err => {
 		log.error('Failed reading global vendor consent cookie', err);
 	});
@@ -263,7 +263,8 @@ function readGlobalVendorConsentCookie() {
 
 /**
  * Write vendor consent data to third-party cookie on the
- * global vendor list domain.
+ * global vendor list domain. Fallback to first-party cookie
+ * if the operation fails.
  *
  * @returns Promise resolved after cookie is written
  */
@@ -275,15 +276,15 @@ function writeGlobalVendorConsentCookie(vendorConsentData) {
 		vendorConsentData,
 		cmpVersion: metadata.cmpVersion
 	})
-	.then((succeeded) => {
-		if ( ! succeeded) {
-			return writeLocalVendorConsentCookie(vendorConsentData);
-		}
-		return Promise.resolve();
-	})
-	.catch(err => {
-		log.error('Failed writing global vendor consent cookie', err);
-	});
+		.then((succeeded) => {
+			if ( !succeeded ) {
+				return writeLocalVendorConsentCookie(vendorConsentData);
+			}
+			return Promise.resolve();
+		})
+		.catch(err => {
+			log.error('Failed writing global vendor consent cookie', err);
+		});
 }
 
 /**

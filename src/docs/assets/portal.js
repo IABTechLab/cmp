@@ -33,7 +33,7 @@ function readCookie(name) {
 function writeCookie({ name, value, path = '/'}) {
 	document.cookie = `${name}=${value}${COOKIE_DOMAIN};path=${path};max-age=${COOKIE_MAX_AGE}`;
 
-	if( ! document.cookie || document.cookie.indexOf(name) < 0) {
+	if ( !document.cookie || document.cookie.indexOf(name) < 0) {
 		return Promise.resolve(false);
 	}
 	return Promise.resolve(true);
