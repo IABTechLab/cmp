@@ -131,7 +131,7 @@ describe('utils', () => {
 	});
 
 	describe('checkIfGDPRApplies', () => {
-		const returnValues = [ [ 'lt' ], null, 'lt', null ];
+		const returnValues = [ [ 'en-GB' ], ['fr-BE'], 'lt', 'en-US' ];
 
 		beforeEach(() => {
 			window.fetch = jest.fn().mockImplementation(() => Promise.resolve({ headers: new Map([]) }));

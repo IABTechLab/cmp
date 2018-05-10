@@ -69,7 +69,7 @@ function checkIfGDPRApplies(geoVendor, callback) {
 
 function checkIfLanguageLocaleApplies(languages) {
 	for (let i = 0; i < languages.length; i++) {
-		if (EU_LANGUAGE_CODES.has(languages[i])) {
+		if (EU_LANGUAGE_CODES.has(languages[i].toLowerCase())) {
 			return true;
 		}
 	}
