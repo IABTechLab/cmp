@@ -37,12 +37,11 @@ export default {
 				</ul>
 			`,
 			acceptAll: 'OK, Continue to site',
-			rejectAll: '',
 			showPurposes: 'Learn more'
 		},
 		details: {
 			title: 'Privacy preferences',
-			cancel: 'Back',
+			back: 'Back',
 			save: 'OK, Continue to site',
 			showVendors: 'Show all companies',
 			enableAll: 'Enable all',
@@ -56,112 +55,140 @@ export default {
 			showVendors: 'Show companies',
 			hideVendors: 'Hide companies',
 			featureHeader: 'This will include the following features:',
-			cookies: {
-				menu: '',
-				title: '',
-				description: ''
-			},
-			purpose1: {
-				description: 'Allow storing or accessing information on a user’s device.'
-			},
-			purpose2: {
-				description: `Allow processing of a user’s data to provide and inform personalised advertising (including delivery, measurement, and reporting) based on a user’s preferences or interests known or inferred from data collected across multiple sites, apps, or devices; and/or accessing or storing information on devices  for that purpose.
-				Will include following Features:
-				<ul>
-					<li>Matching Data to Offline Sources - combining data from offline sources that were initially collected in other contexts.</li>
-					<li>Linking Devices - allow processing of a user’s data to connect such user across multiple devices.</li>
-					<li>Precise Geographic Location data - allow processing of a user’s precise geographic location data in support of a purpose for which that certain third party has consent.</li>
-				</ul>`
-			},
-			purpose3: {
-				description: `Allow processing of a user’s data to deliver content or advertisements and measure the delivery of such content or advertisements, extract insights and generate reports to understand service usage; and/or accessing or storing information on devices for that purpose.
-				Will include following Features:
-				<ul>
-					<li>Matching Data to Offline Sources - combining data from offline sources that were initially collected in other contexts.</li>
-					<li>Linking Devices - allow processing of a user’s data to connect such user across multiple devices.</li>
-					<li>Precise Geographic Location data - allow processing of a user’s precise geographic location data in support of a purpose for which that certain third party has consent.</li>
-				</ul>`
-			},
-			purpose4: {
-				description: `Allow processing of a user’s data to provide and inform personalised content (including delivery, measurement, and reporting) based on a user’s preferences or interests known or inferred from data collected across multiple sites, apps, or devices; and/or accessing or storing information on devices for that purpose.
-				Will include following Features:
-				<ul>
-					<li>Matching Data to Offline Sources - combining data from offline sources that were initially collected in other contexts.</li>
-					<li>Linking Devices - allow processing of a user’s data to connect such user across multiple devices.</li>
-					<li>Precise Geographic Location data - allow processing of a user’s precise geographic location data in support of a purpose for which that certain third party has consent.</li>
-				</ul>`
-			},
-			customPurpose1: {
-				menu: '',
-				title: '',
-				description: ''
-			}
+			company: 'Company'
 		},
 		vendors: {
-			title: '',
-			rejectAll: '',
-			acceptAll: '',
-			company: '',
-			offOn: '',
+			company: 'Company',
+			offOn: 'Allow',
 			description: 'Companies carefully selected by us will use your information. Depending on the type of data they collect, use, process and other factors, certain companies rely on your consent while others require you to opt-out. For information on each partner and to exercise your choices, see below. Or to opt-out, visit the ',
 			or: 'or ',
 			sites: 'sites.',
 			description2: 'Customise how these companies use data on the ',
-			description2Link: 'previous page.',
-			privacyPolicy: 'Privacy Policy'
+			description2Link: 'previous page.'
+		}
+	},
+	es: {
+		intro: {
+			title: 'Gracias por su visita ',
+			domain: '',
+			description: 'Los anuncios nos ayudan a que esta aplicación funcione. Cuando utiliza nuestra aplicación, empresas seleccionadas pueden acceder y usar',
+			description2: ' para diversos ',
+			description3: ' incluso para publicar anuncios relevantes o contenido personalizado.',
+			deviceInformation: ' información en su dispositivo',
+			deviceInformationPopover: `
+				<strong>Información que puede ser utilizada:</strong>
+				<ul>
+					<li>Tipo de navegador y su configuración</li>
+					<li>Información sobre el sistema operativo del dispositivo</li>
+					<li>Información de cookies</li>
+					<li>Información sobre otros identificadores asignados al dispositivo</li>
+					<li>La dirección IP desde la cual el dispositivo accede al sitio web o aplicación móvil de un cliente</li>
+					<li>Información sobre la actividad del usuario en ese dispositivo, incluidas las páginas web y las aplicaciones móviles visitadas o utilizadas</li>
+					<li>Información sobre la ubicación geográfica del dispositivo cuando accede a un sitio web o aplicación móvil</li>
+				</ul>
+			`,
+			purposes: 'fines',
+			purposesPopover: `
+				<strong>Propósitos para almacenar información:</strong>
+				<ul>
+					<li>Almacenamiento y acceso a la información</li>
+					<li>Selección y entrega de anuncios</li>
+					<li>Selección y entrega de contenido</li>
+					<li>Personalización</li>
+					<li>Medida</li>
+				</ul>
+			`,
+			acceptAll: 'OK, continuar a la página',
+			showPurposes: 'Conozca más'
+		},
+		details: {
+			title: 'Preferencias de privacidad',
+			back: 'Regresar',
+			save: 'OK, continuar a la página',
+			showVendors: 'Mostrar empresas',
+			enableAll: 'Habilitar todo',
+			disableAll: 'Deshabilitar todo'
+		},
+		purposes: {
+			active: 'Permitir',
+			inactive: 'Rechazar',
+			disclaimer: 'Nosotros y algunas empresas seleccionadas podemos acceder y usar la información para los fines descritos. Puede personalizar su elección o continuar usando nuestra [página] [aplicación] si está de acuerdo con los propósitos. Puede ver la ',
+			disclaimerVendorLink: 'lista completa de compañías aquí.',
+			showVendors: 'Mostrar empresas',
+			hideVendors: 'Esconder empresas',
+			featureHeader: 'Esto incluirá las siguientes características:',
+			company: 'Empresa'
+		},
+		vendors: {
+			company: 'Empresa',
+			offOn: 'Permitir',
+			description: 'Las empresas cuidadosamente seleccionadas por nosotros utilizarán su información. Dependiendo del tipo de datos que recopilan, usan, procesan y de otros factores, ciertas compañías confían en su consentimiento, mientras que otras requieren que se excluya. Puede hacer clic en el nombre de la compañía para ver su política de privacidad y ejercer sus opciones de consentimiento a continuación. Para excluir, visite los sitios de ',
+			or: 'o ',
+			sites: '',
+			description2: 'Personalice cómo estas empresas usan los datos en la ',
+			description2Link: 'página anterior.'
 		}
 	},
 	de: {
 		intro: {
-			title: 'Diese Website verwendet Cookies ',
+			title: 'Danke für Ihren Besuch ',
 			domain: '',
-			description: 'Wir und unsere Partner verwenden sogenannte Cookies (kleine Textdateien) im Webbrowser um zu verstehen, was unsere Besucher interessiert und entsprechend relevante Inhalte und Werbung anbieten zu können. Zukünftig benötigen wir wahrscheinlich ihr/euer Einverständnis dazu. Ein Beispiel, wie dies aussehen könnte, finden sie/findet ihr unter dieser Erklärung ',
-			acceptAll: 'Alle Cookies akzeptieren',
-			rejectAll: 'Alle Cookies ablehnen',
-			showPurposes: 'Verwendungszwecke zeigen'
+			description: 'Mit Hilfe von Anzeigen können wir diese App ausführen. Wenn Sie unsere App besuchen/verwenden, können ausgewählte Unternehmen ',
+			description2: ' für verschiedene ',
+			description3: ' abrufen und verwenden, einschließlich um die relevanten Anzeigen oder personalisierten Inhalt anzuzeigen.',
+			deviceInformation: 'auf Ihrem Gerät Informationen',
+			deviceInformationPopover: `
+				<strong>Informationen, die verwendet werden können:</strong>
+				<ul>
+					<li>Browser und seine Einstellungen</li>
+					<li>Informationen zum Betriebssystem des Geräts</li>
+					<li>Cookie-Informationen</li>
+					<li>Informationen zu anderen Kennungen, die dem Gerät zugewiesen sind</li>
+					<li>Die IP-Adresse, von der das Gerät auf die Website oder die mobile Anwendung eines Kunden zugreift</li>
+					<li>Informationen zu den Aktivitäten auf dem Gerät, welche Webseiten und mobilen Apps der Benutzer besucht oder verwendet hat</li>
+					<li>Informationen zum Geo Location des Geräts beim Zugriff auf eine Website oder eine mobile Anwendung</li>
+				</ul>
+			`,
+			purposes: 'Zwecke',
+			purposesPopover: `
+				<strong>Zwecke zum Speichern von Informationen:</strong>
+				<ul>
+					<li>Speicherung und Zugriff auf Informationen</li>
+					<li>Anzeigenauswahl und Lieferung</li>
+					<li>Inhaltsauswahl und Lieferung</li>
+					<li>Personalisierung</li>
+					<li>Messung</li>
+				</ul>
+			`,
+			acceptAll: 'OK, Weiter zur Website',
+			showPurposes: 'Erfahren Sie mehr'
 		},
 		details: {
 			title: 'Datenschutzeinstellungen',
-			cancel: 'Abbrechen',
-			save: 'Sichern und Beenden'
+			back: 'Zurück',
+			save: 'OK, Weiter zur Website',
+			showVendors: 'Firmen zeigen',
+			enableAll: 'Alle aktivieren',
+			disableAll: 'Alle deaktivieren'
 		},
 		purposes: {
-			active: 'Aktiv',
-			showVendors: '',
-			cookies: {
-				menu: 'Wie wir Cookies einsetzen',
-				title: 'Diese Website verwendet Cookies',
-				description: 'Unsere Partner und wir setzen Cookies (kleine Textdateien) und sammeln Informationen während des Surfens im Web in diesem Browser. Dies dient dazu zu verstehen, was unsere Besucher interessiert und entsprechend relevante Inhalte und Werbung anbieten zu können.'
-			},
-			purpose1: {
-				menu: 'Zugriff auf ein Gerät',
-				title: 'Zugriff auf ein Gerät',
-				description: 'Die Erlaubnis zum Speichern und Abrufen von Informationen auf dem Gerät eines Website-Besuchers.Das ist notwendig, um Cookies im Web-Browser zu speichern und zur Anzeige relevanter Informationen und Werbung abrufen zu können.'
-			},
-			purpose2: {
-				menu: 'Persönlich angepaßte Werbung',
-				title: 'Persönlich angepaßte Werbung',
-				description: 'Die Erlaubnis, Besucherdaten so zu verarbeiten und/oder zu speichern und abzurufen, dass persönlich angepaßte Werbung angeboten und angezeigt werden kann (dies umfaßt die Auslieferung, Messung und die Erstellung von Berichten darüber). Dies erfolgt auf der Basis bekannter Präferenzen oder Interessen, oder durch das Schließen auf Präferenzen oder Interessen durch die Erfassung von Daten auch über verschiedene Websites, Apps oder Geräte hinweg zu diesem Zweck.'
-			},
-			purpose3: {
-				menu: 'Analysen',
-				title: 'Analysen',
-				description: 'Die Erlaubnis, Besucherdaten zur Anzeige von Inhalten oder Werbung zu verarbeiten, und zur Messung der Auslieferung solcher Inhalte oder Werbung. Umfasst ist die Gewinnung von Erkenntnissen und die Generierung von Berichten um die Nutzung des angebotenen Service zu verstehen, und/oder das Abrufen oder Speichern von Informationen auf Geräten zu diesem Zweck.'
-			},
-			purpose4: {
-				menu: 'Persönlich angepasste Inhalte',
-				title: 'Persönlich angepasste Inhalte',
-				description: 'Die Erlaubnis, Besucherdaten zur Anzeige von personalisierten Inhalten zu verarbeiten, und zur Messung der Auslieferung. Umfasst ist die Gewinnung von Erkenntnissen darüber und die Generierung von Berichten dazu. Dies erfolgt auf der Basis bekannter Präferenzen oder Interessen, oder durch das Schließen auf Präferenzen oder Interessen durch die Erfassung von Daten auch über verschiedene Websites, Apps oder Geräte hinweg zu diesem Zweck.'
-			}
+			active: 'Aktivieren',
+			inactive: 'Deaktivieren',
+			disclaimer: 'Wir und ausgewählte Unternehmen können Informationen für die beschriebenen Zwecke abrufen und nutzen. Sie können Ihre Wahl anpassen oder unsere [Website] [App] weiter verwenden, wenn Sie mit den Zwecken einverstanden sind. Sie können die ',
+			disclaimerVendorLink: 'vollständige Liste der Unternehmen hier sehen.',
+			showVendors: 'Firmen zeigen',
+			hideVendors: 'Firmen ausblenden',
+			featureHeader: 'Dies beinhaltet die folgenden Funktionen:',
+			company: 'Firmen'
 		},
 		vendors: {
-			title: 'Unsere Partner',
-			rejectAll: 'Alle ablehnen',
-			acceptAll: 'Alle akzeptieren',
-			company: 'Unternehmen',
-			offOn: 'Aus/An',
-			description: 'Helfen Sie uns, Ihnen einen besseren Service zu bieten! Unsere Partner verwenden Cookies Ihres Browsers, um quer durch das Web zu verstehen, was Sie interessiert und Ihnen entsprechend relevante Inhalte und Werbung anzubieten.',
-			privacyPolicy: ''
+			company: 'Firmen',
+			offOn: 'Aktivieren',
+			description: 'Unternehmen, die von uns sorgfältig ausgewählt wurden, werden Ihre Informationen verwenden. Je nach der Art der Daten, die sie sammeln, nutzen, verarbeiten und anderen Faktoren, verlassen sich bestimmte Unternehmen auf Ihre Zustimmung, während andere erfordern, dass Sie sich abmelden. Sie können auf den Firmennamen klicken, um ihre Datenschutzrichtlinie einzusehen und die unten stehenden Einwilligungen zu treffen. Wenn Sie sich abmelden möchten, besuchen Sie die ',
+			or: 'oder ',
+			sites: 'seiten.',
+			description2: 'Können Sie anpassen, wie diese Unternehmen Daten verwenden ',
+			description2Link: 'Auf der vorherigen Seite.'
 		}
 	}
 };
