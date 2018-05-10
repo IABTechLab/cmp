@@ -253,6 +253,8 @@ function readGlobalVendorConsentCookie() {
 		log.debug('Read consent data from global cookie', result);
 		if (result) {
 			return decodeVendorConsentData(result, "global");
+		} else {
+			return readLocalVendorConsentCookie();
 		}
 	}).catch(err => {
 		log.error('Failed reading global vendor consent cookie', err);
@@ -272,7 +274,14 @@ function writeGlobalVendorConsentCookie(vendorConsentData) {
 		encodedValue: encodeVendorConsentData(vendorConsentData),
 		vendorConsentData,
 		cmpVersion: metadata.cmpVersion
-	}).catch(err => {
+	})
+	.then((succeeded) => {
+		if ( ! succeeded) {
+			return writeLocalVendorConsentCookie(vendorConsentData);
+		}
+		return Promise.resolve();
+	})
+	.catch(err => {
 		log.error('Failed writing global vendor consent cookie', err);
 	});
 }
