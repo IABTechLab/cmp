@@ -161,7 +161,8 @@ const commonConfig = {
 		open: false,
 		openPage: 'docs/',
 		https: false
-	}
+	},
+
 };
 
 module.exports = [
@@ -191,6 +192,10 @@ module.exports = [
 				template: 'index.html',
 				chunks: ['cmp']
 			}),
+			// Static assets copy
+			new CopyWebpackPlugin([
+				{ from: './geoip.json' }
+			])
 		]).concat(ENV === 'production' ? uglifyPlugin : []),
 	},
 	// Docs config
@@ -234,5 +239,6 @@ module.exports = [
 				{ from: 'docs/assets', to: '.' },
 			])
 		]).concat(ENV === 'production' ? uglifyPlugin : []),
-	}
+	},
+
 ];
