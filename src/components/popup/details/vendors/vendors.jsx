@@ -52,8 +52,8 @@ export default class Vendors extends Component {
 						<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description : ''} localizeKey='description'>Companies carefully selected by us will use your information. Depending on the type of data they collect, use, process and other factors, certain companies rely on your consent while others require you to opt-out. For information on each partner and to exercise your choices, see below. Or to opt-out, visit the </LocalLabel>
 						<a href='http://optout.networkadvertising.org/?c=1#!/' target='_blank'>NAI,</a><a href='http://optout.aboutads.info/?c=2#!/' target='_blank'> DAA, </a>
 						<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.or : ''} localizeKey='or'>or </LocalLabel>
-						<a href='http://youronlinechoices.eu/' target='_blank'>EDAA </a>
-						<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.sites : ''} localizeKey='sites'>sites.</LocalLabel>
+						<a href='http://youronlinechoices.eu/' target='_blank'>EDAA</a>
+						<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.sites : ''} localizeKey='sites'> sites.</LocalLabel>
 					</p>
 					<p>
 						<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description2 : ''} localizeKey="description2">Customise how these companies use data on the </LocalLabel>
