@@ -268,9 +268,9 @@ export default {
 					<li>Informacija apie įrenginio operacinę sistemą</li>
 					<li>Informacija apie slapukus</li>
 					<li>Informacija apie kitus įrenginiui priskirtus identifikatorius</li>
-					<li>IP addresas, iš kurio įrenginys prisijungia prie kliento tinklalapio arba mobilios programelės</li>
-					<li>Informacija apie vartotojo veiksmus, atliekamus naudojantis šiuo įrenginiu, įskaitant jo lankomus tinklalapius ir naudojamas mobilias programeles</li>
-					<li>Informacija apie geografinę prietaiso buvimo vietą, kai įrenginys prisijungia prie svetainės arba mobilios programelės</li>
+					<li>IP addresas, iš kurio įrenginys prisijungia prie kliento tinklalapio arba mobilios programėlės</li>
+					<li>Informacija apie vartotojo veiksmus, atliekamus naudojantis šiuo įrenginiu, įskaitant jo lankomus tinklalapius ir naudojamas mobilias programėles</li>
+					<li>Informacija apie geografinę prietaiso buvimo vietą, kai įrenginys prisijungia prie svetainės arba mobilios programėlės</li>
 				</ul>
 			`,
 			purposes: 'tikslams,',
@@ -298,7 +298,7 @@ export default {
 		purposes: {
 			active: 'Aktyvus',
 			inactive: 'Neaktyvus',
-			disclaimer: 'Mes, taip pat kai kurios pasirinktos kampanijos gali turėti prieigą prie informacijos ir naudoti ją išvardytiems tikslams. Jūs galite koreguoti savo pasirinkimą arba ir toliau naudotis mūsų tinklalapiu, jeigu sutinkate su informacijos panaudojimo tikslais. ',
+			disclaimer: 'Mes, kaip ir kitos pasirinktos įmonės, galime turėti prieigą prie informacijos ir naudoti ją išvardintiems tikslams. Jūs galite koreguoti savo pasirinkimą arba ir toliau naudotis mūsų tinklalapiu, jeigu sutinkate su informacijos panaudojimo tikslais. ',
 			disclaimerVendorLink: 'Visą pasirinktų įmonių sąrašą galite rasti čia.',
 			showVendors: 'Rodyti įmones',
 			hideVendors: 'Paslėpti įmones',
@@ -308,7 +308,7 @@ export default {
 		vendors: {
 			company: 'įmonė',
 			offOn: 'Leisti',
-			description: 'Mūsų kruopščiai atrinktos įmonės naudosis jūsų informacija. Priklausomai nuo renkamų duomenų tipo, panaudojimo, apdirbimo ir kitų veiksnių, kai kurios konkrečios įmonės remiasi jūsų sutikimu, o kiti reikalauja atsisakyti privatumo politikos, jeigu nesutinkate su privatumo nuostatomis. Jūs galite paspausti ant įmonės pavadinimo, norėdami peržiūrėti jos privatumo politiką ir sutikti su ja/atsisakyti jos. Norėdami atsisakyti, apsilankykite šiuose tinklalapiuose: ',
+			description: 'Mūsų kruopščiai atrinktos įmonės naudosis jūsų informacija. Priklausomai nuo renkamų duomenų tipo, panaudojimo, apdirbimo ir kitų veiksnių, kai kurios konkrečios įmonės remiasi jūsų sutikimu, o kitos reikalauja atsisakyti privatumo politikos, jeigu nesutinkate su privatumo nuostatomis. Jūs galite paspausti ant įmonės pavadinimo, norėdami peržiūrėti jos privatumo politiką ir sutikti su ja/atsisakyti jos. Norėdami atsisakyti, apsilankykite šiuose tinklalapiuose: ',
 			or: 'arba ',
 			sites: '.',
 			description2: 'Galite pasirinkti kaip šios įmonės galės naudotis jūsų duomenimis ',
