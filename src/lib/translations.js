@@ -258,9 +258,9 @@ export default {
 			title: 'Dėkojame už apsilankymą ',
 			domain: '',
 			description: 'Skelbimai padeda mums palaikyti šį tinklalapį. Kai jūs naudojates mūsų tinklalapiu, kai kurios pasirinktos įmonės gali turėti prieigą prie ',
-			description2: ' ir ja naudoti įvairiems ',
+			description2: ' ir ją naudoti įvairiems ',
 			description3: ' įskaitant pritaikymą reklamoje arba indivizualizuotame turinyje.',
-			deviceInformation: 'informacijos saugomos jūsų įrenginyje',
+			deviceInformation: 'informacijos, saugomos jūsų įrenginyje,',
 			deviceInformationPopover: `
 				<strong>Informacija, kuri gali būti naudojama:</strong>
 				<ul>
@@ -273,7 +273,7 @@ export default {
 					<li>Informacija apie geografinę prietaiso buvimo vietą, kai įrenginys prisijungia prie svetainės arba mobilios programelės</li>
 				</ul>
 			`,
-			purposes: 'tikslams',
+			purposes: 'tikslams,',
 			purposesPopover: `
 				<strong>Informacijos saugojimo paskirtys:</strong>
 				<ul>
