@@ -62,7 +62,7 @@ export default {
 			offOn: 'Allow',
 			description: 'Companies carefully selected by us will use your information. Depending on the type of data they collect, use, process and other factors, certain companies rely on your consent while others require you to opt-out. For information on each partner and to exercise your choices, see below. Or to opt-out, visit the ',
 			or: 'or ',
-			sites: 'sites.',
+			sites: ' sites.',
 			description2: 'Customise how these companies use data on the ',
 			description2Link: 'previous page.'
 		}
@@ -124,7 +124,7 @@ export default {
 			offOn: 'Permitir',
 			description: 'Las empresas cuidadosamente seleccionadas por nosotros utilizarán su información. Dependiendo del tipo de datos que recopilan, usan, procesan y de otros factores, ciertas compañías confían en su consentimiento, mientras que otras requieren que se excluya. Puede hacer clic en el nombre de la compañía para ver su política de privacidad y ejercer sus opciones de consentimiento a continuación. Para excluir, visite los sitios de ',
 			or: 'o ',
-			sites: '',
+			sites: '.',
 			description2: 'Personalice cómo estas empresas usan los datos en la ',
 			description2Link: 'página anterior.'
 		}
@@ -186,9 +186,133 @@ export default {
 			offOn: 'Aktivieren',
 			description: 'Unternehmen, die von uns sorgfältig ausgewählt wurden, werden Ihre Informationen verwenden. Je nach der Art der Daten, die sie sammeln, nutzen, verarbeiten und anderen Faktoren, verlassen sich bestimmte Unternehmen auf Ihre Zustimmung, während andere erfordern, dass Sie sich abmelden. Sie können auf den Firmennamen klicken, um ihre Datenschutzrichtlinie einzusehen und die unten stehenden Einwilligungen zu treffen. Wenn Sie sich abmelden möchten, besuchen Sie die ',
 			or: 'oder ',
-			sites: 'seiten.',
+			sites: ' Seiten.',
 			description2: 'Können Sie anpassen, wie diese Unternehmen Daten verwenden ',
 			description2Link: 'Auf der vorherigen Seite.'
 		}
-	}
+	},
+	pl: {
+		intro: {
+			title: 'Dziękujemy za wizytę ',
+			domain: '',
+			description: 'Reklamy pomagają uruchomić tę aplikację. Podczas korzystania z naszej aplikacji, wybrane firmy mogą uzyskiwać dostęp do ',
+			description2: ' i korzystać z nich w ',
+			description3: ', w tym do wyświetlania trafnych reklam lub spersonalizowanych treści.',
+			deviceInformation: 'informacji o urządzeniu',
+			deviceInformationPopover: `
+				<strong>Informacja, którą można wykorzystać:</strong>
+				<ul>
+					<li>Typ przeglądarki i jej ustawienia</li>
+					<li>Informacja o systemie operacyjnym urządzenia</li>
+					<li>Informacja o plikach cookie</li>
+					<li>Informacja o innych identyfikatorach przydzielonych do urządzenia</li>
+					<li>Adres IP, z którego urządzenie uzyskuje dostęp do strony internetowej klienta lub aplikacji mobilnej</li>
+					<li>Informacja o aktywności użytkownika na tym urządzeniu - w tym odwiedzanych stronach internetowych i aplikacjach mobilnych</li>
+					<li>Informacja o położeniu geograficznym urządzenia, gdy uzyskuje dostęp do strony internetowej lub aplikacji mobilnej</li>
+				</ul>
+			`,
+			purposes: 'różnych celach',
+			purposesPopover: `
+				<strong>Cele przechowywania informacji:</strong>
+				<ul>
+					<li>Przechowywanie i dostęp do informacji</li>
+					<li>Wybór i emitowanie reklamy</li>
+					<li>Wybór treści i emitowanie</li>
+					<li>Personalizacja</li>
+					<li>Pomiar</li>
+				</ul>
+			`,
+			acceptAll: 'Przejdź do strony',
+			showPurposes: 'Więcej'
+		},
+		details: {
+			title: 'Preferencje prywatności',
+			back: 'Wstecz',
+			save: 'Przejdź do strony',
+			showVendors: 'Pokaż firmy',
+			enableAll: 'Pozwól wszystkim',
+			disableAll: 'Zakazać wszystkich'
+		},
+		purposes: {
+			active: 'Włącz',
+			inactive: 'Wyłącz',
+			disclaimer: 'Zarówno my, jak i wybrane firmy możemy uzyskać dostęp do informacji i korzystać z nich w określonych celach. Możesz dostosować swój wybór lub kontynuować korzystanie z naszej aplikacji, jeżeli zgadzasz się z celami. ',
+			disclaimerVendorLink: 'Pełną listę firm można zobaczyć tutaj.',
+			showVendors: 'Pokaż firmy',
+			hideVendors: 'Ukryj firmy',
+			featureHeader: 'Obejmie to następujące funkcje:',
+			company: 'Firmy'
+		},
+		vendors: {
+			company: 'Firmy',
+			offOn: 'Włącz',
+			description: 'Starannie wybrane przez nas firmy wykorzystają Państwa dane. W zależności od rodzaju gromadzonych danych, użycia procesów i innych czynników niektóre firmy wymagają Twojej zgody, a inne wymagają rezygnacji. Możesz kliknąć na nazwę firmy, aby zapoznać się z jej polityką prywatności i skorzystać z możliwości wyrażenia zgody poniżej. Aby zrezygnować, odwiedź strony ',
+			or: 'lub ',
+			sites: '.',
+			description2: 'Dostosuj sposób, w jaki te firmy wykorzystują dane na ',
+			description2Link: 'poprzedniej stronie.'
+		}
+	},
+	lt: {
+		intro: {
+			title: 'Dėkojame už apsilankymą ',
+			domain: '',
+			description: 'Skelbimai padeda mums palaikyti šį tinklalapį. Kai jūs naudojates mūsų tinklalapiu, kai kurios pasirinktos įmonės gali turėti prieigą prie ',
+			description2: ' ir ją naudoti įvairiems ',
+			description3: ' įskaitant pritaikymą reklamoje arba indivizualizuotame turinyje.',
+			deviceInformation: 'informacijos, saugomos jūsų įrenginyje,',
+			deviceInformationPopover: `
+				<strong>Informacija, kuri gali būti naudojama:</strong>
+				<ul>
+					<li>Naršyklės tipas ir jos nustatymai</li>
+					<li>Informacija apie įrenginio operacinę sistemą</li>
+					<li>Informacija apie slapukus</li>
+					<li>Informacija apie kitus įrenginiui priskirtus identifikatorius</li>
+					<li>IP addresas, iš kurio įrenginys prisijungia prie kliento tinklalapio arba mobilios programėlės</li>
+					<li>Informacija apie vartotojo veiksmus, atliekamus naudojantis šiuo įrenginiu, įskaitant jo lankomus tinklalapius ir naudojamas mobilias programėles</li>
+					<li>Informacija apie geografinę prietaiso buvimo vietą, kai įrenginys prisijungia prie svetainės arba mobilios programėlės</li>
+				</ul>
+			`,
+			purposes: 'tikslams,',
+			purposesPopover: `
+				<strong>Informacijos saugojimo paskirtys:</strong>
+				<ul>
+					<li>Informacijos saugojimas ir prieiga prie informacijos</li>
+					<li>Reklamos parinkimas ir paleidimas</li>
+					<li>Turinio pasirinkimas ir pristatymas</li>
+					<li>Individualizavimas</li>
+					<li>Matavimai</li>
+				</ul>
+			`,
+			acceptAll: 'Gerai, pereiti prie svetainės',
+			showPurposes: 'Sužinoti daugiau'
+		},
+		details: {
+			title: 'Privatumo nuostatos',
+			back: 'Atgal',
+			save: 'Paleisk',
+			showVendors: 'Rodyti įmones',
+			enableAll: 'Įjungti visus',
+			disableAll: 'Išjungti visus'
+		},
+		purposes: {
+			active: 'Aktyvus',
+			inactive: 'Neaktyvus',
+			disclaimer: 'Mes, kaip ir kitos pasirinktos įmonės, galime turėti prieigą prie informacijos ir naudoti ją išvardintiems tikslams. Jūs galite koreguoti savo pasirinkimą arba ir toliau naudotis mūsų tinklalapiu, jeigu sutinkate su informacijos panaudojimo tikslais. ',
+			disclaimerVendorLink: 'Visą pasirinktų įmonių sąrašą galite rasti čia.',
+			showVendors: 'Rodyti įmones',
+			hideVendors: 'Paslėpti įmones',
+			featureHeader: 'Apima šias funkcijas:',
+			company: 'įmonė'
+		},
+		vendors: {
+			company: 'įmonė',
+			offOn: 'Leisti',
+			description: 'Mūsų kruopščiai atrinktos įmonės naudosis jūsų informacija. Priklausomai nuo renkamų duomenų tipo, panaudojimo, apdirbimo ir kitų veiksnių, kai kurios konkrečios įmonės remiasi jūsų sutikimu, o kitos reikalauja atsisakyti privatumo politikos, jeigu nesutinkate su privatumo nuostatomis. Jūs galite paspausti ant įmonės pavadinimo, norėdami peržiūrėti jos privatumo politiką ir sutikti su ja/atsisakyti jos. Norėdami atsisakyti, apsilankykite šiuose tinklalapiuose: ',
+			or: 'arba ',
+			sites: '.',
+			description2: 'Galite pasirinkti kaip šios įmonės galės naudotis jūsų duomenimis ',
+			description2Link: 'ankstesniame puslapyje.'
+		}
+	},
 };
