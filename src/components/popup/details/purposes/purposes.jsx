@@ -127,19 +127,8 @@ export default class Purposes extends Component {
 								<div class={style.title}>
 									<LocalLabel localizeKey={`${currentPurposeLocalizePrefix}.title`}>{selectedPurpose.name}</LocalLabel>
 								</div>
-								<div class={style.active}>
-									{purposeIsActive &&
-										<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.active : ''} localizeKey='active'>Active</LocalLabel>
-									}
-									{!purposeIsActive &&
-										<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.inactive : ''} localizeKey='inactive'>Inactive</LocalLabel>
-									}
-									<Switch
-										isSelected={purposeIsActive}
-										onClick={this.handleSelectPurpose}
-									/>
-								</div>
 							</div>
+							
 							<div class={style.body}>
 								<p><LocalLabel providedValue={selectedPurpose.description} localizeKey={`${currentPurposeLocalizePrefix}.description`} /></p>
 								<p><LocalLabel providedValue={localization && localization.purposes ? localization.purposes.featureHeader : ''} localizeKey='featureHeader'>This will include the following features:</LocalLabel></p>
@@ -148,6 +137,21 @@ export default class Purposes extends Component {
 									<li><LocalLabel class='featureItem' providedValue={feature.description} /></li>
 								))}
 								</ul>
+								<div class={style.switchWrap}>
+									<div class={style.active}>
+										<Switch
+											isSelected={purposeIsActive}
+											onClick={this.handleSelectPurpose}
+										/>
+										{purposeIsActive &&
+											<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.active : ''} localizeKey='active'>Active</LocalLabel>
+										}
+										{!purposeIsActive &&
+											<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.inactive : ''} localizeKey='inactive'>Inactive</LocalLabel>
+										}
+									</div>
+									<span class={style.switchText}>Publisher and their partners could collect anonymized information in order ot improve your experience on our site</span>
+								</div>
 								{!showLocalVendors &&
 								<a class={style.vendorLink} onClick={this.onShowLocalVendors}>
 									<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.showVendors : ''} localizeKey='showVendors'>Show companies</LocalLabel>

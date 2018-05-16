@@ -10,6 +10,17 @@
 		border-bottom: 1px solid @color-border;
 	}
 
+	.switchWrap {
+		display: flex;
+
+		.switchText {
+			font-size: 14px;
+			line-height: 24px;
+			padding-top: 6px;
+			padding-left: 18px;
+		}
+	}
+
 	.purposes {
 		display: flex;
 		flex: 1;
@@ -64,10 +75,11 @@
 					padding-bottom: 5px;
 				}
 			}
+
 			.active {
+				font-size: 10px;
 				color: @color-primary;
-				font-weight: bold;
-				display: flex;
+				text-align: center;
 				padding-top: 6px;
 				@media @smartphone {
 					flex: 1 1 auto;
