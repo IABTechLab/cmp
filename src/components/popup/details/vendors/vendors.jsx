@@ -19,6 +19,7 @@ export default class Vendors extends Component {
 
 	static defaultProps = {
 		onShowPurposes: () => {},
+		handleEnableAll: () =>{},
 		vendors: [],
 		selectedVendorIds: new Set(),
 		selectVendor: () => {}
@@ -42,6 +43,7 @@ export default class Vendors extends Component {
 			vendors,
 			selectedVendorIds,
 			onShowPurposes,
+			onHandleEnableAll,
 			localization
 		} = props;
 
@@ -59,6 +61,12 @@ export default class Vendors extends Component {
 						<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description2 : ''} localizeKey="description2">Customise how these companies use data on the </LocalLabel>
 						<a style={style.vendorLink} onClick={onShowPurposes}>
 							<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description2Link : ''} localizeKey="description2Link">previous page.</LocalLabel>
+						</a>
+					</p>
+					<p>
+					<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description3 : ''} localizeKey="description3">You can control all componies preferences by </LocalLabel>
+						<a style={style.vendorLink} onClick={onHandleEnableAll}>
+							<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description3Link : ''} localizeKey="description3Link">pressing here.</LocalLabel>
 						</a>
 					</p>
 				</div>
