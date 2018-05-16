@@ -43,9 +43,8 @@ export default class Vendors extends Component {
 			vendors,
 			selectedVendorIds,
 			onShowPurposes,
-			localization,
-			onClick,
-			onHandleEnableAll
+			onHandleEnableAll,
+			localization
 		} = props;
 
 		return (
