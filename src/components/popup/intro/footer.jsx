@@ -36,7 +36,7 @@ export default class IntroFooter extends Component {
             <div>
                 {!showFull && <div class={style.base}>
                     <span name="ctrl" class={style.icon} onClick={this.handleShow}></span>
-                    <LocalLabel providedValue={localization && localization.footer ? localization.footer.message : ''} localizeKey='message' class={style.message}>Read more about access and use information on your device for various purposes</LocalLabel>
+                    <LocalLabel providedValue={localization && localization.footer ? localization.footer.message : ''} localizeKey='message' class={style.message}>Read more about access and use of information on your device for various purposes</LocalLabel>
 
                 </div>}
                 {showFull && <div class={style.container}>
@@ -62,7 +62,7 @@ export default class IntroFooter extends Component {
                         <li>Storage and access of information</li>
                         <li>Ad selection and delivery</li>
                         <li>Content selection and delivery</li>
-                        <li>Personalization</li>
+                        <li>Personalisation</li>
                         <li>Measurement</li>
                     </ul>
                     </div>
