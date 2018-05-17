@@ -64,7 +64,9 @@ export default {
 			or: 'or ',
 			sites: ' sites.',
 			description2: 'Customise how these companies use data on the ',
-			description2Link: 'previous page.'
+			description2Link: 'previous page.',
+			description3: 'You can control the preferences for all companies by ',
+			description3Link: 'clicking here.'
 		}
 	},
 	es: {
@@ -126,7 +128,9 @@ export default {
 			or: 'o ',
 			sites: '.',
 			description2: 'Personalice cómo estas empresas usan los datos en la ',
-			description2Link: 'página anterior.'
+			description2Link: 'página anterior.',
+			description3: '',
+			description3Link: ''
 		}
 	},
 	de: {
@@ -188,7 +192,9 @@ export default {
 			or: 'oder ',
 			sites: ' Seiten.',
 			description2: 'Können Sie anpassen, wie diese Unternehmen Daten verwenden ',
-			description2Link: 'Auf der vorherigen Seite.'
+			description2Link: 'Auf der vorherigen Seite.',
+			description3: '',
+			description3Link: ''
 		}
 	},
 	pl: {
@@ -250,7 +256,9 @@ export default {
 			or: 'lub ',
 			sites: '.',
 			description2: 'Dostosuj sposób, w jaki te firmy wykorzystują dane na ',
-			description2Link: 'poprzedniej stronie.'
+			description2Link: 'poprzedniej stronie.',
+			description3: '',
+			description3Link: ''
 		}
 	},
 	lt: {
@@ -312,7 +320,9 @@ export default {
 			or: 'arba ',
 			sites: '.',
 			description2: 'Galite pasirinkti kaip šios įmonės galės naudotis jūsų duomenimis ',
-			description2Link: 'ankstesniame puslapyje.'
+			description2Link: 'ankstesniame puslapyje.',
+			description3: '',
+			description3Link: ''
 		}
 	},
 	it: {
@@ -374,7 +384,9 @@ export default {
 			or: 'o ',
 			sites: '.',
 			description2: 'Personalizza il modo in cui le aziende useranno i dati nella ',
-			description2Link: 'pagina precedente'
+			description2Link: 'pagina precedente',
+			description3: '',
+			description3Link: ''
 		}
 	},
 	fr: {
@@ -436,7 +448,9 @@ export default {
 			or: 'ou ',
 			sites: '.',
 			description2: 'Personnalisez la manière dont ces entreprises utilisent votre donnée sur la ',
-			description2Link: 'page précédente.'
+			description2Link: 'page précédente.',
+			description3: '',
+			description3Link: ''
 		}
 	}
 };
