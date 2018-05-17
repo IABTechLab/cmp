@@ -64,7 +64,7 @@ export default class Vendors extends Component {
 						</a>
 					</p>
 					<p>
-					<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description3 : ''} localizeKey="description3">You can control all componies preferences by </LocalLabel>
+					<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description3 : ''} localizeKey="description3">You can control your preferences for all companies by </LocalLabel>
 						<a style={style.vendorLink} onClick={onHandleEnableAll}>
 							<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description3Link : ''} localizeKey="description3Link">pressing here.</LocalLabel>
 						</a>
