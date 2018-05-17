@@ -3,9 +3,9 @@ import log from './log';
 const defaultConfig = {
 	customPurposeListLocation: './purposes.json',
 	globalVendorListLocation: 'https://vendorlist.consensu.org/vendorlist.json',
-	globalConsentLocation: './portal.html',
-	storeConsentGlobally: false,
-	storePublisherData: false,
+	globalConsentLocation: 'https://cdn.digitrust.mgr.consensu.org/1/portal.html',
+	storeConsentGlobally: true,
+	storePublisherData: true,
 	logging: false,
 	localization: {},
 	forceLocale: null,
@@ -15,7 +15,7 @@ const defaultConfig = {
 		someConsentGiven: 30,
 		noConsentGiven: 30,
 	},
-	geoIPVendor: 'http://cmp.digitru.st/geoip.json',
+	geoIPVendor: 'https://cmp.digitru.st/1/geoip.json',
 	testingMode: 'normal'
 };
 

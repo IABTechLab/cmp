@@ -255,7 +255,10 @@ export default class Store {
 		publisherConsentData.lastUpdated = now;
 
 		// Write vendor cookie to appropriate domain
-		writeVendorConsentCookie({...vendorConsentData, vendorList});
+		writeVendorConsentCookie({...vendorConsentData, vendorList})
+			.then(() => {
+				if (this.cmp) this.cmp.notify('consentStringUpdated');
+			});
 
 		// Write publisher cookie if enabled
 		if (config.storePublisherData) {
@@ -401,5 +404,9 @@ export default class Store {
 
 	updateIsEU = boolean => {
 		this.vendorConsentData.isEU = boolean;
+	};
+
+	updateCmpHandle = cmpInstance => {
+		this.cmp = cmpInstance;
 	}
 }

@@ -315,4 +315,128 @@ export default {
 			description2Link: 'ankstesniame puslapyje.'
 		}
 	},
+	it: {
+		intro: {
+			title: 'Grazie per aver visitato ',
+			domain: '',
+			description: 'Quando utilizzi il nostro sito / la nostra applicazione, le aziende selezionate possono avere accesso alle ',
+			description2: ' ed usarle per diverse ',
+			description3: ', come ad esempio mostrarti inserzioni in linea con i tuoi interessi o contenuti personalizzati.',
+			deviceInformation: 'informazioni del tuo dispositivo',
+			deviceInformationPopover: `
+				<strong>Informazioni che potranno essere utilizzate:</strong>
+				<ul>
+					<li>Tipologia di browser e configurazione</li>
+					<li>Informazioni sul sistema operativo del dispositivo</li>
+					<li>Informazioni sui cookies</li>
+					<li>Informazioni su altri dati identificativi assegnati al dispositivo</li>
+					<li>Indirizzo IP da cui il dispositivo accede al sito o all’app di un cliente</li>
+					<li>Informazioni sull’attività dell’utente sul dispositivo, comprese le pagine visitate e le app utilizzte</li>
+					<li>Informazioni sulla posizione del dispositivo quando l’utente accede a un sito o a un’app</li>
+				</ul>
+			`,
+			purposes: 'finalità',
+			purposesPopover: `
+				<strong>Finalità delle informazioni archiviate:</strong>
+				<ul>
+					<li>Archivio e accesso alle informazioni</li>
+					<li>Selezione ed erogazione di inserzioni</li>
+					<li>Selezione ed erogazione di contenuti</li>
+					<li>Personalizzazione</li>
+					<li>Misurazioni</li>
+				</ul>
+			`,
+			acceptAll: 'Va bene, vai al sito',
+			showPurposes: 'Maggiori informazioni'
+		},
+		details: {
+			title: 'Opzioni privacy',
+			back: 'Indietro',
+			save: 'Ok, vai alla pagina',
+			showVendors: 'Mostra le aziende',
+			enableAll: 'Abilita tutto',
+			disableAll: 'Disabilita tutto'
+		},
+		purposes: {
+			active: 'Abilita',
+			inactive: 'Disabilita',
+			disclaimer: 'Noi ed altre aziende selezionate possiamo accedere alle informazioni e usarle per gli scopi descritti. Puoi personalizzare la tua scelta o continuare ad usare la nostra app se sei d’accordo con le nostre finalità. Puoi trovare ',
+			disclaimerVendorLink: 'qui la lista delle aziende.',
+			showVendors: 'Mostra le aziende',
+			hideVendors: 'Nascondere le aziende',
+			featureHeader: 'Ciò includerà le seguenti funzionalità:',
+			company: 'Azienda'
+		},
+		vendors: {
+			company: 'Azienda',
+			offOn: 'Acconsenti',
+			description: 'Le aziende che abbiamo accuratamente selezionato utilizzeranno le tue informazioni. A seconda del tipo di dati raccolti, del loro uso, dei processi e di altri fattori, alcune aziende fanno affidamento sul tuo consenso, mentre altre potranno richiederti di rifiutare, escludendole. Puoi cliccare sul nome dell’azienda per leggere la sua privacy policy ed esercitare in seguito il tuo diritto al consenso. Per l’esclusione, visita i siti ',
+			or: 'o ',
+			sites: '.',
+			description2: 'Personalizza il modo in cui le aziende useranno i dati nella ',
+			description2Link: 'pagina precedente'
+		}
+	},
+	fr: {
+		intro: {
+			title: 'Merci d’avoir visité ',
+			domain: '',
+			description: 'La publicité nous permet de faire fonctionner notre app. Lorsque vous utilisez notre app certaines entreprises sélectionnées peuvent avoir accès et utiliser ',
+			description2: ' à des ',
+			description3: ', incluant des publicités pertinentes ou du contenu personnalisé.',
+			deviceInformation: 'des informations concernant votre appareil',
+			deviceInformationPopover: `
+				<strong>Peuvent être utilisées:</strong>
+				<ul>
+					<li>Des informations sur le type de navigateur et ses réglages</li>
+					<li>Des informations sur le système d’exploitation de l’appareil</li>
+					<li>Des informations sur les Cookies</li>
+					<li>Des informations sur d’autres identifiants assignés à l’appareil</li>
+					<li>L’adresse IP à partir de laquelle le système accède au site du client ou à l’application mobile du client</li>
+					<li>Des informations sur l’activité de l’utilisateur sur l’appareil en question, incluant les pages web et les applications mobiles visitées ou utilisées</li>
+					<li>Des informations sur la situation géographique de l’appareil lorsque celui-ci accède à un site ou une application mobile</li>
+				</ul>
+			`,
+			purposes: 'fins diverses',
+			purposesPopover: `
+				<strong>Les raisons pour lesquelles les informations sont conservées:</strong>
+				<ul>
+					<li>Stockage et accès à l’information</li>
+					<li>Sélection de la publicité et de sa livraison</li>
+					<li>Sélection du contenu et de sa livraison</li>
+					<li>Personnalisation</li>
+					<li>Mesures</li>
+				</ul>
+			`,
+			acceptAll: 'OK, Continuer vers le Site',
+			showPurposes: 'En savoir plus'
+		},
+		details: {
+			title: 'Préférences au sujet de la vie privée',
+			back: 'Retour',
+			save: 'OK, Continuer vers le Site',
+			showVendors: 'Montrer les entreprises',
+			enableAll: 'Activer tout',
+			disableAll: 'Désactiver tout'
+		},
+		purposes: {
+			active: 'Activer',
+			inactive: 'Désactiver',
+			disclaimer: 'Certaines entreprises et nous-même pouvons accéder et utiliser ces informations pour les raisons décrites. Vous avez la possibilité de personnaliser vos choix et de continuer à utiliser notre app si vous êtes en accord avec les raisons évoquées. Vous pouvez accéder à la ',
+			disclaimerVendorLink: 'liste complète des entreprises ici.',
+			showVendors: 'Montrer les entreprises',
+			hideVendors: 'Masquer les entreprises',
+			featureHeader: 'Ceci inclura les caractéristiques suivantes:',
+			company: 'Entreprise'
+		},
+		vendors: {
+			company: 'Entreprise',
+			offOn: 'Autoriser',
+			description: 'Des entreprises sélectionnées par nos soins utiliseront vos informations. En fonction du type de données collectées, utilisées, traitées ou autre, certaines entreprises dépendent de votre consentement alors que d’autres ont besoin de votre clause de retrait (opt-out). Vous pouvez cliquer sur le nom des entreprises afin d’accéder à leur politique sur la vie privée et d’exercer votre choix de consentement ci-dessous. Afin d’activer votre clause de retrait (opt-out), vous pouvez visiter les sites ',
+			or: 'ou ',
+			sites: '.',
+			description2: 'Personnalisez la manière dont ces entreprises utilisent votre donnée sur la ',
+			description2Link: 'page précédente.'
+		}
+	}
 };
