@@ -3,6 +3,7 @@ import style from './intro.less';
 import Button from '../../button/button';
 import Label from '../../label/label';
 import Popover from '../../popover/popover';
+import IntroFooter from './footer';
 
 class LocalLabel extends Label {
 	static defaultProps = {
@@ -63,6 +64,10 @@ export default class Intro extends Component {
 						<LocalLabel providedValue={localization && localization.intro ? localization.intro.acceptAll : ''} localizeKey='acceptAll'>OK, Continue to site</LocalLabel>
 					</Button>
 				</div>
+				<IntroFooter
+					onShowPurposes={onShowPurposes}
+					onAcceptAll={onAcceptAll}
+				/>
 			</div>
 		);
 	}
