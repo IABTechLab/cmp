@@ -240,5 +240,33 @@ module.exports = [
 			])
 		]).concat(ENV === 'production' ? uglifyPlugin : []),
 	},
+	{
+		entry: {
+			'portal': './docs/assets/portal.js'
+		},
+		output: {
+			path: path.resolve(__dirname, 'build/'),
+			publicPath: './',
+			filename: '[name].bundle.js'
+		},
+		...commonConfig,
+		plugins: ([
+			new webpack.NoEmitOnErrorsPlugin(),
+			new webpack.DefinePlugin({
+				'process.env.NODE_ENV': JSON.stringify(ENV)
+			}),
+			new webpack.ProvidePlugin({
+				'Promise': 'promise-polyfill'
+			}),
+			new HtmlWebpackPlugin({
+				filename: 'portal.html',
+				template: './docs/assets/portal.html',
+				chunks: ['portal']
+			}),
+			new CopyWebpackPlugin([
+				{ from: 'docs/assets/portal.html' },
+			])
+		]).concat(ENV === 'production' ? uglifyPlugin : []),
+	}
 
 ];
