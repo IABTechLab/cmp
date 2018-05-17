@@ -3,7 +3,7 @@ import log from './log';
 const defaultConfig = {
 	customPurposeListLocation: './purposes.json',
 	globalVendorListLocation: 'https://vendorlist.consensu.org/vendorlist.json',
-	globalConsentLocation: './portal.html',
+	globalConsentLocation: 'https://digitrust.mgr.consensu.org/docs/portal.html',
 	storeConsentGlobally: true,
 	storePublisherData: true,
 	logging: false,
