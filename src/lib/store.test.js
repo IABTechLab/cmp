@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import customPurposeList from '../docs/assets/purposes.json';
 
 import Store from './store';
-
+import Cmp from './cmp';
 
 const vendorList = {
 	"version": 1,
@@ -316,5 +316,29 @@ describe('store', () => {
 
 		expect(store.vendorConsentData.created).to.equal(created);
 		expect(store.vendorConsentData.lastUpdated).to.be.above(lastUpdated);
+	});
+
+	it('updates the isEU flag', () => {
+		const store = new Store({
+			vendorConsentData: {}
+		});
+
+		expect(store.vendorConsentData.isEU).to.equal(null);
+
+		store.updateIsEU(true);
+		expect(store.vendorConsentData.isEU).to.equal(true);
+
+		store.updateIsEU(false);
+		expect(store.vendorConsentData.isEU).to.equal(false);
+	});
+
+	it('updates the handle on the CMP instance', () => {
+		const store = new Store({});
+
+		expect(store.cmp).to.equal(undefined);
+
+		const mockCmp = new Cmp({}, {});
+		store.updateCmpHandle(mockCmp);
+		expect(store.cmp).to.equal(mockCmp);
 	});
 });
