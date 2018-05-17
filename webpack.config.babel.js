@@ -240,6 +240,7 @@ module.exports = [
 			])
 		]).concat(ENV === 'production' ? uglifyPlugin : []),
 	},
+	// Copy and compile 3rd party portal to root directory
 	{
 		entry: {
 			'portal': './docs/assets/portal.js'
