@@ -7,6 +7,7 @@ const host = (window && window.location && window.location.hostname) || '';
 const parts = host.split('.');
 const GLOBAL_VENDOR_LIST_DOMAIN = 'https://vendorlist.consensu.org/vendorlist.json';
 const COOKIE_DOMAIN = parts.length > 1 ? `;domain=.${parts.slice(-2).join('.')}` : '';
+const GLOBAL_COOKIE_DOMAIN = ';domain=.consensu.org';
 const COOKIE_MAX_AGE = 33696000;
 const COOKIE_NAME = 'euconsent';
 
@@ -31,6 +32,12 @@ function readCookie(name) {
 }
 
 function writeCookie({ name, value, path = '/'}) {
+
+    if (config.globalVendorListLocation !== GLOBAL_VENDOR_LIST_DOMAIN
+        && COOKIE_DOMAIN === GLOBAL_COOKIE_DOMAIN) {
+        log.error(`Only full vendor list can be used to set global cookie.`);
+        return Promise.resolve(false);
+    }
 	document.cookie = `${name}=${value}${COOKIE_DOMAIN};path=${path};max-age=${COOKIE_MAX_AGE}`;
 
 	if ( !document.cookie || document.cookie.indexOf(name) < 0) {
