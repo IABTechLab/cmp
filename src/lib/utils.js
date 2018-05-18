@@ -83,6 +83,10 @@ function checkIfUserInEU(geoVendor, callback) {
 			const result = !! countryISO && EU_COUNTRY_CODES.has(countryISO.toUpperCase());
 			callback(result);
 			return Promise.resolve(result);
+		})
+		.catch(() => {
+			callback(false);
+			return Promise.resolve(false);
 		});
 }
 
