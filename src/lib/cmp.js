@@ -34,29 +34,31 @@ export default class Cmp {
 			else {
 				const vendorConsents = store.getVendorConsentsObject();
 				const publisherConsents = (config.storePublisherData && store.getPublisherConsentsObject()) || { lastUpdated: Date.now() }; // if publisher consent is not enabled mark - cookie as valid
-				const shouldBePromted = checkReprompt(config.repromptOptions, vendorConsents, publisherConsents);
+				const shouldBePrompted = checkReprompt(config.repromptOptions, vendorConsents, publisherConsents);
 				const { testingMode } = config;
 
 				if (testingMode !== 'normal') {
 					if (testingMode === 'always show') {
 						cmp('showConsentTool', callback);
 					} else {
-						log.debug('Toolbox can be rendered only manualy');
+						log.debug('Toolbox can be rendered only manually');
 						callback(false);
 					}
 				} else if (config.gdprAppliesGlobally) {
 					self.gdprApplies = true;
-					if (shouldBePromted) {
+					if (shouldBePrompted) {
 						cmp('showConsentTool', callback);
 					} else {
+						self.notify('consentNotRequired');
 						log.debug("rendering the CMP is not needed");
 					}
 				} else {
 					checkIfGDPRApplies(config.geoIPVendor, (applies => {
 						self.gdprApplies = applies;
-						if (applies && shouldBePromted) {
+						if (applies && shouldBePrompted) {
 							cmp('showConsentTool', callback);
 						} else {
+							self.notify('consentNotRequired');
 							log.debug("rendering the CMP is not needed");
 						}
 					}));

@@ -90,14 +90,6 @@ export default class Details extends Component {
 			<div class={style.details}>
 				<div class={style.header}>
 					<LocalLabel class={style.title} providedValue={localization && localization.details ? localization.details.title : ''} localizeKey='title'>Privacy Preferences</LocalLabel>
-					<Button class={style.save} onClick={this.handleEnableAll}>
-						{state.showEnableAll &&
-						<LocalLabel providedValue={localization && localization.details ? localization.details.enableAll : ''} localizeKey='enableAll'>Enable all</LocalLabel>
-						}
-						{!state.showEnableAll &&
-						<LocalLabel providedValue={localization && localization.details ? localization.details.disableAll : ''} localizeKey='disableAll'>Disable all</LocalLabel>
-						}
-					</Button>
 				</div>
 				<div class={style.body}>
 					<Panel selectedIndex={selectedPanelIndex}>
@@ -120,6 +112,7 @@ export default class Details extends Component {
 							selectVendor={selectVendor}
 							vendors={vendors}
 							onShowPurposes={this.handleShowPurposes}
+							onHandleEnableAll={this.handleEnableAll}
 						/>
 					</Panel>
 				</div>
