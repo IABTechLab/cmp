@@ -32,8 +32,10 @@ export default class Intro extends Component {
 					<LocalLabel providedValue={localization && localization.intro ? localization.intro.domain : ''} localizeKey='domain'></LocalLabel>
 				</div>
 				<div class={style.description}>
-					<LocalLabel providedValue={localization && localization.intro ? localization.intro.description : ''} localizeKey='description'>Ads help us run this site. When you use our site selected companies may access and use information on your device </LocalLabel>
-					<LocalLabel providedValue={localization && localization.intro ? localization.intro.description2 : ''} localizeKey='description2'>for various purposes </LocalLabel>
+					<LocalLabel providedValue={localization && localization.intro ? localization.intro.description : ''} localizeKey='description'>Ads help us run this site. When you use our site selected companies may access and use </LocalLabel>
+					<LocalLabel providedValue={localization && localization.intro ? localization.intro.deviceInformation : ''} localizeKey='deviceInformation'>information on your device  </LocalLabel>
+					<LocalLabel providedValue={localization && localization.intro ? localization.intro.description2 : ''} localizeKey='description2'>for various </LocalLabel>
+					<LocalLabel providedValue={localization && localization.intro ? localization.intro.purposes : ''} localizeKey='purposes'>purposes </LocalLabel>
 					<LocalLabel providedValue={localization && localization.intro ? localization.intro.description3 : ''} localizeKey='description3'> including to serve relevant ads or personalised content.</LocalLabel>
 				</div>
 				<div class={style.options}>
