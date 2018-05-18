@@ -9,10 +9,7 @@ export default {
 		intro: {
 			title: 'Thanks for visiting ',
 			domain: '',
-			description: 'Ads help us run this site. When you use our site selected companies may access and use ',
-			description2: ' for various ',
-			description3: ' including to serve relevant ads or personalised content.',
-			deviceInformation: 'information on your device',
+			description: 'Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.',
 			deviceInformationPopover: `
 				<strong>Information that may be used:</strong>
 				<ul>
@@ -25,7 +22,6 @@ export default {
 					<li>Information about the geographic location of the device when it accesses a website or mobile application</li>
 				</ul>
 			`,
-			purposes: 'purposes',
 			purposesPopover: `
 				<strong>Purposes for storing information:</strong>
 				<ul>
@@ -97,10 +93,7 @@ export default {
 		intro: {
 			title: 'Gracias por su visita ',
 			domain: '',
-			description: 'Los anuncios nos ayudan a que esta aplicación funcione. Cuando utiliza nuestra aplicación, empresas seleccionadas pueden acceder y usar',
-			description2: ' para diversos ',
-			description3: ' incluso para publicar anuncios relevantes o contenido personalizado.',
-			deviceInformation: ' información en su dispositivo',
+			description: 'Los anuncios nos ayudan a que esta aplicación funcione. Cuando utiliza nuestra aplicación, empresas seleccionadas pueden acceder y usar información en su dispositivo para diversos fines incluso para publicar anuncios relevantes o contenido personalizado.',
 			deviceInformationPopover: `
 				<strong>Información que puede ser utilizada:</strong>
 				<ul>
@@ -113,7 +106,6 @@ export default {
 					<li>Información sobre la ubicación geográfica del dispositivo cuando accede a un sitio web o aplicación móvil</li>
 				</ul>
 			`,
-			purposes: 'fines',
 			purposesPopover: `
 				<strong>Propósitos para almacenar información:</strong>
 				<ul>
@@ -185,10 +177,7 @@ export default {
 		intro: {
 			title: 'Danke für Ihren Besuch ',
 			domain: '',
-			description: 'Mit Hilfe von Anzeigen können wir diese App ausführen. Wenn Sie unsere App besuchen/verwenden, können ausgewählte Unternehmen ',
-			description2: ' für verschiedene ',
-			description3: ' abrufen und verwenden, einschließlich um die relevanten Anzeigen oder personalisierten Inhalt anzuzeigen.',
-			deviceInformation: 'auf Ihrem Gerät Informationen',
+			description: 'Mit Hilfe von Anzeigen können wir diese App ausführen. Wenn Sie unsere App besuchen/verwenden, können ausgewählte Unternehmen auf Ihrem Gerät Informationen für verschiedene Zwecke abrufen und verwenden, einschließlich um die relevanten Anzeigen oder personalisierten Inhalt anzuzeigen.',
 			deviceInformationPopover: `
 				<strong>Informationen, die verwendet werden können:</strong>
 				<ul>
@@ -201,7 +190,6 @@ export default {
 					<li>Informationen zum Geo Location des Geräts beim Zugriff auf eine Website oder eine mobile Anwendung</li>
 				</ul>
 			`,
-			purposes: 'Zwecke',
 			purposesPopover: `
 				<strong>Zwecke zum Speichern von Informationen:</strong>
 				<ul>
@@ -273,10 +261,7 @@ export default {
 		intro: {
 			title: 'Dziękujemy za wizytę ',
 			domain: '',
-			description: 'Reklamy pomagają uruchomić tę aplikację. Podczas korzystania z naszej aplikacji, wybrane firmy mogą uzyskiwać dostęp do ',
-			description2: ' i korzystać z nich w ',
-			description3: ', w tym do wyświetlania trafnych reklam lub spersonalizowanych treści.',
-			deviceInformation: 'informacji o urządzeniu',
+			description: 'Reklamy pomagają uruchomić tę aplikację. Podczas korzystania z naszej aplikacji, wybrane firmy mogą uzyskiwać dostęp do informacji o urządzeniu i korzystać z nich w różnych celach, w tym do wyświetlania trafnych reklam lub spersonalizowanych treści.',
 			deviceInformationPopover: `
 				<strong>Informacja, którą można wykorzystać:</strong>
 				<ul>
@@ -289,7 +274,6 @@ export default {
 					<li>Informacja o położeniu geograficznym urządzenia, gdy uzyskuje dostęp do strony internetowej lub aplikacji mobilnej</li>
 				</ul>
 			`,
-			purposes: 'różnych celach',
 			purposesPopover: `
 				<strong>Cele przechowywania informacji:</strong>
 				<ul>
@@ -361,10 +345,7 @@ export default {
 		intro: {
 			title: 'Dėkojame už apsilankymą ',
 			domain: '',
-			description: 'Skelbimai padeda mums palaikyti šį tinklalapį. Kai jūs naudojates mūsų tinklalapiu, kai kurios pasirinktos įmonės gali turėti prieigą prie ',
-			description2: ' ir ją naudoti įvairiems ',
-			description3: ' įskaitant pritaikymą reklamoje arba indivizualizuotame turinyje.',
-			deviceInformation: 'informacijos, saugomos jūsų įrenginyje,',
+			description: 'Skelbimai padeda mums palaikyti šį tinklalapį. Kai jūs naudojates mūsų tinklalapiu, kai kurios pasirinktos įmonės gali turėti prieigą prie informacijos, saugomos jūsų įrenginyje, ir ją naudoti įvairiems tikslams, įskaitant pritaikymą reklamoje arba indivizualizuotame turinyje.',
 			deviceInformationPopover: `
 				<strong>Informacija, kuri gali būti naudojama:</strong>
 				<ul>
@@ -377,7 +358,6 @@ export default {
 					<li>Informacija apie geografinę prietaiso buvimo vietą, kai įrenginys prisijungia prie svetainės arba mobilios programėlės</li>
 				</ul>
 			`,
-			purposes: 'tikslams,',
 			purposesPopover: `
 				<strong>Informacijos saugojimo paskirtys:</strong>
 				<ul>
@@ -449,10 +429,7 @@ export default {
 		intro: {
 			title: 'Grazie per aver visitato ',
 			domain: '',
-			description: 'Quando utilizzi il nostro sito / la nostra applicazione, le aziende selezionate possono avere accesso alle ',
-			description2: ' ed usarle per diverse ',
-			description3: ', come ad esempio mostrarti inserzioni in linea con i tuoi interessi o contenuti personalizzati.',
-			deviceInformation: 'informazioni del tuo dispositivo',
+			description: 'Quando utilizzi il nostro sito / la nostra applicazione, le aziende selezionate possono avere accesso alle informazioni del tuo dispositivo ed usarle per diverse finalità, come ad esempio mostrarti inserzioni in linea con i tuoi interessi o contenuti personalizzati.',
 			deviceInformationPopover: `
 				<strong>Informazioni che potranno essere utilizzate:</strong>
 				<ul>
@@ -465,7 +442,6 @@ export default {
 					<li>Informazioni sulla posizione del dispositivo quando l’utente accede a un sito o a un’app</li>
 				</ul>
 			`,
-			purposes: 'finalità',
 			purposesPopover: `
 				<strong>Finalità delle informazioni archiviate:</strong>
 				<ul>
@@ -537,10 +513,7 @@ export default {
 		intro: {
 			title: 'Merci d’avoir visité ',
 			domain: '',
-			description: 'La publicité nous permet de faire fonctionner notre app. Lorsque vous utilisez notre app certaines entreprises sélectionnées peuvent avoir accès et utiliser ',
-			description2: ' à des ',
-			description3: ', incluant des publicités pertinentes ou du contenu personnalisé.',
-			deviceInformation: 'des informations concernant votre appareil',
+			description: 'La publicité nous permet de faire fonctionner notre app. Lorsque vous utilisez notre app certaines entreprises sélectionnées peuvent avoir accès et utiliser des informations concernant votre appareil à des fins diverses, incluant des publicités pertinentes ou du contenu personnalisé.',
 			deviceInformationPopover: `
 				<strong>Peuvent être utilisées:</strong>
 				<ul>
@@ -553,7 +526,6 @@ export default {
 					<li>Des informations sur la situation géographique de l’appareil lorsque celui-ci accède à un site ou une application mobile</li>
 				</ul>
 			`,
-			purposes: 'fins diverses',
 			purposesPopover: `
 				<strong>Les raisons pour lesquelles les informations sont conservées:</strong>
 				<ul>
