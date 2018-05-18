@@ -32,6 +32,7 @@ export default class Purposes extends Component {
 				showLocalVendors: false,
 				localVendors: []
 			});
+			this.scrollRef.scrollTop = 0;
 		};
 	};
 
@@ -121,7 +122,7 @@ export default class Purposes extends Component {
 						))}
 					</div>
 					{selectedPurpose &&
-					<div class={style.purposeDescription}>
+					<div class={style.purposeDescription} ref={scrollRef => this.scrollRef = scrollRef}>
 						<div class={style.purposeDetail}>
 							<div class={style.detailHeader}>
 								<div class={style.title}>
