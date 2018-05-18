@@ -319,7 +319,7 @@ function readVendorConsentCookie() {
 }
 
 function writeVendorConsentCookie(vendorConsentData) {
-	return config.storeConsentGlobally ?
+	return config.storeConsentGlobally && (config.globalVendorListLocation === metadata.globalVendorListLocation || config.globalConsentLocation !== metadata.globalConsentLocation) ?
 		writeGlobalVendorConsentCookie(vendorConsentData) : writeLocalVendorConsentCookie(vendorConsentData);
 }
 
