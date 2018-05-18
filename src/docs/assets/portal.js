@@ -33,11 +33,12 @@ function readCookie(name) {
 
 function writeCookie({ name, value, path = '/'}) {
 
-    if (config.globalVendorListLocation !== GLOBAL_VENDOR_LIST_DOMAIN
-        && COOKIE_DOMAIN === GLOBAL_COOKIE_DOMAIN) {
-        log.error(`Only full vendor list can be used to set global cookie.`);
-        return Promise.resolve(false);
-    }
+	if (config.globalVendorListLocation !== GLOBAL_VENDOR_LIST_DOMAIN
+		&& COOKIE_DOMAIN === GLOBAL_COOKIE_DOMAIN) {
+		log.error(`Only full vendor list can be used to set global cookie.`);
+		return Promise.resolve(false);
+	}
+
 	document.cookie = `${name}=${value}${COOKIE_DOMAIN};path=${path};max-age=${COOKIE_MAX_AGE}`;
 
 	if ( !document.cookie || document.cookie.indexOf(name) < 0) {
