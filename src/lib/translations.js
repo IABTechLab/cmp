@@ -9,7 +9,7 @@ export default {
 		intro: {
 			title: 'Thanks for visiting ',
 			domain: '',
-			description: 'Ads help us run this site. When you use our site selected companies may access and use information on your device ',
+			description: 'Ads help us run this site. When you use our site selected companies may access and use ',
 			description2: ' for various ',
 			description3: ' including to serve relevant ads or personalised content.',
 			deviceInformation: 'information on your device',
