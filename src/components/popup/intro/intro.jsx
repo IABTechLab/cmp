@@ -52,6 +52,7 @@ export default class Intro extends Component {
 				<IntroFooter
 					onShowPurposes={onShowPurposes}
 					onAcceptAll={onAcceptAll}
+					localization={localization}
 				/>
 			</div>
 		);

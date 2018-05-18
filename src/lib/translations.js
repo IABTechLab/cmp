@@ -65,6 +65,7 @@ export default {
 			description3Link: 'clicking here.'
 		},
 		footer: {
+			message: 'Read more about access and use of information on your device for various purposes',
 			deviceInformationHeader: 'Information that may be used:',
 			deviceInformation: `
 				<ul>
@@ -149,6 +150,7 @@ export default {
 			description3Link: ''
 		},
 		footer: {
+			message: '',
 			deviceInformationHeader: 'Información que puede ser utilizada:',
 			deviceInformation: `
 				<ul>
@@ -233,6 +235,7 @@ export default {
 			description3Link: ''
 		},
 		footer: {
+			message: '',
 			deviceInformationHeader: 'Informationen, die verwendet werden können:',
 			deviceInformation: `
 				<ul>
@@ -317,6 +320,7 @@ export default {
 			description3Link: ''
 		},
 		footer: {
+			message: '',
 			deviceInformationHeader: 'Informacja, którą można wykorzystać:',
 			deviceInformation: `
 				<ul>
@@ -401,6 +405,7 @@ export default {
 			description3Link: ''
 		},
 		footer: {
+			message: '',
 			deviceInformationHeader: 'Informacija, kuri gali būti naudojama:',
 			deviceInformation: `
 				<ul>
@@ -485,6 +490,7 @@ export default {
 			description3Link: ''
 		},
 		footer: {
+			message: '',
 			deviceInformationHeader: 'Informazioni che potranno essere utilizzate:',
 			deviceInformation: `
 				<ul>
@@ -569,6 +575,7 @@ export default {
 			description3Link: ''
 		},
 		footer: {
+			message: '',
 			deviceInformationHeader: 'Peuvent être utilisées:',
 			deviceInformation: `
 				<ul>
