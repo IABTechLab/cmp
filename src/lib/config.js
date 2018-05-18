@@ -1,9 +1,9 @@
 import log from './log';
-
+const metadata = require('../../metadata.json');
 const defaultConfig = {
 	customPurposeListLocation: null,
-	globalVendorListLocation: 'https://vendorlist.consensu.org/vendorlist.json',
-	globalConsentLocation: 'https://cdn.digitrust.mgr.consensu.org/1/portal.html',
+	globalVendorListLocation: metadata.globalVendorListLocation,
+	globalConsentLocation: metadata.globalConsentLocation,
 	storeConsentGlobally: true,
 	storePublisherData: true,
 	logging: false,
