@@ -3,19 +3,23 @@
   "purposes": [
 	{
 	  "id": 1,
-	  "name": "Custom Purpose 1"
+	  "name": "Custom Purpose 1",
+	  "description": "Here's a description of the first purpose"
 	},
 	{
 	  "id": 2,
-	  "name": "Custom Purpose 2"
+	  "name": "Custom Purpose 2",
+	  "description": "Here's a description of the second purpose"
 	},
 	{
 	  "id": 3,
-	  "name": "Custom Purpose 3"
+	  "name": "Custom Purpose 3",
+	  "description": "Here's a description of the third purpose"
 	},
 	{
 	  "id": 4,
-	  "name": "Custom Purpose 4"
+	  "name": "Custom Purpose 4",
+	  "description": "Here's a description of the fourth purpose"
 	}
   ]
 }

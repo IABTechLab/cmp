@@ -251,7 +251,7 @@ describe('cookieutils', () => {
 			lastUpdated: aDate,
 			cmpId: 1,
 			vendorListVersion: 1,
-			publisherPurposeVersion: 1,
+			publisherPurposesVersion: 1,
 			numCustomPurposes: 4,
 			standardPurposeIdBitString: '000000001010101010001100',
 			customPurposeIdBitString: '1011',
