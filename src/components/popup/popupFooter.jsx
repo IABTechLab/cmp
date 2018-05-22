@@ -42,12 +42,12 @@ export default class PopupFooter extends Component {
 	render(props, state) {
 		const { store, localization } = props;
 		const { selectedPanelIndex, isActive } = state;
-		const { isConsentToolShowing } = store;
+		const { isFooterConsentToolShowing } = store;
 
 		return (
 			<div
 				class={style.popup}
-				style={{ display: isConsentToolShowing ? 'flex' : 'none' }}
+				style={{ display: isFooterConsentToolShowing ? 'flex' : 'none' }}
 			>
 				<div
 					class={style.overlay}
