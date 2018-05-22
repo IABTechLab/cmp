@@ -65,10 +65,10 @@ describe('store', () => {
 		expect(store.customPurposeList).to.be.undefined;
 
 		expect(store.vendorConsentData.cookieVersion).to.equal(1);
-		expect(store.vendorConsentData.cmpId).to.equal(1);
+		expect(store.vendorConsentData.cmpId).to.equal(15);
 
 		expect(store.publisherConsentData.cookieVersion).to.equal(1);
-		expect(store.publisherConsentData.cmpId).to.equal(1);
+		expect(store.publisherConsentData.cmpId).to.equal(15);
 	});
 
 
