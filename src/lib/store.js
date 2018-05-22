@@ -49,13 +49,16 @@ export default class Store {
 			isEU: null
 		}, vendorConsentData);
 
-		this.vendorConsentData.consentLanguage = updateLocalizationSettings({forceLocale: config.forceLocale, localization: config.localization});
+		const consentLanguage = updateLocalizationSettings({forceLocale: config.forceLocale, localization: config.localization});
+		this.vendorConsentData.consentLanguage = consentLanguage;
 
 		this.publisherConsentData = Object.assign({
 			cookieVersion,
 			cmpId,
+			cmpVersion,
 			selectedCustomPurposeIds: new Set()
 		}, publisherConsentData);
+		this.publisherConsentData.consentLanguage = consentLanguage;
 
 		this.isConsentToolShowing = false;
 		this.isFooterShowing = false;
@@ -184,6 +187,9 @@ export default class Store {
 			created,
 			lastUpdated,
 			cmpId,
+			cmpVersion,
+			consentScreen,
+			consentLanguage,
 			vendorListVersion,
 			publisherPurposesVersion,
 			selectedCustomPurposeIds = new Set()
@@ -219,6 +225,9 @@ export default class Store {
 			created,
 			lastUpdated,
 			cmpId,
+			cmpVersion,
+			consentScreen,
+			consentLanguage,
 			vendorListVersion,
 			publisherPurposesVersion,
 			standardPurposes: standardPurposeMap,
@@ -250,6 +259,7 @@ export default class Store {
 
 		// Update version of list to one we are using
 		vendorConsentData.vendorListVersion = vendorListVersion;
+		publisherConsentData.vendorListVersion = vendorListVersion;
 
 		publisherConsentData.created = publisherConsentData.created || now;
 		publisherConsentData.lastUpdated = now;
@@ -382,6 +392,7 @@ export default class Store {
 			...vendors.map(({id}) => id),
 			...Array.from(selectedVendorIds));
 		this.vendorConsentData.vendorListVersion = version;
+		this.publisherConsentData.vendorListVersion = version;
 		this.vendorList = vendorList;
 		this.storeUpdate();
 	};

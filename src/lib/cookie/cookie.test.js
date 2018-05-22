@@ -111,7 +111,10 @@ describe('cookie', () => {
 	it('encodes and decodes the publisher cookie object back to original value', () => {
 		const vendorConsentData = {
 			cookieVersion: 1,
-			cmpId: 1,
+			cmpId: 15,
+			cmpVersion: 1,
+			consentScreen: 0,
+			consentLanguage: "EN",
 			vendorListVersion: 1,
 			created: aDate,
 			lastUpdated: aDate,
@@ -120,7 +123,7 @@ describe('cookie', () => {
 
 		const publisherConsentData = {
 			cookieVersion: 1,
-			cmpId: 1,
+			cmpId: 15,
 			vendorListVersion: 1,
 			publisherPurposesVersion: 1,
 			created: aDate,
