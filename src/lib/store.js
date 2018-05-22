@@ -345,15 +345,24 @@ export default class Store {
 		this.storeUpdate();
 	};
 
+	toggleFooterConsentToolShowing = (isShown) => {
+		this.isFooterConsentToolShowing = typeof isShown === 'boolean' ? isShown : !this.isConsentToolShowing;
+		this.isFooterShowing = false;
+		this.isConsentToolShowing = false;
+		this.storeUpdate();
+	};
+
 	toggleConsentToolShowing = (isShown) => {
 		this.isConsentToolShowing = typeof isShown === 'boolean' ? isShown : !this.isConsentToolShowing;
 		this.isFooterShowing = false;
+		this.isFooterConsentToolShowing = false;
 		this.storeUpdate();
 	};
 
 	toggleFooterShowing = (isShown) => {
 		this.isFooterShowing = typeof isShown === 'boolean' ? isShown : !this.isFooterShowing;
 		this.isConsentToolShowing = false;
+		this.isFooterConsentToolShowing = false;
 		this.storeUpdate();
 	};
 

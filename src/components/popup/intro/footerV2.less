@@ -1,0 +1,131 @@
+@import '../../../style/variables.less';
+@import '../../../style/font-face.less';
+
+.base {
+    display: flex;
+    flex-direction: row;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 99999;
+    height: 60px;
+	align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    line-height: normal;
+    border-top: 1px solid grey;
+}
+
+.footerV2 {
+    margin: 0 -35px;
+}
+
+.message2 {
+    font-weight: bold;
+}
+
+ul {
+    margin: 0 0 15px 0;
+    padding: 0;
+    list-style-position: inside;
+}
+
+.headerMessage {
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.icon {
+    width: 55px;
+    height: 30px;
+    outline: 0;
+    display: inline-block;
+    user-select: none;
+    cursor: pointer;
+    color: grey;
+
+    font-family: 'icomoon';
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    font-size: 50px;
+    line-height: 1;
+}
+
+.icon:before {
+    content: "\ea50";
+}
+
+.container {
+    height: 400px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+	background: white;
+	align-items: center;
+	background-color: white;
+	box-shadow: 0px 0px 0px 3px @color-primary;
+
+	@media @smartphone {
+		width: 98%;
+		height: 98%;
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 32px;
+    font-size: 15px;
+    line-height: 1.25;
+}
+
+.infoHeader:extend(.base) {
+	left: 0;
+	top: 0;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid grey;
+}
+
+.iconDown:extend(.icon) {
+    transform: rotate(-180deg);
+}
+
+.iconDown:before {
+    content: "\ea50";
+}
+
+.infoFooter {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 32px;
+
+}
+
+.button {
+    cursor: pointer;
+    outline: none;
+    padding: 0.8em;
+    background: @color-primary;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    white-space: nowrap;
+    &:hover {
+        color: @color-linkColorHover;
+    }
+}
+
+.rejectAll, .acceptAll {
+    padding: 12px 62px !important;
+    margin: 0 15px !important;
+}
