@@ -185,7 +185,7 @@ export default class Store {
 			lastUpdated,
 			cmpId,
 			vendorListVersion,
-			publisherPurposeVersion,
+			publisherPurposesVersion,
 			selectedCustomPurposeIds = new Set()
 		} = persistedPublisherConsentData;
 
@@ -220,7 +220,7 @@ export default class Store {
 			lastUpdated,
 			cmpId,
 			vendorListVersion,
-			publisherPurposeVersion,
+			publisherPurposesVersion,
 			standardPurposes: standardPurposeMap,
 			customPurposes: customPurposeMap
 		};
@@ -405,7 +405,7 @@ export default class Store {
 		}
 
 		const {version = 1} = customPurposeList || {};
-		this.publisherConsentData.publisherPurposeVersion = version;
+		this.publisherConsentData.publisherPurposesVersion = version;
 
 		this.customPurposeList = customPurposeList;
 		this.storeUpdate();

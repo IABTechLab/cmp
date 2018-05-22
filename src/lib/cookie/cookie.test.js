@@ -122,7 +122,7 @@ describe('cookie', () => {
 			cookieVersion: 1,
 			cmpId: 1,
 			vendorListVersion: 1,
-			publisherPurposeVersion: 1,
+			publisherPurposesVersion: 1,
 			created: aDate,
 			lastUpdated: aDate,
 			selectedCustomPurposeIds: new Set([2, 3])
@@ -206,7 +206,7 @@ describe('cookie', () => {
 			cookieVersion: 1,
 			cmpId: 1,
 			vendorListVersion: 1,
-			publisherPurposeVersion: 1,
+			publisherPurposesVersion: 1,
 			created: aDate,
 			lastUpdated: aDate,
 		};

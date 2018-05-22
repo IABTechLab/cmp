@@ -1,6 +1,6 @@
 {
   "cmpVersion": 1,
-  "cmpId": 1,
+  "cmpId": 15,
   "maxCookieLifespanDays" : 390,
   "cmpGlobalName": "__cmp",
   "portalUrl": "https://cdn.digitrust.mgr.consensu.org/1/portal.html",
@@ -21,6 +21,7 @@
     "NL",
     "HR",
     "IE",
+    "CH",
     "CZ",
     "AT",
     "HU",
