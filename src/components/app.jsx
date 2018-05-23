@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import style from './app.less';
 import { currentLocale } from '../lib/localize';
 
+import PopupFooter from './popup/popupFooter';
 import Popup from './popup/popup';
 import Footer from './footer/footer';
 
@@ -37,6 +38,11 @@ export default class App extends Component {
 		return (
 			<div class={style.gdpr}>
 				<Popup
+					store={store}
+					localization={userLocalization}
+					onSave={this.onSave}
+				/>
+				<PopupFooter
 					store={store}
 					localization={userLocalization}
 					onSave={this.onSave}

@@ -1,0 +1,52 @@
+@import '../../style/variables';
+
+.popup {
+	display: none;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 99999;
+	justify-content: center;
+	align-items: center;
+}
+.overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.content {
+    left: 0;
+    right: 0;
+    bottom: 0;
+	background: white;
+	position: fixed;
+	background-color: white;
+	box-shadow: 0px 0px 0px 3px @color-primary;
+
+	@media @smartphone {
+		width: 98%;
+		height: 98%;
+	}
+}
+
+.contentClicked {
+	width: 700px;
+	height: 500px;
+	background: white;
+	display: flex;
+	align-items: center;
+	position: relative;
+	background-color: white;
+	box-shadow: 0px 0px 0px 3px @color-primary;
+
+	@media @smartphone {
+		width: 98%;
+		height: 98%;
+	}
+}
