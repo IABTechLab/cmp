@@ -43,7 +43,6 @@ export function init(configUpdates) {
 
 				// Execute any previously queued command
 				cmp.commandQueue = commandQueue;
-				cmp.processCommandQueue();
 
 				return Promise.all([
 					checkIfUserInEU(config.geoIPVendor, (inEU) => {
@@ -61,6 +60,7 @@ export function init(configUpdates) {
 					cmp.notify('isLoaded');
 					cmp.cmpReady = true;
 					cmp.notify('cmpReady');
+					cmp.processCommandQueue();
 				}).catch(err => {
 					log.error('Failed to load lists. CMP not ready', err);
 				});
