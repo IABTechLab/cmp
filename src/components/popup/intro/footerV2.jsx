@@ -67,7 +67,8 @@ export default class IntroFooterV2 extends Component {
                             <li>Measurement</li>
                         </ul>
                     </LocalLabel>
-                        <div class={style.infoFooter}>
+                    </div>
+                    <div class={style.infoFooter}>
                             <Button
                                 class={style.rejectAll}
                                 invert={true}
@@ -81,7 +82,6 @@ export default class IntroFooterV2 extends Component {
                             >
                                 <LocalLabel providedValue={localization && localization.intro ? localization.intro.acceptAll : ''} localizeKey='intro.acceptAll'>OK, Continue to site</LocalLabel>
                             </Button>
-                        </div>
                     </div>
                 </div>}
             </div>

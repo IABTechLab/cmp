@@ -32,7 +32,7 @@ export default class IntroV2 extends Component {
 					<LocalLabel providedValue={localization && localization.intro ? localization.intro.domain : ''} localizeKey='domain'></LocalLabel>
 				</div>
                 <div class={style.description}>
-                <LocalLabel providedValue={localization && localization.intro ? localization.intro.description : ''} localizeKey='description'>Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.</LocalLabel>
+                <LocalLabel providedValue={localization && localization.intro ? localization.intro.description : ''} localizeKey='description' class={style.contentMessage}>Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.</LocalLabel>
                     <div class={style.options}>
                         <Button
                             class={style.rejectAll}
