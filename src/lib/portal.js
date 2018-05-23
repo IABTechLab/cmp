@@ -1,5 +1,6 @@
 import config from "./config";
 import Promise from "promise-polyfill";
+const metadata = require("../../metadata.json");
 
 const PORTAL_LOAD_TIMEOUT_MILLISECONDS = 5000;
 const PORTAL_COMMAND_TIMEOUT_MILLISECONDS = 2000;
@@ -23,7 +24,7 @@ function openGlobalVendorPortal() {
 	// Only ever create a single iframe
 	if (!globalVendorPortal) {
 		globalVendorPortal = new Promise((resolve, reject) => {
-			const url = config.globalConsentLocation;
+			const url = (config.globalConsentLocation || metadata.globalConsentLocation);
 			const iframe = document.createElement('iframe');
 			iframe.setAttribute('style', 'width:1px;height:1px;position:absolute;left:-99px;top:-99px;');
 			iframe.setAttribute('src', url);
