@@ -59,7 +59,6 @@ ul {
 }
 
 .container {
-    height: 400px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -79,7 +78,7 @@ ul {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding: 32px;
+    padding: 12px 24px 0px 24px;
     font-size: 15px;
     line-height: 1.25;
 }
@@ -101,11 +100,10 @@ ul {
 }
 
 .infoFooter {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding: 32px;
-
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 0px 12px 12px 0px;
 }
 
 .button {
@@ -125,7 +123,12 @@ ul {
     }
 }
 
-.rejectAll, .acceptAll {
-    padding: 12px 62px !important;
-    margin: 0 15px !important;
+.rejectAll {
+    width: 250px;
+    margin-right: 10px !important;
+}
+
+.acceptAll {
+    width: 250px;
+    padding: 14px 12px !important;
 }

@@ -2,26 +2,40 @@ div.intro {
 padding: 0 32px;
 max-height: 100%;
 
-.title {
-	padding: 10px 0;
-	font-size: 30px;
-	font-weight: bold;
+	.title {
+		padding: 10px 0;
+		font-size: 30px;
+		font-weight: bold;
+	}
+	.description {
+		display: inline-flex;
+		padding: 10px;
+	}
+	.contentMessage {
+		padding-right: 32px;
+	}
+	.options {
+		display: flex;
+		align-items: flex-end;
+		padding: 5px;
+	}
+	.rejectAll {
+		width: 250px;
+		margin-right: 10px !important;
+		// padding: 12px 62px !important;
+		// margin: 0 15px !important;
+	}
+
+	.acceptAll {
+		width: 250px;
+		padding: 14px 12px !important;
+		// padding: 14px 62px !important;
+		// margin: 0 15px !important;
+	}
 }
-.description {
-	display: inline-flex;
-	overflow: auto;
-	padding: 10px;
-}
-.options {
-	display: inline-flex;
-	align-items: flex-end;
-	padding: 5px;
-}
-.rejectAll {
-	flex: 1;
-	margin-right: 10px;
-}
-.acceptAll {
-	flex: 1;
-}
+
+@media (max-width: 800px) {
+	.description {
+		display: block !important;
+	}
 }
