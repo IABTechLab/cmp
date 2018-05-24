@@ -50,6 +50,7 @@ export default class Store {
 		}, vendorConsentData);
 
 		const consentLanguage = updateLocalizationSettings({forceLocale: config.forceLocale, localization: config.localization});
+		this.consentLanguage = consentLanguage;
 		this.vendorConsentData.consentLanguage = consentLanguage;
 
 		this.publisherConsentData = Object.assign({
@@ -421,6 +422,12 @@ export default class Store {
 		this.customPurposeList = customPurposeList;
 		this.storeUpdate();
 	};
+
+	updateLocalizedPurposeList = localizedPurposeList => {
+		this.vendorList.purposes = localizedPurposeList.purposes;
+		// Uncomment when IAB has finished translating the features list
+		// this.vendorList.features = localizedPurposeList.features;
+	}
 
 	updateIsEU = boolean => {
 		this.vendorConsentData.isEU = boolean;
