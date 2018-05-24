@@ -27,7 +27,8 @@ export default class IntroFooter extends Component {
         const {
             localization,
             onShowPurposes,
-            onAcceptAll
+            onAcceptAll,
+            store
         } = props;
 
         return (
@@ -44,29 +45,24 @@ export default class IntroFooter extends Component {
                     </div>
 
                     <div class={style.content}>
-                    <LocalLabel providedValue={localization && localization.footer ? localization.footer.deviceInformationHeader : ''} localizeKey='footer.deviceInformationHeader' class={style.message2}>Information that may be used:</LocalLabel>
-                    <LocalLabel providedValue={localization && localization.footer ? localization.footer.deviceInformation : ''} localizeKey='footer.deviceInformation' class={style.message}>
+                        <LocalLabel providedValue={localization && localization.footer ? localization.footer.deviceInformationHeader : ''} localizeKey='footer.deviceInformationHeader' class={style.message2}>Information that may be used:</LocalLabel>
+                        <LocalLabel providedValue={localization && localization.footer ? localization.footer.deviceInformation : ''} localizeKey='footer.deviceInformation' class={style.message}>
+                            <ul>
+                                <li>Type of browser and its settings</li>
+                                <li>Information about the device's operating system</li>
+                                <li>Cookie information</li>
+                                <li>Information about other identifiers assigned to the device</li>
+                                <li>The IP address from which the device accesses a client's website or mobile application</li>
+                                <li>Information about the user's activity on that device, including web pages and mobile apps visited or used</li>
+                                <li>Information about the geographic location of the device when it accesses a website or mobile application</li>
+                            </ul>
+                        </LocalLabel>
+                        <LocalLabel providedValue={localization && localization.footer ? localization.footer.purposesHeader : ''} localizeKey='footer.purposesHeader' class={style.message2}>Purposes for storing information:</LocalLabel>
                         <ul>
-                            <li>Type of browser and its settings</li>
-                            <li>Information about the device's operating system</li>
-                            <li>Cookie information</li>
-                            <li>Information about other identifiers assigned to the device</li>
-                            <li>The IP address from which the device accesses a client's website or mobile application</li>
-                            <li>Information about the user's activity on that device, including web pages and mobile apps visited or used</li>
-                            <li>Information about the geographic location of the device when it accesses a website or mobile application</li>
+                            {store && store.vendorList && store.vendorList.purposes && store.vendorList.purposes.map((purpose) => {
+                                return <li>{purpose.name}</li>
+                            })}
                         </ul>
-                    </LocalLabel>
-
-                    <LocalLabel providedValue={localization && localization.footer ? localization.footer.purposesHeader : ''} localizeKey='footer.purposesHeader' class={style.message2}>Purposes for storing information:</LocalLabel>
-                    <LocalLabel providedValue={localization && localization.footer ? localization.footer.purposes : ''} localizeKey='footer.purposes' class={style.message}>
-                        <ul>
-                            <li>Storage and access of information</li>
-                            <li>Ad selection and delivery</li>
-                            <li>Content selection and delivery</li>
-                            <li>Personalisation</li>
-                            <li>Measurement</li>
-                        </ul>
-                    </LocalLabel>
                     </div>
 
                     <div class={style.infoFooter}>

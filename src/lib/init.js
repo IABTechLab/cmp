@@ -30,7 +30,7 @@ export function init(configUpdates) {
 			return Promise.all([
 				fetchVendorList().then((resp) => {
 					store.updateVendorList(resp);
-					if (store.consentLanguage !== "en") {
+					if (store.consentLanguage.toLowerCase() !== "en") {
 						fetchLocalizedPurposeList().then(store.updateLocalizedPurposeList);
 					}
 				}),

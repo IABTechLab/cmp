@@ -60,6 +60,7 @@ export default class PopupFooter extends Component {
 							onShowPurposes={this.handleShowDetails}
 							onClose={this.handleClose}
 							localization={localization}
+							store={store}
 						/>
 						<Details
 							onSave={this.props.onSave}
