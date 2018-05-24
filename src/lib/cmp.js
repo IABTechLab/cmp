@@ -44,7 +44,7 @@ export default class Cmp {
 						log.debug('Toolbox can be rendered only manually');
 						callback(false);
 					}
-				} else if (config.gdprAppliesGlobally) {
+				} else if (config.gdprAppliesGlobally || self.gdprApplies) {
 					self.gdprApplies = true;
 					if (shouldBePrompted) {
 						cmp('showConsentTool', callback);

@@ -184,6 +184,9 @@ function decodePublisherConsentData(cookieValue) {
 	const {
 		cookieVersion,
 		cmpId,
+		cmpVersion,
+		consentScreen,
+		consentLanguage,
 		vendorListVersion,
 		publisherPurposesVersion,
 		created,
@@ -195,6 +198,9 @@ function decodePublisherConsentData(cookieValue) {
 	return {
 		cookieVersion,
 		cmpId,
+		cmpVersion,
+		consentScreen,
+		consentLanguage,
 		vendorListVersion,
 		publisherPurposesVersion,
 		created,
