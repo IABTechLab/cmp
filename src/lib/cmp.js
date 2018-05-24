@@ -1,7 +1,7 @@
 // jshint esversion: 6
 
 import log from './log';
-import { encodeVendorConsentData } from './cookie/cookie';
+import { encodeVendorConsentData, encodePublisherConsentData } from './cookie/cookie';
 import { checkReprompt, checkIfGDPRApplies } from './utils';
 
 const metadata = require('../../metadata.json');
@@ -71,7 +71,7 @@ export default class Cmp {
 		 */
 		getPublisherConsents: (purposeIds, callback = () => {}) => {
 			const consent = {
-				metadata: this.generateConsentString(),
+				metadata: this.generatePublisherConsentString(),
 				gdprApplies: this.gdprApplies,
 				hasGlobalScope: this.config.storeConsentGlobally,
 				...this.store.getPublisherConsentsObject()
@@ -194,6 +194,34 @@ export default class Cmp {
 			this.store[_command](true);
 			callback(true);
 		}
+	};
+
+	generatePublisherConsentString = () => {
+		const {
+			vendorList,
+			persistedVendorConsentData,
+			persistedPublisherConsentData,
+			customPurposeList
+		} = this.store;
+
+		const { purposes: customPurposes = [] } = customPurposeList;
+		const { purposes = [] } = vendorList || {};
+
+		const { selectedPurposeIds = new Set() } = persistedVendorConsentData || {};
+		const { selectedCustomPurposeIds = new Set() } = persistedPublisherConsentData || {};
+
+		const allowedPurposeIds = new Set(purposes.map(({id}) => id));
+		const allowedCustomPurposeIds = new Set(customPurposes.map(({id}) => id));
+
+		// Encode the persisted data
+		return persistedPublisherConsentData && encodePublisherConsentData({
+			...persistedVendorConsentData,
+			...persistedPublisherConsentData,
+			selectedCustomPurposeIds: new Set(Array.from(selectedCustomPurposeIds).filter(id => allowedCustomPurposeIds.has(id))),
+			selectedPurposeIds: new Set(Array.from(selectedPurposeIds).filter(id => allowedPurposeIds.has(id))),
+			customPurposeList,
+			vendorList,
+		});
 	};
 
 	generateConsentString = () => {
