@@ -66,6 +66,8 @@ export default {
 		},
 		footer: {
 			message: 'Read more about access and use of information on your device for various purposes',
+			closedMessage: 'A reminder you can control your user privacy preferences ',
+			closedMessageLink: 'here',
 			deviceInformationHeader: 'Information that may be used:',
 			deviceInformation: `
 				<ul>
@@ -151,6 +153,8 @@ export default {
 		},
 		footer: {
 			message: '',
+			closedMessage: '',
+			closedMessageLink: '',
 			deviceInformationHeader: 'Información que puede ser utilizada:',
 			deviceInformation: `
 				<ul>
@@ -236,6 +240,8 @@ export default {
 		},
 		footer: {
 			message: '',
+			closedMessage: '',
+			closedMessageLink: '',
 			deviceInformationHeader: 'Informationen, die verwendet werden können:',
 			deviceInformation: `
 				<ul>
@@ -321,6 +327,8 @@ export default {
 		},
 		footer: {
 			message: '',
+			closedMessage: '',
+			closedMessageLink: '',
 			deviceInformationHeader: 'Informacja, którą można wykorzystać:',
 			deviceInformation: `
 				<ul>
@@ -406,6 +414,8 @@ export default {
 		},
 		footer: {
 			message: '',
+			closedMessage: '',
+			closedMessageLink: '',
 			deviceInformationHeader: 'Informacija, kuri gali būti naudojama:',
 			deviceInformation: `
 				<ul>
@@ -491,6 +501,8 @@ export default {
 		},
 		footer: {
 			message: '',
+			closedMessage: '',
+			closedMessageLink: '',
 			deviceInformationHeader: 'Informazioni che potranno essere utilizzate:',
 			deviceInformation: `
 				<ul>
@@ -576,6 +588,8 @@ export default {
 		},
 		footer: {
 			message: '',
+			closedMessage: '',
+			closedMessageLink: '',
 			deviceInformationHeader: 'Peuvent être utilisées:',
 			deviceInformation: `
 				<ul>

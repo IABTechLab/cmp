@@ -41,9 +41,9 @@ export default class Footer extends Component {
 					class={style.close}
 					onClick={this.handleClose}
 				/>
-				<LocalLabel providedValue={localization && localization.footer ? localization.footer.message : ''} localizeKey='message' class={style.message}>A reminder you can control your user privacy preferences</LocalLabel>
+				<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessage : ''} localizeKey='closedMessage' class={style.message}>A reminder you can control your user privacy preferences</LocalLabel>
 				<a class={style.openConsent} onClick={this.handleShowConsent}>
-					<LocalLabel providedValue={localization && localization.footer ? localization.footer.consentLink : ''} localizeKey='consentLink'>here</LocalLabel>
+					<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessageLink : ''} localizeKey='closedMessageLink'>here</LocalLabel>
 				</a>
 			</div>
 		);
