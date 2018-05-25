@@ -16,6 +16,7 @@ export default class Cmp {
 		this.eventListeners = {};
 		this.store = store;
 		this.config = config;
+		this.cmpShown = false;
 		this.processCommand.receiveMessage = this.receiveMessage;
 	}
 
@@ -136,7 +137,8 @@ export default class Cmp {
 		ping: (_ = () => {}, callback) => {
 			const result = {
 				gdprAppliesGlobally: this.config.storeConsentGlobally,
-				cmpLoaded: true
+				cmpLoaded: true,
+				cmpShown: this.cmpShown
 			};
 			if ( ! callback) {
 				callback = _;
@@ -191,6 +193,7 @@ export default class Cmp {
 		 */
 		showConsentTool: (_, callback = () => {}) => {
 			const _command = this.config.layout === 'footer' ? 'toggleFooterConsentToolShowing' : 'toggleConsentToolShowing';
+			this.cmpShown = true;
 			this.store[_command](true);
 			callback(true);
 		}
