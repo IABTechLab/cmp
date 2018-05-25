@@ -97,14 +97,23 @@ describe('cmp', () => {
 		it('ping executes', (done) => {
 			cmp.processCommand('ping', null, (data, success) => {
 				expect(success).to.be.true;
-				expect(Object.keys(data)).to.deep.equal(['gdprAppliesGlobally', 'cmpLoaded', 'cmpShown']);
+				expect(Object.keys(data)).to.deep.equal(['gdprAppliesGlobally', 'cmpLoaded']);
 				expect(data.gdprAppliesGlobally).to.eq(false);
 
 				cmp.processCommand('ping', (data, success) => {
-					expect(Object.keys(data)).to.deep.equal(['gdprAppliesGlobally', 'cmpLoaded', 'cmpShown']);
+					expect(Object.keys(data)).to.deep.equal(['gdprAppliesGlobally', 'cmpLoaded']);
 					expect(success).to.be.true;
 					done();
 				});
+			});
+		});
+
+		it('gdprInScope executes', (done) => {
+			cmp.processCommand('gdprInScope', null, (response, success) => {
+				expect(success).to.eq(true);
+				expect(Object.keys(response)).to.deep.equal(['cmpShown', 'gdprAppliesGlobally', 'gdprAppliesLanguage', 'gdprAppliesLocation', 'submitted']);
+				expect(response.submitted).to.eq(false);
+				done();
 			});
 		});
 

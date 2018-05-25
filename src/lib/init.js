@@ -50,9 +50,11 @@ export function init(configUpdates) {
 				cmp.commandQueue = commandQueue;
 
 				return Promise.all([
-					checkIfUserInEU(config.geoIPVendor, (inEU) => {
-						cmp.gdprApplies = inEU;
-					}).then(store.updateIsEU)
+					checkIfUserInEU(config.geoIPVendor, (response) => {
+						cmp.gdprApplies = response.applies;
+						cmp.gdprAppliesLanguage = response.language;
+						cmp.gdprAppliesLocation = response.location;
+					}).then((response) => {store.updateIsEU(response.applies);})
 				]).then(() => {
 
 					// Render the UI

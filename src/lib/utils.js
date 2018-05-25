@@ -61,7 +61,7 @@ function checkIfGDPRApplies(geoVendor, callback) {
 	const navigator = window.navigator;
 	const browserLanguageCheckResult = checkIfLanguageLocaleApplies(navigator.languages || [ navigator.browserLanguage ]);
 	if (browserLanguageCheckResult) {
-		callback(true);
+		callback({applies: true, language: true, location: false});
 	} else {
 		checkIfUserInEU(geoVendor, callback);
 	}
@@ -81,8 +81,8 @@ function checkIfUserInEU(geoVendor, callback) {
 		.then(resp => {
 			const countryISO = resp.headers.get("X-GeoIP-Country");
 			const result = !! countryISO && EU_COUNTRY_CODES.has(countryISO.toUpperCase());
-			callback(result);
-			return Promise.resolve(result);
+			callback({applies: result, language: false, location: result});
+			return Promise.resolve({applies: result, language: false, location: result});
 		})
 		.catch(() => {
 			callback(false);
