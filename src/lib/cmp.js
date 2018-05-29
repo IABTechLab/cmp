@@ -87,7 +87,7 @@ export default class Cmp {
 		getVendorConsents: (vendorIds, callback = () => {}) => {
 			const { purposeConsents, vendorConsents } = this.store.getVendorConsentsObject(vendorIds);
 			const consent = {
-				metadata: this.generateVendorMetadata(),
+				metadata: this.generateMetadataString(),
 				gdprApplies: this.gdprApplies,
 				hasGlobalScope: this.config.storeConsentGlobally,
 				purposeConsents,
@@ -98,7 +98,7 @@ export default class Cmp {
 		},
 
 		decodeMetadata: (_, callback = () => {}) => {
-			const metadata = decodeMetadataValue(this.generateVendorMetadata());
+			const metadata = decodeMetadataValue(this.generateMetadataString());
 			callback(metadata, true);
 		},
 
@@ -232,7 +232,7 @@ export default class Cmp {
 		});
 	};
 
-	generateVendorMetadata = () => {
+	generateMetadataString = () => {
 		const {
 			vendorList,
 			persistedVendorConsentData,
