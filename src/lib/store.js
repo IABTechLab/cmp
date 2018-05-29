@@ -425,8 +425,7 @@ export default class Store {
 
 	updateLocalizedPurposeList = localizedPurposeList => {
 		this.vendorList.purposes = localizedPurposeList.purposes;
-		// Uncomment when IAB has finished translating the features list
-		// this.vendorList.features = localizedPurposeList.features;
+		this.vendorList.features = localizedPurposeList.features;
 	}
 
 	updateIsEU = boolean => {
