@@ -26,15 +26,14 @@ export function init(configUpdates) {
 				cookieVersion: 1
 			});
 
+			const _fetchLocalizedPurposeList = store.consentLanguage.toLowerCase() === "en" ? Promise.resolve : fetchLocalizedPurposeList;
 			// Request lists
 			return Promise.all([
 				fetchVendorList().then((resp) => {
 					store.updateVendorList(resp);
-					if (store.consentLanguage.toLowerCase() !== "en") {
-						fetchLocalizedPurposeList().then(store.updateLocalizedPurposeList);
-					}
 				}),
-				fetchCustomPurposeList().then(store.updateCustomPurposeList)
+				fetchCustomPurposeList().then(store.updateCustomPurposeList),
+				_fetchLocalizedPurposeList().then(localized => { localized && store.updateLocalizedPurposeList(localized); })
 			]).then(() => {
 				// Pull queued command from __cmp stub
 				const {commandQueue = []} = window[CMP_GLOBAL_NAME] || {};
@@ -49,13 +48,12 @@ export function init(configUpdates) {
 				// Execute any previously queued command
 				cmp.commandQueue = commandQueue;
 
-				return Promise.all([
-					checkIfUserInEU(config.geoIPVendor, (response) => {
-						cmp.gdprApplies = response.applies;
-						cmp.gdprAppliesLanguage = response.language;
-						cmp.gdprAppliesLocation = response.location;
-					}).then((response) => {store.updateIsEU(response.applies);})
-				]).then(() => {
+				return checkIfUserInEU(config.geoIPVendor, (response) => {
+					cmp.gdprApplies = response.applies;
+					cmp.gdprAppliesLanguage = response.language;
+					cmp.gdprAppliesLocation = response.location;
+				}).then((response) => {
+					store.updateIsEU(response.applies);
 
 					// Render the UI
 					const App = require('../components/app').default;
@@ -69,9 +67,10 @@ export function init(configUpdates) {
 					cmp.notify('cmpReady');
 					cmp.processCommandQueue();
 				}).catch(err => {
-					log.error('Failed to load lists. CMP not ready', err);
+					log.error('Failed to check user location. CMP not ready', err);
 				});
-
+			}).catch(err => {
+				log.error('Failed to load lists. CMP not ready', err);
 			});
 		})
 		.catch(err => {
