@@ -142,6 +142,23 @@ describe('cmp', () => {
 			});
 		});
 
+		it('decodeMetadata executes', (done) => {
+			cmp.processCommand('decodeMetadata', null, data => {
+				expect(Object.keys(data)).to.deep.eq([
+					"cookieVersion",
+					"created",
+					"lastUpdated",
+					"cmpId",
+					"cmpVersion",
+					"consentScreen",
+					"consentLanguage",
+					"vendorListVersion",
+					"publisherPurposesVersion",
+				]);
+				done();
+			});
+		});
+
 		it('getConsentData executes', (done) => {
 			cmp.processCommand('getConsentData', null, data => {
 				expect(typeof data.consentData).to.equal('string');

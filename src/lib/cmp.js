@@ -2,6 +2,7 @@
 
 import log from './log';
 import { encodeVendorConsentData, encodePublisherConsentData } from './cookie/cookie';
+import { encodeMetadataValue, decodeMetadataValue } from './cookie/cookieutils';
 import { checkReprompt, checkIfGDPRApplies } from './utils';
 
 const metadata = require('../../metadata.json');
@@ -84,14 +85,21 @@ export default class Cmp {
 		 * @param {Array} vendorIds Array of vendor IDs to retrieve.  If empty return all vendors.
 		 */
 		getVendorConsents: (vendorIds, callback = () => {}) => {
+			const { purposeConsents, vendorConsents } = this.store.getVendorConsentsObject(vendorIds);
 			const consent = {
-				metadata: this.generateConsentString(),
+				metadata: this.generateVendorMetadata(),
 				gdprApplies: this.gdprApplies,
 				hasGlobalScope: this.config.storeConsentGlobally,
-				...this.store.getVendorConsentsObject(vendorIds)
+				purposeConsents,
+				vendorConsents
 			};
 
 			callback(consent, true);
+		},
+
+		decodeMetadata: (_, callback = () => {}) => {
+			const metadata = decodeMetadataValue(this.generateVendorMetadata());
+			callback(metadata, true);
 		},
 
 		/**
@@ -221,6 +229,22 @@ export default class Cmp {
 			selectedPurposeIds: new Set(Array.from(selectedPurposeIds).filter(id => allowedPurposeIds.has(id))),
 			customPurposeList,
 			vendorList,
+		});
+	};
+
+	generateVendorMetadata = () => {
+		const {
+			vendorList,
+			persistedVendorConsentData,
+			persistedPublisherConsentData,
+			customPurposeList
+		} = this.store;
+
+		return persistedVendorConsentData && encodeMetadataValue({
+			vendorList,
+			...persistedVendorConsentData,
+			...persistedPublisherConsentData,
+			customPurposeList
 		});
 	};
 
