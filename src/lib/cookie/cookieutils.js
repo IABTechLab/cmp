@@ -1,6 +1,7 @@
 import log from '../log';
 import {
 	NUM_BITS_VERSION,
+	metadataVersionMap,
 	vendorVersionMap,
 	publisherVersionMap
 } from './definitions';
@@ -248,6 +249,10 @@ function encodeCookieValue(data, definitionMap) {
 	}
 }
 
+function encodeMetadataValue(data) {
+	return encodeCookieValue(data, metadataVersionMap);
+}
+
 function encodeVendorCookieValue(vendorData) {
 	return encodeCookieValue(vendorData, vendorVersionMap);
 }
@@ -293,6 +298,9 @@ function decodeCookieBitValue(bitString, definitionMap) {
 	return decodedObject;
 }
 
+function decodeMetadataValue(value) {
+	return decodeCookieValue(value, metadataVersionMap);
+}
 
 function decodeVendorCookieValue(cookieValue) {
 	return decodeCookieValue(cookieValue, vendorVersionMap);
@@ -317,6 +325,8 @@ export {
 	decodeBitsToBool,
 	decodeCookieValue,
 	decodeCookieBitValue,
+	encodeMetadataValue,
+	decodeMetadataValue,
 	encodeVendorCookieValue,
 	decodeVendorCookieValue,
 	encodePublisherCookieValue,
