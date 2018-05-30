@@ -151,6 +151,42 @@ describe('cmp', () => {
 			});
 		});
 
+		it('decodeMetadata executes', (done) => {
+			cmp.processCommand('decodeMetadata', null, (data, success) => {
+				expect(Object.keys(data)).to.deep.eq([
+					"cookieVersion",
+					"created",
+					"lastUpdated",
+					"cmpId",
+					"cmpVersion",
+					"consentScreen",
+					"consentLanguage",
+					"vendorListVersion",
+					"publisherPurposesVersion",
+				]);
+				expect(success).to.be.true;
+				done();
+			});
+		});
+
+		it('decodeMetadata params are optional', (done) => {
+			cmp.processCommand('decodeMetadata', (data, success) => {
+				expect(Object.keys(data)).to.deep.eq([
+					"cookieVersion",
+					"created",
+					"lastUpdated",
+					"cmpId",
+					"cmpVersion",
+					"consentScreen",
+					"consentLanguage",
+					"vendorListVersion",
+					"publisherPurposesVersion",
+				]);
+				expect(success).to.be.true;
+				done();
+			});
+		});
+
 		it('getConsentData executes', (done) => {
 			cmp.processCommand('getConsentData', null, data => {
 				expect(typeof data.consentData).to.equal('string');
