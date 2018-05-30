@@ -143,7 +143,7 @@ describe('cmp', () => {
 		});
 
 		it('decodeMetadata executes', (done) => {
-			cmp.processCommand('decodeMetadata', null, data => {
+			cmp.processCommand('decodeMetadata', null, (data, success) => {
 				expect(Object.keys(data)).to.deep.eq([
 					"cookieVersion",
 					"created",
