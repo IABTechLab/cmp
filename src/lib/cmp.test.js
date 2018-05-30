@@ -108,6 +108,15 @@ describe('cmp', () => {
 			});
 		});
 
+		it('gdprInScope executes', (done) => {
+			cmp.processCommand('gdprInScope', null, (response, success) => {
+				expect(success).to.eq(true);
+				expect(Object.keys(response)).to.deep.equal(['cmpShown', 'gdprAppliesGlobally', 'gdprAppliesLanguage', 'gdprAppliesLocation', 'submitted']);
+				expect(response.submitted).to.eq(false);
+				done();
+			});
+		});
+
 		it('getPublisherConsents returns only persisted data', (done) => {
 			cmp.store.selectPurpose(1, false);
 			cmp.processCommand('getPublisherConsents', null, data => {
@@ -142,6 +151,42 @@ describe('cmp', () => {
 			});
 		});
 
+		it('decodeMetadata executes', (done) => {
+			cmp.processCommand('decodeMetadata', null, (data, success) => {
+				expect(Object.keys(data)).to.deep.eq([
+					"cookieVersion",
+					"created",
+					"lastUpdated",
+					"cmpId",
+					"cmpVersion",
+					"consentScreen",
+					"consentLanguage",
+					"vendorListVersion",
+					"publisherPurposesVersion",
+				]);
+				expect(success).to.be.true;
+				done();
+			});
+		});
+
+		it('decodeMetadata params are optional', (done) => {
+			cmp.processCommand('decodeMetadata', (data, success) => {
+				expect(Object.keys(data)).to.deep.eq([
+					"cookieVersion",
+					"created",
+					"lastUpdated",
+					"cmpId",
+					"cmpVersion",
+					"consentScreen",
+					"consentLanguage",
+					"vendorListVersion",
+					"publisherPurposesVersion",
+				]);
+				expect(success).to.be.true;
+				done();
+			});
+		});
+
 		it('getConsentData executes', (done) => {
 			cmp.processCommand('getConsentData', null, data => {
 				expect(typeof data.consentData).to.equal('string');
@@ -169,6 +214,7 @@ describe('cmp', () => {
 			cmp.processCommand('showConsentTool', null, data => {
 				expect(data).to.be.true;
 				expect(cmp.store.isConsentToolShowing).to.be.true;
+				expect(cmp.cmpShown).to.be.true;
 				done();
 			});
 		});

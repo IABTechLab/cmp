@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import style from './footer.less';
+import style from './footerV2.less';
 import Label from '../../label/label';
 import Button from '../../button/button';
 
@@ -7,7 +7,7 @@ class LocalLabel extends Label {
     static defaultProps = {};
 }
 
-export default class IntroFooter extends Component {
+export default class IntroFooterV2 extends Component {
 
     static defaultProps = {};
 
@@ -32,7 +32,7 @@ export default class IntroFooter extends Component {
         } = props;
 
         return (
-            <div>
+            <div class={style.footerV2}>
                 {!showFull &&
                     <div class={style.base}>
                         <span name="ctrl" class={style.icon} onClick={this.handleShow}></span>
@@ -57,6 +57,7 @@ export default class IntroFooter extends Component {
                                 <li>Information about the geographic location of the device when it accesses a website or mobile application</li>
                             </ul>
                         </LocalLabel>
+
                         <LocalLabel providedValue={localization && localization.footer ? localization.footer.purposesHeader : ''} localizeKey='footer.purposesHeader' class={style.message2}>Purposes for storing information:</LocalLabel>
                         <ul>
                             {store && store.vendorList && store.vendorList.purposes && store.vendorList.purposes.map((purpose) => {
@@ -64,21 +65,20 @@ export default class IntroFooter extends Component {
                             })}
                         </ul>
                     </div>
-
                     <div class={style.infoFooter}>
-                        <Button
-                            class={style.rejectAll}
-                            invert={true}
-                            onClick={onShowPurposes}
-                        >
-                            <LocalLabel providedValue={localization && localization.intro ? localization.intro.showPurposes : ''} localizeKey='intro.showPurposes'>Learn more</LocalLabel>
-                        </Button>
-                        <Button
-                            class={style.acceptAll}
-                            onClick={onAcceptAll}
-                        >
-                            <LocalLabel providedValue={localization && localization.intro ? localization.intro.acceptAll : ''} localizeKey='intro.acceptAll'>OK, Continue to site</LocalLabel>
-                        </Button>
+                            <Button
+                                class={style.rejectAll}
+                                invert={true}
+                                onClick={onShowPurposes}
+                            >
+                                <LocalLabel providedValue={localization && localization.intro ? localization.intro.showPurposes : ''} localizeKey='intro.showPurposes'>Learn more</LocalLabel>
+                            </Button>
+                            <Button
+                                class={style.acceptAll}
+                                onClick={onAcceptAll}
+                            >
+                                <LocalLabel providedValue={localization && localization.intro ? localization.intro.acceptAll : ''} localizeKey='intro.acceptAll'>OK, Continue to site</LocalLabel>
+                            </Button>
                     </div>
                 </div>}
             </div>

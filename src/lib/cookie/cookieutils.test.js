@@ -8,6 +8,8 @@ import {
 	decodeBitsToInt,
 	decodeBitsToDate,
 	decodeBitsToBool,
+	encodeMetadataValue,
+	decodeMetadataValue,
 	encodeVendorCookieValue,
 	decodeVendorCookieValue,
 	encodePublisherCookieValue,
@@ -142,6 +144,27 @@ describe('cookieutils', () => {
 		expect(decoded).to.be.empty;
 	});
 
+	it('encodes and decodes metadata', () => {
+		const aDate = new Date('2018-07-15 PDT');
+
+		const data = {
+			cookieVersion: 1,
+			created: aDate,
+			lastUpdated: aDate,
+			cmpId: 15,
+			cmpVersion: 1,
+			consentScreen: 0,
+			consentLanguage: "EN",
+			vendorListVersion: 1,
+			publisherPurposesVersion: 1
+		};
+
+		const bitString = encodeMetadataValue(data);
+		const decoded = decodeMetadataValue(bitString);
+
+		expect(decoded).to.deep.equal(data);
+	});
+
 	it('encodes and decodes the vendor cookie value with ranges back to original value', () => {
 
 		const aDate = new Date('2018-07-15 PDT');
@@ -240,7 +263,6 @@ describe('cookieutils', () => {
 		expect(decoded).to.deep.equal(consentData);
 	});
 
-
 	it('encodes and decodes the publisher cookie value without ranges back to original value', () => {
 
 		const aDate = new Date('2018-07-15 PDT');
@@ -249,7 +271,10 @@ describe('cookieutils', () => {
 			cookieVersion: 1,
 			created: aDate,
 			lastUpdated: aDate,
-			cmpId: 1,
+			cmpId: 15,
+			cmpVersion: 1,
+			consentScreen: 0,
+			consentLanguage: "EN",
 			vendorListVersion: 1,
 			publisherPurposesVersion: 1,
 			numCustomPurposes: 4,

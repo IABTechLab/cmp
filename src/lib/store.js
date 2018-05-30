@@ -49,13 +49,17 @@ export default class Store {
 			isEU: null
 		}, vendorConsentData);
 
-		this.vendorConsentData.consentLanguage = updateLocalizationSettings({forceLocale: config.forceLocale, localization: config.localization});
+		const consentLanguage = updateLocalizationSettings({forceLocale: config.forceLocale, localization: config.localization});
+		this.consentLanguage = consentLanguage;
+		this.vendorConsentData.consentLanguage = consentLanguage;
 
 		this.publisherConsentData = Object.assign({
 			cookieVersion,
 			cmpId,
+			cmpVersion,
 			selectedCustomPurposeIds: new Set()
 		}, publisherConsentData);
+		this.publisherConsentData.consentLanguage = consentLanguage;
 
 		this.isConsentToolShowing = false;
 		this.isFooterShowing = false;
@@ -184,6 +188,9 @@ export default class Store {
 			created,
 			lastUpdated,
 			cmpId,
+			cmpVersion,
+			consentScreen,
+			consentLanguage,
 			vendorListVersion,
 			publisherPurposesVersion,
 			selectedCustomPurposeIds = new Set()
@@ -219,6 +226,9 @@ export default class Store {
 			created,
 			lastUpdated,
 			cmpId,
+			cmpVersion,
+			consentScreen,
+			consentLanguage,
 			vendorListVersion,
 			publisherPurposesVersion,
 			standardPurposes: standardPurposeMap,
@@ -250,6 +260,7 @@ export default class Store {
 
 		// Update version of list to one we are using
 		vendorConsentData.vendorListVersion = vendorListVersion;
+		publisherConsentData.vendorListVersion = vendorListVersion;
 
 		publisherConsentData.created = publisherConsentData.created || now;
 		publisherConsentData.lastUpdated = now;
@@ -345,15 +356,24 @@ export default class Store {
 		this.storeUpdate();
 	};
 
+	toggleFooterConsentToolShowing = (isShown) => {
+		this.isFooterConsentToolShowing = typeof isShown === 'boolean' ? isShown : !this.isConsentToolShowing;
+		this.isFooterShowing = false;
+		this.isConsentToolShowing = false;
+		this.storeUpdate();
+	};
+
 	toggleConsentToolShowing = (isShown) => {
 		this.isConsentToolShowing = typeof isShown === 'boolean' ? isShown : !this.isConsentToolShowing;
 		this.isFooterShowing = false;
+		this.isFooterConsentToolShowing = false;
 		this.storeUpdate();
 	};
 
 	toggleFooterShowing = (isShown) => {
 		this.isFooterShowing = typeof isShown === 'boolean' ? isShown : !this.isFooterShowing;
 		this.isConsentToolShowing = false;
+		this.isFooterConsentToolShowing = false;
 		this.storeUpdate();
 	};
 
@@ -382,6 +402,7 @@ export default class Store {
 			...vendors.map(({id}) => id),
 			...Array.from(selectedVendorIds));
 		this.vendorConsentData.vendorListVersion = version;
+		this.publisherConsentData.vendorListVersion = version;
 		this.vendorList = vendorList;
 		this.storeUpdate();
 	};
@@ -401,6 +422,11 @@ export default class Store {
 		this.customPurposeList = customPurposeList;
 		this.storeUpdate();
 	};
+
+	updateLocalizedPurposeList = localizedPurposeList => {
+		this.vendorList.purposes = localizedPurposeList.purposes;
+		this.vendorList.features = localizedPurposeList.features;
+	}
 
 	updateIsEU = boolean => {
 		this.vendorConsentData.isEU = boolean;

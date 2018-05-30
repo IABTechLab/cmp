@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
-import style from './popup.less';
-import Intro from './intro/intro';
+import style from './popupFooter.less';
+import IntroV2 from './intro/introV2';
+import IntroFooterV2 from './intro/footerV2';
 import Details from './details/details';
 import Panel from '../panel/panel';
 
@@ -8,9 +9,10 @@ import Panel from '../panel/panel';
 const SECTION_INTRO = 0;
 const SECTION_DETAILS = 1;
 
-export default class Popup extends Component {
+export default class PopupFooter extends Component {
 	state = {
-		selectedPanelIndex: SECTION_INTRO
+		selectedPanelIndex: SECTION_INTRO,
+		isActive: false
 	};
 
 	onAcceptAll = () => {
@@ -23,13 +25,15 @@ export default class Popup extends Component {
 
 	onCancel = () => {
 		this.setState({
-			selectedPanelIndex: SECTION_INTRO
+			selectedPanelIndex: SECTION_INTRO,
+			isActive: false
 		});
 	};
 
 	handleShowDetails = () => {
 		this.setState({
-			selectedPanelIndex: SECTION_DETAILS
+			selectedPanelIndex: SECTION_DETAILS,
+			isActive: true
 		});
 	};
 
@@ -37,21 +41,21 @@ export default class Popup extends Component {
 
 	render(props, state) {
 		const { store, localization } = props;
-		const { selectedPanelIndex } = state;
-		const { isConsentToolShowing } = store;
+		const { selectedPanelIndex, isActive } = state;
+		const { isFooterConsentToolShowing } = store;
 
 		return (
 			<div
 				class={style.popup}
-				style={{ display: isConsentToolShowing ? 'flex' : 'none' }}
+				style={{ display: isFooterConsentToolShowing ? 'flex' : 'none' }}
 			>
 				<div
 					class={style.overlay}
 					onClick={this.handleClose}
 				/>
-				<div class={style.content}>
+				<div class={this.state.isActive ? style.contentClicked : style.content}>
 					<Panel selectedIndex={selectedPanelIndex}>
-						<Intro
+						<IntroV2
 							onAcceptAll={this.onAcceptAll}
 							onShowPurposes={this.handleShowDetails}
 							onClose={this.handleClose}

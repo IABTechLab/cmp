@@ -1,5 +1,6 @@
 import vendor1 from './vendor/version1';
 import publisher1 from './publisher/version1';
+import metadata1 from './metadata/version1';
 
 const NUM_BITS_VERSION = 6;
 
@@ -21,10 +22,21 @@ const publisherVersionMap = publisherVersionList.reduce((acc, definition) => {
 	return acc;
 }, {});
 
+const metadataVersionList = [
+	metadata1
+];
+
+const metadataVersionMap = metadataVersionList.reduce((acc, definition) => {
+	acc[definition.version] = definition;
+	return acc;
+}, {});
+
 export {
 	NUM_BITS_VERSION,
 	vendorVersionList,
 	vendorVersionMap,
 	publisherVersionList,
-	publisherVersionMap
+	publisherVersionMap,
+	metadataVersionList,
+	metadataVersionMap
 };

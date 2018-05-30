@@ -1,7 +1,8 @@
 // jshint esversion: 6
 
 import log from './log';
-import { encodeVendorConsentData } from './cookie/cookie';
+import { encodeVendorConsentData, encodePublisherConsentData } from './cookie/cookie';
+import { encodeMetadataValue, decodeMetadataValue } from './cookie/cookieutils';
 import { checkReprompt, checkIfGDPRApplies } from './utils';
 
 const metadata = require('../../metadata.json');
@@ -16,6 +17,10 @@ export default class Cmp {
 		this.eventListeners = {};
 		this.store = store;
 		this.config = config;
+		this.cmpShown = false;
+		this.gdprAppliesLanguage = false;
+		this.gdprAppliesLocation = false;
+		this.submitted = false;
 		this.processCommand.receiveMessage = this.receiveMessage;
 	}
 
@@ -44,7 +49,7 @@ export default class Cmp {
 						log.debug('Toolbox can be rendered only manually');
 						callback(false);
 					}
-				} else if (config.gdprAppliesGlobally) {
+				} else if (config.gdprAppliesGlobally || self.gdprApplies) {
 					self.gdprApplies = true;
 					if (shouldBePrompted) {
 						cmp('showConsentTool', callback);
@@ -53,9 +58,11 @@ export default class Cmp {
 						log.debug("rendering the CMP is not needed");
 					}
 				} else {
-					checkIfGDPRApplies(config.geoIPVendor, (applies => {
-						self.gdprApplies = applies;
-						if (applies && shouldBePrompted) {
+					checkIfGDPRApplies(config.geoIPVendor, (response => {
+						self.gdprApplies = response.applies;
+						self.gdprAppliesLanguage = response.language;
+						self.gdprAppliesLocation = response.location;
+						if (response.applies && shouldBePrompted) {
 							cmp('showConsentTool', callback);
 						} else {
 							self.notify('consentNotRequired');
@@ -71,7 +78,7 @@ export default class Cmp {
 		 */
 		getPublisherConsents: (purposeIds, callback = () => {}) => {
 			const consent = {
-				metadata: this.generateConsentString(),
+				metadata: this.generatePublisherConsentString(),
 				gdprApplies: this.gdprApplies,
 				hasGlobalScope: this.config.storeConsentGlobally,
 				...this.store.getPublisherConsentsObject()
@@ -84,14 +91,24 @@ export default class Cmp {
 		 * @param {Array} vendorIds Array of vendor IDs to retrieve.  If empty return all vendors.
 		 */
 		getVendorConsents: (vendorIds, callback = () => {}) => {
+			const { purposeConsents, vendorConsents } = this.store.getVendorConsentsObject(vendorIds);
 			const consent = {
-				metadata: this.generateConsentString(),
+				metadata: this.generateMetadataString(),
 				gdprApplies: this.gdprApplies,
 				hasGlobalScope: this.config.storeConsentGlobally,
-				...this.store.getVendorConsentsObject(vendorIds)
+				purposeConsents,
+				vendorConsents
 			};
 
 			callback(consent, true);
+		},
+
+		decodeMetadata: (_ = () => {}, callback) => {
+			const metadata = decodeMetadataValue(this.generateMetadataString());
+			if ( ! callback) {
+				callback = _;
+			}
+			callback(metadata, true);
 		},
 
 		/**
@@ -138,7 +155,21 @@ export default class Cmp {
 				gdprAppliesGlobally: this.config.storeConsentGlobally,
 				cmpLoaded: true
 			};
-			if ( ! callback) {
+			if (!callback) {
+				callback = _;
+			}
+			callback(result, true);
+		},
+
+		gdprInScope: (_ = () => {}, callback) => {
+			const result = {
+				cmpShown: this.cmpShown,
+				gdprAppliesGlobally: this.config.gdprAppliesGlobally,
+				gdprAppliesLanguage: this.gdprAppliesLanguage,
+				gdprAppliesLocation: this.gdprAppliesLocation,
+				submitted: this.submitted,
+			};
+			if (!callback) {
 				callback = _;
 			}
 			callback(result, true);
@@ -190,9 +221,55 @@ export default class Cmp {
 		 * Trigger the consent tool UI to be shown
 		 */
 		showConsentTool: (_, callback = () => {}) => {
-			this.store.toggleConsentToolShowing(true);
+			const _command = this.config.layout === 'footer' ? 'toggleFooterConsentToolShowing' : 'toggleConsentToolShowing';
+			this.cmpShown = true;
+			this.store[_command](true);
 			callback(true);
 		}
+	};
+
+	generatePublisherConsentString = () => {
+		const {
+			vendorList,
+			persistedVendorConsentData,
+			persistedPublisherConsentData,
+			customPurposeList
+		} = this.store;
+
+		const { purposes: customPurposes = [] } = customPurposeList;
+		const { purposes = [] } = vendorList || {};
+
+		const { selectedPurposeIds = new Set() } = persistedVendorConsentData || {};
+		const { selectedCustomPurposeIds = new Set() } = persistedPublisherConsentData || {};
+
+		const allowedPurposeIds = new Set(purposes.map(({id}) => id));
+		const allowedCustomPurposeIds = new Set(customPurposes.map(({id}) => id));
+
+		// Encode the persisted data
+		return persistedPublisherConsentData && encodePublisherConsentData({
+			...persistedVendorConsentData,
+			...persistedPublisherConsentData,
+			selectedCustomPurposeIds: new Set(Array.from(selectedCustomPurposeIds).filter(id => allowedCustomPurposeIds.has(id))),
+			selectedPurposeIds: new Set(Array.from(selectedPurposeIds).filter(id => allowedPurposeIds.has(id))),
+			customPurposeList,
+			vendorList,
+		});
+	};
+
+	generateMetadataString = () => {
+		const {
+			vendorList,
+			persistedVendorConsentData,
+			persistedPublisherConsentData,
+			customPurposeList
+		} = this.store;
+
+		return persistedVendorConsentData && encodeMetadataValue({
+			vendorList,
+			...persistedVendorConsentData,
+			...persistedPublisherConsentData,
+			customPurposeList
+		});
 	};
 
 	generateConsentString = () => {
@@ -303,6 +380,7 @@ export default class Cmp {
 
 		// Process any queued commands that were waiting for consent data
 		if (event === 'onSubmit') {
+			this.submitted = true;
 			this.processCommandQueue();
 		}
 	};

@@ -11,6 +11,19 @@ const SCRIPT_PATH = Url.resolve(`//${host}${pathname}`, '../cmp.complete.bundle.
 const basicInclude = `
 <html>
 	<body>
+		<script>
+			var commandQueue = [];
+			var cmp = function(command, parameter, callback) {
+				commandQueue.push({
+					command: command,
+					parameter: parameter,
+					callback: callback
+				});
+			};
+			cmp.commandQueue = commandQueue;
+			cmp.config = {};
+			window.__cmp = cmp;
+		</script>
 		<script src="${SCRIPT_PATH}" async></script>
 	</body>
 </html>

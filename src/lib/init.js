@@ -3,7 +3,7 @@ import Promise from 'promise-polyfill';
 import Store from './store';
 import Cmp, { CMP_GLOBAL_NAME } from './cmp';
 import { readVendorConsentCookie, readPublisherConsentCookie } from './cookie/cookie';
-import { fetchVendorList, fetchPurposeList } from './vendor';
+import { fetchVendorList, fetchLocalizedPurposeList, fetchCustomPurposeList } from './vendor';
 import { checkIfUserInEU } from './utils';
 import log from './log';
 import config from './config';
@@ -26,10 +26,14 @@ export function init(configUpdates) {
 				cookieVersion: 1
 			});
 
+			const _fetchLocalizedPurposeList = store.consentLanguage.toLowerCase() === "en" ? Promise.resolve : fetchLocalizedPurposeList;
 			// Request lists
 			return Promise.all([
-				fetchVendorList().then(store.updateVendorList),
-				fetchPurposeList().then(store.updateCustomPurposeList)
+				fetchVendorList().then((resp) => {
+					store.updateVendorList(resp);
+					_fetchLocalizedPurposeList().then(localized => { localized && store.updateLocalizedPurposeList(localized); });
+				}),
+				fetchCustomPurposeList().then(store.updateCustomPurposeList),
 			]).then(() => {
 				// Pull queued command from __cmp stub
 				const {commandQueue = []} = window[CMP_GLOBAL_NAME] || {};
@@ -43,13 +47,13 @@ export function init(configUpdates) {
 
 				// Execute any previously queued command
 				cmp.commandQueue = commandQueue;
-				cmp.processCommandQueue();
 
-				return Promise.all([
-					checkIfUserInEU(config.geoIPVendor, (inEU) => {
-						cmp.gdprApplies = inEU;
-					}).then(store.updateIsEU)
-				]).then(() => {
+				return checkIfUserInEU(config.geoIPVendor, (response) => {
+					cmp.gdprApplies = response.applies;
+					cmp.gdprAppliesLanguage = response.language;
+					cmp.gdprAppliesLocation = response.location;
+				}).then((response) => {
+					store.updateIsEU(response.applies);
 
 					// Render the UI
 					const App = require('../components/app').default;
@@ -61,10 +65,12 @@ export function init(configUpdates) {
 					cmp.notify('isLoaded');
 					cmp.cmpReady = true;
 					cmp.notify('cmpReady');
+					cmp.processCommandQueue();
 				}).catch(err => {
-					log.error('Failed to load lists. CMP not ready', err);
+					log.error('Failed to check user location. CMP not ready', err);
 				});
-
+			}).catch(err => {
+				log.error('Failed to load lists. CMP not ready', err);
 			});
 		})
 		.catch(err => {

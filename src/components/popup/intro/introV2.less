@@ -1,0 +1,37 @@
+div.intro {
+padding: 0 32px;
+max-height: 100%;
+
+	.title {
+		padding: 10px 0;
+		font-size: 30px;
+		font-weight: bold;
+	}
+	.description {
+		display: inline-flex;
+		padding: 10px;
+	}
+	.contentMessage {
+		padding-right: 32px;
+	}
+	.options {
+		display: flex;
+		align-items: flex-end;
+		padding: 5px;
+	}
+	.rejectAll {
+		width: 270px;
+		margin-right: 10px !important;
+	}
+
+	.acceptAll {
+		width: 270px;
+		padding: 14px 12px !important;
+	}
+}
+
+@media (max-width: 800px) {
+	.description {
+		display: block !important;
+	}
+}

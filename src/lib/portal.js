@@ -28,7 +28,14 @@ function openGlobalVendorPortal() {
 			const iframe = document.createElement('iframe');
 			iframe.setAttribute('style', 'width:1px;height:1px;position:absolute;left:-99px;top:-99px;');
 			iframe.setAttribute('src', url);
-			document.body.appendChild(iframe);
+
+			if (document.body) {
+				document.body.appendChild(iframe);
+			} else {
+				document.addEventListener('DOMContentLoaded', () => {
+					document.body.appendChild(iframe);
+				});
+			}
 
 			let portalTimeout = setTimeout(() => {
 				reject(new Error(`Communication could not be established with the vendor domain within ${PORTAL_LOAD_TIMEOUT_MILLISECONDS} milliseconds`));

@@ -10,13 +10,5 @@ export default {
 		{ name: 'consentLanguage', type: '6bitchar', numBits: 12 },
 		{ name: 'vendorListVersion', type: 'int', numBits: 12 },
 		{ name: 'publisherPurposesVersion', type: 'int', numBits: 12 },
-		{ name: 'standardPurposeIdBitString', type: 'bits', numBits: 24 },
-		{ name: 'numCustomPurposes', type: 'int', numBits: 6 },
-		{
-			name: 'customPurposeIdBitString',
-			type: 'bits',
-			numBits: (decodedObject) => decodedObject.numCustomPurposes
-		}
 	]
 };
-

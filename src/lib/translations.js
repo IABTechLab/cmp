@@ -22,16 +22,6 @@ export default {
 					<li>Information about the geographic location of the device when it accesses a website or mobile application</li>
 				</ul>
 			`,
-			purposesPopover: `
-				<strong>Purposes for storing information:</strong>
-				<ul>
-					<li>Storage and access of information</li>
-					<li>Ad selection and delivery</li>
-					<li>Content selection and delivery</li>
-					<li>Personalisation</li>
-					<li>Measurement</li>
-				</ul>
-			`,
 			acceptAll: 'OK, Continue to site',
 			showPurposes: 'Learn more'
 		},
@@ -51,7 +41,8 @@ export default {
 			showVendors: 'Show companies',
 			hideVendors: 'Hide companies',
 			featureHeader: 'This will include the following features:',
-			company: 'Company'
+			company: 'Company',
+			switchText: 'Publisher and their partners could collect anonymized information in order to improve your experience on our site.'
 		},
 		vendors: {
 			company: 'Company',
@@ -65,7 +56,9 @@ export default {
 			description3Link: 'clicking here.'
 		},
 		footer: {
-			message: 'Read more about access and use of information on your device for various purposes',
+			message: 'Read more about access and use of information on your device for various purposes.',
+			closedMessage: 'A reminder you can control your user privacy preferences ',
+			closedMessageLink: 'here',
 			deviceInformationHeader: 'Information that may be used:',
 			deviceInformation: `
 				<ul>
@@ -79,15 +72,6 @@ export default {
 				</ul>
 			`,
 			purposesHeader: 'Purposes for storing information:',
-			purposes: `
-				<ul>
-					<li>Storage and access of information</li>
-					<li>Ad selection and delivery</li>
-					<li>Content selection and delivery</li>
-					<li>Personalisation</li>
-					<li>Measurement</li>
-				</ul>
-			`
 		}
 	},
 	es: {
@@ -136,7 +120,8 @@ export default {
 			showVendors: 'Mostrar empresas',
 			hideVendors: 'Esconder empresas',
 			featureHeader: 'Esto incluirá las siguientes características:',
-			company: 'Empresa'
+			company: 'Empresa',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Empresa',
@@ -151,6 +136,8 @@ export default {
 		},
 		footer: {
 			message: '',
+			closedMessage: '',
+			closedMessageLink: '',
 			deviceInformationHeader: 'Información que puede ser utilizada:',
 			deviceInformation: `
 				<ul>
@@ -164,15 +151,6 @@ export default {
 				</ul>
 			`,
 			purposesHeader: 'Propósitos para almacenar información:',
-			purposes: `
-				<ul>
-					<li>Almacenamiento y acceso a la información</li>
-					<li>Selección y entrega de anuncios</li>
-					<li>Selección y entrega de contenido</li>
-					<li>Personalización</li>
-					<li>Medida</li>
-				</ul>
-			`
 		}
 	},
 	de: {
@@ -221,7 +199,8 @@ export default {
 			showVendors: 'Firmen zeigen',
 			hideVendors: 'Firmen ausblenden',
 			featureHeader: 'Dies beinhaltet die folgenden Funktionen:',
-			company: 'Firmen'
+			company: 'Firmen',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Firmen',
@@ -236,6 +215,8 @@ export default {
 		},
 		footer: {
 			message: '',
+			closedMessage: '',
+			closedMessageLink: '',
 			deviceInformationHeader: 'Informationen, die verwendet werden können:',
 			deviceInformation: `
 				<ul>
@@ -249,15 +230,6 @@ export default {
 				</ul>
 			`,
 			purposesHeader: 'Zwecke zum Speichern von Informationen:',
-			purposes: `
-				<ul>
-					<li>Speicherung und Zugriff auf Informationen</li>
-					<li>Anzeigenauswahl und Lieferung</li>
-					<li>Inhaltsauswahl und Lieferung</li>
-					<li>Personalisierung</li>
-					<li>Messung</li>
-				</ul>
-			`
 		}
 	},
 	pl: {
@@ -306,7 +278,8 @@ export default {
 			showVendors: 'Pokaż firmy',
 			hideVendors: 'Ukryj firmy',
 			featureHeader: 'Obejmie to następujące funkcje:',
-			company: 'Firmy'
+			company: 'Firmy',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Firmy',
@@ -321,6 +294,8 @@ export default {
 		},
 		footer: {
 			message: '',
+			closedMessage: '',
+			closedMessageLink: '',
 			deviceInformationHeader: 'Informacja, którą można wykorzystać:',
 			deviceInformation: `
 				<ul>
@@ -334,15 +309,6 @@ export default {
 				</ul>
 			`,
 			purposesHeader: 'Cele przechowywania informacji:',
-			purposes: `
-				<ul>
-					<li>Przechowywanie i dostęp do informacji</li>
-					<li>Wybór i emitowanie reklamy</li>
-					<li>Wybór treści i emitowanie</li>
-					<li>Personalizacja</li>
-					<li>Pomiar</li>
-				</ul>
-			`
 		}
 	},
 	lt: {
@@ -391,7 +357,8 @@ export default {
 			showVendors: 'Rodyti įmones',
 			hideVendors: 'Paslėpti įmones',
 			featureHeader: 'Apima šias funkcijas:',
-			company: 'įmonė'
+			company: 'įmonė',
+			switchText: ''
 		},
 		vendors: {
 			company: 'įmonė',
@@ -406,6 +373,8 @@ export default {
 		},
 		footer: {
 			message: '',
+			closedMessage: '',
+			closedMessageLink: '',
 			deviceInformationHeader: 'Informacija, kuri gali būti naudojama:',
 			deviceInformation: `
 				<ul>
@@ -419,15 +388,6 @@ export default {
 				</ul>
 			`,
 			purposesHeader: 'Informacijos saugojimo paskirtys:',
-			purposes: `
-				<ul>
-					<li>Informacijos saugojimas ir prieiga prie informacijos</li>
-					<li>Reklamos parinkimas ir paleidimas</li>
-					<li>Turinio pasirinkimas ir pristatymas</li>
-					<li>Individualizavimas</li>
-					<li>Matavimai</li>
-				</ul>
-			`
 		}
 	},
 	it: {
@@ -476,7 +436,8 @@ export default {
 			showVendors: 'Mostra le aziende',
 			hideVendors: 'Nascondere le aziende',
 			featureHeader: 'Ciò includerà le seguenti funzionalità:',
-			company: 'Azienda'
+			company: 'Azienda',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Azienda',
@@ -491,6 +452,8 @@ export default {
 		},
 		footer: {
 			message: '',
+			closedMessage: '',
+			closedMessageLink: '',
 			deviceInformationHeader: 'Informazioni che potranno essere utilizzate:',
 			deviceInformation: `
 				<ul>
@@ -504,15 +467,6 @@ export default {
 				</ul>
 			`,
 			purposesHeader: 'Finalità delle informazioni archiviate:',
-			purposes: `
-				<ul>
-					<li>Archivio e accesso alle informazioni</li>
-					<li>Selezione ed erogazione di inserzioni</li>
-					<li>Selezione ed erogazione di contenuti</li>
-					<li>Personalizzazione</li>
-					<li>Misurazioni</li>
-				</ul>
-			`
 		}
 	},
 	fr: {
@@ -561,7 +515,8 @@ export default {
 			showVendors: 'Montrer les entreprises',
 			hideVendors: 'Masquer les entreprises',
 			featureHeader: 'Ceci inclura les caractéristiques suivantes:',
-			company: 'Entreprise'
+			company: 'Entreprise',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Entreprise',
@@ -576,6 +531,8 @@ export default {
 		},
 		footer: {
 			message: '',
+			closedMessage: '',
+			closedMessageLink: '',
 			deviceInformationHeader: 'Peuvent être utilisées:',
 			deviceInformation: `
 				<ul>
@@ -589,15 +546,6 @@ export default {
 				</ul>
 			`,
 			purposesHeader: 'Les raisons pour lesquelles les informations sont conservées:',
-			purposes: `
-				<ul>
-					<li>Stockage et accès à l’information</li>
-					<li>Sélection de la publicité et de sa livraison</li>
-					<li>Sélection du contenu et de sa livraison</li>
-					<li>Personnalisation</li>
-					<li>Mesures</li>
-				</ul>
-			`
 		}
 	}
 };
