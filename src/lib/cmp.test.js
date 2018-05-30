@@ -108,6 +108,15 @@ describe('cmp', () => {
 			});
 		});
 
+		it('gdprInScope executes', (done) => {
+			cmp.processCommand('gdprInScope', null, (response, success) => {
+				expect(success).to.eq(true);
+				expect(Object.keys(response)).to.deep.equal(['cmpShown', 'gdprAppliesGlobally', 'gdprAppliesLanguage', 'gdprAppliesLocation', 'submitted']);
+				expect(response.submitted).to.eq(false);
+				done();
+			});
+		});
+
 		it('getPublisherConsents returns only persisted data', (done) => {
 			cmp.store.selectPurpose(1, false);
 			cmp.processCommand('getPublisherConsents', null, data => {
@@ -205,6 +214,7 @@ describe('cmp', () => {
 			cmp.processCommand('showConsentTool', null, data => {
 				expect(data).to.be.true;
 				expect(cmp.store.isConsentToolShowing).to.be.true;
+				expect(cmp.cmpShown).to.be.true;
 				done();
 			});
 		});

@@ -17,6 +17,10 @@ export default class Cmp {
 		this.eventListeners = {};
 		this.store = store;
 		this.config = config;
+		this.cmpShown = false;
+		this.gdprAppliesLanguage = false;
+		this.gdprAppliesLocation = false;
+		this.submitted = false;
 		this.processCommand.receiveMessage = this.receiveMessage;
 	}
 
@@ -54,9 +58,11 @@ export default class Cmp {
 						log.debug("rendering the CMP is not needed");
 					}
 				} else {
-					checkIfGDPRApplies(config.geoIPVendor, (applies => {
-						self.gdprApplies = applies;
-						if (applies && shouldBePrompted) {
+					checkIfGDPRApplies(config.geoIPVendor, (response => {
+						self.gdprApplies = response.applies;
+						self.gdprAppliesLanguage = response.language;
+						self.gdprAppliesLocation = response.location;
+						if (response.applies && shouldBePrompted) {
 							cmp('showConsentTool', callback);
 						} else {
 							self.notify('consentNotRequired');
@@ -149,7 +155,21 @@ export default class Cmp {
 				gdprAppliesGlobally: this.config.storeConsentGlobally,
 				cmpLoaded: true
 			};
-			if ( ! callback) {
+			if (!callback) {
+				callback = _;
+			}
+			callback(result, true);
+		},
+
+		gdprInScope: (_ = () => {}, callback) => {
+			const result = {
+				cmpShown: this.cmpShown,
+				gdprAppliesGlobally: this.config.gdprAppliesGlobally,
+				gdprAppliesLanguage: this.gdprAppliesLanguage,
+				gdprAppliesLocation: this.gdprAppliesLocation,
+				submitted: this.submitted,
+			};
+			if (!callback) {
 				callback = _;
 			}
 			callback(result, true);
@@ -202,6 +222,7 @@ export default class Cmp {
 		 */
 		showConsentTool: (_, callback = () => {}) => {
 			const _command = this.config.layout === 'footer' ? 'toggleFooterConsentToolShowing' : 'toggleConsentToolShowing';
+			this.cmpShown = true;
 			this.store[_command](true);
 			callback(true);
 		}
@@ -359,6 +380,7 @@ export default class Cmp {
 
 		// Process any queued commands that were waiting for consent data
 		if (event === 'onSubmit') {
+			this.submitted = true;
 			this.processCommandQueue();
 		}
 	};

@@ -22,7 +22,8 @@ export default class Intro extends Component {
 			onAcceptAll,
 			onShowPurposes,
 			onClose,
-			localization
+			localization,
+			store
 		} = props;
 
 		return (
@@ -53,6 +54,7 @@ export default class Intro extends Component {
 					onShowPurposes={onShowPurposes}
 					onAcceptAll={onAcceptAll}
 					localization={localization}
+					store={store}
 				/>
 			</div>
 		);

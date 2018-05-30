@@ -56,6 +56,7 @@ export default class Popup extends Component {
 							onShowPurposes={this.handleShowDetails}
 							onClose={this.handleClose}
 							localization={localization}
+							store={store}
 						/>
 						<Details
 							onSave={this.props.onSave}

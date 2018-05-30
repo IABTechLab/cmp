@@ -149,7 +149,9 @@ describe('utils', () => {
 
 		it('returns value from browser languages', (done) => {
 			checkIfGDPRApplies('url', (res) => {
-				expect(res).eq(true);
+				expect(res.applies).eq(true);
+				expect(res.language).eq(true);
+				expect(res.location).eq(false);
 				expect(window.fetch.mock.calls.length).to.equal(0);
 				done();
 			});
@@ -157,7 +159,9 @@ describe('utils', () => {
 
 		it('handles Internet Explorer navigator implementation', (done) => {
 			checkIfGDPRApplies('url', (res) => {
-				expect(res).eq(true);
+				expect(res.applies).eq(true);
+				expect(res.language).eq(true);
+				expect(res.location).eq(false);
 				expect(window.fetch.mock.calls.length).to.equal(0);
 				done();
 			});
@@ -171,7 +175,9 @@ describe('utils', () => {
 
 				window.fetch.mockImplementation(() => Promise.resolve({ headers: new Map([ [ 'X-GeoIP-Country', 'LT' ] ]) }));
 				checkIfGDPRApplies('url', (res) => {
-					expect(res).eq(true);
+					expect(res.applies).eq(true);
+					expect(res.language).eq(false);
+					expect(res.location).eq(true);
 					expect(window.fetch.mock.calls.length).to.equal(2);
 					done();
 				});
@@ -187,14 +193,18 @@ describe('utils', () => {
 		it('returns promise', (done) => {
 			expect(checkIfUserInEU('url', () => {})).be.a('promise');
 			checkIfUserInEU('url', () => {}).then(res => {
-				expect(res).eq(false);
+				expect(res.applies).eq(false);
+				expect(res.language).eq(false);
+				expect(res.location).eq(false);
 				done();
 			});
 		});
 
 		it('supports callback api', (done) => {
 			checkIfUserInEU('url', (res) => {
-				expect(res).eq(false);
+				expect(res.applies).eq(false);
+				expect(res.language).eq(false);
+				expect(res.location).eq(false);
 				done();
 			});
 		});
@@ -202,9 +212,13 @@ describe('utils', () => {
 		it('returns true for EU countries', (done) => {
 			window.fetch.mockImplementation(() => Promise.resolve({ headers: new Map([ [ 'X-GeoIP-Country', 'LT' ] ]) }));
 			checkIfUserInEU('url', (res) => {
-				expect(res).eq(true);
+				expect(res.applies).eq(true);
+				expect(res.language).eq(false);
+				expect(res.location).eq(true);
 			}).then(res => {
-				expect(res).eq(true);
+				expect(res.applies).eq(true);
+				expect(res.language).eq(false);
+				expect(res.location).eq(true);
 				done();
 			});
 		});

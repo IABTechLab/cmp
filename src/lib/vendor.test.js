@@ -7,7 +7,7 @@ import config from './config';
 jest.mock('./portal');
 const mockPortal = require('./portal');
 
-import { fetchVendorList, fetchPurposeList } from './vendor';
+import { fetchVendorList, fetchLocalizedPurposeList, fetchCustomPurposeList } from './vendor';
 
 describe('vendor', () => {
 
@@ -32,36 +32,46 @@ describe('vendor', () => {
 			});
 	});
 
+	it('fetchLocalizedPurposeList fetches the configured URL based on language params', (done) => {
+		config.update({
+			forceLocale: 'DE'
+		});
 
-	it('fetchPurposeList returns nothing if there is no customPurposeListLocation', (done) => {
+		fetchLocalizedPurposeList().then(() => {
+			expect(window.fetch.mock.calls[0][0]).to.equal('https://vendorlist.consensu.org/purposes-de.json');
+			done();
+		});
+	});
+
+	it('fetchCustomPurposeList returns nothing if there is no customPurposeListLocation', (done) => {
 		config.update({
 			customPurposeListLocation: undefined
 		});
 
-		fetchPurposeList().then(() => {
+		fetchCustomPurposeList().then(() => {
 			expect(window.fetch.mock.calls).to.be.empty;
 			done();
 		});
 	});
 
-	it('fetchPurposeList returns nothing if storePublisherData = false', (done) => {
+	it('fetchCustomPurposeList returns nothing if storePublisherData = false', (done) => {
 		config.update({
 			storePublisherData: true
 		});
 
-		fetchPurposeList().then(() => {
+		fetchCustomPurposeList().then(() => {
 			expect(window.fetch.mock.calls).to.be.empty;
 			done();
 		});
 	});
 
 
-	it('fetchPurposeList fetches the configured URL', (done) => {
+	it('fetchCustomPurposeList fetches the configured URL', (done) => {
 		config.update({
 			customPurposeListLocation: 'somepath.json'
 		});
 
-		fetchPurposeList().then(() => {
+		fetchCustomPurposeList().then(() => {
 			expect(window.fetch.mock.calls[0][0]).to.equal('somepath.json');
 			done();
 		});
