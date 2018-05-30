@@ -97,8 +97,11 @@ export default class Cmp {
 			callback(consent, true);
 		},
 
-		decodeMetadata: (_, callback = () => {}) => {
+		decodeMetadata: (_ = () => {}, callback) => {
 			const metadata = decodeMetadataValue(this.generateMetadataString());
+			if ( ! callback) {
+				callback = _;
+			}
 			callback(metadata, true);
 		},
 

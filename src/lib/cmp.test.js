@@ -155,6 +155,25 @@ describe('cmp', () => {
 					"vendorListVersion",
 					"publisherPurposesVersion",
 				]);
+				expect(success).to.be.true;
+				done();
+			});
+		});
+
+		it('decodeMetadata params are optional', (done) => {
+			cmp.processCommand('decodeMetadata', (data, success) => {
+				expect(Object.keys(data)).to.deep.eq([
+					"cookieVersion",
+					"created",
+					"lastUpdated",
+					"cmpId",
+					"cmpVersion",
+					"consentScreen",
+					"consentLanguage",
+					"vendorListVersion",
+					"publisherPurposesVersion",
+				]);
+				expect(success).to.be.true;
 				done();
 			});
 		});
