@@ -31,9 +31,9 @@ export function init(configUpdates) {
 			return Promise.all([
 				fetchVendorList().then((resp) => {
 					store.updateVendorList(resp);
+					_fetchLocalizedPurposeList().then(localized => { localized && store.updateLocalizedPurposeList(localized); });
 				}),
 				fetchCustomPurposeList().then(store.updateCustomPurposeList),
-				_fetchLocalizedPurposeList().then(localized => { localized && store.updateLocalizedPurposeList(localized); })
 			]).then(() => {
 				// Pull queued command from __cmp stub
 				const {commandQueue = []} = window[CMP_GLOBAL_NAME] || {};

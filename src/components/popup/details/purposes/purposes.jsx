@@ -129,7 +129,7 @@ export default class Purposes extends Component {
 									<LocalLabel localizeKey={`${currentPurposeLocalizePrefix}.title`}>{selectedPurpose.name}</LocalLabel>
 								</div>
 							</div>
-							
+
 							<div class={style.body}>
 								<p><LocalLabel providedValue={selectedPurpose.description} localizeKey={`${currentPurposeLocalizePrefix}.description`} /></p>
 								<p><LocalLabel providedValue={localization && localization.purposes ? localization.purposes.featureHeader : ''} localizeKey='featureHeader'>This will include the following features:</LocalLabel></p>
@@ -151,7 +151,9 @@ export default class Purposes extends Component {
 											<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.inactive : ''} localizeKey='inactive'>Inactive</LocalLabel>
 										}
 									</div>
-									<span class={style.switchText}>Publisher and their partners could collect anonymized information in order ot improve your experience on our site</span>
+									<span class={style.switchText}>
+										<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.switchText : ''} localizeKey="switchText">Publisher and their partners could collect anonymized information in order to improve your experience on our site.</LocalLabel>
+									</span>
 								</div>
 								{!showLocalVendors &&
 								<a class={style.vendorLink} onClick={this.onShowLocalVendors}>

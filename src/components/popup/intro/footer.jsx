@@ -36,7 +36,7 @@ export default class IntroFooter extends Component {
                 {!showFull &&
                     <div class={style.base}>
                         <span name="ctrl" class={style.icon} onClick={this.handleShow}></span>
-                        <LocalLabel providedValue={localization && localization.footer ? localization.footer.message : ''} localizeKey='footer.message' class={style.message}>Read more about access and use of information on your device for various purposes</LocalLabel>
+                        <LocalLabel providedValue={localization && localization.footer ? localization.footer.message : ''} localizeKey='footer.message' class={style.message}>Read more about access and use of information on your device for various purposes.</LocalLabel>
                     </div>}
                 {showFull && <div class={style.container}>
                     <div class={style.infoHeader}>

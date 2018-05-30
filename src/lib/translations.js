@@ -41,7 +41,8 @@ export default {
 			showVendors: 'Show companies',
 			hideVendors: 'Hide companies',
 			featureHeader: 'This will include the following features:',
-			company: 'Company'
+			company: 'Company',
+			switchText: 'Publisher and their partners could collect anonymized information in order to improve your experience on our site.'
 		},
 		vendors: {
 			company: 'Company',
@@ -55,7 +56,7 @@ export default {
 			description3Link: 'clicking here.'
 		},
 		footer: {
-			message: 'Read more about access and use of information on your device for various purposes',
+			message: 'Read more about access and use of information on your device for various purposes.',
 			deviceInformationHeader: 'Information that may be used:',
 			deviceInformation: `
 				<ul>
@@ -117,7 +118,8 @@ export default {
 			showVendors: 'Mostrar empresas',
 			hideVendors: 'Esconder empresas',
 			featureHeader: 'Esto incluirá las siguientes características:',
-			company: 'Empresa'
+			company: 'Empresa',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Empresa',
@@ -193,7 +195,8 @@ export default {
 			showVendors: 'Firmen zeigen',
 			hideVendors: 'Firmen ausblenden',
 			featureHeader: 'Dies beinhaltet die folgenden Funktionen:',
-			company: 'Firmen'
+			company: 'Firmen',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Firmen',
@@ -269,7 +272,8 @@ export default {
 			showVendors: 'Pokaż firmy',
 			hideVendors: 'Ukryj firmy',
 			featureHeader: 'Obejmie to następujące funkcje:',
-			company: 'Firmy'
+			company: 'Firmy',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Firmy',
@@ -345,7 +349,8 @@ export default {
 			showVendors: 'Rodyti įmones',
 			hideVendors: 'Paslėpti įmones',
 			featureHeader: 'Apima šias funkcijas:',
-			company: 'įmonė'
+			company: 'įmonė',
+			switchText: ''
 		},
 		vendors: {
 			company: 'įmonė',
@@ -421,7 +426,8 @@ export default {
 			showVendors: 'Mostra le aziende',
 			hideVendors: 'Nascondere le aziende',
 			featureHeader: 'Ciò includerà le seguenti funzionalità:',
-			company: 'Azienda'
+			company: 'Azienda',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Azienda',
@@ -497,7 +503,8 @@ export default {
 			showVendors: 'Montrer les entreprises',
 			hideVendors: 'Masquer les entreprises',
 			featureHeader: 'Ceci inclura les caractéristiques suivantes:',
-			company: 'Entreprise'
+			company: 'Entreprise',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Entreprise',
