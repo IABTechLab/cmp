@@ -105,7 +105,7 @@ export default class App extends Component {
 			link.type = "text/css";
 			link.rel = "stylesheet";
 			link.href = config.css["custom-font-url"];
-		  head.appendChild(link);
+			head.appendChild(link);
 		}
 
 		store.subscribe(this.updateCSSPrefs);
