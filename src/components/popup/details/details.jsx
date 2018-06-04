@@ -56,13 +56,19 @@ export default class Details extends Component {
 		}
 	};
 
+	componentDidMount() {
+		this.props.updateCSSPrefs();
+	};
+
 	render(props, state) {
 		const {
 			onCancel,
 			onSave,
 			onClose,
 			store,
-			localization
+			localization,
+			config,
+			updateCSSPrefs
 		} = props;
 
 		const {
@@ -89,7 +95,7 @@ export default class Details extends Component {
 		return (
 			<div class={style.details}>
 				<div class={style.header}>
-					<LocalLabel class={style.title} providedValue={localization && localization.details ? localization.details.title : ''} localizeKey='title'>Privacy Preferences</LocalLabel>
+					<LocalLabel class={style.title + " primaryText"} providedValue={localization && localization.details ? localization.details.title : ''} localizeKey='title'>Privacy Preferences</LocalLabel>
 				</div>
 				<div class={style.body}>
 					<Panel selectedIndex={selectedPanelIndex}>
@@ -104,6 +110,8 @@ export default class Details extends Component {
 							selectPurpose={selectPurpose}
 							selectCustomPurpose={selectCustomPurpose}
 							onShowVendors={this.handleShowVendors}
+							config={config}
+							updateCSSPrefs={updateCSSPrefs}
 						/>
 						<Vendors
 							localization={localization}
@@ -113,6 +121,8 @@ export default class Details extends Component {
 							vendors={vendors}
 							onShowPurposes={this.handleShowPurposes}
 							onHandleEnableAll={this.handleEnableAll}
+							config={config}
+							updateCSSPrefs={updateCSSPrefs}
 						/>
 					</Panel>
 				</div>

@@ -14,7 +14,17 @@
     justify-content: flex-start;
     text-align: center;
     line-height: normal;
+}
+
+.collapsed {
     border-top: 1px solid grey;
+}
+
+.extended {
+    top: 0;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid grey;
 }
 
 .message2 {
@@ -75,20 +85,11 @@ ul {
 	align-items: center;
 	position: absolute;
 	background-color: white;
-	box-shadow: 0px 0px 0px 3px @color-primary;
 
 	@media @smartphone {
 		width: 98%;
 		height: 98%;
     }
-}
-
-.infoHeader:extend(.base) {
-	left: 0;
-	top: 0;
-    align-items: center;
-    text-align: center;
-    border-bottom: 1px solid grey;
 }
 
 .iconDown:extend(.icon) {

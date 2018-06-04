@@ -13,7 +13,17 @@
     justify-content: flex-start;
     text-align: center;
     line-height: normal;
+}
+
+.collapsed {
     border-top: 1px solid grey;
+}
+
+.extended {
+    left: 0;
+    top: 0;
+    align-items: center;
+    border-bottom: 1px solid grey;
 }
 
 .footerV2 {
@@ -66,7 +76,6 @@ ul {
 	background: white;
 	align-items: center;
 	background-color: white;
-	box-shadow: 0px 0px 0px 3px @color-primary;
 
 	@media @smartphone {
 		width: 98%;
@@ -81,14 +90,6 @@ ul {
     padding: 12px 24px 0px 24px;
     font-size: 15px;
     line-height: 1.25;
-}
-
-.infoHeader:extend(.base) {
-	left: 0;
-	top: 0;
-    align-items: center;
-    text-align: center;
-    border-bottom: 1px solid grey;
 }
 
 .iconDown:extend(.icon) {

@@ -16,23 +16,27 @@ export default class IntroV2 extends Component {
 
   static defaultProps = {};
 
-  render(props, state) {
+  componentDidMount() {
+    this.props.updateCSSPrefs();
+  }
 
+  render(props, state) {
     const {
       onAcceptAll,
       onShowPurposes,
       onClose,
       localization,
-      store
+      store,
+      updateCSSPrefs
     } = props;
 
     return (
       <div class={style.intro}>
-        <div class={style.title}>
+        <div class={style.title + " primaryText"}>
           <LocalLabel providedValue={localization && localization.intro ? localization.intro.title : ''} localizeKey='title'>Thanks for visiting </LocalLabel>
           <LocalLabel providedValue={localization && localization.intro ? localization.intro.domain : ''} localizeKey='domain'></LocalLabel>
         </div>
-        <div class={style.description}>
+        <div class={style.description + " primaryText"}>
           <LocalLabel providedValue={localization && localization.intro ? localization.intro.description : ''} localizeKey='description' class={style.contentMessage}>Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.</LocalLabel>
           <div class={style.options}>
             <Button
@@ -55,6 +59,7 @@ export default class IntroV2 extends Component {
           onAcceptAll={onAcceptAll}
           localization={localization}
           store={store}
+          updateCSSPrefs={updateCSSPrefs}
         />
       </div>
     );

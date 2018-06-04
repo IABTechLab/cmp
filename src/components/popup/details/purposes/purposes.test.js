@@ -14,6 +14,7 @@ describe('Purposes', () => {
 
 	it('should render links for vendors and all standard and custom purposes', () => {
 		const purposes = render(<Purposes
+			updateCSSPrefs={() => {}}
 			purposes={[
 				{ id: 1, name: 'Purpose 1' },
 				{ id: 2, name: 'Purpose 2' }
@@ -30,6 +31,7 @@ describe('Purposes', () => {
 
 	it('should render li elements for each Feature', () => {
 		const purposes = render(<Purposes
+			updateCSSPrefs={() => {}}
 			purposes={[
 				{ id: 1, name: 'Purpose 1' },
 				{ id: 2, name: 'Purpose 2' }
@@ -53,6 +55,7 @@ describe('Purposes', () => {
 
 		let purposes;
 		render(<Purposes
+			updateCSSPrefs={() => {}}
 			ref={ref => purposes = ref}
 			purposes={[
 				{ id: 1, name: 'Purpose 1' },
@@ -77,6 +80,7 @@ describe('Purposes', () => {
 
 		let purposes;
 		render(<Purposes
+			updateCSSPrefs={() => {}}
 			ref={ref => purposes = ref}
 			purposes={[
 				{ id: 1, name: 'Purpose 1' },
