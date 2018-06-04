@@ -96,7 +96,19 @@ export default class App extends Component {
 	}
 
 	componentDidMount() {
-		this.state.store.subscribe(this.updateCSSPrefs);
+		const { store } = this.state;
+		const { config } = this.props;
+
+		if (config.css["custom-font-url"]) {
+			let head = document.head;
+			let link = document.createElement("link");
+			link.type = "text/css";
+			link.rel = "stylesheet";
+			link.href = config.css["custom-font-url"];
+		  head.appendChild(link);
+		}
+
+		store.subscribe(this.updateCSSPrefs);
 		this.updateCSSPrefs();
 	}
 

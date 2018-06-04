@@ -27,7 +27,8 @@ const defaultConfig = {
 		"color-text-secondary": "#0a82be",
 		"color-linkColor": "#0a82be",
 		"color-table-background": "#f7f7f7",
-		"font-family": "'Helvetica Neue', Helvetica, Arial, sans-serif"
+		"font-family": "'Helvetica Neue', Helvetica, Arial, sans-serif",
+		"custom-font-url": null
 	}
 };
 
