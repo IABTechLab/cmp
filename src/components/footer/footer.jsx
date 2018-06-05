@@ -38,7 +38,7 @@ export default class Footer extends Component {
 		return (
 			<div
 				class={style.footer}
-				style={{ display: isFooterShowing ? 'flex' : 'none' }}
+				style={{ display: isFooterShowing && config.showFooterAfterSubmit ? 'flex' : 'none' }}
 				>
 				<CloseButton
 					hasBorder={false}

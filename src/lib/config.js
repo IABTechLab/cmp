@@ -18,6 +18,7 @@ const defaultConfig = {
 	geoIPVendor: 'https://cmp.digitru.st/1/geoip.json',
 	testingMode: 'normal',
 	layout: null,
+	showFooterAfterSubmit: true,
 	css: {
 		"color-primary": "#0a82be",
 		"color-secondary": "#eaeaea",
@@ -29,7 +30,7 @@ const defaultConfig = {
 		"color-table-background": "#f7f7f7",
 		"font-family": "'Helvetica Neue', Helvetica, Arial, sans-serif",
 		"custom-font-url": null
-	}
+	},
 };
 
 class Config {
