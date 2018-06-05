@@ -236,6 +236,10 @@ export default class Store {
 		};
 	};
 
+	getVendorList = () => {
+		return this.vendorList;
+	}
+
 	/**
 	 * Persist all consent data to the cookie.  This data will NOT be filtered
 	 * by the vendorList and will include global consents set no matter what
