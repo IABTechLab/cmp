@@ -31,7 +31,7 @@ export default class Purposes extends Component {
 				selectedPurposeIndex: index,
 				showLocalVendors: false,
 				localVendors: []
-			});
+			}, this.props.updateCSSPrefs);
 			this.scrollRef.scrollTop = 0;
 		};
 	};
@@ -42,7 +42,8 @@ export default class Purposes extends Component {
 			purposes,
 			customPurposes,
 			selectPurpose,
-			selectCustomPurpose
+			selectCustomPurpose,
+			updateCSSPrefs
 		} = this.props;
 		const allPurposes = [...purposes, ...customPurposes];
 		const id = allPurposes[selectedPurposeIndex].id;
@@ -57,7 +58,7 @@ export default class Purposes extends Component {
 
 	onShowLocalVendors = () => {
 		const { selectedPurposeIndex } = this.state;
-		const { vendors } = this.props;
+		const { vendors, updateCSSPrefs } = this.props;
 		const localVendors = vendors.map((vendor) => {
 			let purposeId = selectedPurposeIndex + 1;
 			if (	vendor.purposeIds.indexOf(purposeId) !== -1 ||
@@ -66,7 +67,7 @@ export default class Purposes extends Component {
 		this.setState({
 			showLocalVendors: true,
 			localVendors: localVendors
-		});
+		}, updateCSSPrefs);
 	};
 
 	onHideLocalVendors = () => {
@@ -74,6 +75,14 @@ export default class Purposes extends Component {
 			showLocalVendors: false,
 			localVendors: []
 		});
+	};
+
+	componentDidUpdate() {
+		this.props.updateCSSPrefs();
+	}
+
+	componentDidMount() {
+		this.props.updateCSSPrefs();
 	};
 
 	render(props, state) {
@@ -84,7 +93,8 @@ export default class Purposes extends Component {
 			customPurposes,
 			selectedPurposeIds,
 			selectedCustomPurposeIds,
-			localization
+			localization,
+			config,
 		} = props;
 
 		const {
@@ -105,7 +115,7 @@ export default class Purposes extends Component {
 
 		return (
 			<div class={style.container} >
-				<div class={style.disclaimer}>
+				<div class={style.disclaimer + " primaryText"}>
 					<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.disclaimer : ''} localizeKey='disclaimer'>We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the </LocalLabel>
 					<a class={style.vendorLink} onClick={onShowVendors}>
 						<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.disclaimerVendorLink : ''} localizeKey='disclaimerVendorLink'>complete list of companies here.</LocalLabel>
@@ -123,7 +133,7 @@ export default class Purposes extends Component {
 					</div>
 					{selectedPurpose &&
 					<div class={style.purposeDescription} ref={scrollRef => this.scrollRef = scrollRef}>
-						<div class={style.purposeDetail}>
+						<div class={style.purposeDetail + " primaryText"}>
 							<div class={style.detailHeader}>
 								<div class={style.title}>
 									<LocalLabel localizeKey={`${currentPurposeLocalizePrefix}.title`}>{selectedPurpose.name}</LocalLabel>

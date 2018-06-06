@@ -10,6 +10,10 @@ export default class CloseButton extends Component {
 		hasBorder: true
 	};
 
+	componentDidMount() {
+		this.props.updateCSSPrefs();
+	}
+
 	render(props) {
 		const {
 			onClick,

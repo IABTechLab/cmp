@@ -3,7 +3,7 @@ import { h, render } from 'preact';
 import { expect } from 'chai';
 import style from './app.less';
 import Store from '../lib/store';
-
+import config from '../lib/config';
 import App from './app';
 
 describe('App', () => {
@@ -25,14 +25,14 @@ describe('App', () => {
 
 
 	it('should render app content', () => {
-		render(<App store={new Store()} config={{localization: {}}} />, scratch);
+		render(<App store={new Store()} config={config} />, scratch);
 		expect(scratch.innerHTML).to.contain(style.gdpr);
 	});
 
-	it('add a listener to the store to receive updates', () => {
+	it('add listeners to the store to receive updates and to know when to update CSS', () => {
 		const store = new Store();
-		render(<App store={store} config={{localization: {}}} />, scratch);
-		expect(store.listeners.size).to.equal(1);
+		render(<App store={store} config={config} />, scratch);
+		expect(store.listeners.size).to.equal(2);
 	});
 
 	it('persist state on save', () => {
@@ -44,8 +44,8 @@ describe('App', () => {
 		let app;
 		render(<App
 			store={store}
+			config={config}
 			notify={notify}
-			config={{localization: {}}}
 			ref={ref => app = ref}
 		/>, scratch);
 
@@ -62,13 +62,29 @@ describe('App', () => {
 		let app;
 		render(<App
 			store={store}
+			config={config}
 			notify={() => {}}
-			config={{localization: {}}}
 			ref={ref => app = ref}
 		/>, scratch);
 
 		expect(app.state.store.vendorConsentData.selectedVendorIds).to.deep.equal(new Set());
 		store.selectVendor(1, true);
 		expect(app.state.store.vendorConsentData.selectedVendorIds).to.deep.equal(new Set([1]));
+	});
+
+	it('respects css config', () => {
+		const store = new Store();
+		config.update({ css: { 'font-family': 'MonoType' }});
+		let app;
+		render(<App
+			store={store}
+			config={config}
+			notify={() => {}}
+			ref={ref => app = ref}
+		/>, scratch);
+
+		expect(app.props.config.css['font-family']).to.equal('MonoType');
+		expect(scratch.style['font-family']).to.equal('MonoType');
+		expect(scratch.innerHTML).to.contain('style="font-family: MonoType;"');
 	});
 });

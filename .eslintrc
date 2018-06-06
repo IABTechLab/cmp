@@ -59,7 +59,7 @@
     "no-eval": 2,
     "no-implied-eval": 2,
     "no-new-func": 2,
-    "guard-for-in": 2,
+    "guard-for-in": 0,
     "eqeqeq": 1,
     "no-else-return": 2,
     "no-redeclare": 2,

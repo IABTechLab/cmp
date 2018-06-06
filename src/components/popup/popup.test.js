@@ -15,7 +15,7 @@ describe('Popup', () => {
 	it('should render with overlay hidden', () => {
 		const store = new Store();
 		store.isConsentToolShowing = false;
-		const popup = <Popup store={store} />;
+		const popup = <Popup updateCSSPrefs={() => {}} store={store} />;
 		expect(popup).to.contain('display: none');
 	});
 
@@ -34,6 +34,7 @@ describe('Popup', () => {
 
 		let popup;
 		render(<Popup
+			updateCSSPrefs={() => {}}
 			store={store}
 			ref={ref => popup = ref}
 			onSave={() => {
@@ -52,6 +53,7 @@ describe('Popup', () => {
 
 		let popup;
 		render(<Popup
+			updateCSSPrefs={() => {}}
 			store={store}
 			ref={ref => popup = ref}
 		/>, scratch);
