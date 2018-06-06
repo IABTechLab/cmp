@@ -71,4 +71,20 @@ describe('App', () => {
 		store.selectVendor(1, true);
 		expect(app.state.store.vendorConsentData.selectedVendorIds).to.deep.equal(new Set([1]));
 	});
+
+	it('respects css config', () => {
+		const store = new Store();
+		config.update({ css: { 'font-family': 'MonoType' }});
+		let app;
+		render(<App
+			store={store}
+			config={config}
+			notify={() => {}}
+			ref={ref => app = ref}
+		/>, scratch);
+
+		expect(app.props.config.css['font-family']).to.equal('MonoType');
+		expect(scratch.style['font-family']).to.equal('MonoType');
+		expect(scratch.innerHTML).to.contain('style="font-family: MonoType;"');
+	});
 });

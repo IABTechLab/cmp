@@ -35,24 +35,22 @@ const defaultConfig = {
 
 class Config {
 	constructor() {
-		this.individualOverwritesAllowed = [
-			"repromptOptions",
-			"css",
-		];
+		this.individualOverwritesAllowed = {
+			"repromptOptions": true,
+			"css": true
+		};
+
 		this.update(defaultConfig);
 	}
 
 	update = (updates) => {
 		const self = this;
 		if (updates && typeof updates === 'object') {
-			const validKeys = Object.keys(defaultConfig);
 			const { validUpdates, invalidKeys } = Object.keys(updates).reduce((acc, key) => {
-				if (validKeys.indexOf(key) > -1) {
-					if (self.individualOverwritesAllowed.indexOf(key) > -1) {
+				if (defaultConfig.hasOwnProperty(key)) {
+					if (self.individualOverwritesAllowed[key]) {
 						let obj = defaultConfig[key];
-						for (let k in updates[key]) {
-							obj[k] = updates[key][k];
-						}
+						Object.assign(obj, updates[key]);
 						acc.validUpdates = {
 							...acc.validUpdates,
 							[key]: obj
