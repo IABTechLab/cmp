@@ -15,6 +15,7 @@ import {
 } from './utils';
 import config from './config';
 
+let vendorList = {vendors: [{id: 1}, {id: 3}, {id: 4}]};
 
 describe('utils', () => {
 	describe('checkReprompt', () => {
@@ -37,7 +38,7 @@ describe('utils', () => {
 					"1": false,
 				}
 			};
-			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(true);
+			expect(checkReprompt(repromptOptions, vendorList, vendorConsent, publisherConsent)).eq(true);
 		});
 
 		it('returns true if atleast one cookie is not set', () => {
@@ -58,7 +59,7 @@ describe('utils', () => {
 					"1": false,
 				}
 			};
-			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(true);
+			expect(checkReprompt(repromptOptions, vendorList, vendorConsent, publisherConsent)).eq(true);
 		});
 
 		it('returns false if for new cookies', () => {
@@ -80,7 +81,7 @@ describe('utils', () => {
 					"1": false,
 				}
 			};
-			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(false);
+			expect(checkReprompt(repromptOptions, vendorList, vendorConsent, publisherConsent)).eq(false);
 		});
 
 		it('handles reprompt options', () => {
@@ -92,6 +93,9 @@ describe('utils', () => {
 				},
 				"vendorConsents": {
 					"1": true,
+					"2": false,
+					"3": true,
+					"4": true,
 				}
 			};
 			const publisherConsent = {
@@ -104,29 +108,29 @@ describe('utils', () => {
 				}
 			};
 
-			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(false);
+			expect(checkReprompt(repromptOptions, vendorList, vendorConsent, publisherConsent)).eq(false);
 
 			vendorConsent.lastUpdated = Date.now() - 100 * day;
-			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(false);
+			expect(checkReprompt(repromptOptions, vendorList, vendorConsent, publisherConsent)).eq(false);
 
 			vendorConsent.lastUpdated = Date.now() - 361 * day;
-			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(true);
+			expect(checkReprompt(repromptOptions, vendorList, vendorConsent, publisherConsent)).eq(true);
 			vendorConsent.lastUpdated = Date.now() - 500 * day;
-			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(true);
+			expect(checkReprompt(repromptOptions, vendorList, vendorConsent, publisherConsent)).eq(true);
 
 			vendorConsent.purposeConsents['1'] = false;
 			vendorConsent.lastUpdated = Date.now() - 29 * day;
-			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(false);
+			expect(checkReprompt(repromptOptions, vendorList, vendorConsent, publisherConsent)).eq(false);
 			vendorConsent.lastUpdated = Date.now() - 31 * day;
-			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(true);
+			expect(checkReprompt(repromptOptions, vendorList, vendorConsent, publisherConsent)).eq(true);
 
 			vendorConsent.vendorConsents['1'] = false;
 			publisherConsent.customPurposes['1'] = false;
 			publisherConsent.standardPurposes['1'] = false;
 			vendorConsent.lastUpdated = Date.now() - 29 * day;
-			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(false);
+			expect(checkReprompt(repromptOptions, vendorList, vendorConsent, publisherConsent)).eq(false);
 			vendorConsent.lastUpdated = Date.now() - 31 * day;
-			expect(checkReprompt(repromptOptions, vendorConsent, publisherConsent)).eq(true);
+			expect(checkReprompt(repromptOptions, vendorList, vendorConsent, publisherConsent)).eq(true);
 		});
 	});
 
@@ -227,6 +231,16 @@ describe('utils', () => {
 	describe('getConsentsCount', () => {
 		let consentObject;
 		beforeEach(() => {
+			vendorList = {
+				vendors: [
+					{id: 1},
+					{id: 2},
+					{id: 3},
+					{id: 4},
+					{id: 5},
+					{id: 6}
+				]
+			};
 			consentObject = {
 				"cookieVersion": 1,
 				"cmpId": 1,
@@ -260,19 +274,19 @@ describe('utils', () => {
 		});
 
 		it('returns total amount of required consents', () => {
-			expect(getConsentsCount(consentObject).total).eq(16);
+			expect(getConsentsCount(consentObject, vendorList).total).eq(16);
 			consentObject.customPurposes['4'] = true;
-			expect(getConsentsCount(consentObject).total).eq(17);
+			expect(getConsentsCount(consentObject, vendorList).total).eq(17);
 			delete consentObject.vendorConsents;
-			expect(getConsentsCount(consentObject).total).eq(11);
+			expect(getConsentsCount(consentObject, vendorList).total).eq(11);
 		});
 
 		it('returns amount of required granted consents', () => {
-			expect(getConsentsCount(consentObject).consented).eq(12);
+			expect(getConsentsCount(consentObject, vendorList).consented).eq(12);
 			consentObject.customPurposes['4'] = true;
-			expect(getConsentsCount(consentObject).consented).eq(13);
+			expect(getConsentsCount(consentObject, vendorList).consented).eq(13);
 			delete consentObject.vendorConsents;
-			expect(getConsentsCount(consentObject).consented).eq(9);
+			expect(getConsentsCount(consentObject, vendorList).consented).eq(9);
 		});
 	});
 
