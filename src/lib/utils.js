@@ -19,17 +19,26 @@ const EU_COUNTRY_CODES = new Set(metadata.countryCodes);
 const MAX_COOKIE_LIFESPAN_DAYS = metadata.maxCookieLifespanDays;
 const CONSENT_PROPS = [ 'purposeConsents', 'vendorConsents', 'customPurposes', 'standardPurposes' ];
 
-function getConsentsCount(consentObject) {
+function getConsentsCount(consentObject, vendorList) {
 	let total = 0;
 	let consented = 0;
+	const activeVendors = vendorList.vendors.reduce((acc, vendor) => {
+		acc[vendor.id] = true;
+		return acc;
+	}, {});
 
 	for (let i = 0; i < CONSENT_PROPS.length; i++) {
 		if (consentObject[CONSENT_PROPS[i]]) {
 			let consents = consentObject[CONSENT_PROPS[i]];
 			const indexes = Object.keys(consents);
-			consents = indexes.map(index => consents[index]);
+			if (CONSENT_PROPS[i] === 'vendorConsents') {
+				consents = indexes.map(index => consents[index] && activeVendors[index]);
+				total += Object.keys(activeVendors).length;
+			} else {
+				consents = indexes.map(index => consents[index]);
+				total += indexes.length;
+			}
 
-			total += indexes.length;
 			consented += consents.filter(Boolean).length;
 		}
 	}
@@ -41,11 +50,11 @@ function getTimestamp(dateString) {
 	return +(new Date(dateString));
 }
 
-function checkReprompt(repromptOptions, vendorConsents, publisherConsents) {
+function checkReprompt(repromptOptions, vendorList, vendorConsents, publisherConsents) {
 	const oldestCookieTime = Math.min(...[ vendorConsents.lastUpdated || 0, publisherConsents.lastUpdated || 0 ].map(getTimestamp));
 
 	const { total, consented } = [ vendorConsents, publisherConsents ].reduce((previous, current) => {
-		current = getConsentsCount(current);
+		current = getConsentsCount(current, vendorList);
 		previous.total += current.total;
 		previous.consented += current.consented;
 		return previous;
