@@ -67,9 +67,10 @@ export default class App extends Component {
 
 	updateCSSPrefs = () => {
 		const elems = this.elementsWithReplaceableCss;
+		const base = this.base;
 		for(let elem in elems) {
 			let cssRules = elems[elem];
-			let selectedEls = document.querySelectorAll(elem) || [];
+			let selectedEls = base.querySelectorAll(elem) || [];
 			selectedEls.forEach(function(currentEl) {
 				for(let cssProp in cssRules) {
 					currentEl.style[cssProp] = cssRules[cssProp];

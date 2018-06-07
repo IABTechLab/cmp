@@ -84,7 +84,7 @@ describe('App', () => {
 		/>, scratch);
 
 		expect(app.props.config.css['font-family']).to.equal('MonoType');
-		expect(scratch.style['font-family']).to.equal('MonoType');
+		expect(scratch.style['font-family']).to.not.equal('MonoType');
 		expect(scratch.innerHTML).to.contain('style="font-family: MonoType;"');
 	});
 });
