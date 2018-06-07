@@ -37,7 +37,6 @@ export default class Footer extends Component {
 
 		return (
 			<div
-				cmp={true}
 				class={style.footer}
 				style={{ display: isFooterShowing && config.showFooterAfterSubmit ? 'flex' : 'none' }}
 				>
@@ -49,7 +48,7 @@ export default class Footer extends Component {
 					updateCSSPrefs={updateCSSPrefs}
 				/>
 				<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessage : ''} localizeKey='closedMessage' class={style.message + " primaryText"}>A reminder you can control your user privacy preferences</LocalLabel>
-				<a cmp={true} class={style.openConsent} onClick={this.handleShowConsent}>
+				<a class={style.openConsent} onClick={this.handleShowConsent}>
 					<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessageLink : ''} localizeKey='closedMessageLink'>here</LocalLabel>
 				</a>
 			</div>

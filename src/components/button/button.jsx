@@ -18,7 +18,6 @@ export default class Button extends Component {
 
 		return (
 			<button
-				cmp={true}
 				class={[style.button, props.class, invert ? style.invert : ''].join(' ')}
 				onClick={onClick}>
 				{children}

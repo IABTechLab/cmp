@@ -46,16 +46,14 @@ export default class Popup extends Component {
 
 		return (
 			<div
-				cmp={true}
 				class={style.popup}
 				style={{ display: isConsentToolShowing ? 'flex' : 'none' }}
 			>
 				<div
-					cmp={true}
 					class={style.overlay}
 					onClick={this.handleClose}
 				/>
-				<div cmp={true} name='content' class={style.content}>
+				<div name='content' class={style.content}>
 					<Panel selectedIndex={selectedPanelIndex}>
 						<Intro
 							onAcceptAll={this.onAcceptAll}

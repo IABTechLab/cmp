@@ -38,7 +38,6 @@ export default class Popover extends Component {
     return (
       <span>
         <a
-          cmp={true}
           onClick={this.handleClick}
           // onMouseEnter={this.mouseEnter}
           // onMouseLeave={this.mouseLeave}
@@ -46,7 +45,7 @@ export default class Popover extends Component {
           <Label providedValue={inlineContent} localizeKey={inlineLocalizeKey}>{inlineContent}</Label>
         </a>
         {show &&
-          <div cmp={true} class={style.popover}>
+          <div class={style.popover}>
             <Label providedValue={popoverContent} localizeKey={popoverLocalizeKey}>{popoverLocalizeKey}</Label>
           </div>
         }

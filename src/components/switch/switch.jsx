@@ -25,20 +25,18 @@ export default class Switch extends Component {
 
 		return (
 			<span
-				cmp={true}
 				class={[style.switch, props.class, isSelected ? style.isSelected : ''].join(' ')}
 				onClick={this.handleClicked}
 			>
 				<input
-					cmp={true}
 					checked={isSelected}
 					className={style.native}
 					disabled={isDisabled}
 					type='checkbox'
 				/>
-				<span cmp={true} class={style.visualizationContainer} style={{backgroundColor: isSelected ? color : null}} />
-				<span cmp={true} class={style.visualizationGlow} style={{backgroundColor: color}} />
-				<span cmp={true} class={style.visualizationHandle} />
+				<span class={style.visualizationContainer} style={{backgroundColor: isSelected ? color : null}} />
+				<span class={style.visualizationGlow} style={{backgroundColor: color}} />
+				<span class={style.visualizationHandle} />
 			</span>
 		);
 	}
