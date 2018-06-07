@@ -13,6 +13,7 @@ export default class Label extends Component {
 
 		return (
 			<span
+				cmp={true}
 				class={props.class || className}
 				dangerouslySetInnerHTML={localizedContent && {__html: localizedContent}}>
 				{!localizedContent && children}

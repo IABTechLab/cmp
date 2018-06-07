@@ -50,14 +50,16 @@ export default class PopupFooter extends Component {
 
 		return (
 			<div
+				cmp={true}
 				class={style.popup}
 				style={{ display: isFooterConsentToolShowing ? 'flex' : 'none' }}
 			>
 				<div
+					cmp={true}
 					class={style.overlay}
 					onClick={this.handleClose}
 				/>
-				<div name='content' class={this.state.isActive ? style.contentClicked : style.content}>
+				<div cmp={true} name='content' class={this.state.isActive ? style.contentClicked : style.content}>
 					<Panel selectedIndex={selectedPanelIndex}>
 						<IntroV2
 							onAcceptAll={this.onAcceptAll}

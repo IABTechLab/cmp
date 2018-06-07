@@ -13,52 +13,52 @@ export default class App extends Component {
 
 	elementsWithReplaceableCss = {
 		// Tables
-		"thead tr": {"background-color": this.props.config.css["color-table-background"]},
-		"tr[class*=even]": {"background-color": this.props.config.css["color-table-background"]},
+		"[cmp=true] thead tr": {"background-color": this.props.config.css["color-table-background"]},
+		"[cmp=true] tr[class*=even]": {"background-color": this.props.config.css["color-table-background"]},
 
 		// Purposes
-		"div[class*=purposes_purposeItem]": {
+		"[cmp=true] div[class*=purposes_purposeItem]": {
 			"background-color": this.props.config.css["color-secondary"],
 			"color": this.props.config.css["color-text-secondary"]
 		},
-		"div[class*=selectedPurpose]": {
+		"[cmp=true] div[class*=selectedPurpose]": {
 			"background-color": this.props.config.css["color-primary"],
 			"color": this.props.config.css["color-text-secondary"],
 		},
 
 		// Footer
-		"div[class*=footer_footer]": {
+		"[cmp=true] div[class*=footer_footer]": {
 			"border-top": "3px solid " + this.props.config.css["color-border"],
 			"background-color": this.props.config.css["color-background"]
 		},
-		"div[class*=footerV2_extended]": {"border-top": "3px solid " + this.props.config.css["color-border"]},
-		"div[class*=footerV2_container]": {"background-color": this.props.config.css["color-background"]},
-		"svg": {
+		"[cmp=true] div[class*=footerV2_extended]": {"border-top": "3px solid " + this.props.config.css["color-border"]},
+		"[cmp=true] div[class*=footerV2_container]": {"background-color": this.props.config.css["color-background"]},
+		"[cmp=true] svg": {
 			"background-color": this.props.config.css["color-background"],
 			"fill": this.props.config.css["color-primary"]
 		},
 
 		// Vendors
-		"[class*=active]": {"color": this.props.config.css["color-primary"]},
+		"[cmp=true] [class*=active]": {"color": this.props.config.css["color-primary"]},
 
 		// Application wide
-		"div[name^=content]": {
+		"[cmp=true] div[name^=content]": {
 			"box-shadow": "0 0 0 3px " + this.props.config.css["color-border"],
 			"background-color": this.props.config.css["color-background"]
 		},
-		":not([name*=ctrl])": {
+		"[cmp=true] :not([name*=ctrl])": {
 			"font-family": this.props.config.css["font-family"]
 		},
-		"[class*=primaryText]": {"color": this.props.config.css["color-text-primary"]},
-		"[class*=secondaryText]": {"color": this.props.config.css["color-text-secondary"]},
-		"a": {"color": this.props.config.css["color-linkColor"]},
-		"span[class*=isSelected] [class*=visualizationGlow]": {"background-color": this.props.config.css["color-primary"]},
-		"span[class*=isSelected] [class*=visualizationContainer]": {"background-color": this.props.config.css["color-primary"]},
-		"[class*=button]": {
+		"[cmp=true] [class*=primaryText]": {"color": this.props.config.css["color-text-primary"]},
+		"[cmp=true] [class*=secondaryText]": {"color": this.props.config.css["color-text-secondary"]},
+		"[cmp=true] a": {"color": this.props.config.css["color-linkColor"]},
+		"[cmp=true] span[class*=isSelected] [class*=visualizationGlow]": {"background-color": this.props.config.css["color-primary"]},
+		"[cmp=true] span[class*=isSelected] [class*=visualizationContainer]": {"background-color": this.props.config.css["color-primary"]},
+		"[cmp=true] [class*=button]": {
 			"color": this.props.config.css["color-background"],
 			"background-color": this.props.config.css["color-primary"],
 		},
-		"[class*=button_invert]": {
+		"[cmp=true] [class*=button_invert]": {
 			"color": this.props.config.css["color-primary"],
 			"border": "2px solid " + this.props.config.css["color-primary"],
 			"background-color": this.props.config.css["color-background"]
@@ -118,7 +118,7 @@ export default class App extends Component {
 		const userLocalization = config.localization[currentLocale];
 
 		return (
-			<div class={style.gdpr}>
+			<div cmp={true} class={style.gdpr}>
 				<Popup
 					store={store}
 					localization={userLocalization}

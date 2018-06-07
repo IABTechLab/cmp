@@ -93,11 +93,11 @@ export default class Details extends Component {
 
 
 		return (
-			<div class={style.details}>
-				<div class={style.header}>
+			<div cmp={true} class={style.details}>
+				<div cmp={true} class={style.header}>
 					<LocalLabel class={style.title + " primaryText"} providedValue={localization && localization.details ? localization.details.title : ''} localizeKey='title'>Privacy Preferences</LocalLabel>
 				</div>
-				<div class={style.body}>
+				<div cmp={true} class={style.body}>
 					<Panel selectedIndex={selectedPanelIndex}>
 						<Purposes
 							localization={localization}
@@ -126,19 +126,19 @@ export default class Details extends Component {
 						/>
 					</Panel>
 				</div>
-				<div class={style.footer}>
-					<div class={style.leftFooter}>
+				<div cmp={true} class={style.footer}>
+					<div cmp={true} class={style.leftFooter}>
 					{(selectedPanelIndex === SECTION_PURPOSES) &&
-						<a class={style.vendorLink} onClick={this.handleShowVendors}>
+						<a cmp={true} class={style.vendorLink} onClick={this.handleShowVendors}>
 							<LocalLabel providedValue={localization && localization.details ? localization.details.showVendors : ''} localizeKey='showVendors'>Show all companies</LocalLabel>
 						</a>
 					}
 					</div>
-					<div class={style.rightFooter}>
-						<a class={style.cancel} onClick={this.handleBack}>
+					<div cmp={true} class={style.rightFooter}>
+						<a cmp={true} class={style.cancel} onClick={this.handleBack}>
 							<LocalLabel providedValue={localization && localization.details ? localization.details.back : ''} localizeKey='back'>Back</LocalLabel>
 						</a>
-						<Button class={style.save} onClick={onSave}>
+						<Button cmp={true} class={style.save} onClick={onSave}>
 							<LocalLabel providedValue={localization && localization.details ? localization.details.save : ''} localizeKey='save'>OK, Continue to site</LocalLabel>
 						</Button>
 					</div>
