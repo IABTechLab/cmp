@@ -50,7 +50,7 @@ export default class IntroV2 extends Component {
               class={style.acceptAll}
               onClick={onAcceptAll}
               >
-              <LocalLabel providedValue={localization && localization.intro ? localization.intro.acceptAll : ''} localizeKey='acceptAll'>OK, Continue to site</LocalLabel>
+              <LocalLabel providedValue={localization && localization.intro ? localization.intro.acceptAll : ''} localizeKey='acceptAll'>Accept all</LocalLabel>
             </Button>
           </div>
         </div>
