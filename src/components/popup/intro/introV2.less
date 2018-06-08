@@ -9,28 +9,41 @@ max-height: 100%;
 		height: calc(calc(30px * @line-height) * 1.0);
 		float: left;
 	}
-	.titleContainer {
-		padding: 10px 0;
-		font-size: 30px;
-		font-weight: bold;
-
-		.title {
-			padding-left: 10px;
-			float: left;
-			line-height: 1.5;
-		}
-	}
-	.description {
+	.topWrapper {
 		display: inline-flex;
-		padding: 10px 10px 10px 0px;
+
+		.textWrapper {
+			display: flex;
+			flex-direction: column;
+
+			.titleContainer {
+				padding: 10px 0;
+				font-size: 30px;
+				font-weight: bold;
+
+				.title {
+					padding-left: 10px;
+					float: left;
+					line-height: 1.5;
+				}
+			}
+			.description {
+				padding: 10px 10px 10px 0px;
+			}
+		}
+		.options {
+			display: flex;
+			flex: 1;
+			flex-direction: column;
+			padding-top: 10px;
+
+			button {
+				margin: 5px;
+			}
+		}
 	}
 	.contentMessage {
 		padding-right: 32px;
-	}
-	.options {
-		display: flex;
-		align-items: flex-end;
-		padding: 5px;
 	}
 	.rejectAll {
 		width: 270px;
@@ -44,7 +57,37 @@ max-height: 100%;
 }
 
 @media (max-width: 800px) {
+	.topWrapper {
+		display: block !important;
+
+		.description {
+			padding: 10px !important;
+			display: block !important;
+		}
+		.options {
+			margin: 0 auto !important;
+		}
+	}
+}
+
+@media (max-width: 620px) {
 	.description {
 		display: block !important;
+	}
+	.topWrapper {
+		display: block !important;
+
+		.logo {
+			display: block;
+			margin: 0 auto;
+			width: initial !important;
+			height: initial !important;
+			max-width: 80%;
+			max-height: 100px;
+			float: none !important;
+		}
+		.options {
+			margin: 0 auto !important;
+		}
 	}
 }
