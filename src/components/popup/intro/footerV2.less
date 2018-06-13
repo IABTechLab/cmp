@@ -13,10 +13,21 @@
     justify-content: flex-start;
     text-align: center;
     line-height: normal;
+}
+
+.collapsed {
     border-top: 1px solid grey;
 }
 
+.extended {
+    left: 0;
+    top: 0;
+    align-items: center;
+    border-bottom: 1px solid grey;
+}
+
 .footerV2 {
+    clear: both;
     margin: 0 -35px;
 }
 
@@ -66,7 +77,6 @@ ul {
 	background: white;
 	align-items: center;
 	background-color: white;
-	box-shadow: 0px 0px 0px 3px @color-primary;
 
 	@media @smartphone {
 		width: 98%;
@@ -74,21 +84,15 @@ ul {
     }
 }
 
-.content {
+.wrapper {
     display: flex;
-    flex-direction: column;
-    overflow: hidden;
+}
+
+.content {
+    width: 80%;
     padding: 12px 24px 0px 24px;
     font-size: 15px;
     line-height: 1.25;
-}
-
-.infoHeader:extend(.base) {
-	left: 0;
-	top: 0;
-    align-items: center;
-    text-align: center;
-    border-bottom: 1px solid grey;
 }
 
 .iconDown:extend(.icon) {
@@ -99,28 +103,19 @@ ul {
     content: "\ea50";
 }
 
+.optionsWrapper {
+    margin-top: auto;
+}
+
 .infoFooter {
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    padding: 0px 12px 12px 0px;
+    flex-direction: column;
+    float: right;
+    margin-bottom: 10px;
 }
 
 .button {
-    cursor: pointer;
-    outline: none;
-    padding: 0.8em;
-    background: @color-primary;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1em;
-    font-weight: bold;
-    text-transform: uppercase;
-    white-space: nowrap;
-    &:hover {
-        color: @color-linkColorHover;
-    }
+    margin: 5px !important;
 }
 
 .rejectAll {
@@ -131,4 +126,10 @@ ul {
 .acceptAll {
     width: 270px;
     padding: 14px 12px !important;
+}
+
+@media (max-width: 615px) {
+    .wrapper {
+        display: block !important;
+    }
 }

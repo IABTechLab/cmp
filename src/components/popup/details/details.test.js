@@ -16,7 +16,7 @@ describe('Details', () => {
 	it('should render with purpose panel initially', () => {
 		const store = new Store();
 		store.isConsentToolShowing = false;
-		const details = <Details store={store} />;
+		const details = <Details updateCSSPrefs={() => {}} store={store} />;
 		expect(details).to.contain(purposesStyle.purposes);
 	});
 
@@ -26,6 +26,7 @@ describe('Details', () => {
 
 		let details;
 		render(<Details
+			updateCSSPrefs={() => {}}
 			store={store}
 			ref={ref => details = ref}
 		/>, scratch);
