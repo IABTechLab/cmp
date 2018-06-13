@@ -33,7 +33,7 @@ export default class Intro extends Component {
 		} = props;
 
 		return (
-			<div class={style.intro}>
+			<div class={config.logoUrl ? style.flexColumn + " " + style.intro : style.intro}>
 				<div class={style.top}>
 					{config.logoUrl &&
 						<img class={style.logo} src={config.logoUrl} />
