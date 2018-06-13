@@ -39,7 +39,7 @@ export default class IntroV2 extends Component {
               {config.logoUrl &&
                 <img class={style.logo} src={config.logoUrl} />
               }
-              <div class={style.title}>
+              <div class={config.logoUrl ? style.title + " " + style.imagePadding : style.title}>
                 <LocalLabel providedValue={localization && localization.intro ? localization.intro.title : ''} localizeKey='title'>Thanks for visiting </LocalLabel>
                 <LocalLabel providedValue={localization && localization.intro ? localization.intro.domain : ''} localizeKey='domain'></LocalLabel>
               </div>
