@@ -17,6 +17,7 @@ const defaultConfig = {
 	},
 	geoIPVendor: 'https://cmp.digitru.st/1/geoip.json',
 	testingMode: 'normal',
+	blockBrowsing: true,
 	layout: null,
 	showFooterAfterSubmit: true,
 	logoUrl: null,

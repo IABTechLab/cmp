@@ -94,6 +94,19 @@ export default class App extends Component {
 	componentWillMount() {
 		const { store, config } = this.props;
 		store.subscribe(this.updateState);
+
+		// Clicking outside the main app will close it if blockBrowsing is set to false
+		// This is to capture clicks outside of the main window and close if necessary while also
+		// whitelisting the 'showConsentTool' button
+		if (!config.blockBrowsing) {
+			document.addEventListener('click', function(event) {
+				let showConsentToolButtonClicked = RegExp('showConsentTool').test(event.target.getAttribute('onclick'));
+				let appDiv = document.querySelector('[class*=app_gdpr]');
+				if (!showConsentToolButtonClicked && !appDiv.contains(event.target)) {
+					store.toggleConsentToolShowing(false);
+				};
+			});
+		}
 	}
 
 	componentDidMount() {
