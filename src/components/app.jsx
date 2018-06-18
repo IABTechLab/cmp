@@ -85,6 +85,14 @@ export default class App extends Component {
 		notify('onSubmit');
 		store.toggleConsentToolShowing(false);
 		store.toggleFooterShowing(true);
+		if (this.props.config.digitrust.redirects === true) {
+			window.__cmp('getVendorConsents', [64], function(result) {
+				if (result && result['vendorConsents'] && (result['vendorConsents']['64'] === true)) {
+					document.location = "//cdn.digitru.st/prod/1.5.10/redirect.html?redirect=" +
+						encodeURIComponent(window.location.href);
+				}
+			});
+		}
 	};
 
 	updateState = (store) => {
