@@ -80,15 +80,15 @@ export default class App extends Component {
 	};
 
 	onSave = () => {
-		const { store, notify } = this.props;
+		const { store, config, notify } = this.props;
 		store.persist();
 		notify('onSubmit');
 		store.toggleConsentToolShowing(false);
 		store.toggleFooterShowing(true);
-		if (this.props.config.digitrust.redirects === true) {
+		if (config.digitrust.redirects === true) {
 			window.__cmp('getVendorConsents', [64], function(result) {
 				if (result && result['vendorConsents'] && (result['vendorConsents']['64'] === true)) {
-					document.location = "//cdn.digitru.st/prod/1.5.10/redirect.html?redirect=" +
+					document.location = config.digitrustRedirectUrl +
 						encodeURIComponent(window.location.href);
 				}
 			});
