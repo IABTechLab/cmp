@@ -219,6 +219,18 @@ describe('cmp', () => {
 			});
 		});
 
+		it('showConfig', (done) => {
+			cmp.processCommand('showConfig', null, response => {
+				expect(response.repromptOptions).to.deep.equal({
+					fullConsentGiven: 30,
+					someConsentGiven: 20,
+					noConsentGiven: 1
+				});
+				expect(response.storeConsentGlobally).to.equal(false);
+				done();
+			});
+		});
+
 		describe('addEventListener', () => {
 
 			it('only adds the callback instance once', () => {
