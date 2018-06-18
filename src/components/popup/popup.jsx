@@ -46,14 +46,15 @@ export default class Popup extends Component {
 
 		return (
 			<div
-				class={style.popup}
+				class={config.blockBrowsing ? style.popup : ''}
 				style={{ display: isConsentToolShowing ? 'flex' : 'none' }}
 			>
-				<div
-					class={style.overlay}
-					onClick={this.handleClose}
-				/>
-				<div name='content' class={style.content}>
+				{config.blockBrowsing &&
+					<div
+						class={style.overlay}
+						onClick={this.handleClose}
+				/>}
+				<div name='content' class={config.blockBrowsing ? style.content : style.noOverlayContent}>
 					<Panel selectedIndex={selectedPanelIndex}>
 						<Intro
 							onAcceptAll={this.onAcceptAll}
