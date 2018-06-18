@@ -22,7 +22,7 @@ export default {
 					<li>Information about the geographic location of the device when it accesses a website or mobile application</li>
 				</ul>
 			`,
-			acceptAll: 'OK, Continue to site',
+			acceptAll: 'Accept all',
 			showPurposes: 'Learn more'
 		},
 		details: {
