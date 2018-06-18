@@ -92,7 +92,7 @@ export default class App extends Component {
 	};
 
 	componentWillMount() {
-		const { store, config } = this.props;
+		const { store, config, cmp } = this.props;
 		store.subscribe(this.updateState);
 
 		// Clicking outside the main app will close it if blockBrowsing is set to false
@@ -104,6 +104,8 @@ export default class App extends Component {
 				let appDiv = document.querySelector('[class*=app_gdpr]');
 				if (!showConsentToolButtonClicked && !appDiv.contains(event.target)) {
 					store.toggleConsentToolShowing(false);
+					// Render footer style CMP if no consent decision has been submitted yet
+					if (!cmp.submitted) store.toggleFooterConsentToolShowing(true);
 				};
 			});
 		}

@@ -51,8 +51,8 @@ export default class Popup extends Component {
 			>
 				{config.blockBrowsing &&
 					<div
-					class={style.overlay}
-					onClick={this.handleClose}
+						class={style.overlay}
+						onClick={this.handleClose}
 				/>}
 				<div name='content' class={config.blockBrowsing ? style.content : style.noOverlayContent}>
 					<Panel selectedIndex={selectedPanelIndex}>
