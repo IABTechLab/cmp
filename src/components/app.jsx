@@ -92,22 +92,25 @@ export default class App extends Component {
 	};
 
 	componentWillMount() {
-		const { store, config, cmp } = this.props;
-		store.subscribe(this.updateState);
+		const self = this;
+		const { store, config, cmp } = self.props;
+		store.subscribe(self.updateState);
 
 		// Clicking outside the main app will close it if blockBrowsing is set to false
 		// This is to capture clicks outside of the main window and close if necessary while also
 		// whitelisting the 'showConsentTool' button
 		if (!config.blockBrowsing) {
 			document.addEventListener('click', function(event) {
-				let showConsentToolButtonClicked = RegExp('showConsentTool').test(event.target.getAttribute('onclick'));
-				let appDiv = document.querySelector('[class*=app_gdpr]');
-				if (!showConsentToolButtonClicked && !appDiv.contains(event.target)) {
+				const target = event.target;
+				const showConsentToolButtonClicked = RegExp('showConsentTool').test(target.getAttribute('onclick'));
+				const appDiv = self.base;
+
+				if (!showConsentToolButtonClicked && !appDiv.contains(target)) {
 					store.toggleConsentToolShowing(false);
 					// Render footer style CMP if no consent decision has been submitted yet
 					if (!cmp.submitted) store.toggleFooterConsentToolShowing(true);
 				};
-			});
+			}, false);
 		}
 	}
 
