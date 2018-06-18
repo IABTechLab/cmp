@@ -19,6 +19,7 @@ const defaultConfig = {
 	testingMode: 'normal',
 	layout: null,
 	showFooterAfterSubmit: true,
+	logoUrl: null,
 	css: {
 		"color-primary": "#0a82be",
 		"color-secondary": "#eaeaea",
@@ -29,7 +30,7 @@ const defaultConfig = {
 		"color-linkColor": "#0a82be",
 		"color-table-background": "#f7f7f7",
 		"font-family": "'Helvetica Neue', Helvetica, Arial, sans-serif",
-		"custom-font-url": null
+		"custom-font-url": null,
 	},
 };
 

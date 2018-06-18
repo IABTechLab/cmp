@@ -23,7 +23,7 @@ export default class App extends Component {
 		},
 		"div[class*=selectedPurpose]": {
 			"background-color": this.props.config.css["color-primary"],
-			"color": this.props.config.css["color-text-secondary"],
+			"color": this.props.config.css["color-background"],
 		},
 
 		// Footer
