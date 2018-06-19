@@ -80,7 +80,7 @@ export default class App extends Component {
 	};
 
 	onSave = () => {
-		const { store, config, notify } = this.props;
+		const { store, notify } = this.props;
 		store.persist();
 		notify('onSubmit');
 		store.toggleConsentToolShowing(false);
