@@ -10,9 +10,7 @@ class LocalLabel extends Label {
   };
 }
 
-const HOST_PARTS = ((window && window.location && window.location.hostname) || '').split('.');
-
-export default class IntroV2 extends Component {
+export default class IntroThin extends Component {
 
   static defaultProps = {};
 
