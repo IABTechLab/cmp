@@ -228,7 +228,7 @@ export default class Cmp {
 		},
 
 		showConfig: (_, callback = () => {}) => {
-			callback(this.config, true);
+			callback(Object.assign({}, this.config), true);
 		}
 	};
 
