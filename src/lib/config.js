@@ -16,6 +16,7 @@ const defaultConfig = {
 		noConsentGiven: 30,
 	},
 	geoIPVendor: 'https://cmp.digitru.st/1/geoip.json',
+	digitrustRedirectUrl: metadata.digitrustRedirectLocation,
 	testingMode: 'normal',
 	blockBrowsing: true,
 	layout: null,
@@ -33,13 +34,17 @@ const defaultConfig = {
 		"font-family": "'Helvetica Neue', Helvetica, Arial, sans-serif",
 		"custom-font-url": null,
 	},
+	digitrust: {
+		redirects: false
+	}
 };
 
 class Config {
 	constructor() {
 		this.individualOverwritesAllowed = {
-			"repromptOptions": true,
-			"css": true
+			repromptOptions: true,
+			css: true,
+			digitrust: true
 		};
 
 		this.update(defaultConfig);

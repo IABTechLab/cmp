@@ -48,6 +48,20 @@ export function init(configUpdates) {
 				// Execute any previously queued command
 				cmp.commandQueue = commandQueue;
 
+				// set cookies on digitrust domain after consent submitted
+				const { addEventListener, getVendorConsents } = cmp.commands;
+				if (config.digitrust.redirects) {
+					addEventListener('consentStringUpdated', digitrustRedirect);
+				}
+
+				function digitrustRedirect() {
+					getVendorConsents([64], (result) => {
+						if (result && result.vendorConsents && result.vendorConsents[64]) {
+							window.location.replace(`${config.digitrustRedirectUrl}${encodeURIComponent(window.location.href)}`);
+						}
+					});
+				}
+
 				return checkIfUserInEU(config.geoIPVendor, (response) => {
 					cmp.gdprApplies = response.applies;
 					cmp.gdprAppliesLanguage = response.language;
