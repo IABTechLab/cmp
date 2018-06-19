@@ -36,14 +36,15 @@ const defaultConfig = {
 	},
 	digitrust: {
 		redirects: false
-	},
+	}
 };
 
 class Config {
 	constructor() {
 		this.individualOverwritesAllowed = {
-			"repromptOptions": true,
-			"css": true
+			repromptOptions: true,
+			css: true,
+			digitrust: true
 		};
 
 		this.update(defaultConfig);
