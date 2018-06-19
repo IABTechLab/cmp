@@ -70,6 +70,7 @@ export default class IntroV2 extends Component {
           localization={localization}
           store={store}
           updateCSSPrefs={updateCSSPrefs}
+          config={config}
         />
       </div>
     );

@@ -33,7 +33,7 @@ export default class IntroFooter extends Component {
             localization,
             onShowPurposes,
             onAcceptAll,
-            store
+            store,
         } = props;
 
         return (
