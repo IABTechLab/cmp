@@ -21,6 +21,10 @@ export default class IntroFooterV2 extends Component {
         }, this.props.updateCSSPrefs);
     }
 
+    componentDidUpdate() {
+        this.props.updateCSSPrefs();
+    }
+
     componentDidMount() {
         this.props.updateCSSPrefs();
     }
@@ -37,13 +41,27 @@ export default class IntroFooterV2 extends Component {
             config
         } = props;
 
+        const { isThinConsentToolShowing } = store;
+
         return (
             <div class={style.footerV2}>
                 {!showFull &&
-                    <div class={style.base + " " + style.collapsed}>
-                        <span name="ctrl" class={style.icon} onClick={this.handleShow}></span>
-                        <LocalLabel providedValue={localization && localization.footer ? localization.footer.message : ''} localizeKey='footer.message' class={style.message + " primaryText"}>Read more about access and use of information on your device for various purposes.</LocalLabel>
-                    </div>}
+                    <div class={style.base + " " + style.collapsed + " " + style.wrapper}>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span name="ctrl" class={style.icon} onClick={this.handleShow}></span>
+                            <LocalLabel providedValue={localization && localization.footer ? localization.footer.message : ''} localizeKey='footer.message' class="primaryText">Read more about access and use of information on your device for various purposes.</LocalLabel>
+                        </div>
+                        {isThinConsentToolShowing &&
+                            <Button
+                                class={style.rejectAll + " " + style.button}
+                                invert={true}
+                                onClick={onShowPurposes}
+                            >
+                                <LocalLabel providedValue={localization && localization.intro ? localization.intro.showPurposes : ''} localizeKey='intro.showPurposes'>Learn more</LocalLabel>
+                            </Button>
+                        }
+                    </div>
+                }
                 {showFull && <div class={style.container}>
                     <div class={style.base + " " + style.extended}>
                         <span name="ctrl" class={style.iconDown} onClick={this.handleShow}></span>

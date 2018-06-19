@@ -105,11 +105,15 @@ export default class App extends Component {
 				const target = event.target;
 				const showConsentToolButtonClicked = RegExp('showConsentTool').test(target.getAttribute('onclick'));
 				const appDiv = self.base;
+				const { layout } = config;
 
 				if (!showConsentToolButtonClicked && !appDiv.contains(target)) {
 					store.toggleConsentToolShowing(false);
+
 					// Render footer style CMP if no consent decision has been submitted yet
-					if (!cmp.submitted) store.toggleFooterConsentToolShowing(true);
+					if (!cmp.submitted) {
+						layout !== 'thin' ? store.toggleFooterConsentToolShowing(true) : store.toggleThinConsentToolShowing(true);
+					}
 				};
 			}, false);
 		}
