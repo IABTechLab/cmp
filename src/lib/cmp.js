@@ -225,6 +225,10 @@ export default class Cmp {
 			this.cmpShown = true;
 			this.store[_command](true);
 			callback(true);
+		},
+
+		getConfig: (_, callback = () => {}) => {
+			callback(this.config.copy(), true);
 		}
 	};
 
