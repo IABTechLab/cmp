@@ -84,7 +84,7 @@ export default class IntroFooterV2 extends Component {
                                     class={style.acceptAll + " " + style.button}
                                     onClick={onAcceptAll}
                                 >
-                                    <LocalLabel providedValue={localization && localization.intro ? localization.intro.acceptAll : ''} localizeKey='intro.acceptAll'>OK, Continue to site</LocalLabel>
+                                    <LocalLabel providedValue={localization && localization.intro ? localization.intro.acceptAll : ''} localizeKey='intro.acceptAll'>Accept all</LocalLabel>
                                 </Button>
                             </div>
                         </div>
