@@ -77,6 +77,17 @@ class Config {
 
 		}
 	};
+
+	copy = () => {
+		return Object.keys(defaultConfig).reduce((result, key) => {
+			if (typeof defaultConfig[key] === 'object' && defaultConfig[key] !== null) {
+				result[key] = Object.assign({}, this[key]);
+			} else {
+				result[key] = this[key];
+			}
+			return result;
+		}, {});
+	};
 }
 
 export default new Config();
