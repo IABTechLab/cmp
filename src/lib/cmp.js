@@ -227,7 +227,7 @@ export default class Cmp {
 			callback(true);
 		},
 
-		showConfig: (_, callback = () => {}) => {
+		getConfig: (_, callback = () => {}) => {
 			callback(this.config.copy(), true);
 		}
 	};

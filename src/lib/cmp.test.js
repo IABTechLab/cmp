@@ -220,8 +220,8 @@ describe('cmp', () => {
 			});
 		});
 
-		it('showConfig', (done) => {
-			cmp.processCommand('showConfig', null, response => {
+		it('getConfig', (done) => {
+			cmp.processCommand('getConfig', null, response => {
 				expect(response).to.equal('copy');
 				done();
 			});
