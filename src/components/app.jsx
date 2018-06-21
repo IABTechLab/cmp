@@ -134,7 +134,7 @@ export default class App extends Component {
 	render(props, state) {
 		const { store } = state;
 		const { config } = props;
-		const userLocalization = config.localization[currentLocale];
+		const userLocalization = config.localization[currentLocale.split('-')[0]];
 
 		return (
 			<div class={style.gdpr}>
