@@ -135,7 +135,7 @@ exports.handler = (event, context, callback) => {
       headers: {
         version: [{
           key: 'Version',
-          value: '11'
+          value: '12'
         }],
         location: [{
           key: 'Location',
