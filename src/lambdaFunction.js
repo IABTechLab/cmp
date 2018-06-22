@@ -67,6 +67,7 @@ function containsMacros(queryString) {
 }
 
 function performMacroSubstitution(queryString, gdprApplies, consentString) {
+  queryString = decodeURIComponent(queryString);
   queryString = queryString.replace(/\{gdpr\}/, gdprApplies);
   queryString = queryString.replace(/\{gdpr_consent\}/, consentString);
   return queryString;
