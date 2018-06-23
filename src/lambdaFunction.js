@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 'use strict';
 
 const VENDOR_COOKIE_NAME = "euconsent";
