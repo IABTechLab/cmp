@@ -2,8 +2,9 @@ import { h, Component } from 'preact';
 import style from './app.less';
 import { currentLocale } from '../lib/localize';
 
-import PopupFooter from './popup/popupFooter';
 import Popup from './popup/popup';
+import PopupFooter from './popup/popupFooter';
+import PopupThin from './popup/popupThin';
 import Footer from './footer/footer';
 
 export default class App extends Component {
@@ -104,11 +105,15 @@ export default class App extends Component {
 				const target = event.target;
 				const showConsentToolButtonClicked = RegExp('showConsentTool').test(target.getAttribute('onclick'));
 				const appDiv = self.base;
+				const { layout } = config;
 
 				if (!showConsentToolButtonClicked && !appDiv.contains(target)) {
 					store.toggleConsentToolShowing(false);
+
 					// Render footer style CMP if no consent decision has been submitted yet
-					if (!cmp.submitted) store.toggleFooterConsentToolShowing(true);
+					if (!cmp.submitted) {
+						layout !== 'thin' ? store.toggleFooterConsentToolShowing(true) : store.toggleThinConsentToolShowing(true);
+					}
 				};
 			}, false);
 		}
@@ -134,7 +139,7 @@ export default class App extends Component {
 	render(props, state) {
 		const { store } = state;
 		const { config } = props;
-		const userLocalization = config.localization[currentLocale];
+		const userLocalization = config.localization[currentLocale.split('-')[0]];
 
 		return (
 			<div class={style.gdpr}>
@@ -146,6 +151,13 @@ export default class App extends Component {
 					updateCSSPrefs={this.updateCSSPrefs}
 				/>
 				<PopupFooter
+					store={store}
+					localization={userLocalization}
+					onSave={this.onSave}
+					config={config}
+					updateCSSPrefs={this.updateCSSPrefs}
+				/>
+				<PopupThin
 					store={store}
 					localization={userLocalization}
 					onSave={this.onSave}
