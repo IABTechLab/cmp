@@ -131,10 +131,6 @@ exports.handler = (event, context, callback) => {
 			status: '302',
 			statusDescription: 'Found',
 			headers: {
-				version: [{
-					key: 'Version',
-					value: '13'
-				}],
 				location: [{
 					key: 'Location',
 					value: performMacroSubstitution(parsedQueryString.redirect, gdprApplies, consentString) +
