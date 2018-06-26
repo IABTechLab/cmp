@@ -3,7 +3,12 @@ import Promise from 'promise-polyfill';
 import Store from './store';
 import Cmp, { CMP_GLOBAL_NAME } from './cmp';
 import { readVendorConsentCookie, readPublisherConsentCookie } from './cookie/cookie';
-import { fetchVendorList, fetchLocalizedPurposeList, fetchCustomPurposeList } from './vendor';
+import {
+	fetchVendorList,
+	fetchLocalizedPurposeList,
+	fetchCustomPurposeList,
+	fetchPubvendorsJson,
+} from './vendor';
 import { checkIfUserInEU } from './utils';
 import log from './log';
 import config from './config';
@@ -34,6 +39,7 @@ export function init(configUpdates) {
 					_fetchLocalizedPurposeList().then(localized => { localized && store.updateLocalizedPurposeList(localized); });
 				}),
 				fetchCustomPurposeList().then(store.updateCustomPurposeList),
+				fetchPubvendorsJson().then(store.updatePubvendors),
 			]).then(() => {
 				// Pull queued command from __cmp stub
 				const {commandQueue = []} = window[CMP_GLOBAL_NAME] || {};

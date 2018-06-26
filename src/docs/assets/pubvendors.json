@@ -1,0 +1,16 @@
+{
+    "publisherVendorsVersion": 1,
+    "globalVendorListVersion": 1,
+    "updatedAt": "2018-05-28T00:00:00Z",
+    "vendors": [
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ]
+}

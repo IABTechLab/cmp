@@ -7,7 +7,12 @@ import config from './config';
 jest.mock('./portal');
 const mockPortal = require('./portal');
 
-import { fetchVendorList, fetchLocalizedPurposeList, fetchCustomPurposeList } from './vendor';
+import {
+	fetchVendorList,
+	fetchLocalizedPurposeList,
+	fetchCustomPurposeList,
+	fetchPubvendorsJson
+} from './vendor';
 
 describe('vendor', () => {
 
@@ -73,6 +78,14 @@ describe('vendor', () => {
 
 		fetchCustomPurposeList().then(() => {
 			expect(window.fetch.mock.calls[0][0]).to.equal('somepath.json');
+			done();
+		});
+	});
+
+	it('fetchPubvendorsJson fetches the file from the .well-known path of the current host', (done) => {
+		fetchPubvendorsJson().then(() => {
+			const call = window.fetch.mock.calls[0][0];
+			expect(/\.well-known\/pubvendors\.json/.test(call)).to.equal(true);
 			done();
 		});
 	});

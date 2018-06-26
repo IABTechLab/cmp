@@ -6,6 +6,8 @@ import { updateLocalizationSettings } from './localize';
 import { sendPortalCommand } from './portal';
 const metadata = require('../../metadata.json');
 
+const HOST_URL_REGEX = /^[^\/]*\/{2}[^\/]*/;
+
 /**
 	* Attempt to load a vendor list from the local domain. If a
 	* list is not found attempt to load it from the global list location
@@ -44,8 +46,20 @@ function fetchCustomPurposeList() {
 		});
 }
 
+function fetchPubvendorsJson() {
+	const fullUrl = document.location.href;
+	const matchData = fullUrl.match(HOST_URL_REGEX);
+
+	return fetch(matchData[0] + "/.well-known/pubvendors.json")
+		.then(res => res.json())
+		.catch(err => {
+			log.error(`Failed to load pubvendors json file`, err);
+		});
+}
+
 export {
 	fetchVendorList,
 	fetchLocalizedPurposeList,
 	fetchCustomPurposeList,
+	fetchPubvendorsJson,
 };
