@@ -51,9 +51,15 @@ function fetchPubvendorsJson() {
 	const matchData = fullUrl.match(HOST_URL_REGEX);
 
 	return fetch(matchData[0] + "/.well-known/pubvendors.json")
-		.then(res => res.json())
+		.then(res => {
+			if (res.status === 404) {
+				log.info(`No pubvendors file found`);
+				return;
+			}
+			return res.json();
+		})
 		.catch(err => {
-			log.error(`Failed to load pubvendors json file`, err);
+			console.log(`Failed to load pubvendors.json file`, err);
 		});
 }
 
