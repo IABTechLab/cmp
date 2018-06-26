@@ -41,6 +41,14 @@ export default class IntroFooterV2 extends Component {
             config
         } = props;
 
+        let allPurposes = [];
+        if (store.vendorList && store.vendorList.purposes) {
+            allPurposes = allPurposes.concat(store.vendorList.purposes);
+        }
+        if (store.customPurposeList && store.customPurposeList.purposes) {
+            allPurposes = allPurposes.concat(store.customPurposeList.purposes);
+        }
+
         const { isThinConsentToolShowing } = store;
 
         return (
@@ -85,7 +93,7 @@ export default class IntroFooterV2 extends Component {
 
                             <LocalLabel providedValue={localization && localization.footer ? localization.footer.purposesHeader : ''} localizeKey='footer.purposesHeader' class={style.message2 + " primaryText"}>Purposes for storing information:</LocalLabel>
                             <ul>
-                                {store && store.vendorList && store.vendorList.purposes && store.vendorList.purposes.map((purpose) => {
+                                {allPurposes.map((purpose) => {
                                     return <li class="primaryText">{purpose.name}</li>
                                 })}
                             </ul>
