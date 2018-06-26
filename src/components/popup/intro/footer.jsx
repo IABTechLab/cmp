@@ -37,10 +37,10 @@ export default class IntroFooter extends Component {
         } = props;
 
         let allPurposes = [];
-        if (store && store.vendorList && store.vendorList.purposes) {
+        if (store.vendorList && store.vendorList.purposes) {
             allPurposes = allPurposes.concat(store.vendorList.purposes);
         }
-        if (store && store.customPurposeList && store.customPurposeList.purposes) {
+        if (store.customPurposeList && store.customPurposeList.purposes) {
             allPurposes = allPurposes.concat(store.customPurposeList.purposes);
         }
 
