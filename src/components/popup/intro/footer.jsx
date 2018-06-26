@@ -36,6 +36,14 @@ export default class IntroFooter extends Component {
             store
         } = props;
 
+        let allPurposes = [];
+        if (store && store.vendorList && store.vendorList.purposes) {
+            allPurposes = allPurposes.concat(store.vendorList.purposes);
+        }
+        if (store && store.customPurposeList && store.customPurposeList.purposes) {
+            allPurposes = allPurposes.concat(store.customPurposeList.purposes);
+        }
+
         return (
             <div>
                 {!showFull &&
@@ -64,7 +72,7 @@ export default class IntroFooter extends Component {
                         </LocalLabel>
                         <LocalLabel providedValue={localization && localization.footer ? localization.footer.purposesHeader : ''} localizeKey='footer.purposesHeader' class={style.message2 + " primaryText"}>Purposes for storing information:</LocalLabel>
                         <ul>
-                            {store && store.vendorList && store.vendorList.purposes && store.vendorList.purposes.map((purpose) => {
+                            {allPurposes.map((purpose) => {
                                 return <li class="primaryText">{purpose.name}</li>
                             })}
                         </ul>
