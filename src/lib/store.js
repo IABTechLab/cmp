@@ -368,13 +368,23 @@ export default class Store {
 		this.isFooterConsentToolShowing = typeof isShown === 'boolean' ? isShown : !this.isConsentToolShowing;
 		this.isFooterShowing = false;
 		this.isConsentToolShowing = false;
+		this.isThinConsentToolShowing = false;
 		this.storeUpdate();
 	};
+
+	toggleThinConsentToolShowing = (isShown) => {
+		this.isThinConsentToolShowing = typeof isShown === 'boolean' ? isShown : !this.isConsentToolShowing;
+		this.isFooterShowing = false;
+		this.isConsentToolShowing = false;
+		this.isFooterConsentToolShowing = false;
+		this.storeUpdate();
+	}
 
 	toggleConsentToolShowing = (isShown) => {
 		this.isConsentToolShowing = typeof isShown === 'boolean' ? isShown : !this.isConsentToolShowing;
 		this.isFooterShowing = false;
 		this.isFooterConsentToolShowing = false;
+		this.isThinConsentToolShowing = false;
 		this.storeUpdate();
 	};
 
@@ -382,6 +392,7 @@ export default class Store {
 		this.isFooterShowing = typeof isShown === 'boolean' ? isShown : !this.isFooterShowing;
 		this.isConsentToolShowing = false;
 		this.isFooterConsentToolShowing = false;
+		this.isThinConsentToolShowing = false;
 		this.storeUpdate();
 	};
 

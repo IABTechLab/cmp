@@ -70,7 +70,8 @@ describe('cmp', () => {
 			noConsentGiven: 1
 		},
 		geoIPVendor: 'http://cmp.digitru.st/geoip.json',
-		storeConsentGlobally: false
+		storeConsentGlobally: false,
+		copy: jest.fn().mockReturnValue('copy')
 	};
 
 	beforeEach(() => {
@@ -215,6 +216,13 @@ describe('cmp', () => {
 				expect(data).to.be.true;
 				expect(cmp.store.isConsentToolShowing).to.be.true;
 				expect(cmp.cmpShown).to.be.true;
+				done();
+			});
+		});
+
+		it('getConfig', (done) => {
+			cmp.processCommand('getConfig', null, response => {
+				expect(response).to.equal('copy');
 				done();
 			});
 		});

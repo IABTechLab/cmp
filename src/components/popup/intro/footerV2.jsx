@@ -21,6 +21,10 @@ export default class IntroFooterV2 extends Component {
         }, this.props.updateCSSPrefs);
     }
 
+    componentDidUpdate() {
+        this.props.updateCSSPrefs();
+    }
+
     componentDidMount() {
         this.props.updateCSSPrefs();
     }
@@ -33,16 +37,39 @@ export default class IntroFooterV2 extends Component {
             localization,
             onShowPurposes,
             onAcceptAll,
-            store
+            store,
+            config
         } = props;
+
+        let allPurposes = [];
+        if (store.vendorList && store.vendorList.purposes) {
+            allPurposes = allPurposes.concat(store.vendorList.purposes);
+        }
+        if (store.customPurposeList && store.customPurposeList.purposes) {
+            allPurposes = allPurposes.concat(store.customPurposeList.purposes);
+        }
+
+        const { isThinConsentToolShowing } = store;
 
         return (
             <div class={style.footerV2}>
                 {!showFull &&
-                    <div class={style.base + " " + style.collapsed}>
-                        <span name="ctrl" class={style.icon} onClick={this.handleShow}></span>
-                        <LocalLabel providedValue={localization && localization.footer ? localization.footer.message : ''} localizeKey='footer.message' class={style.message + " primaryText"}>Read more about access and use of information on your device for various purposes.</LocalLabel>
-                    </div>}
+                    <div class={style.base + " " + style.collapsed + " " + style.wrapper}>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span name="ctrl" class={style.icon} onClick={this.handleShow}></span>
+                            <LocalLabel providedValue={localization && localization.footer ? localization.footer.message : ''} localizeKey='footer.message' class="primaryText">Read more about access and use of information on your device for various purposes.</LocalLabel>
+                        </div>
+                        {isThinConsentToolShowing &&
+                            <Button
+                                class={style.rejectAll + " " + style.button}
+                                invert={true}
+                                onClick={onShowPurposes}
+                            >
+                                <LocalLabel providedValue={localization && localization.intro ? localization.intro.showPurposes : ''} localizeKey='intro.showPurposes'>Learn more</LocalLabel>
+                            </Button>
+                        }
+                    </div>
+                }
                 {showFull && <div class={style.container}>
                     <div class={style.base + " " + style.extended}>
                         <span name="ctrl" class={style.iconDown} onClick={this.handleShow}></span>
@@ -66,7 +93,7 @@ export default class IntroFooterV2 extends Component {
 
                             <LocalLabel providedValue={localization && localization.footer ? localization.footer.purposesHeader : ''} localizeKey='footer.purposesHeader' class={style.message2 + " primaryText"}>Purposes for storing information:</LocalLabel>
                             <ul>
-                                {store && store.vendorList && store.vendorList.purposes && store.vendorList.purposes.map((purpose) => {
+                                {allPurposes.map((purpose) => {
                                     return <li class="primaryText">{purpose.name}</li>
                                 })}
                             </ul>
