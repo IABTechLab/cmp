@@ -106,8 +106,11 @@ export default class App extends Component {
 				const showConsentToolButtonClicked = RegExp('showConsentTool').test(target.getAttribute('onclick'));
 				const appDiv = self.base;
 				const { layout } = config;
+				const { isConsentToolShowing, isFooterConsentToolShowing, isThinConsentToolShowing, isFooterShowing } = store;
 
-				if (!showConsentToolButtonClicked && !appDiv.contains(target)) {
+				if ( (isConsentToolShowing || isFooterConsentToolShowing || isThinConsentToolShowing || isFooterShowing) &&
+					!showConsentToolButtonClicked &&
+					!appDiv.contains(target) ) {
 					store.toggleConsentToolShowing(false);
 
 					// Render footer style CMP if no consent decision has been submitted yet
