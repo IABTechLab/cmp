@@ -274,7 +274,7 @@ export default class Store {
 		publisherConsentData.lastUpdated = now;
 
 		// Write vendor cookie to appropriate domain
-		writeVendorConsentCookie({...vendorConsentData, vendorList})
+		writeVendorConsentCookie({...vendorConsentData, vendorList}, this.pubvendors)
 			.then(() => {
 				if (this.cmp) this.cmp.notify('consentStringUpdated');
 			});

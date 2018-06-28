@@ -50,7 +50,7 @@ function fetchPubvendorsJson() {
 	const fullUrl = document.location.href;
 	const matchData = fullUrl.match(HOST_URL_REGEX);
 
-	return fetch(matchData[0] + "/.well-known/pubvendors.json")
+	return fetch(config.pubvendorsLocation || matchData[0] + "/.well-known/pubvendors.json")
 		.then(res => {
 			if (res.status === 404) {
 				log.info(`No pubvendors file found`);

@@ -58,11 +58,20 @@ export default class Purposes extends Component {
 
 	onShowLocalVendors = () => {
 		const { selectedPurposeIndex } = this.state;
-		const { vendors, updateCSSPrefs } = this.props;
+		const { vendors, updateCSSPrefs, pubvendors } = this.props;
+
+		let pubvendorsSet = new Set([]);
+		if (pubvendors) {
+			pubvendorsSet = new Set(pubvendors.vendors.map((vendor) => vendor.id));
+		}
+
 		const localVendors = vendors.map((vendor) => {
 			let purposeId = selectedPurposeIndex + 1;
-			if (	vendor.purposeIds.indexOf(purposeId) !== -1 ||
-						vendor.legIntPurposeIds.indexOf(purposeId) !== -1 ) return vendor;
+			if (
+				(vendor.purposeIds.indexOf(purposeId) !== -1 ||
+					vendor.legIntPurposeIds.indexOf(purposeId) !== -1) &&
+				( pubvendorsSet.size === 0 || pubvendorsSet.has(vendor.id) )
+			) return vendor;
 		}).filter((vendor) => vendor);
 		this.setState({
 			showLocalVendors: true,

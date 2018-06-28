@@ -22,6 +22,7 @@ const defaultConfig = {
 	layout: null,
 	showFooterAfterSubmit: true,
 	logoUrl: null,
+	pubvendorsLocation: null,
 	css: {
 		"color-primary": "#0a82be",
 		"color-secondary": "#eaeaea",
