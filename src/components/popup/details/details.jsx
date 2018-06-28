@@ -111,6 +111,7 @@ export default class Details extends Component {
 							selectCustomPurpose={selectCustomPurpose}
 							onShowVendors={this.handleShowVendors}
 							config={config}
+							pubvendors={store.pubvendors}
 							updateCSSPrefs={updateCSSPrefs}
 						/>
 						<Vendors
@@ -122,6 +123,7 @@ export default class Details extends Component {
 							onShowPurposes={this.handleShowPurposes}
 							onHandleEnableAll={this.handleEnableAll}
 							config={config}
+							pubvendors={store.pubvendors}
 							updateCSSPrefs={updateCSSPrefs}
 						/>
 					</Panel>

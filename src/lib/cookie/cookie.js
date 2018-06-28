@@ -324,9 +324,16 @@ function readVendorConsentCookie() {
 		readGlobalVendorConsentCookie() : readLocalVendorConsentCookie();
 }
 
-function writeVendorConsentCookie(vendorConsentData) {
-	return config.storeConsentGlobally && (config.globalVendorListLocation === metadata.globalVendorListLocation || config.globalConsentLocation !== metadata.globalConsentLocation) ?
-		writeGlobalVendorConsentCookie(vendorConsentData) : writeLocalVendorConsentCookie(vendorConsentData);
+function writeVendorConsentCookie(vendorConsentData, pubvendors) {
+	if (!pubvendors) {
+		if (config.storeConsentGlobally) {
+			if ( 	(config.globalVendorListLocation === metadata.globalVendorListLocation) ||
+						(config.globalConsentLocation !== metadata.globalConsentLocation) ) {
+				return writeGlobalVendorConsentCookie(vendorConsentData);
+			}
+		}
+	}
+	return writeLocalVendorConsentCookie(vendorConsentData);
 }
 
 export {

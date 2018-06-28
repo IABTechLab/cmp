@@ -53,8 +53,18 @@ export default class Vendors extends Component {
 			onShowPurposes,
 			onHandleEnableAll,
 			localization,
-			config
+			config,
+			pubvendors
 		} = props;
+
+
+		let pubvendorsSet = new Set([]);
+		if (pubvendors) {
+			pubvendorsSet = new Set(pubvendors.vendors.map((vendor) => vendor.id));
+		}
+		const localVendors = vendors.map((vendor) => {
+			if (pubvendorsSet.size === 0 || pubvendorsSet.has(vendor.id)) return vendor;
+		}).filter((vendor) => vendor);
 
 		return (
 			<div class={style.vendors}>
@@ -92,7 +102,7 @@ export default class Vendors extends Component {
 				<div class={style.vendorContent}>
 					<table class={style.vendorList}>
 						<tbody>
-						{vendors.map(({ id, name, policyUrl, purposeIds, legIntPurposeIds, featureIds }, index) => (
+						{localVendors.map(({ id, name, policyUrl, purposeIds, legIntPurposeIds, featureIds }, index) => (
 							<tr key={id} class={index % 2 === 1 ? style.even : ''}>
 								<td><a href={policyUrl} target='_blank'><div class={style.vendorName}>{name}</div></a></td>
 								<td>

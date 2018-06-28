@@ -318,6 +318,14 @@ describe('store', () => {
 		expect(store.vendorConsentData.lastUpdated).to.be.above(lastUpdated);
 	});
 
+	it('updates pubvendors with the response given', () => {
+		const store = new Store({});
+		expect(store.pubvendors).to.equal(undefined);
+
+		store.updatePubvendors({key1: "something"});
+		expect(store.pubvendors).to.deep.equal({key1: "something"});
+	});
+
 	it('updates the isEU flag', () => {
 		const store = new Store({
 			vendorConsentData: {}

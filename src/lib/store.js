@@ -240,6 +240,10 @@ export default class Store {
 		return this.vendorList;
 	}
 
+	getPubvendors = () => {
+		return this.pubvendors;
+	}
+
 	/**
 	 * Persist all consent data to the cookie.  This data will NOT be filtered
 	 * by the vendorList and will include global consents set no matter what
@@ -270,7 +274,7 @@ export default class Store {
 		publisherConsentData.lastUpdated = now;
 
 		// Write vendor cookie to appropriate domain
-		writeVendorConsentCookie({...vendorConsentData, vendorList})
+		writeVendorConsentCookie({...vendorConsentData, vendorList}, this.pubvendors)
 			.then(() => {
 				if (this.cmp) this.cmp.notify('consentStringUpdated');
 			});
@@ -441,6 +445,10 @@ export default class Store {
 	updateLocalizedPurposeList = localizedPurposeList => {
 		this.vendorList.purposes = localizedPurposeList.purposes;
 		this.vendorList.features = localizedPurposeList.features;
+	}
+
+	updatePubvendors = pubvendors => {
+		this.pubvendors = pubvendors;
 	}
 
 	updateIsEU = boolean => {
