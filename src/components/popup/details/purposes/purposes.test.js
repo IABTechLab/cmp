@@ -23,6 +23,29 @@ describe('Purposes', () => {
 				{ id: 1, name: 'Custom Purpose 1' },
 			]}
 			features={[]}
+			pubvendors={
+				{
+					"publisherVendorsVersion": 1,
+					"version": 1,
+					"globalVendorListVersion": 1,
+					"updatedAt": "2018-05-28T00:00:00Z",
+					"disableUpstreamVendors": true,
+					"vendors": [
+						{
+							"id": 1,
+							"purposes": [1, 3, 4]
+						},
+						{
+							"id": 2,
+							"purposes": [3]
+						},
+						{
+							"id": 3,
+							"purposes": [1, 2, 3, 4]
+						}
+					]
+				}
+			}
 		/>, scratch);
 
 		const purposeLinks = purposes.querySelectorAll(`.${style.purposeItem}`);
@@ -43,6 +66,29 @@ describe('Purposes', () => {
 				{ id: 1, name: 'Feature 1' },
 				{ id: 2, name: 'Feature 2' },
 			]}
+			pubvendors={
+				{
+					"publisherVendorsVersion": 1,
+					"version": 1,
+					"globalVendorListVersion": 1,
+					"updatedAt": "2018-05-28T00:00:00Z",
+					"disableUpstreamVendors": true,
+					"vendors": [
+						{
+							"id": 1,
+							"purposes": [1, 3, 4]
+						},
+						{
+							"id": 2,
+							"purposes": [3]
+						},
+						{
+							"id": 3,
+							"purposes": [1, 2, 3, 4]
+						}
+					]
+				}
+			}
 		/>, scratch);
 
 		const features = purposes.querySelectorAll(`.${style.featureItem}`);
@@ -64,6 +110,29 @@ describe('Purposes', () => {
 			features={[]}
 			selectPurpose={selectPurpose}
 			selectCustomPurpose={selectCustomPurpose}
+			pubvendors={
+				{
+					"publisherVendorsVersion": 1,
+					"version": 1,
+					"globalVendorListVersion": 1,
+					"updatedAt": "2018-05-28T00:00:00Z",
+					"disableUpstreamVendors": true,
+					"vendors": [
+						{
+							"id": 1,
+							"purposes": [1, 3, 4]
+						},
+						{
+							"id": 2,
+							"purposes": [3]
+						},
+						{
+							"id": 3,
+							"purposes": [1, 2, 3, 4]
+						}
+					]
+				}
+			}
 		/>, scratch);
 
 		purposes.handleSelectPurposeDetail(1)();
@@ -92,6 +161,29 @@ describe('Purposes', () => {
 			features={[]}
 			selectPurpose={selectPurpose}
 			selectCustomPurpose={selectCustomPurpose}
+			pubvendors={
+				{
+					"publisherVendorsVersion": 1,
+					"version": 1,
+					"globalVendorListVersion": 1,
+					"updatedAt": "2018-05-28T00:00:00Z",
+					"disableUpstreamVendors": true,
+					"vendors": [
+						{
+							"id": 1,
+							"purposes": [1, 3, 4]
+						},
+						{
+							"id": 2,
+							"purposes": [3]
+						},
+						{
+							"id": 3,
+							"purposes": [1, 2, 3, 4]
+						}
+					]
+				}
+			}
 		/>, scratch);
 
 		purposes.handleSelectPurposeDetail(2)();

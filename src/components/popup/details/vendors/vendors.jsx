@@ -37,6 +37,20 @@ export default class Vendors extends Component {
 		this.props.selectVendor(dataId, isSelected);
 	};
 
+	createPubvendorsObj = (pubvendors) => {
+		const obj = {};
+		pubvendors.vendors.forEach((vendor) => {
+			obj[vendor.id] = new Set(vendor.purposes);
+		});
+		return obj;
+	};
+
+	pubvendorsHasVendor = (pubvendorsObj, vendor) => {
+		if (Object.keys(pubvendorsObj).length === 0) return true;
+		if (pubvendorsObj[vendor.id]) return true;
+		return false;
+	};
+
 	componentDidUpdate() {
 		this.props.updateCSSPrefs();
 	}
@@ -58,12 +72,9 @@ export default class Vendors extends Component {
 		} = props;
 
 
-		let pubvendorsSet = new Set([]);
-		if (pubvendors) {
-			pubvendorsSet = new Set(pubvendors.vendors.map((vendor) => vendor.id));
-		}
+		const pubvendorsObj = this.createPubvendorsObj(pubvendors);
 		const localVendors = vendors.map((vendor) => {
-			if (pubvendorsSet.size === 0 || pubvendorsSet.has(vendor.id)) return vendor;
+			if (this.pubvendorsHasVendor(pubvendorsObj, vendor)) return vendor;
 		}).filter((vendor) => vendor);
 
 		return (
@@ -102,7 +113,7 @@ export default class Vendors extends Component {
 				<div class={style.vendorContent}>
 					<table class={style.vendorList}>
 						<tbody>
-						{localVendors.map(({ id, name, policyUrl, purposeIds, legIntPurposeIds, featureIds }, index) => (
+						{localVendors.map(({ id, name, policyUrl, purposes, featureIds }, index) => (
 							<tr key={id} class={index % 2 === 1 ? style.even : ''}>
 								<td><a href={policyUrl} target='_blank'><div class={style.vendorName}>{name}</div></a></td>
 								<td>

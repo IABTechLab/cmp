@@ -60,17 +60,13 @@ export default class Purposes extends Component {
 		const { selectedPurposeIndex } = this.state;
 		const { vendors, updateCSSPrefs, pubvendors } = this.props;
 
-		let pubvendorsSet = new Set([]);
-		if (pubvendors) {
-			pubvendorsSet = new Set(pubvendors.vendors.map((vendor) => vendor.id));
-		}
+		const pubvendorsObj = this.createPubvendorsObj(pubvendors);
 
 		const localVendors = vendors.map((vendor) => {
 			let purposeId = selectedPurposeIndex + 1;
-			if (
-				(vendor.purposeIds.indexOf(purposeId) !== -1 ||
-					vendor.legIntPurposeIds.indexOf(purposeId) !== -1) &&
-				( pubvendorsSet.size === 0 || pubvendorsSet.has(vendor.id) )
+			let vendorPurposes = new Set(vendor.purposes.map((purpose) => purpose.id));
+			if ( vendorPurposes.has(purposeId) &&
+				( this.pubvendorsHasVendorAndPurpose(pubvendorsObj, vendor, purposeId) )
 			) return vendor;
 		}).filter((vendor) => vendor);
 		this.setState({
@@ -84,6 +80,20 @@ export default class Purposes extends Component {
 			showLocalVendors: false,
 			localVendors: []
 		});
+	};
+
+	createPubvendorsObj = (pubvendors) => {
+		const obj = {};
+		pubvendors.vendors.forEach((vendor) => {
+			obj[vendor.id] = new Set(vendor.purposes);
+		});
+		return obj;
+	};
+
+	pubvendorsHasVendorAndPurpose = (pubvendorsObj, vendor, purposeId) => {
+		if (Object.keys(pubvendorsObj).length === 0) return true;
+		if (pubvendorsObj[vendor.id] && pubvendorsObj[vendor.id].has(purposeId)) return true;
+		return false;
 	};
 
 	componentDidUpdate() {
@@ -198,9 +208,14 @@ export default class Purposes extends Component {
 										<div class={style.vendorContent}>
 											<table class={style.vendorList}>
 												<tbody>
-												{localVendors.map(({name, policyUrl}, index) => (
+												{localVendors.map(({name, policyUrl, purposes}, index) => (
 													<tr key={index + name} class={index % 2 === 1 ? style.even : ''}>
 														<td><a href={policyUrl} target='_blank'><div class={style.vendorName}>{name}</div></a></td>
+														{purposes.find((vendorPurposes) => {
+															return (vendorPurposes.id === selectedPurposeId) && (vendorPurposes.legalBasis === 'legitimateInterest');
+														}) &&
+															<td>Legitimate Interest</td> || <td></td>
+														}
 													</tr>
 												))}
 												</tbody>
