@@ -55,17 +55,17 @@
 				{
 					"id": 1,
 					"legalBasis": "consent",
-					"required": true,
+					"required": true
 				},
 				{
 					"id": 2,
 					"legalBasis": "legitimateInterest",
-					"required": false,
+					"required": false
 				},
 				{
 					"id": 4,
 					"legalBasis": "consent",
-					"required": false,
+					"required": false
 				}
 			],
 		  "featureIds":[1,2]
@@ -78,17 +78,17 @@
 				{
 					"id": 1,
 					"legalBasis": "consent",
-					"required": true,
+					"required": true
 				},
 				{
 					"id": 3,
 					"legalBasis": "consent",
-					"required": true,
+					"required": true
 				},
 				{
 					"id": 5,
 					"legalBasis": "consent",
-					"required": false,
+					"required": false
 				}
 			],
 			"featureIds":[3]
@@ -101,28 +101,28 @@
 				{
 					"id": 1,
 					"legalBasis": "consent",
-					"required": true,
+					"required": true
 				},
 				{
 					"id": 2,
 					"legalBasis": "legitimateInterest",
-					"required": false,
+					"required": false
 				},
 				{
 					"id": 3,
 					"legalBasis": "legitimateInterest",
-					"required": false,
+					"required": false
 				},
 				{
 					"id": 4,
 					"legalBasis": "consent",
-					"required": false,
+					"required": false
 				},
 				{
 					"id": 5,
 					"legalBasis": "legitimateInterest",
-					"required": true,
-				},
+					"required": true
+				}
 			],
 			"featureIds":[1,2,3]
 		},
@@ -134,17 +134,17 @@
 				{
 					"id": 1,
 					"legalBasis": "consent",
-					"required": true,
+					"required": true
 				},
 				{
 					"id": 2,
 					"legalBasis": "legitimateInterest",
-					"required": false,
+					"required": false
 				},
 				{
 					"id": 4,
 					"legalBasis": "consent",
-					"required": false,
+					"required": false
 				}
 			],
 			"featureIds":[1,3]
@@ -157,17 +157,17 @@
 				{
 					"id": 1,
 					"legalBasis": "consent",
-					"required": true,
+					"required": true
 				},
 				{
 					"id": 2,
 					"legalBasis": "legitimateInterest",
-					"required": false,
+					"required": false
 				},
 				{
 					"id": 4,
 					"legalBasis": "consent",
-					"required": false,
+					"required": false
 				}
 			],
 			"featureIds":[3]
@@ -180,17 +180,17 @@
 				{
 					"id": 1,
 					"legalBasis": "consent",
-					"required": true,
+					"required": true
 				},
 				{
 					"id": 2,
 					"legalBasis": "legitimateInterest",
-					"required": false,
+					"required": false
 				},
 				{
 					"id": 4,
 					"legalBasis": "consent",
-					"required": false,
+					"required": false
 				}
 			],
 			"featureIds":[3]
