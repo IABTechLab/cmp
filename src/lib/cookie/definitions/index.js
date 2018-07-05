@@ -1,11 +1,13 @@
 import vendor1 from './vendor/version1';
+import vendor2 from './vendor/version2';
 import publisher1 from './publisher/version1';
 import metadata1 from './metadata/version1';
 
 const NUM_BITS_VERSION = 6;
 
 const vendorVersionList = [
-	vendor1
+	vendor1,
+	vendor2
 ];
 
 const vendorVersionMap = vendorVersionList.reduce((acc, definition) => {

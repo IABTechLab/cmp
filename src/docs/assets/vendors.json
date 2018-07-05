@@ -1,7 +1,7 @@
 {
-  "version": 1,
-  "lastUpdated":"2018-04-30T16:04:20Z",
-  "origin": "https://vendorlist.consensu.org/vendorlist.json",
+	"version": 1,
+	"lastUpdated":"2018-04-30T16:04:20Z",
+	"origin": "https://vendorlist.consensu.org/vendorlist.json",
 	"purposes":[
 		{
 			"id":1,
@@ -46,53 +46,153 @@
 			"description":"Allow processing of a user's precise geographic location data in support of a purpose for which that certain third party has consent."
 		}
 	],
-  "vendors": [
+	"vendors": [
 		{
-		  "id": 1,
-		  "name": "Globex",
-		  "policyUrl":"https://www.example.com/",
-		  "purposeIds": [1,2,4],
-		  "legIntPurposeIds": [3,5],
+			"id": 1,
+			"name": "Globex",
+			"policyUrl":"https://www.example.com/",
+			"purposes": [
+				{
+					"id": 1,
+					"legalBasis": "consent",
+					"required": true,
+				},
+				{
+					"id": 2,
+					"legalBasis": "legitimateInterest",
+					"required": false,
+				},
+				{
+					"id": 4,
+					"legalBasis": "consent",
+					"required": false,
+				}
+			],
 		  "featureIds":[1,2]
 		},
 		{
-		  "id": 2,
-		  "name": "Initech",
-		  "policyUrl":"https://www.example.com/",
-			"purposeIds":[1,3,5],
-			"legIntPurposeIds":[],
+			"id": 2,
+			"name": "Initech",
+			"policyUrl":"https://www.example.com/",
+			"purposes": [
+				{
+					"id": 1,
+					"legalBasis": "consent",
+					"required": true,
+				},
+				{
+					"id": 3,
+					"legalBasis": "consent",
+					"required": true,
+				},
+				{
+					"id": 5,
+					"legalBasis": "consent",
+					"required": false,
+				}
+			],
 			"featureIds":[3]
 		},
 		{
-		  "id": 3,
-		  "name": "CRS",
-		  "policyUrl":"https://www.example.com/",
-			"purposeIds":[1,2,3,4,5],
-			"legIntPurposeIds":[],
+			"id": 3,
+			"name": "CRS",
+			"policyUrl":"https://www.example.com/",
+			"purposes": [
+				{
+					"id": 1,
+					"legalBasis": "consent",
+					"required": true,
+				},
+				{
+					"id": 2,
+					"legalBasis": "legitimateInterest",
+					"required": false,
+				},
+				{
+					"id": 3,
+					"legalBasis": "legitimateInterest",
+					"required": false,
+				},
+				{
+					"id": 4,
+					"legalBasis": "consent",
+					"required": false,
+				},
+				{
+					"id": 5,
+					"legalBasis": "legitimateInterest",
+					"required": true,
+				},
+			],
 			"featureIds":[1,2,3]
 		},
 		{
-		  "id": 4,
-		  "name": "Umbrella",
-		  "policyUrl":"https://www.example.com/",
-			"purposeIds":[1,3,5],
-			"legIntPurposeIds":[4],
+			"id": 4,
+			"name": "Umbrella",
+			"policyUrl":"https://www.example.com/",
+			"purposes": [
+				{
+					"id": 1,
+					"legalBasis": "consent",
+					"required": true,
+				},
+				{
+					"id": 2,
+					"legalBasis": "legitimateInterest",
+					"required": false,
+				},
+				{
+					"id": 4,
+					"legalBasis": "consent",
+					"required": false,
+				}
+			],
 			"featureIds":[1,3]
 		},
 		{
-		  "id": 5,
-		  "name": "Aperture",
-		  "policyUrl":"https://www.example.com/",
-			"purposeIds":[1,3,5],
-			"legIntPurposeIds":[],
+			"id": 5,
+			"name": "Aperture",
+			"policyUrl":"https://www.example.com/",
+			"purposes": [
+				{
+					"id": 1,
+					"legalBasis": "consent",
+					"required": true,
+				},
+				{
+					"id": 2,
+					"legalBasis": "legitimateInterest",
+					"required": false,
+				},
+				{
+					"id": 4,
+					"legalBasis": "consent",
+					"required": false,
+				}
+			],
 			"featureIds":[3]
 		},
 		{
-		  "id": 6,
-		  "name": "Pierce and Pierce",
-		  "policyUrl":"https://www.example.com/",
-			"purposeIds":[1,3,5],
-			"legIntPurposeIds":[],
+			"id": 6,
+			"name": "Pierce and Pierce",
+			"policyUrl":"https://www.example.com/",
+			"purposes": [
+				{
+					"id": 1,
+					"legalBasis": "consent",
+					"required": true,
+				},
+				{
+					"id": 2,
+					"legalBasis": "legitimateInterest",
+					"required": false,
+				},
+				{
+					"id": 4,
+					"legalBasis": "consent",
+					"required": false,
+				}
+			],
 			"featureIds":[3]
 		}
 	]

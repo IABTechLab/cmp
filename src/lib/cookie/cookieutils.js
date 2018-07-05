@@ -65,6 +65,10 @@ function encodeDateToBits(date, numBits) {
 	return encodeIntToBits(date, numBits);
 }
 
+function encodeCRC16() {
+	// TODO: 16bit CRC checksum
+}
+
 function decodeBitsToInt(bitString, start, length) {
 	return parseInt(bitString.substr(start, length), 2);
 }
@@ -86,6 +90,9 @@ function decode6BitCharacters(bitString, start, length) {
 	return decoded;
 }
 
+function decodeCRC16() {
+	// TODO: 16bit CRC checksum
+}
 
 function encodeField({ input, field }) {
 	const { name, type, numBits, encoder, validator } = field;
@@ -102,6 +109,7 @@ function encodeField({ input, field }) {
 
 	const inputValue = input[name];
 	const fieldValue = inputValue === null || inputValue === undefined ? '' : inputValue;
+	// TODO: 16bit CRC checksum
 	switch (type) {
 		case 'int':
 			return encodeIntToBits(fieldValue, bitCount);
