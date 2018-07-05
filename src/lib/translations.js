@@ -602,7 +602,7 @@ export default {
 			message: 'Read more about access and use of information on your device for various purposes.',
 			closedMessage: 'A reminder you can control your user privacy preferences ',
 			closedMessageLink: 'here',
-			deviceInformationHeader: 'Information that may be used:',
+			deviceInformationHeader: 'Informace, které mohou být použity:',
 			deviceInformation: `
 				<ul>
 					<li>Typ prohlížeče a jeho nastavení</li>
@@ -614,7 +614,7 @@ export default {
 					<li>Informace o zeměpisné poloze zařízení v průběhu návštěvy webu či užívání mobilní aplikace</li>
 				</ul>
 			`,
-			purposesHeader: 'Purposes for storing information:',
+			purposesHeader: 'Účely uchovávání informací:',
 		}
 	}
 };
