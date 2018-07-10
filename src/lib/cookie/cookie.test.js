@@ -129,7 +129,7 @@ describe('cookie', () => {
 			created: aDate,
 			lastUpdated: aDate,
 			source: 'local',
-			selectedCustomPurposeIds: new Set([2, 3])
+			selectedCustomPurposeIds: new Set([25, 26])
 		};
 
 		const encodedString = encodePublisherConsentData({
@@ -139,7 +139,7 @@ describe('cookie', () => {
 		});
 		const decoded = decodePublisherConsentData(encodedString, 'local');
 
-		expect(decoded).to.deep.equal({...vendorConsentData, ...publisherConsentData});
+		expect(decoded).to.deep.include({...vendorConsentData, ...publisherConsentData});
 	});
 
 	it('writes and reads the local cookie when globalConsent = false', () => {
@@ -200,26 +200,70 @@ describe('cookie', () => {
 		});
 	});
 
-	it('writes and reads the publisher consent cookie', () => {
+	it('writes and reads the publisher consent cookie locally', () => {
 		config.update({
-			storeConsentGlobally: false,
+			storePublisherConsentGlobally: false,
 			storePublisherData: true
 		});
 
 		const publisherConsentData = {
 			cookieVersion: 1,
+			cmpId: 15,
+			cmpVersion: 2,
+			consentScreen: 1,
+			consentLanguage: "EN",
+			vendorListVersion: 1,
+			publisherPurposesVersion: 1,
+			created: aDate,
+			lastUpdated: aDate,
+			source: 'local',
+			vendorList,
+			customPurposeList,
+			selectedPurposeIds: new Set([1, 2]),
+			selectedCustomPurposeIds: new Set([25, 26])
+		};
+
+		return writePublisherConsentCookie(publisherConsentData).then(() => {
+			return readPublisherConsentCookie().then((cookie) => {
+				expect(document.cookie).to.contain(PUBLISHER_CONSENT_COOKIE_NAME);
+				expect(cookie).to.deep.include({
+					"cookieVersion":1,
+					"cmpId":15,
+					"cmpVersion":2,
+					"consentScreen":1,
+					"consentLanguage":"EN",
+					"vendorListVersion":1,
+					"publisherPurposesVersion":1,
+					"created": aDate,
+					"lastUpdated": aDate,
+					"source":"local",
+					"selectedPurposeIds": new Set([1, 2]),
+					"selectedCustomPurposeIds": new Set([25, 26])
+				});
+			});
+		});
+	});
+
+	it('writes and reads the publisher consent cookie on a third party domain', () => {
+		config.update({
+			storePublisherConsentGlobally: true,
+			globalPublisherConsentLocation: "https://www.example.com",
+			storePublisherData: true
+		});
+
+		const publisherConsentData = {
 			cmpId: 1,
 			vendorListVersion: 1,
 			publisherPurposesVersion: 1,
 			created: aDate,
 			lastUpdated: aDate,
+			source: 'global'
 		};
 
-		writePublisherConsentCookie(publisherConsentData);
-		const fromCookie = readPublisherConsentCookie();
-
-		expect(document.cookie).to.contain(PUBLISHER_CONSENT_COOKIE_NAME);
-		expect(fromCookie).to.deep.include(publisherConsentData);
+		return writePublisherConsentCookie(publisherConsentData).then(() => {
+			expect(mockPortal.sendPortalCommand.mock.calls[0][0].command).to.deep.equal('writePublisherConsent');
+			expect(document.cookie).to.contain(PUBLISHER_CONSENT_COOKIE_NAME);
+		});
 	});
 
 	it('converts selected vendor list to a range', () => {

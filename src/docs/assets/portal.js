@@ -8,7 +8,8 @@ const parts = host.split('.');
 const GLOBAL_VENDOR_LIST_DOMAIN = 'https://vendorlist.consensu.org/vendorlist.json';
 const COOKIE_DOMAIN = parts.length > 1 ? `;domain=.${parts.slice(-2).join('.')}` : '';
 const COOKIE_MAX_AGE = 33696000;
-const COOKIE_NAME = 'euconsent';
+const VENDOR_COOKIE_NAME = 'euconsent';
+const PUBLISHER_COOKIE_NAME = 'pubconsent';
 
 const readVendorListPromise = fetch(config.globalVendorListLocation)
 	.then(res => res.json())
@@ -43,11 +44,19 @@ const commands = {
 	readVendorList: () => readVendorListPromise,
 
 	readVendorConsent: () => {
-		return readCookie(COOKIE_NAME);
+		return readCookie(VENDOR_COOKIE_NAME);
 	},
 
-	writeVendorConsent: ({encodedValue }) => {
-		return writeCookie({name: COOKIE_NAME, value: encodedValue});
+	writeVendorConsent: ({encodedValue}) => {
+		return writeCookie({name: VENDOR_COOKIE_NAME, value: encodedValue});
+	},
+
+	readPublisherConsent: () => {
+		return readCookie(PUBLISHER_COOKIE_NAME);
+	},
+
+	writePublisherConsent: ({encodedValue}) => {
+		return writeCookie({name: PUBLISHER_COOKIE_NAME, value: encodedValue});
 	}
 };
 
