@@ -128,6 +128,7 @@ describe('cookie', () => {
 			publisherPurposesVersion: 1,
 			created: aDate,
 			lastUpdated: aDate,
+			source: 'local',
 			selectedCustomPurposeIds: new Set([2, 3])
 		};
 
@@ -136,7 +137,7 @@ describe('cookie', () => {
 			vendorList,
 			customPurposeList
 		});
-		const decoded = decodePublisherConsentData(encodedString);
+		const decoded = decodePublisherConsentData(encodedString, 'local');
 
 		expect(decoded).to.deep.equal({...vendorConsentData, ...publisherConsentData});
 	});

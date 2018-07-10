@@ -180,7 +180,7 @@ function encodePublisherConsentData(publisherData) {
 	});
 }
 
-function decodePublisherConsentData(cookieValue) {
+function decodePublisherConsentData(cookieValue, source) {
 	const {
 		cookieVersion,
 		cmpId,
@@ -205,6 +205,7 @@ function decodePublisherConsentData(cookieValue) {
 		publisherPurposesVersion,
 		created,
 		lastUpdated,
+		source,
 		selectedPurposeIds: decodeBitsToIds(standardPurposeIdBitString),
 		selectedCustomPurposeIds: decodeBitsToIds(customPurposeIdBitString)
 	};
@@ -226,24 +227,82 @@ function writeCookie(name, value, maxAgeSeconds, path = '/') {
 }
 
 function readPublisherConsentCookie() {
-	// If configured try to read publisher cookie
 	if (config.storePublisherData) {
-		const cookie = readCookie(PUBLISHER_CONSENT_COOKIE_NAME);
-		log.debug('Read publisher consent data from local cookie', cookie);
-		if (cookie) {
-			return decodePublisherConsentData(cookie);
-		}
+		return config.storePublisherConsentGlobally ?
+			readGlobalPublisherConsentCookie() : readLocalPublisherConsentCookie();
 	}
 }
 
 function writePublisherConsentCookie(publisherConsentData) {
+	if (config.storePublisherData) {
+		return config.storePublisherConsentGlobally ?
+			writeGlobalPublisherConsentCookie(publisherConsentData) : writeLocalPublisherConsentCookie(publisherConsentData);
+	}
+}
+
+/**
+ * Read publisher consent data from third-party cookie on the
+ * configured third party domain. Fallback to first-party cookie
+ * if the operation fails.
+ *
+ * @returns Promise resolved with decoded cookie object
+ */
+function readGlobalPublisherConsentCookie() {
+	log.debug('Request publisher consent data from global cookie');
+	return sendPortalCommand({
+		command: 'readPublisherConsent',
+	}).then(result => {
+		log.debug('Read publisher consent data from global cookie', result);
+		if (result) {
+			return decodePublisherConsentData(result, "global");
+		}
+		return readLocalPublisherConsentCookie();
+	}).catch(err => {
+		log.error('Failed reading third party publisher consent cookie', err);
+	});
+}
+
+/**
+ * Write publisher consent data to third-party cookie on the
+ * configured third party domain. Fallback to first-party cookie
+ * if the operation fails.
+ *
+ * @returns Promise resolved after cookie is written
+ */
+function writeGlobalPublisherConsentCookie(publisherConsentData) {
+	log.debug('Write publisher consent data to third party cookie', publisherConsentData);
+	return sendPortalCommand({
+		command: 'writePublisherConsent',
+		encodedValue: encodePublisherConsentData(publisherConsentData),
+		publisherConsentData
+	})
+		.then((succeeded) => {
+			if ( !succeeded ) {
+				return writeLocalPublisherConsentCookie(publisherConsentData);
+			}
+			return Promise.resolve();
+		})
+		.catch(err => {
+			log.error('Failed writing third party publisher consent cookie', err);
+		});
+}
+
+function readLocalPublisherConsentCookie() {
+	// If configured try to read publisher cookie
+	const cookie = readCookie(PUBLISHER_CONSENT_COOKIE_NAME);
+	log.debug('Read publisher consent data from local cookie', cookie);
+	if (cookie) {
+		return decodePublisherConsentData(cookie, 'local');
+	}
+}
+
+function writeLocalPublisherConsentCookie(publisherConsentData) {
 	log.debug('Write publisher consent data to local cookie', publisherConsentData);
 	writeCookie(PUBLISHER_CONSENT_COOKIE_NAME,
 		encodePublisherConsentData(publisherConsentData),
 		PUBLISHER_CONSENT_COOKIE_MAX_AGE,
 		'/');
 }
-
 
 /**
  * Read vendor consent data from third-party cookie on the
