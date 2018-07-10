@@ -552,7 +552,7 @@ export default {
 		intro: {
 			title: 'Děkujeme Vám za návštěvu ',
 			domain: '',
-			description: 'Reklamy pomáhají financovat provoz této aplikace. Když využíváte naši aplikaci vybrané společnosti mohou mít přístup ke cookies a identifikačním údajům vašeho zařízeník různým účelůmvčetně prezentace relevantních reklamních sdělení či individualizovaného obsahu.',
+			description: 'Reklamy pomáhají financovat provoz této aplikace. Když využíváte naši aplikaci vybrané společnosti mohou mít přístup k některým informacím z vašeho zařízení a využívat je k různým účelům včetně prezentace relevantních reklamních sdělení či individualizovaného obsahu.',
 			deviceInformationPopover: `
 				<strong>Informace, které mohou být použity:</strong>
 				<ul>
@@ -577,8 +577,8 @@ export default {
 			disableAll: 'Vypnout vše'
 		},
 		purposes: {
-			active: 'Aktivní',
-			inactive: 'Neaktivní',
+			active: 'Povoleno',
+			inactive: 'Zakázáno',
 			disclaimer: 'Naše společnost a námi vybrané společnosti mohou mít přístup k uvedeným informacím a užívat je k následujícím účelům. Můžete váš výběr upravit nebo dál používat naši aplikaci, pokud s těmito účely souhlasíte. Zde naleznete ',
 			disclaimerVendorLink: 'kompletní seznam společností.',
 			showVendors: 'Ukázat společnosti',
@@ -595,11 +595,11 @@ export default {
 			sites: '.',
 			description2: 'Nastavení užívání dat těmito společnostmi můžete upravit na ',
 			description2Link: 'předchozí stránce.',
-			description3: 'You can control the preferences for all companies by ',
-			description3Link: 'clicking here.'
+			description3: 'Pro změnu nastavení pro všechny společnosti najednou ',
+			description3Link: 'klikněte zde.'
 		},
 		footer: {
-			message: 'Read more about access and use of information on your device for various purposes.',
+			message: 'Zjistěte více o spracování a využítí informací z vašeho zařízení k různým účelům.',
 			closedMessage: 'A reminder you can control your user privacy preferences ',
 			closedMessageLink: 'here',
 			deviceInformationHeader: 'Informace, které mohou být použity:',
