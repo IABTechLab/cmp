@@ -600,8 +600,8 @@ export default {
 		},
 		footer: {
 			message: 'Zjistěte více o spracování a využítí informací z vašeho zařízení k různým účelům.',
-			closedMessage: 'A reminder you can control your user privacy preferences ',
-			closedMessageLink: 'here',
+			closedMessage: 'Nastavení svého soukromí můžete ',
+			closedMessageLink: 'upravit zde.',
 			deviceInformationHeader: 'Informace, které mohou být použity:',
 			deviceInformation: `
 				<ul>
