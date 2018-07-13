@@ -1,11 +1,15 @@
 const fs = require('fs');
 
-var utils = {
-  writeScreenShot: function(data, filename) {
+module.exports = {
+	clearCookies: function() {
+		browser.driver.manage().deleteAllCookies();
+	},
+	getCookies: function() {
+		return browser.manage().getCookies();
+	},
+	writeScreenShot: function(data, filename) {
 		let stream = fs.createWriteStream(filename);
 		stream.write(new Buffer(data, 'base64'));
 		stream.end();
 	}
 }
-
-module.exports = utils;
