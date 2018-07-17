@@ -91,5 +91,57 @@ describe('purposes page', () => {
     });
   });
 
+  describe('purpose controls', () => {
+    it('clicking a toggle works', () => {
+      const switchEl = element(by.css('[class*=switch_switch]'));
+      const parentEl = element(by.css('[class*=purposes_active]'));
+      expect(switchEl.getAttribute('class')).toContain('switch_isSelected')
+      expect(parentEl.getText()).not.toContain('Inactive')
+      switchEl.click();
+      expect(switchEl.getAttribute('class')).not.toContain('switch_isSelected')
+      expect(parentEl.getText()).toContain('Inactive')
+    });
+
+    it('clicking a toggle and submitting changes the cookie', () => {
+      element(by.css('[class*=details_save]')).click();
+      let vendorCookie1;
+      utils.getCookies().then((firstCookies) => {
+        expect(firstCookies.length).toEqual(2);
+        for (let i in firstCookies) {
+          const cookie = firstCookies[i];
+          if (cookie.name === 'euconsent') vendorCookie1 = cookie.value;
+        }
+
+        utils.clearCookies();
+
+        browser.get("/");
+        browser.sleep(300);
+        element(by.css('[class*=introV2_rejectAll]')).click();
+
+        let vendorCookie2;
+        const switchEl = element(by.css('[class*=switch_switch]'));
+        switchEl.click();
+        element(by.css('[class*=details_save]')).click();
+        utils.getCookies().then((secondCookies) => {
+          expect(secondCookies.length).toEqual(2);
+          for (let i in secondCookies) {
+            const cookie = secondCookies[i];
+            if (cookie.name === 'euconsent') vendorCookie2 = cookie.value;
+            expect(["pubconsent", "euconsent"]).toContain(cookie.name);
+            expect(cookie.domain).toEqual("localhost");
+            expect(cookie.value).toMatch(/[\w\d\W]+/);
+          }
+          expect(vendorCookie1).not.toEqual(vendorCookie2);
+        });
+      });
+    });
+
+    it('clicking show companies expands the list of companies', () => {
+      expect(element(by.css('[class*=purposes_vendorList]')).isPresent()).toBe(false);
+      element(by.css('[class*=purposes_body]')).element(by.css('[class*=purposes_vendorLink]')).click();
+      browser.sleep(300);
+      expect(element(by.css('[class*=purposes_vendorList]')).isPresent()).toBe(true);
+    });
+  });
 
 });
