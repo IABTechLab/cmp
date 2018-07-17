@@ -1,4 +1,4 @@
-const utils = require('../support/utils');
+const utils = require('./support/utils');
 
 describe('intro page', () => {
 
