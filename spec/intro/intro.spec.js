@@ -15,7 +15,7 @@ describe('intro page', () => {
   });
 
   it('has a page title', () => {
-    let el = element.all(by.css('[class^=introV2_title]')).first();
+    const el = element.all(by.css('[class^=introV2_title]')).first();
     expect(el.getText()).toContain("Thanks for visiting");
   });
 
@@ -31,11 +31,49 @@ describe('intro page', () => {
     utils.getCookies().then((cookies) => {
       expect(cookies.length).toEqual(2);
       for (let i in cookies) {
-        let cookie = cookies[i];
+        const cookie = cookies[i];
         expect(["pubconsent", "euconsent"]).toContain(cookie.name);
         expect(cookie.domain).toEqual("localhost");
         expect(cookie.value).toMatch(/[\w\d\W]+/);
       }
     });
   });
-})
+
+  describe('clicking the caret to expand the footer', () => {
+    beforeEach(() => {
+      element.all(by.css('[class*=footerV2_icon]')).first().click();
+      browser.sleep(300);
+    })
+
+    it('expands the language at the bottom when the caret icon is clicked', () => {
+      const titleEl = element(by.css('[class*=footerV2_headerMessage]'));
+      expect(titleEl.getText()).toContain("INFORMATION THAT MAY BE USED:");
+      const bodyEl = element(by.css('[class*=footerV2_content]'));
+      expect(bodyEl.getText()).toContain("Information about other identifiers assigned to the device");
+      expect(bodyEl.getText()).toContain("Ad selection, delivery, reporting");
+    });
+
+    describe('properly writes cookies when users interact with the reject and accept buttons after clicking the caret to expand', () => {
+      it('reject', () => {
+        element(by.name('footerReject')).click();
+        utils.getCookies().then((cookies) => {
+          expect(cookies.length).toEqual(0);
+        });
+      });
+
+      it('accept', () => {
+        element(by.name('footerAccept')).click();
+        utils.getCookies().then((cookies) => {
+          expect(cookies.length).toEqual(2);
+          for (let i in cookies) {
+            const cookie = cookies[i];
+            expect(["pubconsent", "euconsent"]).toContain(cookie.name);
+            expect(cookie.domain).toEqual("localhost");
+            expect(cookie.value).toMatch(/[\w\d\W]+/);
+          }
+        });
+      });
+    });
+  });
+
+});
