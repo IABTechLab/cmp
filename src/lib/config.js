@@ -1,11 +1,13 @@
 import log from './log';
 const metadata = require('../../metadata.json');
 const defaultConfig = {
+	storePublisherData: true,
 	customPurposeListLocation: null,
+	storeConsentGlobally: true,
+	storePublisherConsentGlobally: false,
 	globalVendorListLocation: metadata.globalVendorListLocation,
 	globalConsentLocation: metadata.globalConsentLocation,
-	storeConsentGlobally: true,
-	storePublisherData: true,
+	globalPublisherConsentLocation: null,
 	logging: false,
 	localization: {},
 	forceLocale: null,

@@ -115,7 +115,7 @@ export default {
 		purposes: {
 			active: 'Permitir',
 			inactive: 'Rechazar',
-			disclaimer: 'Nosotros y algunas empresas seleccionadas podemos acceder y usar la información para los fines descritos. Puede personalizar su elección o continuar usando nuestra [página] [aplicación] si está de acuerdo con los propósitos. Puede ver la ',
+			disclaimer: 'Nosotros y algunas empresas seleccionadas podemos acceder y usar la información para los fines descritos. Puede personalizar su elección o continuar usando nuestra aplicación si está de acuerdo con los propósitos. Puede ver la ',
 			disclaimerVendorLink: 'lista completa de compañías aquí.',
 			showVendors: 'Mostrar empresas',
 			hideVendors: 'Esconder empresas',
@@ -194,7 +194,7 @@ export default {
 		purposes: {
 			active: 'Aktivieren',
 			inactive: 'Deaktivieren',
-			disclaimer: 'Wir und ausgewählte Unternehmen können Informationen für die beschriebenen Zwecke abrufen und nutzen. Sie können Ihre Wahl anpassen oder unsere [Website] [App] weiter verwenden, wenn Sie mit den Zwecken einverstanden sind. Sie können die ',
+			disclaimer: 'Wir und ausgewählte Unternehmen können Informationen für die beschriebenen Zwecke abrufen und nutzen. Sie können Ihre Wahl anpassen oder unsere App weiter verwenden, wenn Sie mit den Zwecken einverstanden sind. Sie können die ',
 			disclaimerVendorLink: 'vollständige Liste der Unternehmen hier sehen.',
 			showVendors: 'Firmen zeigen',
 			hideVendors: 'Firmen ausblenden',
@@ -546,6 +546,75 @@ export default {
 				</ul>
 			`,
 			purposesHeader: 'Les raisons pour lesquelles les informations sont conservées:',
+		}
+	},
+	cs: {
+		intro: {
+			title: 'Děkujeme Vám za návštěvu ',
+			domain: '',
+			description: 'Reklamy pomáhají financovat provoz této aplikace. Když využíváte naši aplikaci vybrané společnosti mohou mít přístup k některým informacím z vašeho zařízení a využívat je k různým účelům včetně prezentace relevantních reklamních sdělení či individualizovaného obsahu.',
+			deviceInformationPopover: `
+				<strong>Informace, které mohou být použity:</strong>
+				<ul>
+					<li>Typ prohlížeče a jeho nastavení</li>
+					<li>Informace o operačním systému zařízení</li>
+					<li>Informace o cookies</li>
+					<li>Informace o jiných identifikačních údajích zařízení</li>
+					<li>IP adresa, ze které zařízení získává přístup ke stránkám či mobilní aplikaci klienta</li>
+					<li>Informace ohledně aktivity uživatele na jeho zařízení, včetně navštívených webů či použitých mobilních aplikací</li>
+					<li>Informace o zeměpisné poloze zařízení v průběhu návštěvy webu či užívání mobilní aplikace</li>
+				</ul>
+			`,
+			acceptAll: 'přijmout vše',
+			showPurposes: 'více informací'
+		},
+		details: {
+			title: 'Nastavení soukromí',
+			back: 'Zpět',
+			save: 'OK, pokračovat na stránku',
+			showVendors: 'Ukázat společnosti',
+			enableAll: 'Zapnout vše',
+			disableAll: 'Vypnout vše'
+		},
+		purposes: {
+			active: 'Povoleno',
+			inactive: 'Zakázáno',
+			disclaimer: 'Naše společnost a námi vybrané společnosti mohou mít přístup k uvedeným informacím a užívat je k následujícím účelům. Můžete váš výběr upravit nebo dál používat naši aplikaci, pokud s těmito účely souhlasíte. Zde naleznete ',
+			disclaimerVendorLink: 'kompletní seznam společností.',
+			showVendors: 'Ukázat společnosti',
+			hideVendors: 'Skrýt společnosti',
+			featureHeader: 'To bude zahrnovat následující funkce:',
+			company: 'společnosti',
+			switchText: 'Publisher and their partners could collect anonymized information in order to improve your experience on our site.'
+		},
+		vendors: {
+			company: 'Společnost',
+			offOn: 'Povolit',
+			description: 'Vaše informace budou moci užívat pečlivě vybrané společnosti. V závislosti na určitých faktorech a typu dat, která budou shromažďovat, využívat a zpracovávat, budou od vás určité společnosti vyžadovat udělení souhlasu s nakládáním s těmito informacemi, zatímco jiné společnosti jej budou implicitně předpokládat a vyžadovat jen případný nesouhlas (opt-out). Pro zobrazení zásad ochrany osobních údajů jednotlivých společností můžete kliknout na název společnosti a upravit si příslušná nastavení. Pro opt-out, tedy zamítnutí souhlasu se zpracováním a uchováváním údajů navštivte stránky ',
+			or: 'nebo ',
+			sites: '.',
+			description2: 'Nastavení užívání dat těmito společnostmi můžete upravit na ',
+			description2Link: 'předchozí stránce.',
+			description3: 'Pro změnu nastavení pro všechny společnosti najednou ',
+			description3Link: 'klikněte zde.'
+		},
+		footer: {
+			message: 'Zjistěte více o spracování a využítí informací z vašeho zařízení k různým účelům.',
+			closedMessage: 'Nastavení svého soukromí můžete ',
+			closedMessageLink: 'upravit zde.',
+			deviceInformationHeader: 'Informace, které mohou být použity:',
+			deviceInformation: `
+				<ul>
+					<li>Typ prohlížeče a jeho nastavení</li>
+					<li>Informace o operačním systému zařízení</li>
+					<li>Informace o cookies</li>
+					<li>Informace o jiných identifikačních údajích zařízení</li>
+					<li>IP adresa, ze které zařízení získává přístup ke stránkám či mobilní aplikaci klienta</li>
+					<li>Informace ohledně aktivity uživatele na jeho zařízení, včetně navštívených webů či použitých mobilních aplikací</li>
+					<li>Informace o zeměpisné poloze zařízení v průběhu návštěvy webu či užívání mobilní aplikace</li>
+				</ul>
+			`,
+			purposesHeader: 'Účely uchovávání informací:',
 		}
 	}
 };

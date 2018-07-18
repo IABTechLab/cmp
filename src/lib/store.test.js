@@ -238,18 +238,18 @@ describe('store', () => {
 			customPurposeList,
 			publisherConsentData: {
 				created: new Date(),
-				selectedCustomPurposeIds: new Set([0, 2]),
+				selectedCustomPurposeIds: new Set([25, 27]),
 			}
 		});
 
-		store.selectCustomPurpose(0, false);
-		store.selectCustomPurpose(3, true);
+		store.selectCustomPurpose(25, false);
+		store.selectCustomPurpose(26, true);
 		store.persist();
 
 		const publisherObject = store.getPublisherConsentsObject();
 		const selectedCustomPurposeIds = Object.keys(publisherObject.customPurposes).filter(key => publisherObject.customPurposes[key]);
 
-		expect(selectedCustomPurposeIds).to.deep.equal(['2', '3']);
+		expect(selectedCustomPurposeIds).to.deep.equal(['26', '27']);
 	});
 
 	it('selects ALL custom purpose IDs', () => {

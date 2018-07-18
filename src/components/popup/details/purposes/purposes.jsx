@@ -127,10 +127,10 @@ export default class Purposes extends Component {
 		const allPurposes = [...purposes, ...customPurposes];
 		const selectedPurpose = allPurposes[selectedPurposeIndex];
 		const selectedPurposeId = selectedPurpose && selectedPurpose.id;
-		const purposeIsActive = selectedPurposeIndex < purposes.length ?
+		const currentPurposeLocalizePrefix = `${selectedPurposeIndex >= purposes.length ? 'customPurpose' : 'purpose'}${selectedPurposeId}`;
+		let purposeIsActive = selectedPurposeIndex < purposes.length ?
 			selectedPurposeIds.has(selectedPurposeId) :
 			selectedCustomPurposeIds.has(selectedPurposeId);
-		const currentPurposeLocalizePrefix = `${selectedPurposeIndex >= purposes.length ? 'customPurpose' : 'purpose'}${selectedPurposeId}`;
 
 		return (
 			<div class={style.container} >
