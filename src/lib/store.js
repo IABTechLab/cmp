@@ -9,6 +9,9 @@ import {
 } from './localize';
 const metadata = require('../../metadata.json');
 
+const MAX_STANDARD_PURPOSE_ID = 24;
+const START_CUSTOM_PURPOSE_ID = 25;
+
 /**
  * Copy a data object and make sure to replace references
  * of Set objects with new ones.
@@ -203,21 +206,17 @@ export default class Store {
 		// No consent will be allowed for purposes not on the list
 		const allowedPurposeIds = new Set(purposes.map(({id}) => id));
 
-		const lastStandardPurposeId = Math.max(
-			...purposes.map(({id}) => id),
-			...Array.from(selectedPurposeIds));
-
 		const lastCustomPurposeId = Math.max(
 			...customPurposes.map(({id}) => id),
 			...Array.from(selectedCustomPurposeIds));
 
 		// Map all purpose IDs
 		const standardPurposeMap = {};
-		for (let i = 1; i <= lastStandardPurposeId; i++) {
+		for (let i = 1; i <= MAX_STANDARD_PURPOSE_ID; i++) {
 			standardPurposeMap[i] = selectedPurposeIds.has(i) && allowedPurposeIds.has(i);
 		}
 		const customPurposeMap = {};
-		for (let i = 1; i <= lastCustomPurposeId; i++) {
+		for (let i = START_CUSTOM_PURPOSE_ID; i <= lastCustomPurposeId; i++) {
 			customPurposeMap[i] = selectedCustomPurposeIds.has(i);
 		}
 
