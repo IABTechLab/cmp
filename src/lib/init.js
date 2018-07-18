@@ -14,13 +14,12 @@ export function init(configUpdates) {
 	log.debug('Using configuration:', config);
 
 	// Fetch the current vendor consent before initializing
-	return readVendorConsentCookie()
-		.then(vendorConsentData => {
-
+	return readVendorConsentCookie().then(vendorConsentData => {
+		return readPublisherConsentCookie().then(publisherConsentData => {
 			// Initialize the store with all of our consent data
 			const store = new Store({
 				vendorConsentData,
-				publisherConsentData: readPublisherConsentCookie(),
+				publisherConsentData,
 				cmpId: metadata.cmpId,
 				cmpVersion: metadata.cmpVersion,
 				cookieVersion: 1
@@ -86,10 +85,10 @@ export function init(configUpdates) {
 			}).catch(err => {
 				log.error('Failed to load lists. CMP not ready', err);
 			});
-		})
-		.catch(err => {
+		}).catch(err => {
 			log.error('Failed to load CMP', err);
 		});
+	});
 }
 
 
