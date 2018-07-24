@@ -10,6 +10,7 @@ export default {
 			title: 'Thanks for visiting ',
 			domain: '',
 			description: 'Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.',
+			softConsentDisclaimer: 'This is the placeholder for the soft consent disclaimer.',
 			deviceInformationPopover: `
 				<strong>Information that may be used:</strong>
 				<ul>
@@ -79,6 +80,7 @@ export default {
 			title: 'Gracias por su visita ',
 			domain: '',
 			description: 'Los anuncios nos ayudan a que esta aplicación funcione. Cuando utiliza nuestra aplicación, empresas seleccionadas pueden acceder y usar información en su dispositivo para diversos fines incluso para publicar anuncios relevantes o contenido personalizado.',
+			softConsentDisclaimer: 'This is the placeholder for the soft consent disclaimer.',
 			deviceInformationPopover: `
 				<strong>Información que puede ser utilizada:</strong>
 				<ul>
@@ -158,6 +160,7 @@ export default {
 			title: 'Danke für Ihren Besuch ',
 			domain: '',
 			description: 'Mit Hilfe von Anzeigen können wir diese App ausführen. Wenn Sie unsere App besuchen/verwenden, können ausgewählte Unternehmen auf Ihrem Gerät Informationen für verschiedene Zwecke abrufen und verwenden, einschließlich um die relevanten Anzeigen oder personalisierten Inhalt anzuzeigen.',
+			softConsentDisclaimer: 'This is the placeholder for the soft consent disclaimer.',
 			deviceInformationPopover: `
 				<strong>Informationen, die verwendet werden können:</strong>
 				<ul>
@@ -237,6 +240,7 @@ export default {
 			title: 'Dziękujemy za wizytę ',
 			domain: '',
 			description: 'Reklamy pomagają uruchomić tę aplikację. Podczas korzystania z naszej aplikacji, wybrane firmy mogą uzyskiwać dostęp do informacji o urządzeniu i korzystać z nich w różnych celach, w tym do wyświetlania trafnych reklam lub spersonalizowanych treści.',
+			softConsentDisclaimer: 'This is the placeholder for the soft consent disclaimer.',
 			deviceInformationPopover: `
 				<strong>Informacja, którą można wykorzystać:</strong>
 				<ul>
@@ -316,6 +320,7 @@ export default {
 			title: 'Dėkojame už apsilankymą ',
 			domain: '',
 			description: 'Skelbimai padeda mums palaikyti šį tinklalapį. Kai jūs naudojates mūsų tinklalapiu, kai kurios pasirinktos įmonės gali turėti prieigą prie informacijos, saugomos jūsų įrenginyje, ir ją naudoti įvairiems tikslams, įskaitant pritaikymą reklamoje arba indivizualizuotame turinyje.',
+			softConsentDisclaimer: 'This is the placeholder for the soft consent disclaimer.',
 			deviceInformationPopover: `
 				<strong>Informacija, kuri gali būti naudojama:</strong>
 				<ul>
@@ -395,6 +400,7 @@ export default {
 			title: 'Grazie per aver visitato ',
 			domain: '',
 			description: 'Quando utilizzi il nostro sito / la nostra applicazione, le aziende selezionate possono avere accesso alle informazioni del tuo dispositivo ed usarle per diverse finalità, come ad esempio mostrarti inserzioni in linea con i tuoi interessi o contenuti personalizzati.',
+			softConsentDisclaimer: 'This is the placeholder for the soft consent disclaimer.',
 			deviceInformationPopover: `
 				<strong>Informazioni che potranno essere utilizzate:</strong>
 				<ul>
@@ -474,6 +480,7 @@ export default {
 			title: 'Merci d’avoir visité ',
 			domain: '',
 			description: 'La publicité nous permet de faire fonctionner notre app. Lorsque vous utilisez notre app certaines entreprises sélectionnées peuvent avoir accès et utiliser des informations concernant votre appareil à des fins diverses, incluant des publicités pertinentes ou du contenu personnalisé.',
+			softConsentDisclaimer: 'This is the placeholder for the soft consent disclaimer.',
 			deviceInformationPopover: `
 				<strong>Peuvent être utilisées:</strong>
 				<ul>
@@ -553,6 +560,7 @@ export default {
 			title: 'Děkujeme Vám za návštěvu ',
 			domain: '',
 			description: 'Reklamy pomáhají financovat provoz této aplikace. Když využíváte naši aplikaci vybrané společnosti mohou mít přístup k některým informacím z vašeho zařízení a využívat je k různým účelům včetně prezentace relevantních reklamních sdělení či individualizovaného obsahu.',
+			softConsentDisclaimer: 'This is the placeholder for the soft consent disclaimer.',
 			deviceInformationPopover: `
 				<strong>Informace, které mohou být použity:</strong>
 				<ul>

@@ -15,14 +15,21 @@ describe('Popup', () => {
 	it('should render with overlay hidden', () => {
 		const store = new Store();
 		store.isConsentToolShowing = false;
-		const popup = <Popup config={{}} updateCSSPrefs={() => {}} store={store} />;
+		const popup = <Popup config={{
+			consentActions: {}
+		}}
+		updateCSSPrefs={() => {}}
+		store={store} />;
 		expect(popup).to.contain('display: none');
 	});
 
 	it('should render with overlay visible', () => {
 		const store = new Store();
 		store.isConsentToolShowing = true;
-		const popup = <Popup config={{}} store={store} />;
+		const popup = <Popup config={{
+			consentActions: {}
+		}}
+		store={store} />;
 		expect(popup).to.contain('display: flex');
 	});
 
@@ -34,7 +41,9 @@ describe('Popup', () => {
 
 		let popup;
 		render(<Popup
-			config={{}}
+			config={{
+				consentActions: {}
+			}}
 			updateCSSPrefs={() => {}}
 			store={store}
 			ref={ref => popup = ref}
@@ -53,7 +62,10 @@ describe('Popup', () => {
 		const store = new Store();
 
 		render(<Popup
-			config={{logoUrl: "https://www.example.com/image.jpg"}}
+			config={{
+				consentActions: {},
+				logoUrl: "https://www.example.com/image.jpg"
+			}}
 			updateCSSPrefs={() => {}}
 			store={store}
 			ref={() => {}}
@@ -67,7 +79,9 @@ describe('Popup', () => {
 
 		let popup;
 		render(<Popup
-			config={{}}
+			config={{
+				consentActions: {}
+			}}
 			updateCSSPrefs={() => {}}
 			store={store}
 			ref={ref => popup = ref}

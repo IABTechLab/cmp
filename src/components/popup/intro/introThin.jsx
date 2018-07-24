@@ -29,6 +29,11 @@ export default class IntroThin extends Component {
       config
     } = props;
 
+    let softConsentEnabled = false;
+    Object.keys(config.consentActions).forEach((key) => {
+      if (config.consentActions[key]) softConsentEnabled = true;
+    });
+
     return (
       <div class={style.intro}>
         <div class={style.topWrapper}>
@@ -36,6 +41,11 @@ export default class IntroThin extends Component {
             <div class={style.description + " primaryText"}>
               <LocalLabel providedValue={localization && localization.intro ? localization.intro.description : ''} localizeKey='description' class={style.contentMessage}>Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.</LocalLabel>
             </div>
+            {softConsentEnabled &&
+              <div class={style.softConsentDisclaimer + " primaryText"}>
+                <LocalLabel providedValue={localization && localization.intro ? localization.intro.softConsentDisclaimer : ''} localizeKey='softConsentDisclaimer'>This will show if soft consent is enabled.</LocalLabel>
+              </div>
+            }
           </div>
           <div class={style.options}>
             <Button
