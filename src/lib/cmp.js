@@ -401,6 +401,11 @@ export default class Cmp {
 		}
 	};
 
+	/**
+	 * Assign handler on init when the publisher configures outside clicks as soft consent.
+	 * Clicks are treated as submission of the CMP unless they are the "show consent tool" button itself or within the CMP.
+	 * @param {DOM event} event DOM MouseClick event information, including target element that was clicked
+	 */
 	handleOutsideClick = (event) => {
 		const self = this;
 		const { store, config } = self;
