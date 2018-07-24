@@ -235,6 +235,7 @@ export default class Cmp {
 
 			this.cmpShown = true;
 			this.store[_command](true);
+			window.addEventListener('click', this.handleOutsideClick);
 			callback(true);
 		},
 
@@ -397,6 +398,26 @@ export default class Cmp {
 		if (event === 'onSubmit') {
 			this.submitted = true;
 			this.processCommandQueue();
+		}
+	};
+
+	handleOutsideClick = (event) => {
+		const self = this;
+		const { store, config } = self;
+		const { isConsentToolShowing, isFooterConsentToolShowing, isThinConsentToolShowing, isFooterShowing } = store;
+
+		if ( (isConsentToolShowing || isFooterConsentToolShowing || isThinConsentToolShowing || isFooterShowing) &&
+			config.consentActions.outsideClicks) {
+			const target = event.target;
+			const showConsentToolButtonClicked = RegExp('showConsentTool').test(target.getAttribute('onclick'));
+			const el = document.querySelector('[class^=app_gdpr]');
+			if (!el.contains(target) && !showConsentToolButtonClicked) {
+				self.notify('onSubmit');
+				store.persist();
+				store.toggleConsentToolShowing(false);
+				store.toggleFooterShowing(true);
+				window.removeEventListener('click', self.handleOutsideClick);
+			}
 		}
 	};
 }

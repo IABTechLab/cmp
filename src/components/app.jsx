@@ -100,7 +100,7 @@ export default class App extends Component {
 		// Clicking outside the main app will close it if blockBrowsing is set to false
 		// This is to capture clicks outside of the main window and close if necessary while also
 		// whitelisting the 'showConsentTool' button
-		if (!config.blockBrowsing) {
+		if (!config.blockBrowsing && !config.consentActions.outsideClicks) {
 			document.addEventListener('click', function(event) {
 				const target = event.target;
 				const showConsentToolButtonClicked = RegExp('showConsentTool').test(target.getAttribute('onclick'));

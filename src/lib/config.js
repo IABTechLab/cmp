@@ -36,6 +36,9 @@ const defaultConfig = {
 		"font-family": "'Helvetica Neue', Helvetica, Arial, sans-serif",
 		"custom-font-url": null,
 	},
+	consentActions: {
+		outsideClicks: false
+	},
 	digitrust: {
 		redirects: false
 	}
@@ -46,7 +49,8 @@ class Config {
 		this.individualOverwritesAllowed = {
 			repromptOptions: true,
 			css: true,
-			digitrust: true
+			consentActions: true,
+			digitrust: true,
 		};
 
 		this.update(defaultConfig);

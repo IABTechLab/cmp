@@ -61,6 +61,11 @@ export function init(configUpdates) {
 					});
 				}
 
+				// add soft consent listeners
+				if (config.consentActions.outsideClicks) {
+					window.addEventListener('click', cmp.handleOutsideClick);
+				}
+
 				return checkIfUserInEU(config.geoIPVendor, (response) => {
 					cmp.gdprApplies = response.applies;
 					cmp.gdprAppliesLanguage = response.language;
