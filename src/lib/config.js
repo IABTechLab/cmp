@@ -37,7 +37,8 @@ const defaultConfig = {
 		"custom-font-url": null,
 	},
 	consentActions: {
-		outsideClicks: false
+		scrolling: false,
+		outsideClicks: false,
 	},
 	digitrust: {
 		redirects: false

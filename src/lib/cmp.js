@@ -402,6 +402,19 @@ export default class Cmp {
 	};
 
 	/**
+	 * Assign handler on init when the publisher configures scrolling as soft consent.
+	 */
+	handleScrolling = () => {
+		const self = this;
+		const { store } = self;
+		self.notify('onSubmit');
+		store.persist();
+		store.toggleConsentToolShowing(false);
+		store.toggleFooterShowing(true);
+		window.removeEventListener('scroll', self.handleScrolling);
+	};
+
+	/**
 	 * Assign handler on init when the publisher configures outside clicks as soft consent.
 	 * Clicks are treated as submission of the CMP unless they are the "show consent tool" button itself or within the CMP.
 	 * @param {DOM event} event DOM MouseClick event information, including target element that was clicked
