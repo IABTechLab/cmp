@@ -377,4 +377,45 @@ describe('cmp', () => {
 		expect(processSpy.mock.calls[0][0]).to.equal('showConsentTool');
 	});
 
+	describe('soft consent handlers', () => {
+		it('handleScrolling', (done) => {
+			cmp.handleScrolling();
+			setTimeout(() => {
+				cmp.processCommand('getVendorConsents', null, data => {
+					expect(typeof data.metadata).to.equal('string');
+					expect(data.metadata.length).to.not.equal(0);
+					expect(typeof data.purposeConsents).to.equal('object');
+					expect(typeof data.vendorConsents).to.equal('object');
+					done();
+				});
+			}, 90);
+		});
+
+		it('handleOutsideClick', (done) => {
+			cmp.handleOutsideClick();
+			setTimeout(() => {
+				cmp.processCommand('getVendorConsents', null, data => {
+					expect(typeof data.metadata).to.equal('string');
+					expect(data.metadata.length).to.not.equal(0);
+					expect(typeof data.purposeConsents).to.equal('object');
+					expect(typeof data.vendorConsents).to.equal('object');
+					done();
+				});
+			}, 90);
+		});
+
+		it('handleNavigationChange', (done) => {
+			cmp.handleNavigationChange();
+			setTimeout(() => {
+				cmp.processCommand('getVendorConsents', null, data => {
+					expect(typeof data.metadata).to.equal('string');
+					expect(data.metadata.length).to.not.equal(0);
+					expect(typeof data.purposeConsents).to.equal('object');
+					expect(typeof data.vendorConsents).to.equal('object');
+					done();
+				});
+			}, 90);
+		});
+	});
+
 });

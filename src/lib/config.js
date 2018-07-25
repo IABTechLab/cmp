@@ -39,6 +39,7 @@ const defaultConfig = {
 	consentActions: {
 		scrolling: false,
 		outsideClicks: false,
+		navigationChange: false,
 	},
 	digitrust: {
 		redirects: false

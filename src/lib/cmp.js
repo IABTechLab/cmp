@@ -22,6 +22,7 @@ export default class Cmp {
 		this.gdprAppliesLocation = false;
 		this.submitted = false;
 		this.processCommand.receiveMessage = this.receiveMessage;
+		this.commandQueue = [];
 	}
 
 	commands = {
@@ -401,12 +402,15 @@ export default class Cmp {
 		}
 	};
 
+	// SOFT CONSENT HANDLERS
+
 	/**
 	 * Assign handler on init when the publisher configures scrolling as soft consent.
 	 */
 	handleScrolling = () => {
 		const self = this;
 		const { store } = self;
+
 		self.notify('onSubmit');
 		store.persist();
 		store.toggleConsentToolShowing(false);
@@ -437,5 +441,22 @@ export default class Cmp {
 				window.removeEventListener('click', self.handleOutsideClick);
 			}
 		}
+	};
+
+	/**
+	 * Assign hanlder on init when the publisher configures internal navigation as soft consent.
+	 * We cannot attach a JS listener to when the entire page changes if it goes through the entire request/response cycle
+	 * (even when it's on the same domain). However, <a> tags with page hrefs (e.g. href="/#/here") will trigger this event.
+	 * Single page applications should work well with this feature.
+	 */
+	handleNavigationChange = () => {
+		const self = this;
+		const { store } = self;
+
+		self.notify('onSubmit');
+		store.persist();
+		store.toggleConsentToolShowing(false);
+		store.toggleFooterShowing(true);
+		window.removeEventListener('popstate', self.handleNavigationChange);
 	};
 }
