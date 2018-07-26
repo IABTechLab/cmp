@@ -393,7 +393,13 @@ function readVendorConsentCookie() {
 }
 
 function writeVendorConsentCookie(vendorConsentData) {
-	return config.storeConsentGlobally && (config.globalVendorListLocation === metadata.globalVendorListLocation || config.globalConsentLocation !== metadata.globalConsentLocation) ?
+	const usingGVL = config.globalVendorListLocation === metadata.globalVendorListLocation;
+	const usingOwnPortal = config.globalConsentLocation !== metadata.globalConsentLocation;
+	const usingSoftConsents = Object.keys(config.consentActions).find((action) => {
+		return config.consentActions[action] === true;
+	});
+
+	return config.storeConsentGlobally && (usingGVL || usingOwnPortal) && !usingSoftConsents ?
 		writeGlobalVendorConsentCookie(vendorConsentData) : writeLocalVendorConsentCookie(vendorConsentData);
 }
 

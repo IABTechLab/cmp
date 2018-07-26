@@ -163,9 +163,32 @@ describe('cookie', () => {
 		});
 	});
 
+	it('writes and reads the local cookie when soft consents are enabled', () => {
+		config.update({
+			storeConsentGlobally: true,
+			consentActions: {scrolling: true}
+		});
+
+		const vendorConsentData = {
+			cookieVersion: 1,
+			cmpId: 1,
+			vendorListVersion: 1,
+			created: aDate,
+			lastUpdated: aDate,
+		};
+
+		return writeVendorConsentCookie(vendorConsentData).then(() => {
+			return readVendorConsentCookie().then(fromCookie => {
+				expect(document.cookie).to.contain(VENDOR_CONSENT_COOKIE_NAME);
+				expect(fromCookie).to.deep.include(vendorConsentData);
+			});
+		});
+	});
+
 	it('writes the global cookie to the local domain when globalConsent = true and writing to portal domain is unsupported', () => {
 		config.update({
-			storeConsentGlobally: true
+			storeConsentGlobally: true,
+			consentActions: {scrolling: false}
 		});
 
 		const vendorConsentData = {
