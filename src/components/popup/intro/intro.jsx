@@ -32,9 +32,8 @@ export default class Intro extends Component {
 			config
 		} = props;
 
-		let softConsentEnabled = false;
-		Object.keys(config.consentActions).forEach((key) => {
-			if (config.consentActions[key]) softConsentEnabled = true;
+		const softConsentEnabled = Object.keys(config.consentActions).find((action) => {
+			return config.consentActions[action] === true;
 		});
 
 		return (
