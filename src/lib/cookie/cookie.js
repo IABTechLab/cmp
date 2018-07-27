@@ -304,6 +304,7 @@ function readPublisherConsentCookie() {
 		return config.storePublisherConsentGlobally ?
 			readGlobalPublisherConsentCookie() : readLocalPublisherConsentCookie();
 	}
+	return Promise.resolve();
 }
 
 function writePublisherConsentCookie(publisherConsentData) {
@@ -311,6 +312,7 @@ function writePublisherConsentCookie(publisherConsentData) {
 		return config.storePublisherConsentGlobally ?
 			writeGlobalPublisherConsentCookie(publisherConsentData) : writeLocalPublisherConsentCookie(publisherConsentData);
 	}
+	return Promise.resolve();
 }
 
 /**
