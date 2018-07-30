@@ -30,7 +30,7 @@ export default class Intro extends Component {
 			<div class={style.intro}>
 				<div class={style.title}>
 					<LocalLabel providedValue={localization && localization.intro ? localization.intro.title : ''} localizeKey='title'>Thanks for visiting </LocalLabel>
-					<LocalLabel providedValue={localization && localization.intro ? localization.intro.domain : ''} localizeKey='domain'></LocalLabel>
+					<LocalLabel providedValue={localization && localization.intro ? localization.intro.domain : ''} localizeKey='domain' />
 				</div>
 				<div class={style.description}>
 					<LocalLabel providedValue={localization && localization.intro ? localization.intro.description : ''} localizeKey='description'>Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.</LocalLabel>
