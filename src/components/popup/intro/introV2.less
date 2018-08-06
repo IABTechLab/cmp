@@ -7,21 +7,25 @@ max-height: 100%;
 		font-size: 30px;
 		font-weight: bold;
 	}
+	
 	.description {
-		display: inline-flex;
+		// display: inline-flex;
 		padding: 10px;
 	}
+
 	.contentMessage {
 		padding-right: 32px;
 	}
+
 	.options {
 		display: flex;
 		align-items: flex-end;
 		padding: 5px;
 	}
+
 	.rejectAll {
 		width: 270px;
-		margin-right: 10px !important;
+		margin-right: 10px;
 	}
 
 	.acceptAll {
@@ -30,8 +34,33 @@ max-height: 100%;
 	}
 }
 
-@media (max-width: 800px) {
+@media (max-width: 414px) {
+	.intro {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.title {
+		font-size: 28px !important;
+	}
+
 	.description {
-		display: block !important;
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.options {
+		align-items: center !important;
+		flex-direction: column;
+	}
+	
+	.rejectAll {
+		margin-right: 0px !important;
+		margin-bottom: 10px !important;
+	}
+
+	.contentMessage {
+		padding-right: 0px !important;
 	}
 }
