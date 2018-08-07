@@ -35,16 +35,18 @@ export default class Footer extends Component {
 			<div
 				class={style.footer}
 				style={{ display: isFooterShowing ? 'flex' : 'none' }}
-				>
+			>
 				<CloseButton
 					hasBorder={false}
 					class={style.close}
 					onClick={this.handleClose}
 				/>
-				<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessage : ''} localizeKey='closedMessage' class={style.message}>A reminder you can control your user privacy preferences</LocalLabel>
-				<a class={style.openConsent} onClick={this.handleShowConsent}>
-					<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessageLink : ''} localizeKey='closedMessageLink'>here</LocalLabel>
-				</a>
+				<div class={style.message}>
+					<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessage : ''} localizeKey='closedMessage'>A reminder you can control your user privacy preferences</LocalLabel>
+					<a class={style.openConsent} onClick={this.handleShowConsent}>
+						<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessageLink : ''} localizeKey='closedMessageLink'>here</LocalLabel>
+					</a>
+				</div>
 			</div>
 		);
 	}
