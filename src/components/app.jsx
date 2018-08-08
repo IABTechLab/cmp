@@ -72,11 +72,12 @@ export default class App extends Component {
 		for(let elem in elems) {
 			let cssRules = elems[elem];
 			let selectedEls = base.querySelectorAll(elem) || [];
-			selectedEls.forEach(function(currentEl) {
+			// Necessary for compatibility with Microsoft browsers
+			Array.prototype.forEach.call(selectedEls, function(currentEl) {
 				for(let cssProp in cssRules) {
 					currentEl.style[cssProp] = cssRules[cssProp];
 				}
-			})
+			});
 		}
 	};
 
