@@ -35,21 +35,26 @@ export default class Popup extends Component {
 
 	handleClose = () => {};
 
+	componentDidMount() {
+		this.props.updateCSSPrefs();
+	}
+
 	render(props, state) {
-		const { store, localization } = props;
+		const { store, localization, config, updateCSSPrefs } = props;
 		const { selectedPanelIndex } = state;
 		const { isConsentToolShowing } = store;
 
 		return (
 			<div
-				class={style.popup}
+				class={config.blockBrowsing ? style.popup : ''}
 				style={{ display: isConsentToolShowing ? 'flex' : 'none' }}
 			>
-				<div
-					class={style.overlay}
-					onClick={this.handleClose}
-				/>
-				<div class={style.content}>
+				{config.blockBrowsing &&
+					<div
+						class={style.overlay}
+						onClick={this.handleClose}
+				/>}
+				<div name='content' class={config.blockBrowsing ? style.content : style.noOverlayContent}>
 					<Panel selectedIndex={selectedPanelIndex}>
 						<Intro
 							onAcceptAll={this.onAcceptAll}
@@ -57,6 +62,8 @@ export default class Popup extends Component {
 							onClose={this.handleClose}
 							localization={localization}
 							store={store}
+							config={config}
+							updateCSSPrefs={updateCSSPrefs}
 						/>
 						<Details
 							onSave={this.props.onSave}
@@ -64,6 +71,8 @@ export default class Popup extends Component {
 							store={this.props.store}
 							onClose={this.handleClose}
 							localization={localization}
+							config={config}
+							updateCSSPrefs={updateCSSPrefs}
 						/>
 					</Panel>
 				</div>

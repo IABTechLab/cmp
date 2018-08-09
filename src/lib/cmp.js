@@ -39,7 +39,7 @@ export default class Cmp {
 			else {
 				const vendorConsents = store.getVendorConsentsObject();
 				const publisherConsents = (config.storePublisherData && store.getPublisherConsentsObject()) || { lastUpdated: Date.now() }; // if publisher consent is not enabled mark - cookie as valid
-				const shouldBePrompted = checkReprompt(config.repromptOptions, vendorConsents, publisherConsents);
+				const shouldBePrompted = checkReprompt(config.repromptOptions, store.getVendorList(), vendorConsents, publisherConsents);
 				const { testingMode } = config;
 
 				if (testingMode !== 'normal') {
@@ -152,7 +152,7 @@ export default class Cmp {
 
 		ping: (_ = () => {}, callback) => {
 			const result = {
-				gdprAppliesGlobally: this.config.storeConsentGlobally,
+				gdprAppliesGlobally: this.config.gdprAppliesGlobally,
 				cmpLoaded: true
 			};
 			if (!callback) {
@@ -221,10 +221,25 @@ export default class Cmp {
 		 * Trigger the consent tool UI to be shown
 		 */
 		showConsentTool: (_, callback = () => {}) => {
-			const _command = this.config.layout === 'footer' ? 'toggleFooterConsentToolShowing' : 'toggleConsentToolShowing';
+			let _command;
+			switch (this.config.layout) {
+				case 'footer':
+					_command = 'toggleFooterConsentToolShowing';
+					break;
+				case 'thin':
+					_command = 'toggleThinConsentToolShowing';
+					break;
+				default:
+					_command = 'toggleConsentToolShowing';
+			}
+
 			this.cmpShown = true;
 			this.store[_command](true);
 			callback(true);
+		},
+
+		getConfig: (_, callback = () => {}) => {
+			callback(this.config.copy(), true);
 		}
 	};
 

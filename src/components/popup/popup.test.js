@@ -15,14 +15,14 @@ describe('Popup', () => {
 	it('should render with overlay hidden', () => {
 		const store = new Store();
 		store.isConsentToolShowing = false;
-		const popup = <Popup store={store} />;
+		const popup = <Popup config={{}} updateCSSPrefs={() => {}} store={store} />;
 		expect(popup).to.contain('display: none');
 	});
 
 	it('should render with overlay visible', () => {
 		const store = new Store();
 		store.isConsentToolShowing = true;
-		const popup = <Popup store={store} />;
+		const popup = <Popup config={{}} store={store} />;
 		expect(popup).to.contain('display: flex');
 	});
 
@@ -34,6 +34,8 @@ describe('Popup', () => {
 
 		let popup;
 		render(<Popup
+			config={{}}
+			updateCSSPrefs={() => {}}
 			store={store}
 			ref={ref => popup = ref}
 			onSave={() => {
@@ -47,11 +49,26 @@ describe('Popup', () => {
 		popup.onAcceptAll();
 	});
 
+	it('should render a logo', () => {
+		const store = new Store();
+
+		render(<Popup
+			config={{logoUrl: "https://www.example.com/image.jpg"}}
+			updateCSSPrefs={() => {}}
+			store={store}
+			ref={() => {}}
+		/>, scratch);
+
+		expect(scratch.innerHTML).to.contain(`<img class="logo" src="https://www.example.com/image.jpg">`);
+	});
+
 	it('should switch between panel states', () => {
 		const store = new Store();
 
 		let popup;
 		render(<Popup
+			config={{}}
+			updateCSSPrefs={() => {}}
 			store={store}
 			ref={ref => popup = ref}
 		/>, scratch);

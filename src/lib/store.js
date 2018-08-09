@@ -9,6 +9,9 @@ import {
 } from './localize';
 const metadata = require('../../metadata.json');
 
+const MAX_STANDARD_PURPOSE_ID = 24;
+const START_CUSTOM_PURPOSE_ID = 25;
+
 /**
  * Copy a data object and make sure to replace references
  * of Set objects with new ones.
@@ -203,21 +206,17 @@ export default class Store {
 		// No consent will be allowed for purposes not on the list
 		const allowedPurposeIds = new Set(purposes.map(({id}) => id));
 
-		const lastStandardPurposeId = Math.max(
-			...purposes.map(({id}) => id),
-			...Array.from(selectedPurposeIds));
-
 		const lastCustomPurposeId = Math.max(
 			...customPurposes.map(({id}) => id),
 			...Array.from(selectedCustomPurposeIds));
 
 		// Map all purpose IDs
 		const standardPurposeMap = {};
-		for (let i = 1; i <= lastStandardPurposeId; i++) {
+		for (let i = 1; i <= MAX_STANDARD_PURPOSE_ID; i++) {
 			standardPurposeMap[i] = selectedPurposeIds.has(i) && allowedPurposeIds.has(i);
 		}
 		const customPurposeMap = {};
-		for (let i = 1; i <= lastCustomPurposeId; i++) {
+		for (let i = START_CUSTOM_PURPOSE_ID; i <= lastCustomPurposeId; i++) {
 			customPurposeMap[i] = selectedCustomPurposeIds.has(i);
 		}
 
@@ -235,6 +234,10 @@ export default class Store {
 			customPurposes: customPurposeMap
 		};
 	};
+
+	getVendorList = () => {
+		return this.vendorList;
+	}
 
 	/**
 	 * Persist all consent data to the cookie.  This data will NOT be filtered
@@ -360,13 +363,23 @@ export default class Store {
 		this.isFooterConsentToolShowing = typeof isShown === 'boolean' ? isShown : !this.isConsentToolShowing;
 		this.isFooterShowing = false;
 		this.isConsentToolShowing = false;
+		this.isThinConsentToolShowing = false;
 		this.storeUpdate();
 	};
+
+	toggleThinConsentToolShowing = (isShown) => {
+		this.isThinConsentToolShowing = typeof isShown === 'boolean' ? isShown : !this.isConsentToolShowing;
+		this.isFooterShowing = false;
+		this.isConsentToolShowing = false;
+		this.isFooterConsentToolShowing = false;
+		this.storeUpdate();
+	}
 
 	toggleConsentToolShowing = (isShown) => {
 		this.isConsentToolShowing = typeof isShown === 'boolean' ? isShown : !this.isConsentToolShowing;
 		this.isFooterShowing = false;
 		this.isFooterConsentToolShowing = false;
+		this.isThinConsentToolShowing = false;
 		this.storeUpdate();
 	};
 
@@ -374,6 +387,7 @@ export default class Store {
 		this.isFooterShowing = typeof isShown === 'boolean' ? isShown : !this.isFooterShowing;
 		this.isConsentToolShowing = false;
 		this.isFooterConsentToolShowing = false;
+		this.isThinConsentToolShowing = false;
 		this.storeUpdate();
 	};
 

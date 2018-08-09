@@ -37,6 +37,14 @@ export default class Vendors extends Component {
 		this.props.selectVendor(dataId, isSelected);
 	};
 
+	componentDidUpdate() {
+		this.props.updateCSSPrefs();
+	}
+
+	componentDidMount() {
+		this.props.updateCSSPrefs();
+	};
+
 	render(props, state) {
 
 		const {
@@ -44,12 +52,13 @@ export default class Vendors extends Component {
 			selectedVendorIds,
 			onShowPurposes,
 			onHandleEnableAll,
-			localization
+			localization,
+			config
 		} = props;
 
 		return (
 			<div class={style.vendors}>
-				<div class={style.description}>
+				<div class={style.description + " primaryText"}>
 					<p>
 						<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description : ''} localizeKey='description'>Companies carefully selected by us will use your information. Depending on the type of data they collect, use, process and other factors, certain companies rely on your consent while others require you to opt-out. For information on each partner and to exercise your choices, see below. Or to opt-out, visit the </LocalLabel>
 						<a href='http://optout.networkadvertising.org/?c=1#!/' target='_blank'>NAI,</a><a href='http://optout.aboutads.info/?c=2#!/' target='_blank'> DAA, </a>
@@ -65,7 +74,7 @@ export default class Vendors extends Component {
 					</p>
 					<p>
 					<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description3 : ''} localizeKey="description3">You can control your preferences for all companies by </LocalLabel>
-						<a style={style.vendorLink} onClick={onHandleEnableAll}>
+						<a name="selectAll" style={style.vendorLink} onClick={onHandleEnableAll}>
 							<LocalLabel providedValue={localization && localization.vendors ? localization.vendors.description3Link : ''} localizeKey="description3Link">clicking here.</LocalLabel>
 						</a>
 					</p>
@@ -74,8 +83,8 @@ export default class Vendors extends Component {
 					<table class={style.vendorList}>
 						<thead>
 						<tr>
-							<th><LocalLabel providedValue={localization && localization.vendors ? localization.vendors.company : ''} localizeKey='company'>Company</LocalLabel></th>
-							<th><LocalLabel providedValue={localization && localization.vendors ? localization.vendors.offOn : ''} localizeKey='offOn'>Allow</LocalLabel></th>
+							<th class="primaryText"><LocalLabel providedValue={localization && localization.vendors ? localization.vendors.company : ''} localizeKey='company'>Company</LocalLabel></th>
+							<th class="primaryText"><LocalLabel providedValue={localization && localization.vendors ? localization.vendors.offOn : ''} localizeKey='offOn'>Allow</LocalLabel></th>
 						</tr>
 						</thead>
 					</table>
@@ -85,7 +94,7 @@ export default class Vendors extends Component {
 						<tbody>
 						{vendors.map(({ id, name, policyUrl, purposeIds, legIntPurposeIds, featureIds }, index) => (
 							<tr key={id} class={index % 2 === 1 ? style.even : ''}>
-								<td><a href={policyUrl} target='_blank'><div class={style.vendorName}>{name}</div></a></td>
+								<td><a name="vendorLink" href={policyUrl} target='_blank'><div class={style.vendorName}>{name}</div></a></td>
 								<td>
 									<Switch
 										dataId={id}

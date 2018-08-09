@@ -1,11 +1,13 @@
 import log from './log';
 const metadata = require('../../metadata.json');
 const defaultConfig = {
+	storePublisherData: true,
 	customPurposeListLocation: null,
+	storeConsentGlobally: true,
+	storePublisherConsentGlobally: false,
 	globalVendorListLocation: metadata.globalVendorListLocation,
 	globalConsentLocation: metadata.globalConsentLocation,
-	storeConsentGlobally: true,
-	storePublisherData: true,
+	globalPublisherConsentLocation: null,
 	logging: false,
 	localization: {},
 	forceLocale: null,
@@ -16,24 +18,58 @@ const defaultConfig = {
 		noConsentGiven: 30,
 	},
 	geoIPVendor: 'https://cmp.digitru.st/1/geoip.json',
+	digitrustRedirectUrl: metadata.digitrustRedirectLocation,
 	testingMode: 'normal',
-	layout: null
+	blockBrowsing: true,
+	layout: null,
+	showFooterAfterSubmit: true,
+	logoUrl: null,
+	css: {
+		"color-primary": "#0a82be",
+		"color-secondary": "#eaeaea",
+		"color-border": "#eaeaea",
+		"color-background": "#ffffff",
+		"color-text-primary": "#333333",
+		"color-text-secondary": "#0a82be",
+		"color-linkColor": "#0a82be",
+		"color-table-background": "#f7f7f7",
+		"font-family": "'Helvetica Neue', Helvetica, Arial, sans-serif",
+		"custom-font-url": null,
+	},
+	digitrust: {
+		redirects: false
+	}
 };
 
 class Config {
 	constructor() {
+		this.individualOverwritesAllowed = {
+			repromptOptions: true,
+			css: true,
+			digitrust: true
+		};
+
 		this.update(defaultConfig);
 	}
 
 	update = (updates) => {
+		const self = this;
 		if (updates && typeof updates === 'object') {
-			const validKeys = Object.keys(defaultConfig);
 			const { validUpdates, invalidKeys } = Object.keys(updates).reduce((acc, key) => {
-				if (validKeys.indexOf(key) > -1) {
-					acc.validUpdates = {
-						...acc.validUpdates,
-						[key]: updates[key]
-					};
+				if (defaultConfig.hasOwnProperty(key)) {
+					if (self.individualOverwritesAllowed[key]) {
+						let obj = defaultConfig[key];
+						Object.assign(obj, updates[key]);
+						acc.validUpdates = {
+							...acc.validUpdates,
+							[key]: obj
+						};
+					} else {
+						acc.validUpdates = {
+							...acc.validUpdates,
+							[key]: updates[key]
+						};
+					}
 				}
 				else {
 					acc.invalidKeys.push(key);
@@ -47,6 +83,17 @@ class Config {
 			}
 
 		}
+	};
+
+	copy = () => {
+		return Object.keys(defaultConfig).reduce((result, key) => {
+			if (typeof defaultConfig[key] === 'object' && defaultConfig[key] !== null) {
+				result[key] = Object.assign({}, this[key]);
+			} else {
+				result[key] = this[key];
+			}
+			return result;
+		}, {});
 	};
 }
 

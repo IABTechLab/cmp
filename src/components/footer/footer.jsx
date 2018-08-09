@@ -27,19 +27,25 @@ export default class Footer extends Component {
 		showConsentTool();
 	};
 
+	componentDidMount() {
+		this.props.updateCSSPrefs();
+	}
+
 	render(props) {
-		const { store, localization } = props;
+		const { store, localization, config, updateCSSPrefs } = props;
 		const { isFooterShowing } = store;
 
 		return (
 			<div
 				class={style.footer}
-				style={{ display: isFooterShowing ? 'flex' : 'none' }}
-			>
+				style={{ display: isFooterShowing && config.showFooterAfterSubmit ? 'flex' : 'none' }}
+				>
 				<CloseButton
 					hasBorder={false}
 					class={style.close}
 					onClick={this.handleClose}
+					config={config}
+					updateCSSPrefs={updateCSSPrefs}
 				/>
 				<div class={style.message}>
 					<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessage : ''} localizeKey='closedMessage'>A reminder you can control your user privacy preferences</LocalLabel>

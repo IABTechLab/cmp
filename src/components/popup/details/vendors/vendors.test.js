@@ -14,6 +14,7 @@ describe('Vendors', () => {
 
 	it('should render the vendor list', () => {
 		const vendors = render(<Vendors
+			updateCSSPrefs={() => {}}
 			vendors={[
 				{id: 1, name: 'Vendor 1'},
 				{id: 2, name: 'Vendor 2'},
@@ -31,6 +32,7 @@ describe('Vendors', () => {
 
 		let vendors;
 		render(<Vendors
+			updateCSSPrefs={() => {}}
 			ref={ref => vendors = ref}
 			vendors={[
 				{id: 1, name: 'Vendor 1'},
@@ -51,6 +53,7 @@ describe('Vendors', () => {
 
 		let vendors;
 		render(<Vendors
+			updateCSSPrefs={() => {}}
 			ref={ref => vendors = ref}
 			vendors={[
 				{id: 1, name: 'Vendor 1'},
@@ -70,6 +73,7 @@ describe('Vendors', () => {
 
 		let vendors;
 		render(<Vendors
+			updateCSSPrefs={() => {}}
 			ref={ref => vendors = ref}
 			vendors={[
 				{id: 1, name: 'Vendor 1'},
