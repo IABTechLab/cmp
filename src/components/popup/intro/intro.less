@@ -1,6 +1,12 @@
 .flexColumn {
-	flex-direction: column;
+	@media (max-width: 480px) {
+		flex-direction: row;
+	}
+	@media (min-width: 481px) {
+		flex-direction: column;
+	}
 }
+
 
 div.intro {
 	display: flex;
@@ -10,9 +16,15 @@ div.intro {
 	max-height: 100%;
 
 	.top {
-		max-height: 425px;
 		margin-bottom: 75px;
 		overflow: auto;
+
+		@media (max-width: 480px) {
+			max-height: calc(100vh - 75px);
+		}
+		@media (min-width: 481px) {
+			max-height: 425px;
+		}
 
 		.logo {
 			display: block;
