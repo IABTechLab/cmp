@@ -48,17 +48,32 @@ max-height: 100%;
 			}
 		}
 	}
+
 	.contentMessage {
 		padding-right: 32px;
 	}
+
 	.rejectAll {
 		width: 270px;
-		margin-right: 10px !important;
+		margin-right: 10px;
 	}
 
 	.acceptAll {
 		width: 270px;
 		padding: 14px 12px !important;
+	}
+}
+
+
+@media (max-width: 414px) {
+	.intro {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.title {
+		font-size: 28px !important;
 	}
 }
 
@@ -78,7 +93,22 @@ max-height: 100%;
 
 @media (max-width: 620px) {
 	.description {
-		display: block !important;
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.options {
+		align-items: center !important;
+		flex-direction: column;
+	}
+
+	.rejectAll {
+		margin-right: 0px !important;
+		margin-bottom: 10px !important;
+	}
+
+	.contentMessage {
+		padding-right: 0px !important;
 	}
 	.topWrapper {
 		display: block !important;

@@ -71,6 +71,7 @@ describe('cmp', () => {
 		},
 		geoIPVendor: 'http://cmp.digitru.st/geoip.json',
 		storeConsentGlobally: false,
+		gdprAppliesGlobally: false,
 		copy: jest.fn().mockReturnValue('copy')
 	};
 
