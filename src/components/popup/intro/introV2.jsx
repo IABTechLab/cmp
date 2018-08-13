@@ -6,7 +6,7 @@ import IntroFooterV2 from './footerV2';
 
 class LocalLabel extends Label {
   static defaultProps = {
-    prefix: 'intro'
+  	prefix: 'intro'
   };
 }
 
