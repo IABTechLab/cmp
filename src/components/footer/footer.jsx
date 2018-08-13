@@ -47,10 +47,12 @@ export default class Footer extends Component {
 					config={config}
 					updateCSSPrefs={updateCSSPrefs}
 				/>
-				<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessage : ''} localizeKey='closedMessage' class="primaryText">A reminder you can control your user privacy preferences</LocalLabel>
-				<a class={style.openConsent} onClick={this.handleShowConsent}>
-					<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessageLink : ''} localizeKey='closedMessageLink'>here</LocalLabel>
-				</a>
+				<div class={style.message}>
+					<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessage : ''} localizeKey='closedMessage'>A reminder you can control your user privacy preferences</LocalLabel>
+					<a class={style.openConsent} onClick={this.handleShowConsent}>
+						<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessageLink : ''} localizeKey='closedMessageLink'>here</LocalLabel>
+					</a>
+				</div>
 			</div>
 		);
 	}

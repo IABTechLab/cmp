@@ -31,6 +31,10 @@
     margin: 0 -35px;
 }
 
+.message {
+    padding: 5px;
+}
+
 .message2 {
     font-weight: bold;
 }
@@ -72,9 +76,8 @@
 	align-items: center;
 	background-color: white;
 
-	@media @smartphone {
-		width: 98%;
-		height: 98%;
+	@media (max-width: 440px) {
+		width: 100%;
     }
 	ul {
 		margin: 0 0 15px 0;
@@ -126,6 +129,33 @@
 .acceptAll {
     width: 270px;
     padding: 14px 12px !important;
+}
+
+@media (max-width: 414px) {
+    .container {
+        font-size: 12px;
+        height: 100%;
+    }
+
+    .infoFooter {
+        padding: 0 !important;
+        margin: 2px;
+    }
+
+    .base {
+        position: absolute;
+        bottom: 0;
+        margin: 0 !important;
+    }
+
+    .content {
+        padding: 6px 24px 0;
+        margin-top: 60px;
+    }
+
+    .headerMessage {
+        font-size: 20px;
+    }
 }
 
 @media (max-width: 615px) {
