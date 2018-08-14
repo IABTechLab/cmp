@@ -23,7 +23,7 @@ This produces a production build of the `cmp` script and the docs application:
 
 ## Documentation
 
-Instructions to install the CMP as well as API docs and examples are available in the `docs` 
+Instructions to install the CMP as well as API docs and examples are available in the `docs`
 application included with the repo.
 
 ```sh
@@ -47,3 +47,5 @@ Development server can be accessed at:
 ```sh
 npm test
 ```
+
+Your system must also have an environment variable of `FIREFOX_BIN` set in order for the E2E tests to correctly run Firefox. http://kb.mozillazine.org/Installation_directory lists the default installation directories if you're not able to find it on your own.

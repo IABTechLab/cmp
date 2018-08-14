@@ -1,7 +1,13 @@
 exports.config = {
   specs: ['spec/**/*.spec.js'],
   multiCapabilities: [
-    {'browserName': 'firefox'},
+    {
+      'browserName': 'firefox',
+      'mox:firefoxOptions': {
+        'binary': process.env.FIREFOX_BIN,
+        'args': ['--verbose']
+      }
+    },
     {'browserName': 'chrome'}
   ],
   baseUrl: 'http://localhost:8080',
