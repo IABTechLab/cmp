@@ -39,7 +39,11 @@ jobs:
           command: npm run dev
           background: true
       - run: sleep 5
-      - run: yarn test
+      - run:
+          name: execute tests
+          command: yarn test
+          environment:
+            FIREFOX_BIN: /opt/firefox/firefox
 
       - deploy:
           command: |
