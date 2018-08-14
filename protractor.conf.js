@@ -3,7 +3,7 @@ exports.config = {
   multiCapabilities: [
     {
       'browserName': 'firefox',
-      'mox:firefoxOptions': {
+      'moz:firefoxOptions': {
         'binary': process.env.FIREFOX_BIN,
         'args': ['--verbose']
       }
