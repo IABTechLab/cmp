@@ -80,6 +80,7 @@ export default class IntroFooter extends Component {
 
                     <div class={style.infoFooter}>
                         <Button
+                            name="footerReject"
                             class={style.rejectAll}
                             invert={true}
                             onClick={onShowPurposes}
@@ -87,6 +88,7 @@ export default class IntroFooter extends Component {
                             <LocalLabel providedValue={localization && localization.intro ? localization.intro.showPurposes : ''} localizeKey='intro.showPurposes'>Learn more</LocalLabel>
                         </Button>
                         <Button
+                            name="footerAccept"
                             class={style.acceptAll}
                             onClick={onAcceptAll}
                         >

@@ -61,6 +61,7 @@ export default class IntroFooterV2 extends Component {
                         </div>
                         {isThinConsentToolShowing &&
                             <Button
+                                name="introReject"
                                 class={style.rejectAll + " " + style.button}
                                 invert={true}
                                 onClick={onShowPurposes}
