@@ -100,4 +100,16 @@ describe('different configurations', () => {
     });
   });
 
+  describe('Company Name', () => {
+    beforeEach(() => {
+      browser.get("/e2e/company_name.html");
+      browser.sleep(300);
+    });
+
+    it('title contains the company name specified in the config', () => {
+      const el = element.all(by.css('[class^=intro_title]')).first();
+      expect(el.getText()).toContain("Roadrunner and Coyote Enterprises");
+    });
+  });
+
 });
