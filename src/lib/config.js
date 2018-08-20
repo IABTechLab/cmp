@@ -42,7 +42,7 @@ const defaultConfig = {
 		navigationChange: false,
 	},
 	digitrust: {
-		redirects: false
+		redirects: true
 	}
 };
 
