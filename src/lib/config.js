@@ -1,6 +1,7 @@
 import log from './log';
 const metadata = require('../../metadata.json');
 const defaultConfig = {
+	companyName: null,
 	storePublisherData: true,
 	customPurposeListLocation: null,
 	storeConsentGlobally: true,
@@ -38,7 +39,7 @@ const defaultConfig = {
 		"custom-font-url": null,
 	},
 	digitrust: {
-		redirects: false
+		redirects: true
 	}
 };
 

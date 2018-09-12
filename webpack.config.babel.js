@@ -193,6 +193,22 @@ module.exports = [
 				template: 'index.html',
 				chunks: ['cmp']
 			}),
+			// E2E serving - testing different configurations
+			new HtmlWebpackPlugin({
+				filename: 'e2e/layout-modal.html',
+				template: 'e2e/layout-modal.html',
+				chunks: ['e2e']
+			}),
+			new HtmlWebpackPlugin({
+				filename: 'e2e/layout-thin.html',
+				template: 'e2e/layout-thin.html',
+				chunks: ['e2e']
+			}),
+			new HtmlWebpackPlugin({
+				filename: 'e2e/company_name.html',
+				template: 'e2e/company_name.html',
+				chunks: ['e2e']
+			}),
 			// Static assets copy
 			new CopyWebpackPlugin([
 				{ from: './geoip.json' }
