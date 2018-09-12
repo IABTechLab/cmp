@@ -3,6 +3,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
+const BabelEnginePlugin = require('babel-engine-plugin');
 
 const ENV = process.env.NODE_ENV || 'development';
 
@@ -203,10 +204,18 @@ module.exports = [
 				template: 'e2e/layout-thin.html',
 				chunks: ['e2e']
 			}),
+			new HtmlWebpackPlugin({
+				filename: 'e2e/company_name.html',
+				template: 'e2e/company_name.html',
+				chunks: ['e2e']
+			}),
 			// Static assets copy
 			new CopyWebpackPlugin([
 				{ from: './geoip.json' }
-			])
+			]),
+			new BabelEnginePlugin({
+				presets: ['env']
+			})
 		]).concat(ENV === 'production' ? uglifyPlugin : []),
 	},
 	// Docs config

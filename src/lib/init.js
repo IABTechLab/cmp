@@ -71,6 +71,21 @@ export function init(configUpdates) {
 					cmp.gdprAppliesLanguage = response.language;
 					cmp.gdprAppliesLocation = response.location;
 				}).then((response) => {
+					function addLocatorFrame() {
+						if (!window.frames['__cmpLocator']) {
+							if (document.body) {
+								var frame = document.createElement('iframe');
+								frame.style.display = 'none';
+								frame.name = '__cmpLocator';
+								document.body.appendChild(frame);
+							}
+							else {
+								setTimeout(addLocatorFrame, 5);
+							}
+						}
+					}
+
+					addLocatorFrame();
 					store.updateIsEU(response.applies);
 
 					// Render the UI
