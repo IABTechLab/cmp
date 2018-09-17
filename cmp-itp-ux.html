@@ -1,0 +1,75 @@
+<html>
+ <head>
+ 		<meta charset="utf-8">
+		<title>GDPR QA Testing</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+ </head>
+ <body>
+  		<script>
+			var commandQueue = [];
+			var cmp = function(command, parameter, callback) {
+				commandQueue.push({
+					command: command,
+					parameter: parameter,
+					callback: callback
+				});
+			};
+			cmp.commandQueue = commandQueue;
+			cmp.config = {
+				storePublisherData: true,
+				customPurposeListLocation: null,
+				storeConsentGlobally: false,
+				storePublisherConsentGlobally: false,
+				globalConsentLocation: "https://cdn.digitrust.mgr.consensu.org/1/portal.html",
+				globalVendorListLocation: "https://vendorlist.consensu.org/vendorlist.json",
+				globalPublisherConsentLocation: null,
+				logging: false,
+				localization: {
+					en: {
+						intro: {
+							title: 'Thanks for visiting',
+							description: 'We rely on our partner DigiTrust to run this site. In order to visit, please allow DigiTrust to identify your browser with an anonymous ID cookie.'
+						}
+					}
+				},
+				forceLocale: null,
+				gdprAppliesGlobally: true,
+				repromptOptions: {
+					fullConsentGiven: 360,
+					someConsentGiven: 30,
+					noConsentGiven: 30,
+				},
+				geoIPVendor: 'https://cmp.digitru.st/1/geoip.json',
+				digitrustRedirectUrl: "https://cdn.digitru.st/prod/1.5.10/redirect.html?redirect=",
+				testingMode: 'normal',
+				blockBrowsing: true,
+				layout: "footer",
+				showFooterAfterSubmit: true,
+				logoUrl: null,
+				css: {
+					"color-primary": "#0a82be",
+					"color-secondary": "#eaeaea",
+					"color-border": "#eaeaea",
+					"color-background": "#ffffff",
+					"color-text-primary": "#333333",
+					"color-text-secondary": "#0a82be",
+					"color-linkColor": "#0a82be",
+					"color-table-background": "#f7f7f7",
+					"font-family": "'Helvetica Neue', Helvetica, Arial, sans-serif",
+					"custom-font-url": null,
+				},
+				digitrust: {
+					redirects: true
+				}
+			};
+			window.__cmp = cmp;
+		</script>
+	  <script src="https://cmp.digitru.st/1/cmp.complete.bundle.js" async></script>
+
+		<!-- Insert your test html here -->
+		<a href="#">Some Link</a>
+		<div><p>Example html using release build.</p></div>
+
+ </body>
+</html>
