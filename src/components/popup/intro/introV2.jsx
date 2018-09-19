@@ -6,7 +6,7 @@ import IntroFooterV2 from './footerV2';
 
 class LocalLabel extends Label {
   static defaultProps = {
-    prefix: 'intro'
+  	prefix: 'intro'
   };
 }
 
@@ -41,7 +41,9 @@ export default class IntroV2 extends Component {
               }
               <div class={config.logoUrl ? style.title + " " + style.imagePadding : style.title}>
                 <LocalLabel providedValue={localization && localization.intro ? localization.intro.title : ''} localizeKey='title'>Thanks for visiting </LocalLabel>
-                <LocalLabel providedValue={localization && localization.intro ? localization.intro.domain : ''} localizeKey='domain'></LocalLabel>
+                {config && config.companyName &&
+                  <span>{config.companyName}</span>
+                }
               </div>
             </div>
             <div class={style.description + " primaryText"}>
