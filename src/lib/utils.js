@@ -14,10 +14,25 @@ export {
 };
 
 const metadata = require('../../metadata.json');
-const EU_LANGUAGE_CODES = new Set(metadata.languageCodes);
-const EU_COUNTRY_CODES = new Set(metadata.countryCodes);
 const MAX_COOKIE_LIFESPAN_DAYS = metadata.maxCookieLifespanDays;
 const CONSENT_PROPS = [ 'purposeConsents', 'vendorConsents', 'customPurposes', 'standardPurposes' ];
+const EU_LANGUAGE_CODES = new Set(metadata.languageCodes);
+const EU_COUNTRY_CODES = new Set(metadata.countryCodes);
+
+// Necessary because IE11 doesn't support init'ing a Set with values
+function initConstants() {
+	if (EU_COUNTRY_CODES.size === 0) {
+		for (var i in metadata.countryCodes) {
+			EU_COUNTRY_CODES.add(metadata.countryCodes[i]);
+		}
+		for (var j in metadata.languageCodes) {
+			EU_LANGUAGE_CODES.add(metadata.languageCodes[j]);
+		}
+	}
+}
+
+initConstants();
+
 
 function getConsentsCount(consentObject, vendorList) {
 	let total = 0;
