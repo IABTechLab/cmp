@@ -9,7 +9,7 @@ describe('config', () => {
 		expect(config.css['font-family']).to.equal('MonoType');
 		expect(config.css['color-primary']).to.equal('#0a82be');
 		config.update({ digitrust: { some: 'prop' }});
-		expect(config.digitrust.redirects).to.be.true;
+		expect(config.digitrust.redirects).to.be.false;
 	});
 
 	it('.copy returns new object containing config values', () => {
