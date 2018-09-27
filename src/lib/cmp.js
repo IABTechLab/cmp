@@ -45,6 +45,7 @@ export default class Cmp {
 
 				if (testingMode !== 'normal') {
 					if (testingMode === 'always show') {
+						self.notify('cmpStarted');
 						cmp('showConsentTool', callback);
 					} else {
 						log.debug('Toolbox can be rendered only manually');
@@ -53,6 +54,7 @@ export default class Cmp {
 				} else if (config.gdprAppliesGlobally || self.gdprApplies) {
 					self.gdprApplies = true;
 					if (shouldBePrompted) {
+						self.notify('cmpStarted');
 						cmp('showConsentTool', callback);
 					} else {
 						self.notify('consentNotRequired');
@@ -64,6 +66,7 @@ export default class Cmp {
 						self.gdprAppliesLanguage = response.language;
 						self.gdprAppliesLocation = response.location;
 						if (response.applies && shouldBePrompted) {
+							self.notify('cmpStarted');
 							cmp('showConsentTool', callback);
 						} else {
 							self.notify('consentNotRequired');
