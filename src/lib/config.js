@@ -39,7 +39,7 @@ const defaultConfig = {
 		"custom-font-url": null,
 	},
 	digitrust: {
-		redirects: true
+		redirects: false
 	}
 };
 
