@@ -1,6 +1,7 @@
 //jshint esversion: 6
 import 'whatwg-fetch';
 import Promise from 'promise-polyfill';
+import config from './config';
 
 export {
 	checkReprompt,
@@ -32,7 +33,6 @@ function initConstants() {
 }
 
 initConstants();
-
 
 function getConsentsCount(consentObject, vendorList) {
 	let total = 0;
@@ -92,6 +92,7 @@ function checkIfGDPRApplies(geoVendor, callback) {
 }
 
 function checkIfLanguageLocaleApplies(languages) {
+	if (config.useGeolocationOnly) return false;
 	for (let i = 0; i < languages.length; i++) {
 		if (EU_LANGUAGE_CODES.has(languages[i].toLowerCase())) {
 			return true;
