@@ -224,8 +224,9 @@ export default class Cmp {
 		 * Trigger the consent tool UI to be shown
 		 */
 		showConsentTool: (_, callback = () => {}) => {
+			const self = this;
 			let _command;
-			switch (this.config.layout) {
+			switch (self.config.layout) {
 				case 'footer':
 					_command = 'toggleFooterConsentToolShowing';
 					break;
@@ -236,8 +237,9 @@ export default class Cmp {
 					_command = 'toggleConsentToolShowing';
 			}
 
-			this.cmpShown = true;
-			this.store[_command](true);
+			self.cmpShown = true;
+			self.store[_command](true);
+			self.notify("consentToolDisplayed");
 			callback(true);
 		},
 
