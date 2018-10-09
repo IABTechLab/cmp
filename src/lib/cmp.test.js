@@ -192,11 +192,14 @@ describe('cmp', () => {
 		describe('getConsentData', () => {
 			beforeEach(() => {
 				cmp.store = {
+					consentString: "here's a consent string",
 					persistedVendorConsentData: {},
-					persist: () => {},
+					persist: () => {
+						cmp.store.consentString = "here's a persisted consent string";
+					},
 					getFullVendorConsentsObject: () => {
 						return new Promise((resolve) => {
-							resolve({consentString: "here's a consent string"});
+							resolve({consentString: cmp.store.consentString});
 						});
 					}
 				};
@@ -204,7 +207,8 @@ describe('cmp', () => {
 
 			it('getConsentData executes', (done) => {
 				cmp.processCommand('getConsentData', null, data => {
-					expect(typeof data.consentData).to.equal('string');
+					expect(typeof data.consentData).to.equal("string");
+					expect(data.consentData).to.equal("here's a consent string");
 					done();
 				});
 			});
@@ -212,7 +216,8 @@ describe('cmp', () => {
 			it('getConsentData returns persisted data', (done) => {
 				cmp.store.persist();
 				cmp.processCommand('getConsentData', null, data => {
-					expect(typeof data.consentData).to.equal('string');
+					expect(typeof data.consentData).to.equal("string");
+					expect(data.consentData).to.equal("here's a persisted consent string");
 					done();
 				});
 			});
