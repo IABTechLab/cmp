@@ -131,12 +131,16 @@ export default class Cmp {
 		 * Get the encoded vendor consent data value.
 		 */
 		getConsentData: (_, callback = () => {}) => {
-			const consentData = {
-				gdprApplies: this.gdprApplies,
-				hasGlobalScope: this.config.storeConsentGlobally,
-				consentData: this.generateConsentString()
-			};
-			callback(consentData, true);
+			return this.store.getFullVendorConsentsObject()
+				.then(consent => {
+					const output = {
+						gdprApplies: this.gdprApplies,
+						hasGlobalScope: this.config.storeConsentGlobally,
+						consentData: consent.consentString
+					}
+					callback(output, true);
+					return output
+			});
 		},
 
 		/**
