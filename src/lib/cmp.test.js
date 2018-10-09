@@ -189,18 +189,32 @@ describe('cmp', () => {
 			});
 		});
 
-		it('getConsentData executes', (done) => {
-			cmp.processCommand('getConsentData', null, data => {
-				expect(typeof data.consentData).to.equal('string');
-				done();
+		describe('getConsentData', () => {
+			beforeEach(() => {
+				cmp.store = {
+					persistedVendorConsentData: {},
+					persist: () => {},
+					getFullVendorConsentsObject: () => {
+						return new Promise((resolve) => {
+							resolve({consentString: "here's a consent string"});
+						});
+					}
+				};
 			});
-		});
 
-		it('getConsentData returns persisted data', (done) => {
-			cmp.store.persist();
-			cmp.processCommand('getConsentData', null, data => {
-				expect(typeof data.consentData).to.equal('string');
-				done();
+			it('getConsentData executes', (done) => {
+				cmp.processCommand('getConsentData', null, data => {
+					expect(typeof data.consentData).to.equal('string');
+					done();
+				});
+			});
+
+			it('getConsentData returns persisted data', (done) => {
+				cmp.store.persist();
+				cmp.processCommand('getConsentData', null, data => {
+					expect(typeof data.consentData).to.equal('string');
+					done();
+				});
 			});
 		});
 

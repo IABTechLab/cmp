@@ -33,7 +33,6 @@ function initConstants() {
 
 initConstants();
 
-
 function getConsentsCount(consentObject, vendorList) {
 	let total = 0;
 	let consented = 0;

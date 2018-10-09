@@ -122,7 +122,7 @@ export default class Cmp {
 			return this.store.getFullVendorConsentsObject(vendorIds)
 				.then(consent => {
 					consent.gdprApplies = this.gdprApplies;
-					callback(consent);
+					callback(consent, true);
 					return consent;
 				});
 		},
@@ -137,10 +137,10 @@ export default class Cmp {
 						gdprApplies: this.gdprApplies,
 						hasGlobalScope: this.config.storeConsentGlobally,
 						consentData: consent.consentString
-					}
+					};
 					callback(output, true);
-					return output
-			});
+					return output;
+				});
 		},
 
 		/**
