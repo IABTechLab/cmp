@@ -44,7 +44,7 @@ function openGlobalVendorPortal() {
 			// Add listener for messages from iframe
 			window.addEventListener('message', event => {
 				// Only look at messages with the vendorConsent property
-				const data = event.data.vendorConsent;
+				const data = event && event.data && event.data.vendorConsent;
 				if (data) {
 					// The iframe has loaded
 					if (data.command === 'isLoaded' && portalTimeout) {
