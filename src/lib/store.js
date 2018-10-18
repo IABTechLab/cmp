@@ -23,7 +23,11 @@ function copyData(dataObject) {
 	const copy = {...dataObject};
 	for (let key in copy) {
 		if (copy.hasOwnProperty(key) && copy[key] instanceof Set) {
-			copy[key] = new Set(copy[key]);
+			let set = new Set();
+			copy[key].forEach((val) => {
+				set.add(val);
+			});
+			copy[key] = set;
 		}
 	}
 	return copy;
@@ -102,8 +106,14 @@ export default class Store {
 		const {purposes = [], vendors = []} = vendorList;
 
 		// No consent will be allowed for vendors or purposes not on the list
-		const allowedVendorIds = new Set(vendors.map(({id}) => id));
-		const allowedPurposeIds = new Set(purposes.map(({id}) => id));
+		const allowedVendorIds = new Set();
+		for (let i in vendors) {
+			allowedVendorIds.add(vendors[i].id);
+		}
+		const allowedPurposeIds = new Set();
+		for (let j in purposes) {
+			allowedPurposeIds.add(purposes[j].id);
+		}
 
 		// Map requested vendorIds
 		const vendorMap = {};
@@ -204,7 +214,10 @@ export default class Store {
 		const {purposes: customPurposes = []} = customPurposeList;
 
 		// No consent will be allowed for purposes not on the list
-		const allowedPurposeIds = new Set(purposes.map(({id}) => id));
+		const allowedPurposeIds = new Set();
+		for (let i in purposes) {
+			allowedPurposeIds.add(purposes[i].id);
+		}
 
 		const lastCustomPurposeId = Math.max(
 			...customPurposes.map(({id}) => id),
@@ -404,8 +417,14 @@ export default class Store {
 
 		// If vendor consent data has never been persisted set default selected status
 		if (!created) {
-			this.vendorConsentData.selectedPurposeIds = new Set(purposes.map(p => p.id));
-			this.vendorConsentData.selectedVendorIds = new Set(vendors.map(v => v.id));
+			this.vendorConsentData.selectedPurposeIds = new Set();
+			for (let i in purposes) {
+				this.vendorConsentData.selectedPurposeIds.add(purposes[i].id);
+			}
+			this.vendorConsentData.selectedVendorIds = new Set();
+			for (let j in vendors) {
+				this.vendorConsentData.selectedVendorIds.add(vendors[j].id);
+			}
 		}
 
 		const {selectedVendorIds = new Set()} = this.vendorConsentData;
@@ -427,7 +446,10 @@ export default class Store {
 		// If publisher consent has never been persisted set the default selected status
 		if (!created) {
 			const {purposes = [],} = customPurposeList || {};
-			this.publisherConsentData.selectedCustomPurposeIds = new Set(purposes.map(p => p.id));
+			this.publisherConsentData.selectedCustomPurposeIds = new Set();
+			for (let i in purposes) {
+				this.publisherConsentData.selectedCustomPurposeIds.add(purposes[i].id);
+			}
 		}
 
 		const {version = 1} = customPurposeList || {};
