@@ -135,7 +135,7 @@ describe('utils', () => {
 	});
 
 	describe('checkIfGDPRApplies', () => {
-		const returnValues = [ [ 'en-GB' ], ['fr-BE'], 'lt', 'en-US' ];
+		const returnValues = [ [ 'en-GB' ], ['de'], ['fr-BE'], 'lt', 'en-US' ];
 
 		beforeEach(() => {
 			window.fetch = jest.fn().mockImplementation(() => Promise.resolve({ headers: new Map([]) }));
@@ -161,6 +161,16 @@ describe('utils', () => {
 			});
 		});
 
+		it('skips the language check if the config is set to use only geoIP', (done) => {
+			config.useGeolocationOnly = true;
+			checkIfGDPRApplies('url', (res) => {
+				expect(res).eq(false);
+				expect(window.fetch.mock.calls.length).to.equal(1);
+				config.useGeolocationOnly = false;
+				done();
+			});
+		});
+
 		it('handles Internet Explorer navigator implementation', (done) => {
 			checkIfGDPRApplies('url', (res) => {
 				expect(res.applies).eq(true);
@@ -171,7 +181,7 @@ describe('utils', () => {
 			});
 		});
 
-		it('fallbacks to ip resolution', (done) => {
+		it('falls back to IP resolution', (done) => {
 			checkIfGDPRApplies('url', (res) => {
 
 				expect(res).eq(false);

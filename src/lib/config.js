@@ -18,6 +18,7 @@ const defaultConfig = {
 		someConsentGiven: 30,
 		noConsentGiven: 30,
 	},
+	useGeolocationOnly: false,
 	geoIPVendor: 'https://cmp.digitru.st/1/geoip.json',
 	digitrustRedirectUrl: metadata.digitrustRedirectLocation,
 	testingMode: 'normal',
