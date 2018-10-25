@@ -64,7 +64,12 @@ export default class Purposes extends Component {
 
 		const localVendors = vendors.map((vendor) => {
 			let purposeId = selectedPurposeIndex + 1;
-			let vendorPurposes = new Set(vendor.purposes.map((purpose) => purpose.id));
+			let set = new Set();
+			const tempVendorPurposes = vendor.purposes.map((purpose) => purpose.id);
+			for (let i in tempVendorPurposes) {
+				set.add(tempVendorPurposes[i]);
+			}
+			let vendorPurposes = set;
 			if ( vendorPurposes.has(purposeId) &&
 				( this.pubvendorsHasVendorAndPurpose(pubvendorsObj, vendor, purposeId) )
 			) return vendor;
@@ -85,7 +90,11 @@ export default class Purposes extends Component {
 	createPubvendorsObj = (pubvendors) => {
 		const obj = {};
 		pubvendors.vendors.forEach((vendor) => {
-			obj[vendor.id] = new Set(vendor.purposes);
+			let set = new Set();
+			for (let i in vendor.purposes) {
+				set.add(vendor.purposes[i]);
+			}
+			obj[vendor.id] = set;
 		});
 		return obj;
 	};

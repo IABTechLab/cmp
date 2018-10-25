@@ -40,7 +40,11 @@ export default class Vendors extends Component {
 	createPubvendorsObj = (pubvendors) => {
 		const obj = {};
 		pubvendors.vendors.forEach((vendor) => {
-			obj[vendor.id] = new Set(vendor.purposes);
+			let set = new Set();
+			for (let i in vendor.purposes) {
+				set.add(vendor.purposes[i]);
+			}
+			obj[vendor.id] = set;
 		});
 		return obj;
 	};
