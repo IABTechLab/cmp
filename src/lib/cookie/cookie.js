@@ -230,7 +230,7 @@ function readCookie(name) {
 			acc.push(pair[1]);
 		}
 		return acc;
-	},[])
+	},[]);
 
 	if (values.length > 0) {
 		return values.pop();

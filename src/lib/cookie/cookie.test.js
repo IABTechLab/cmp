@@ -93,9 +93,9 @@ describe('cookie', () => {
 		document.cookie = `${VENDOR_CONSENT_COOKIE_NAME}=consentstring;path=/`;
 		const cookieValue = readCookie(VENDOR_CONSENT_COOKIE_NAME);
 
-		expect(cookieValue).to.equal("consentstring")
+		expect(cookieValue).to.equal("consentstring");
 
-	})
+	});
 
 	it('it returns the last occurence, if there are multiple cookies with the same name', () => {
 		window.history.pushState({}, '', '/random/cookie/path');
@@ -104,9 +104,9 @@ describe('cookie', () => {
 		document.cookie = `${VENDOR_CONSENT_COOKIE_NAME}=consentstringwithpathset;path=/`;
 
 		const cookieValue = readCookie(VENDOR_CONSENT_COOKIE_NAME);
-		expect(cookieValue).to.equal("consentstringwithpathset")
+		expect(cookieValue).to.equal("consentstringwithpathset");
 
-	})
+	});
 
 	it('encodes and decodes the vendor cookie object back to original value', () => {
 		const vendorConsentData = {
