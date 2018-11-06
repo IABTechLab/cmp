@@ -44,19 +44,21 @@ export default class IntroFooter extends Component {
       <div class={cx(style.container, style[`container-${layout}`])}>
         {!expanded && (
           <div class={cx(style.base, style.collapsed)}>
-            <span name="ctrl" class={style.icon} onClick={onToggleExpanded} />
-            <LocalLabel
-              providedValue={
-                localization && localization.footer
-                  ? localization.footer.message
-                  : ''
-              }
-              localizeKey="footer.message"
-              class={style.message + ' primaryText'}
-            >
-              Read more about access and use of information on your device for
-              various purposes.
-            </LocalLabel>
+            <div class={style.message}>
+              <span name="ctrl" class={style.icon} onClick={onToggleExpanded} />
+              <LocalLabel
+                providedValue={
+                  localization && localization.footer
+                    ? localization.footer.message
+                    : ''
+                }
+                localizeKey="footer.message"
+                class={style.message + ' primaryText'}
+              >
+                Read more about access and use of information on your device for
+                various purposes.
+              </LocalLabel>
+            </div>
             {showLearnMoreButton && (
               <div style={{ flex: 1 }}>{learnMoreButton}</div>
             )}
