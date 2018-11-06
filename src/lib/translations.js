@@ -579,23 +579,13 @@ export default {
   },
   cs: {
     intro: {
-      title: 'Děkujeme Vám za návštěvu ',
+      title: 'Vítejte,',
       domain: '',
       description:
-        'Reklamy pomáhají financovat provoz této aplikace. Když využíváte naši aplikaci vybrané společnosti mohou mít přístup k některým informacím z vašeho zařízení a využívat je k různým účelům včetně prezentace relevantních reklamních sdělení či individualizovaného obsahu.',
-      deviceInformationPopover: `
-				<strong>Informace, které mohou být použity:</strong>
-				<ul>
-					<li>Typ prohlížeče a jeho nastavení</li>
-					<li>Informace o operačním systému zařízení</li>
-					<li>Informace o cookies</li>
-					<li>Informace o jiných identifikačních údajích zařízení</li>
-					<li>IP adresa, ze které zařízení získává přístup ke stránkám či mobilní aplikaci klienta</li>
-					<li>Informace ohledně aktivity uživatele na jeho zařízení, včetně navštívených webů či použitých mobilních aplikací</li>
-					<li>Informace o zeměpisné poloze zařízení v průběhu návštěvy webu či užívání mobilní aplikace</li>
-				</ul>
-			`,
-      acceptAll: 'přijmout vše',
+        'údaje o tom, jak procházíte naše stránky a jaký obsah vás zajímá, nám pomáhají zlepšovat naše stávající služby a vyvíjet nové. Můžeme vám doporučovat obsah a zobrazovat reklamu na základě vašich zájmů a také vyhodnocovat úspěšnost jednotlivých služeb, obsahu nebo reklamy. K některým informacím mohou mít přístup i vybrané společnosti, které jsou našimi partnery. ',
+      deviceInformationPopover:
+        '\n\t\t\t\t<strong>Jaké informace můžeme použít:</strong>\n\t\t\t\t<ul>\n\t\t\t\t\t<li>typ prohlížeče a jeho nastavení,</li>\n\t\t\t\t\t<li>informace o operačním systému zařízení,</li>\n\t\t\t\t\t<li>informace uložené v souborech cookies,</li>\n\t\t\t\t\t<li>informace o jiných identifikačních údajích zařízení,</li>\n\t\t\t\t\t<li>IP adresa, ze které zařízení získává přístup ke stránkám či k mobilní aplikaci,</li>\n\t\t\t\t\t<li>informace ohledně vaší aktivity, včetně navštívených webů či použitých mobilních aplikací,</li>\n\t\t\t\t\t<li>informace o zeměpisné poloze zařízení v průběhu návštěvy webu či v průběhu užívání mobilní aplikace.</li>\n\t\t\t\t</ul>\n\t\t\t',
+      acceptAll: 'rozumím a přijímám',
       showPurposes: 'více informací',
     },
     details: {
@@ -610,20 +600,20 @@ export default {
       active: 'Povoleno',
       inactive: 'Zakázáno',
       disclaimer:
-        'Naše společnost a námi vybrané společnosti mohou mít přístup k uvedeným informacím a užívat je k následujícím účelům. Můžete váš výběr upravit nebo dál používat naši aplikaci, pokud s těmito účely souhlasíte. Zde naleznete ',
+        'Naše společnost a námi vybrané společnosti mohou mít přístup k uvedeným informacím a užívat je k následujícím účelům. Můžete váš výběr upravit, nebo, pokud s těmito účely souhlasíte, pokračovat na stránku. Zde naleznete ',
       disclaimerVendorLink: 'kompletní seznam společností.',
       showVendors: 'Ukázat společnosti',
       hideVendors: 'Skrýt společnosti',
-      featureHeader: 'To bude zahrnovat následující funkce:',
+      featureHeader: 'Tyto údaje zpracováváme následujícím způsobem:',
       company: 'společnosti',
       switchText:
-        'Publisher and their partners could collect anonymized information in order to improve your experience on our site.',
+        'Za účelem zlepšování služeb můžeme my nebo naši smluvní partneři uchovávat a zpracovávat vaše údaje ve výše uvedeném rozsahu.',
     },
     vendors: {
       company: 'Společnost',
       offOn: 'Povolit',
       description:
-        'Vaše informace budou moci užívat pečlivě vybrané společnosti. V závislosti na určitých faktorech a typu dat, která budou shromažďovat, využívat a zpracovávat, budou od vás určité společnosti vyžadovat udělení souhlasu s nakládáním s těmito informacemi, zatímco jiné společnosti jej budou implicitně předpokládat a vyžadovat jen případný nesouhlas (opt-out). Pro zobrazení zásad ochrany osobních údajů jednotlivých společností můžete kliknout na název společnosti a upravit si příslušná nastavení. Pro opt-out, tedy zamítnutí souhlasu se zpracováním a uchováváním údajů navštivte stránky ',
+        'Vaše informace budou moci užívat pečlivě vybrané společnosti. V závislosti na určitých faktorech a typu dat, která budou shromažďovat, využívat a zpracovávat, budou od vás určité společnosti vyžadovat udělení souhlasu s nakládáním s těmito informacemi, zatímco jiné společnosti jej budou implicitně předpokládat a vyžadovat jen případný nesouhlas (opt-out). Pro zobrazení zásad ochrany osobních údajů jednotlivých společností můžete kliknout na název společnosti a upravit si příslušná nastavení. Pro opt-out, tedy zamítnutí souhlasu se zpracováním a uchováváním údajů, navštivte stránky ',
       or: 'nebo ',
       sites: '.',
       description2:
@@ -634,22 +624,13 @@ export default {
     },
     footer: {
       message:
-        'Zjistěte více o spracování a využítí informací z vašeho zařízení k různým účelům.',
+        'Zjistěte více o zpracování a využití informací z vašeho zařízení k různým účelům.',
       closedMessage: 'Nastavení svého soukromí můžete ',
       closedMessageLink: 'upravit zde.',
       deviceInformationHeader: 'Informace, které mohou být použity:',
-      deviceInformation: `
-				<ul>
-					<li>Typ prohlížeče a jeho nastavení</li>
-					<li>Informace o operačním systému zařízení</li>
-					<li>Informace o cookies</li>
-					<li>Informace o jiných identifikačních údajích zařízení</li>
-					<li>IP adresa, ze které zařízení získává přístup ke stránkám či mobilní aplikaci klienta</li>
-					<li>Informace ohledně aktivity uživatele na jeho zařízení, včetně navštívených webů či použitých mobilních aplikací</li>
-					<li>Informace o zeměpisné poloze zařízení v průběhu návštěvy webu či užívání mobilní aplikace</li>
-				</ul>
-			`,
-      purposesHeader: 'Účely uchovávání informací:',
+      deviceInformation:
+        '\n\t\t\t\t<ul>\n\t\t\t\t\t<li>typ prohlížeče a jeho nastavení,</li>\n\t\t\t\t\t<li>informace o operačním systému zařízení,</li>\n\t\t\t\t\t<li>informace uložené v souborech cookies,</li>\n\t\t\t\t\t<li>informace o jiných identifikačních údajích zařízení,</li>\n\t\t\t\t\t<li>IP adresa, ze které zařízení získává přístup ke stránkám či k mobilní aplikaci,</li>\n\t\t\t\t\t<li>informace ohledně vaší aktivity, včetně navštívených webů či použitých mobilních aplikací,</li>\n\t\t\t\t\t<li>informace o zeměpisné poloze zařízení v průběhu návštěvy webu či v průběhu užívání mobilní aplikace.</li>\n\t\t\t\t</ul>\n\t\t\t',
+      purposesHeader: 'Jak s daty zacházíme:',
     },
   },
 };
