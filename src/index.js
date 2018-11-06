@@ -9,8 +9,8 @@ import { init } from './lib/init';
 import { CMP_GLOBAL_NAME } from './lib/cmp';
 
 function start() {
-	const {config} = window[CMP_GLOBAL_NAME] || {};
-	init(config);
+  const { config } = window[CMP_GLOBAL_NAME] || {};
+  init(config);
 }
 
 start();

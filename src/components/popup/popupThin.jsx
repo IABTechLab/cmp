@@ -4,14 +4,13 @@ import IntroThin from './intro/introThin';
 import Details from './details/details';
 import Panel from '../panel/panel';
 
-
 const SECTION_INTRO = 0;
 const SECTION_DETAILS = 1;
 
 export default class PopupThin extends Component {
   state = {
     selectedPanelIndex: SECTION_INTRO,
-    isActive: false
+    isActive: false,
   };
 
   onAcceptAll = () => {
@@ -25,14 +24,14 @@ export default class PopupThin extends Component {
   onCancel = () => {
     this.setState({
       selectedPanelIndex: SECTION_INTRO,
-      isActive: false
+      isActive: false,
     });
   };
 
   handleShowDetails = () => {
     this.setState({
       selectedPanelIndex: SECTION_DETAILS,
-      isActive: true
+      isActive: true,
     });
   };
 
@@ -52,13 +51,13 @@ export default class PopupThin extends Component {
         class={config.blockBrowsing ? style.popup : ''}
         style={{ display: isThinConsentToolShowing ? 'flex' : 'none' }}
       >
-        {config.blockBrowsing &&
-          <div
-            class={style.overlay}
-            onClick={this.handleClose}
-          />
-        }
-        <div name='content' class={this.state.isActive ? style.contentClicked : style.content}>
+        {config.blockBrowsing && (
+          <div class={style.overlay} onClick={this.handleClose} />
+        )}
+        <div
+          name="content"
+          class={this.state.isActive ? style.contentClicked : style.content}
+        >
           <Panel selectedIndex={selectedPanelIndex}>
             <IntroThin
               onAcceptAll={this.onAcceptAll}
