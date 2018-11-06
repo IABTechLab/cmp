@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import style from './footer.less';
 import Label from '../../label/label';
 import Button from '../../button/button';
+import cx from 'classnames';
 
 class LocalLabel extends Label {
   static defaultProps = {};
@@ -10,27 +11,26 @@ class LocalLabel extends Label {
 export default class IntroFooter extends Component {
   static defaultProps = {};
 
-  state = {
-    showFull: false,
-  };
-
-  handleShow = () => {
-    this.setState(
-      {
-        showFull: !this.state.showFull,
-      },
-      this.props.updateCSSPrefs,
-    );
-  };
-
   componentDidMount() {
     this.props.updateCSSPrefs();
   }
 
-  render(props, state) {
-    const { showFull } = this.state;
+  componentDidUpdate() {
+    this.props.updateCSSPrefs();
+  }
 
-    const { localization, onShowPurposes, onAcceptAll, store } = props;
+  render(props) {
+    const {
+      localization,
+      onShowPurposes,
+      onAcceptAll,
+      store,
+      expanded,
+      onToggleExpanded,
+      showLearnMoreButton,
+      learnMoreButton,
+      layout,
+    } = props;
 
     let allPurposes = [];
     if (store.vendorList && store.vendorList.purposes) {
@@ -41,31 +41,36 @@ export default class IntroFooter extends Component {
     }
 
     return (
-      <div>
-        {!showFull && (
-          <div class={style.base + ' ' + style.collapsed}>
-            <span name="ctrl" class={style.icon} onClick={this.handleShow} />
-            <LocalLabel
-              providedValue={
-                localization && localization.footer
-                  ? localization.footer.message
-                  : ''
-              }
-              localizeKey="footer.message"
-              class={style.message + ' primaryText'}
-            >
-              Read more about access and use of information on your device for
-              various purposes.
-            </LocalLabel>
+      <div class={cx(style.container, style[`container-${layout}`])}>
+        {!expanded && (
+          <div class={cx(style.base, style.collapsed)}>
+            <div class={style.message}>
+              <span name="ctrl" class={style.icon} onClick={onToggleExpanded} />
+              <LocalLabel
+                providedValue={
+                  localization && localization.footer
+                    ? localization.footer.message
+                    : ''
+                }
+                localizeKey="footer.message"
+                class={style.message + ' primaryText'}
+              >
+                Read more about access and use of information on your device for
+                various purposes.
+              </LocalLabel>
+            </div>
+            {showLearnMoreButton && (
+              <div style={{ flex: 1 }}>{learnMoreButton}</div>
+            )}
           </div>
         )}
-        {showFull && (
+        {expanded && (
           <div class={style.container}>
-            <div class={style.base + ' ' + style.extended}>
+            <div class={cx(style.base, style.extended)}>
               <span
                 name="ctrl"
                 class={style.iconDown}
-                onClick={this.handleShow}
+                onClick={onToggleExpanded}
               />
               <LocalLabel
                 providedValue={
