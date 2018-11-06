@@ -52,10 +52,6 @@ export default class Popup extends Component {
         )}
         <div
           name="content"
-          class={[
-            style.content,
-            style[config.layout]
-          ].join(' ')}
         >
           <Panel selectedIndex={selectedPanelIndex}>
             <Intro

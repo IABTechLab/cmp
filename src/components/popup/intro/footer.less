@@ -1,6 +1,58 @@
 @import '../../../style/variables.less';
 @import '../../../style/font-face.less';
 
+.container {
+  background: white;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  background-color: white;
+
+  @media @smartphone {
+    width: 98%;
+    height: 98%;
+  }
+
+  @media screen and (max-width: 730px) {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.container-footer,
+.container-thin {
+  width: 100%;
+  height: 100%;
+
+  .infoFooter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+
+    button {
+      margin-top: 10px;
+    }
+  }
+}
+
+.container-modal {
+  width: 700px;
+
+  .content {
+    max-height: 365px;
+  }
+
+  .infoFooter:extend(.base) {
+    height: 75px;
+    flex-shrink: 0;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 .base {
   display: flex;
   flex-direction: row;
@@ -43,7 +95,6 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
-  max-height: 365px;
   padding: 15px 50px;
   font-size: 15px;
   line-height: 1.25;
@@ -76,38 +127,12 @@
   content: '\ea50';
 }
 
-.container {
-  width: 700px;
-  background: white;
-  display: flex;
-  align-items: stretch;
-  flex-direction: column;
-  background-color: white;
-
-  @media @smartphone {
-    width: 98%;
-    height: 98%;
-  }
-
-  @media screen and (max-width: 730px) {
-    width: 100%;
-    height: 100%;
-  }
-}
-
 .iconDown:extend(.icon) {
   transform: rotate(-180deg);
 }
 
 .iconDown:before {
   content: '\ea50';
-}
-
-.infoFooter:extend(.base) {
-  height: 75px;
-  flex-shrink: 0;
-  width: 100%;
-  justify-content: center;
 }
 
 .button {
@@ -129,7 +154,6 @@
 .rejectAll,
 .acceptAll {
   padding: 12px 62px !important;
-  margin: 0 15px !important;
 
   @media screen and (max-width: 730px) {
     padding: 12px 12px !important;
