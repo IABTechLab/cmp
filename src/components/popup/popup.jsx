@@ -41,19 +41,21 @@ export default class Popup extends Component {
   render(props, state) {
     const { store, localization, config, updateCSSPrefs } = props;
     const { selectedPanelIndex } = state;
-    const { isConsentToolShowing } = store;
 
     return (
       <div
-        class={config.blockBrowsing ? style.popup : ''}
-        style={{ display: isConsentToolShowing ? 'flex' : 'none' }}
+        class={style.popup}
+        style={{ display: 'flex' }}
       >
         {config.blockBrowsing && (
           <div class={style.overlay} onClick={this.handleClose} />
         )}
         <div
           name="content"
-          class={config.blockBrowsing ? style.content : style.noOverlayContent}
+          class={[
+            style.content,
+            style[config.layout]
+          ].join(' ')}
         >
           <Panel selectedIndex={selectedPanelIndex}>
             <Intro
