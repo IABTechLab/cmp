@@ -140,7 +140,7 @@ export default class App extends Component {
             !showConsentToolButtonClicked &&
             !appDiv.contains(target)
           ) {
-            store.toggleConsentToolShowing(false);
+            store.toggleConsentToolShowing(true);
 
             // Render footer style CMP if no consent decision has been submitted yet
             if (!cmp.submitted) {
@@ -176,16 +176,22 @@ export default class App extends Component {
     const { store } = state;
     const { config } = props;
     const userLocalization = config.localization[currentLocale.split('-')[0]];
+    const showPopup =
+      store.isConsentToolShowing ||
+      store.isFooterConsentToolShowing ||
+      store.isThinConsentToolShowing;
 
     return (
       <div class={style.gdpr}>
-        <Popup
-          store={store}
-          localization={userLocalization}
-          onSave={this.onSave}
-          config={config}
-          updateCSSPrefs={this.updateCSSPrefs}
-        />
+        {showPopup && (
+          <Popup
+            store={store}
+            localization={userLocalization}
+            onSave={this.onSave}
+            config={config}
+            updateCSSPrefs={this.updateCSSPrefs}
+          />
+        )}
         <Footer
           store={store}
           localization={userLocalization}
