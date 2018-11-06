@@ -20,7 +20,17 @@ export default class IntroFooter extends Component {
   }
 
   render(props) {
-    const { localization, onShowPurposes, onAcceptAll, store, expanded, onToggleExpanded, showLearnMoreButton, learnMoreButton, layout } = props;
+    const {
+      localization,
+      onShowPurposes,
+      onAcceptAll,
+      store,
+      expanded,
+      onToggleExpanded,
+      showLearnMoreButton,
+      learnMoreButton,
+      layout,
+    } = props;
 
     let allPurposes = [];
     if (store.vendorList && store.vendorList.purposes) {
@@ -34,27 +44,27 @@ export default class IntroFooter extends Component {
       <div class={cx(style.container, style[`container-${layout}`])}>
         {!expanded && (
           <div class={cx(style.base, style.collapsed)}>
-              <span name="ctrl" class={style.icon} onClick={onToggleExpanded} />
-              <LocalLabel
-                providedValue={
-                  localization && localization.footer
-                    ? localization.footer.message
-                    : ''
-                }
-                localizeKey="footer.message"
-                class={style.message + ' primaryText'}
-              >
-                Read more about access and use of information on your device for
-                various purposes.
-              </LocalLabel>
-            {showLearnMoreButton && <div style={{ flex: 1 }}>
-              {learnMoreButton}
-            </div>}
+            <span name="ctrl" class={style.icon} onClick={onToggleExpanded} />
+            <LocalLabel
+              providedValue={
+                localization && localization.footer
+                  ? localization.footer.message
+                  : ''
+              }
+              localizeKey="footer.message"
+              class={style.message + ' primaryText'}
+            >
+              Read more about access and use of information on your device for
+              various purposes.
+            </LocalLabel>
+            {showLearnMoreButton && (
+              <div style={{ flex: 1 }}>{learnMoreButton}</div>
+            )}
           </div>
         )}
         {expanded && (
           <div class={style.container}>
-            <div class={style.base + ' ' + style.extended}>
+            <div class={cx(style.base, style.extended)}>
               <span
                 name="ctrl"
                 class={style.iconDown}
@@ -74,63 +84,63 @@ export default class IntroFooter extends Component {
             </div>
 
             <div class={style.content}>
-                <LocalLabel
-                  providedValue={
-                    localization && localization.footer
-                      ? localization.footer.deviceInformationHeader
-                      : ''
-                  }
-                  localizeKey="footer.deviceInformationHeader"
-                  class={style.message2 + ' primaryText'}
-                >
-                  Information that may be used:
-                </LocalLabel>
-                <LocalLabel
-                  providedValue={
-                    localization && localization.footer
-                      ? localization.footer.deviceInformation
-                      : ''
-                  }
-                  localizeKey="footer.deviceInformation"
-                  class={style.message + ' primaryText'}
-                >
-                  <ul>
-                    <li>Type of browser and its settings</li>
-                    <li>Information about the device's operating system</li>
-                    <li>Cookie information</li>
-                    <li>
-                      Information about other identifiers assigned to the device
-                    </li>
-                    <li>
-                      The IP address from which the device accesses a client's
-                      website or mobile application
-                    </li>
-                    <li>
-                      Information about the user's activity on that device,
-                      including web pages and mobile apps visited or used
-                    </li>
-                    <li>
-                      Information about the geographic location of the device when
-                      it accesses a website or mobile application
-                    </li>
-                  </ul>
-                </LocalLabel>
-                <LocalLabel
-                  providedValue={
-                    localization && localization.footer
-                      ? localization.footer.purposesHeader
-                      : ''
-                  }
-                  localizeKey="footer.purposesHeader"
-                  class={style.message2 + ' primaryText'}
-                >
-                  Purposes for storing information:
-                </LocalLabel>
+              <LocalLabel
+                providedValue={
+                  localization && localization.footer
+                    ? localization.footer.deviceInformationHeader
+                    : ''
+                }
+                localizeKey="footer.deviceInformationHeader"
+                class={style.message2 + ' primaryText'}
+              >
+                Information that may be used:
+              </LocalLabel>
+              <LocalLabel
+                providedValue={
+                  localization && localization.footer
+                    ? localization.footer.deviceInformation
+                    : ''
+                }
+                localizeKey="footer.deviceInformation"
+                class={style.message + ' primaryText'}
+              >
                 <ul>
-                  {allPurposes.map(purpose => {
-                    return <li class="primaryText">{purpose.name}</li>;
-                  })}
+                  <li>Type of browser and its settings</li>
+                  <li>Information about the device's operating system</li>
+                  <li>Cookie information</li>
+                  <li>
+                    Information about other identifiers assigned to the device
+                  </li>
+                  <li>
+                    The IP address from which the device accesses a client's
+                    website or mobile application
+                  </li>
+                  <li>
+                    Information about the user's activity on that device,
+                    including web pages and mobile apps visited or used
+                  </li>
+                  <li>
+                    Information about the geographic location of the device when
+                    it accesses a website or mobile application
+                  </li>
                 </ul>
+              </LocalLabel>
+              <LocalLabel
+                providedValue={
+                  localization && localization.footer
+                    ? localization.footer.purposesHeader
+                    : ''
+                }
+                localizeKey="footer.purposesHeader"
+                class={style.message2 + ' primaryText'}
+              >
+                Purposes for storing information:
+              </LocalLabel>
+              <ul>
+                {allPurposes.map(purpose => {
+                  return <li class="primaryText">{purpose.name}</li>;
+                })}
+              </ul>
             </div>
 
             <div class={style.infoFooter}>
