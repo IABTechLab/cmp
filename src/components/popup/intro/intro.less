@@ -60,48 +60,63 @@
 
       button {
         flex: 1;
-        margin: 0 10px;
+        margin: 0 6px;
       }
     }
   }
 
   .content-footer,
   .content-thin {
-    text-align: left;
-    flex-direction: row;
+    flex-direction: column;
 
     .description {
       overflow: auto;
-      text-align: left;
-      flex: 3;
+      text-align: center;
+      padding: 16px 0;
 
       .title {
-        text-align: left;
+        text-align: center;
       }
     }
 
     .options {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      padding: 0 32px;
       justify-content: space-around;
       flex-shrink: 0;
       flex: 1;
+
+      button {
+        margin: 0 8px;
+        flex: 1;
+      }
     }
   }
 
-  @media screen and (max-width: 730px) {
-    padding: 0 2em;
+  @media screen and (min-width: 750px) {
+    .content-footer,
+    .content-thin {
+      flex-direction: row;
+
+      .description {
+        overflow: auto;
+        text-align: left;
+        flex: 3;
+
+        .title {
+          text-align: left;
+        }
+      }
+
+      .options {
+        flex-direction: column;
+
+        button {
+          flex: none;
+        }
+      }
+    }
   }
 
-  @media (max-width: 370px) {
-    .options {
-      flex-direction: column;
-      width: 75%;
-      margin-bottom: 10px;
-    }
-
-    .rejectAll {
-      margin-bottom: 10px;
-    }
-  }
 }
