@@ -16,7 +16,7 @@
     "lint": "eslint src test",
     "preversion": "npm test",
     "version": "npm run build",
-    "format": "prettier \"src/**/*.{js,jsx}\" --write"
+    "format": "prettier \"src/**/*.{js,jsx,less}\" --write"
   },
   "repository": {
     "type": "git",

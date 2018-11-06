@@ -1,78 +1,77 @@
 .flexColumn {
-	@media (max-width: 480px) {
-		flex-direction: row;
-	}
-	@media (min-width: 481px) {
-		flex-direction: column;
-	}
+  @media (max-width: 480px) {
+    flex-direction: row;
+  }
+  @media (min-width: 481px) {
+    flex-direction: column;
+  }
 }
 
-
 div.intro {
-	align-items: center;
-	max-height: 100%;
+  align-items: center;
+  max-height: 100%;
 
-	.top {
-		margin-bottom: 75px;
-		padding: 0 4em;
-		overflow: auto;
+  .top {
+    margin-bottom: 75px;
+    padding: 0 4em;
+    overflow: auto;
 
-		@media (max-width: 480px) {
-			max-height: calc(100vh - 75px);
-		}
-		@media (min-width: 481px) {
-			max-height: 425px;
-		}
+    @media (max-width: 480px) {
+      max-height: calc(100vh - 75px);
+    }
+    @media (min-width: 481px) {
+      max-height: 425px;
+    }
 
-		.logo {
-			display: block;
-			margin: 20px auto 10px auto;
-			max-width: 75%;
-			max-height: 100px;
-		}
-	}
-	.title {
-		font-size: 30px;
-		font-weight: bold;
-		text-align: center;
-	}
-	.description {
-		margin: 2em 0;
-		overflow: auto;
-		max-height: 150px;
-		text-align: center;
-	}
-	.options {
-		display: flex;
-		flex-shrink: 0;
-		width: 100%;
-	}
-	.rejectAll {
-		flex: 1;
-	}
-	.acceptAll {
-		flex: 1;
-	}
+    .logo {
+      display: block;
+      margin: 20px auto 10px auto;
+      max-width: 75%;
+      max-height: 100px;
+    }
+  }
+  .title {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .description {
+    margin: 2em 0;
+    overflow: auto;
+    max-height: 150px;
+    text-align: center;
+  }
+  .options {
+    display: flex;
+    flex-shrink: 0;
+    width: 100%;
+  }
+  .rejectAll {
+    flex: 1;
+  }
+  .acceptAll {
+    flex: 1;
+  }
 
-	@media screen and (max-width: 730px) {
-		padding: 0 2em;
-	}
+  @media screen and (max-width: 730px) {
+    padding: 0 2em;
+  }
 
-	@media (max-width: 370px) {
-		.options {
-			flex-direction: column;
-			width: 75%;
-			margin-bottom: 10px;
-		}
+  @media (max-width: 370px) {
+    .options {
+      flex-direction: column;
+      width: 75%;
+      margin-bottom: 10px;
+    }
 
-		.rejectAll {
-			margin-bottom: 10px;
-		}
-	}
+    .rejectAll {
+      margin-bottom: 10px;
+    }
+  }
 
-	@media (min-width: 375px) {
-		.rejectAll {
-			margin-right: 10px;
-		}
-	}
+  @media (min-width: 375px) {
+    .rejectAll {
+      margin-right: 10px;
+    }
+  }
 }
