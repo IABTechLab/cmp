@@ -4,6 +4,7 @@ import customPurposeList from '../../docs/assets/purposes.json';
 import config from '../config';
 
 import {
+	readCookie,
 	writeCookie,
 	encodeVendorConsentData,
 	decodeVendorConsentData,
@@ -75,6 +76,8 @@ describe('cookie', () => {
 	const aDate = new Date('2018-07-15 PDT');
 
 	beforeEach(() => {
+		// Reset url
+		window.history.pushState({}, '', '/');
 		// Remove all cookies
 		const value = document.cookie.split(';');
 		value.forEach(cookie => {
@@ -84,6 +87,25 @@ describe('cookie', () => {
 			}
 		});
 		mockPortal.sendPortalCommand = jest.fn().mockImplementation(() => Promise.resolve());
+	});
+
+	it('can read a cookie based on its name', () => {
+		document.cookie = `${VENDOR_CONSENT_COOKIE_NAME}=consentstring;path=/`;
+		const cookieValue = readCookie(VENDOR_CONSENT_COOKIE_NAME);
+
+		expect(cookieValue).to.equal("consentstring");
+
+	});
+
+	it('it returns the last occurence, if there are multiple cookies with the same name', () => {
+		window.history.pushState({}, '', '/random/cookie/path');
+
+		document.cookie = `${VENDOR_CONSENT_COOKIE_NAME}=consentstringwithoutpathset`;
+		document.cookie = `${VENDOR_CONSENT_COOKIE_NAME}=consentstringwithpathset;path=/`;
+
+		const cookieValue = readCookie(VENDOR_CONSENT_COOKIE_NAME);
+		expect(cookieValue).to.equal("consentstringwithpathset");
+
 	});
 
 	it('encodes and decodes the vendor cookie object back to original value', () => {
