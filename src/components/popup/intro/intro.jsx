@@ -4,7 +4,8 @@ import style from './intro.less';
 import popupStyle from '../popup.less';
 import Button from '../../button/button';
 import Label from '../../label/label';
-import IntroFooter from './footer';
+import IntroFooter from './footer/footer';
+import { ConsentButtons } from './consentbuttons';
 
 class LocalLabel extends Label {
   static defaultProps = {
@@ -24,17 +25,10 @@ export default class Intro extends Component {
   }
 
   renderTitle() {
-    const { localization, config } = this.props;
+    const { config } = this.props;
     return (
       <div class={cx(style.title, 'primaryText')}>
-        <LocalLabel
-          providedValue={
-            localization && localization.intro ? localization.intro.title : ''
-          }
-          localizeKey="title"
-        >
-          Thanks for visiting{' '}
-        </LocalLabel>
+        <LocalLabel localizeKey="title" />
         {config && config.companyName && <span>{config.companyName}</span>}
       </div>
     );
@@ -48,16 +42,7 @@ export default class Intro extends Component {
     const { onShowPurposes, localization } = this.props;
     return (
       <Button class={style.rejectAll} invert={true} onClick={onShowPurposes}>
-        <LocalLabel
-          providedValue={
-            localization && localization.intro
-              ? localization.intro.showPurposes
-              : ''
-          }
-          localizeKey="showPurposes"
-        >
-          Learn more
-        </LocalLabel>
+        <LocalLabel localizeKey="showPurposes" />
       </Button>
     );
   };
@@ -83,37 +68,15 @@ export default class Intro extends Component {
               {config.layout === 'modal' && this.renderTitle()}
               <div class={style.description + ' primaryText'}>
                 {config.layout === 'footer' && this.renderTitle()}
-                <LocalLabel
-                  providedValue={
-                    localization && localization.intro
-                      ? localization.intro.description
-                      : ''
-                  }
-                  localizeKey="description"
-                >
-                  Ads help us run this site. When you use our site selected
-                  companies may access and use information on your device for
-                  various purposes including to serve relevant ads or
-                  personalised content.
-                </LocalLabel>
+                <LocalLabel localizeKey="description" />
               </div>
 
-              <div class={style.options}>
-                {config.layout !== 'thin' && this.renderLearnMoreButton()}
-
-                <Button class={style.acceptAll} onClick={onAcceptAll}>
-                  <LocalLabel
-                    providedValue={
-                      localization && localization.intro
-                        ? localization.intro.acceptAll
-                        : ''
-                    }
-                    localizeKey="acceptAll"
-                  >
-                    Accept all
-                  </LocalLabel>
-                </Button>
-              </div>
+              {/* {config.layout !== 'thin' && this.renderLearnMoreButton()} */}
+              <ConsentButtons
+                className={style.btns}
+                onAcceptAll={onAcceptAll}
+                onShowPurposes={onShowPurposes}
+              />
             </div>
           )}
           <IntroFooter
