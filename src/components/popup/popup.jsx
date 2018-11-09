@@ -50,10 +50,6 @@ export default class Popup extends Component {
 
   handleClose = () => {};
 
-  componentDidMount() {
-    this.props.updateCSSPrefs();
-  }
-
   render(props, state) {
     const { store, localization, config, updateCSSPrefs } = props;
     const { selectedPanelIndex } = state;
