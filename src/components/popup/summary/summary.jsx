@@ -7,7 +7,6 @@ import { Header } from './header';
 import { Purposes } from './purposes';
 import { Footer } from './footer';
 
-
 export class Summary extends Component {
   static defaultProps = {};
 
@@ -38,11 +37,10 @@ export class Summary extends Component {
 
     return (
       <div class={cx(popupStyle.content, popupStyle[layout])}>
-        <Header onShowIntro={onShowIntro} />
-        <Purposes allPurposes={allPurposes} />
-        <Footer onShowPurposes={onShowPurposes} onAcceptAll={onAcceptAll} />
         <div class={cx(style.container, style[`container-${layout}`])}>
-
+          <Header onShowIntro={onShowIntro} />
+          <Purposes allPurposes={allPurposes} />
+          <Footer onShowPurposes={onShowPurposes} onAcceptAll={onAcceptAll} />
         </div>
       </div>
     );
