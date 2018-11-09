@@ -15,12 +15,6 @@ class LocalLabel extends Label {
 }
 
 export default class Intro extends Component {
-  static defaultProps = {};
-
-  state = {
-    footerExpanded: false,
-  };
-
   componentDidMount() {
     this.props.updateCSSPrefs();
   }
@@ -43,7 +37,7 @@ export default class Intro extends Component {
         <div class={cx(style.container, style[`container-${config.layout}`])}>
           {config.logoUrl && <img class={style.logo} src={config.logoUrl} />}
           {config.layout === 'modal' && this.renderTitle()}
-          <div class={style.description + ' primaryText'}>
+          <div class={style.description}>
             {config.layout === 'footer' && this.renderTitle()}
             <LocalLabel localizeKey="description" />
           </div>
