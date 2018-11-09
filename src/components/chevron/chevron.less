@@ -1,0 +1,24 @@
+.icon {
+  height: 30px;
+  outline: 0;
+  display: inline-block;
+  user-select: none;
+  cursor: pointer;
+  color: grey;
+
+  font-family: 'icomoon';
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  font-size: 50px;
+  line-height: 1;
+
+  &:before {
+    content: '\ea50';
+  }
+
+  &.down {
+    transform: rotate(-180deg);
+  }
+}
