@@ -40,9 +40,7 @@ export default class Intro extends Component {
 
     return (
       <div class={cx(popupStyle.content, popupStyle[config.layout])}>
-
-        <div class={cx(style.content, style[`content-${config.layout}`])}>
-
+        <div class={cx(style.container, style[`container-${config.layout}`])}>
           {config.logoUrl && <img class={style.logo} src={config.logoUrl} />}
           {config.layout === 'modal' && this.renderTitle()}
           <div class={style.description + ' primaryText'}>
@@ -55,7 +53,6 @@ export default class Intro extends Component {
             onShowPurposes={onShowPurposes}
           />
         </div>
-
         <Footer onShowSummary={onShowSummary} />
       </div>
     );
