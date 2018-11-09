@@ -1,11 +1,12 @@
 import { h, Component } from 'preact';
 import cx from 'classnames';
 
-import Label from '../../label/label';
 import popupStyle from '../popup.less';
-import { ConsentButtons } from '../consentbuttons';
-import { Purposes } from './purposes';
 import style from './summary.less';
+import { Header } from './header';
+import { Purposes } from './purposes';
+import { Footer } from './footer';
+
 
 export class Summary extends Component {
   static defaultProps = {};
@@ -37,26 +38,11 @@ export class Summary extends Component {
 
     return (
       <div class={cx(popupStyle.content, popupStyle[layout])}>
-
+        <Header onShowIntro={onShowIntro} />
+        <Purposes allPurposes={allPurposes} />
+        <Footer onShowPurposes={onShowPurposes} onAcceptAll={onAcceptAll} />
         <div class={cx(style.container, style[`container-${layout}`])}>
-          <div class={cx(style.base, style.extended)}>
-            <span
-              name="ctrl"
-              class={style.iconDown}
-              onClick={onShowIntro}
-            />
-            <Label
-              localizeKey="footer.deviceInformationHeader"
-              class={cx(style.headerMessage, 'primaryText')}
-            />
-          </div>
 
-          <Purposes allPurposes={allPurposes} />
-          <ConsentButtons
-            className={style.infoFooter}
-            onAcceptAll={onAcceptAll}
-            onShowPurposes={onShowPurposes}
-          />
         </div>
       </div>
     );
