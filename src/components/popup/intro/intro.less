@@ -1,6 +1,7 @@
 .intro {
   align-items: center;
   max-height: 100%;
+  width: 100%;
 
   // .top {
   //   margin-bottom: 75px;
@@ -38,20 +39,21 @@
     flex-direction: column;
 
     .description {
-      margin: 2em 0;
+      margin: 16px 0;
       overflow: auto;
       text-align: center;
       flex: 3;
     }
 
     .btns {
+      flex-direction: column;
       display: flex;
       flex-shrink: 0;
       width: 100%;
 
       button {
         flex: 1;
-        margin: 0 6px;
+        margin: 6px;
       }
     }
   }
@@ -71,6 +73,7 @@
     }
 
     .btns {
+      width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-around;

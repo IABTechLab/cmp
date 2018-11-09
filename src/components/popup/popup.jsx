@@ -43,32 +43,30 @@ export default class Popup extends Component {
     const { selectedPanelIndex } = state;
 
     return (
-      <div class={style.popup} style={{ display: 'flex' }}>
+      <div class={style.popup}>
         {config.blockBrowsing && (
           <div class={style.overlay} onClick={this.handleClose} />
         )}
-        <div name="content">
-          <Panel selectedIndex={selectedPanelIndex}>
-            <Intro
-              onAcceptAll={this.onAcceptAll}
-              onShowPurposes={this.handleShowDetails}
-              onClose={this.handleClose}
-              localization={localization}
-              store={store}
-              config={config}
-              updateCSSPrefs={updateCSSPrefs}
-            />
-            <Details
-              onSave={this.props.onSave}
-              onCancel={this.onCancel}
-              store={this.props.store}
-              onClose={this.handleClose}
-              localization={localization}
-              config={config}
-              updateCSSPrefs={updateCSSPrefs}
-            />
-          </Panel>
-        </div>
+        <Panel selectedIndex={selectedPanelIndex}>
+          <Intro
+            onAcceptAll={this.onAcceptAll}
+            onShowPurposes={this.handleShowDetails}
+            onClose={this.handleClose}
+            localization={localization}
+            store={store}
+            config={config}
+            updateCSSPrefs={updateCSSPrefs}
+          />
+          <Details
+            onSave={this.props.onSave}
+            onCancel={this.onCancel}
+            store={this.props.store}
+            onClose={this.handleClose}
+            localization={localization}
+            config={config}
+            updateCSSPrefs={updateCSSPrefs}
+          />
+        </Panel>
       </div>
     );
   }

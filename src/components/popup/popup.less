@@ -1,7 +1,7 @@
 @import '../../style/variables';
 
 .popup {
-  display: none;
+  display: flex;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -27,19 +27,15 @@
 }
 
 .content.modal {
-  width: 700px;
-  max-height: 500px;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 8px;
   display: flex;
   position: relative;
 
-  @media @smartphone {
-    width: 98%;
-    height: 98%;
-  }
-
-  @media screen and (max-width: 750px) {
-    width: 100%;
-    height: 100%;
+  @media screen and (min-width: 750px) {
+    width: 700px;
+    height: 500px;
   }
 }
 
