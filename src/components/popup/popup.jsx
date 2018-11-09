@@ -3,9 +3,13 @@ import style from './popup.less';
 import Intro from './intro/intro';
 import Details from './details/details';
 import Panel from '../panel/panel';
+import { Summary } from './summary/summary';
 
 const SECTION_INTRO = 0;
-const SECTION_DETAILS = 1;
+const SECTION_SUMMARY = 1;
+const SECTION_DETAILS = 2;
+// const SECTION_PURPOSES = 2;
+// const SECTION_VENDORS = 3;
 
 export default class Popup extends Component {
   state = {
@@ -26,11 +30,23 @@ export default class Popup extends Component {
     });
   };
 
-  handleShowDetails = () => {
+  showSection = (section) => {
     this.setState({
-      selectedPanelIndex: SECTION_DETAILS,
+      selectedPanelIndex: section,
     });
   };
+
+  showIntro = () => {
+    this.showSection(SECTION_INTRO);
+  }
+
+  showSummary = () => {
+    this.showSection(SECTION_SUMMARY);
+  }
+
+  showDetails = () => {
+    this.showSection(SECTION_DETAILS);
+  }
 
   handleClose = () => {};
 
@@ -50,11 +66,22 @@ export default class Popup extends Component {
         <Panel selectedIndex={selectedPanelIndex}>
           <Intro
             onAcceptAll={this.onAcceptAll}
-            onShowPurposes={this.handleShowDetails}
+            onShowSummary={this.showSummary}
+            onShowPurposes={this.showDetails}
             onClose={this.handleClose}
             localization={localization}
             store={store}
             config={config}
+            updateCSSPrefs={updateCSSPrefs}
+          />
+          <Summary
+            onAcceptAll={this.onAcceptAll}
+            onShowIntro={this.showIntro}
+            onShowPurposes={this.showDetails}
+            onClose={this.handleClose}
+            localization={localization}
+            store={store}
+            layout={config.layout}
             updateCSSPrefs={updateCSSPrefs}
           />
           <Details

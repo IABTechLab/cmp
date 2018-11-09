@@ -32,10 +32,11 @@
   margin: 0 8px;
   display: flex;
   position: relative;
+  flex-direction: column;
 
   @media screen and (min-width: 750px) {
     width: 700px;
-    height: 500px;
+    max-height: 500px;
   }
 }
 
@@ -45,11 +46,6 @@
   right: 0;
   bottom: 0;
   position: fixed;
-
-  @media @smartphone {
-    width: 98%;
-    height: 98%;
-  }
 }
 
 .content.footer {
@@ -58,7 +54,6 @@
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    height: 100%;
   }
 }
 
