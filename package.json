@@ -101,6 +101,7 @@
     "url-loader": "^0.6.1",
     "webdriver-manager": "^12.1.0",
     "webpack": "^3.0.0",
+    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-dev-server": "^2.4.4"
   },
   "dependencies": {

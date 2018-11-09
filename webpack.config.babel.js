@@ -3,6 +3,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const BabelEnginePlugin = require('babel-engine-plugin');
 
 const ENV = process.env.NODE_ENV || 'development';
@@ -215,7 +216,8 @@ module.exports = [
 			]),
 			new BabelEnginePlugin({
 				presets: ['env']
-			})
+      }),
+      new BundleAnalyzerPlugin()
 		]).concat(ENV === 'production' ? uglifyPlugin : []),
 	},
 	// Docs config
