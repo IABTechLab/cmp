@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import style from './popup.less';
 import Intro from './intro/intro';
 import Details from './details/details';
-import Panel from '../panel/panel';
+import { Panel } from '../panel/panel';
 import { Summary } from './summary/summary';
 
 const SECTION_INTRO = 0;
