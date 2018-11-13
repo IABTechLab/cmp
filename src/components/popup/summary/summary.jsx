@@ -2,8 +2,8 @@ import { h, Component } from 'preact';
 import cx from 'classnames';
 
 import popupStyle from '../popup.less';
+import { Header } from '../header';
 import style from './summary.less';
-import { Header } from './header';
 import { Purposes } from './purposes';
 import { Footer } from './footer';
 
@@ -38,7 +38,7 @@ export class Summary extends Component {
     return (
       <div class={cx(popupStyle.content, popupStyle[layout])}>
         <div class={cx(style.container, style[`container-${layout}`])}>
-          <Header onShowIntro={onShowIntro} />
+          <Header showChevron onChevronClick={onShowIntro} titleKey="footer.deviceInformationHeader " />
           <Purposes allPurposes={allPurposes} />
           <Footer onShowPurposes={onShowPurposes} onAcceptAll={onAcceptAll} />
         </div>
