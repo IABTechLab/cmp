@@ -3,54 +3,49 @@
 .details {
   display: flex;
   flex-direction: column;
-  flex: 1;
   max-height: 500px;
 
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-transform: uppercase;
-    font-weight: bold;
-    flex: 0 0 60px;
-    border-bottom: 1px solid @color-border;
-  }
-  .title {
-    padding-left: 10px;
-    font-size: 24px;
-    font-weight: 700;
-  }
   .disclaimer {
     font-size: 12px;
     padding: 10px;
     border-bottom: 1px solid @color-border;
   }
+
   .body {
     flex: 1;
     display: flex;
     min-height: 0;
   }
+
   .footer {
-    display: flex;
-    align-items: center;
+    padding: 8px 0;
     justify-content: space-between;
-    flex: 0 1 60px;
     border-top: 1px solid @color-border;
+    flex-wrap: wrap-reverse;
+
+    button {
+      flex: 1;
+      margin: 0 8px;
+    }
   }
-  .leftFooter {
+
+  .footerCta {
+    justify-content: space-between;
+    flex: 2;
+    flex-wrap: wrap;
+    padding: 0 8px;
   }
-  .rightFooter {
-  }
-  .vendorLink {
-    padding-left: 10px;
-    display: block;
-    font-size: 12px;
-  }
-  .save {
-    margin-right: 20px;
-    min-width: 220px;
-  }
-  .cancel {
-    margin-right: 15px;
+
+  @media screen and (min-width: 730px) {
+    .footer {
+      flex-wrap: nowrap;
+    }
+
+    .footerCta {
+      flex-wrap: nowrap;
+    }
   }
 }
+
+
+
