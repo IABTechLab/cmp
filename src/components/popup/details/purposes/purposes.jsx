@@ -1,9 +1,8 @@
+import { h, Component } from 'preact';
+
+import style from './purposes.less';
 import { List } from './list';
 import { Disclaimer } from './disclaimer';
-import { h, Component } from 'preact';
-import style from './purposes.less';
-import Switch from '../../../switch/switch';
-import Label from '../../../label/label';
 
 export default class Purposes extends Component {
   state = {
@@ -41,7 +40,6 @@ export default class Purposes extends Component {
       customPurposes,
       selectPurpose,
       selectCustomPurpose,
-      updateCSSPrefs,
     } = this.props;
     const allPurposes = [...purposes, ...customPurposes];
     const id = allPurposes[selectedPurposeIndex].id;
@@ -69,7 +67,7 @@ export default class Purposes extends Component {
     this.setState(
       {
         showLocalVendors: true,
-        localVendors: localVendors,
+        localVendors,
       },
       updateCSSPrefs,
     );
@@ -81,14 +79,6 @@ export default class Purposes extends Component {
       localVendors: [],
     });
   };
-
-  componentDidUpdate() {
-    this.props.updateCSSPrefs();
-  }
-
-  componentDidMount() {
-    this.props.updateCSSPrefs();
-  }
 
   render(props, state) {
     const {
@@ -118,13 +108,14 @@ export default class Purposes extends Component {
 
     return (
       <div class={style.container}>
-        {/* <Disclaimer onShowVendors={onShowVendors} /> */}
+        <Disclaimer onShowVendors={onShowVendors} />
         <div class={style.purposes}>
           <List
             allPurposes={allPurposes}
             purposes={purposes}
             selectedPurposeIndex={selectedPurposeIndex}
-            onPurposeClick={this.handleSelectPurposeDetail}/>
+            onPurposeClick={this.handleSelectPurposeDetail}
+          />
           {/* {selectedPurpose && (
 
           )} */}

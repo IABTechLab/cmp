@@ -19,13 +19,7 @@ export class Summary extends Component {
   }
 
   render(props) {
-    const {
-      onShowPurposes,
-      onAcceptAll,
-      onShowIntro,
-      store,
-      layout,
-    } = props;
+    const { onShowPurposes, onAcceptAll, onShowIntro, store, layout } = props;
 
     let allPurposes = [];
     if (store.vendorList && store.vendorList.purposes) {
@@ -38,7 +32,11 @@ export class Summary extends Component {
     return (
       <div class={cx(popupStyle.content, popupStyle[layout])}>
         <div class={cx(style.container, style[`container-${layout}`])}>
-          <Header showChevron onChevronClick={onShowIntro} titleKey="footer.deviceInformationHeader " />
+          <Header
+            showChevron
+            onChevronClick={onShowIntro}
+            titleKey="footer.deviceInformationHeader "
+          />
           <Purposes allPurposes={allPurposes} />
           <Footer onShowPurposes={onShowPurposes} onAcceptAll={onAcceptAll} />
         </div>

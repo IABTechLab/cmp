@@ -5,7 +5,7 @@ import style from './title.less';
 
 export const Title = ({ children, alignment }) => {
   return (
-    <div class={cx({[style.title]: true, [style[alignment]]: !!alignment})}>
+    <div class={cx({ [style.title]: true, [style[alignment]]: !!alignment })}>
       {children}
     </div>
   );

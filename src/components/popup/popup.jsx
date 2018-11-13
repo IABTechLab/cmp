@@ -30,7 +30,7 @@ export default class Popup extends Component {
     });
   };
 
-  showSection = (section) => {
+  showSection = section => {
     this.setState({
       selectedPanelIndex: section,
     });
@@ -38,15 +38,15 @@ export default class Popup extends Component {
 
   showIntro = () => {
     this.showSection(SECTION_INTRO);
-  }
+  };
 
   showSummary = () => {
     this.showSection(SECTION_SUMMARY);
-  }
+  };
 
   showDetails = () => {
     this.showSection(SECTION_DETAILS);
-  }
+  };
 
   handleClose = () => {};
 
