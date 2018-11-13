@@ -4,15 +4,13 @@ import cx from 'classnames';
 import style from './details.less';
 import Purposes from './purposes/purposes';
 import Vendors from './vendors/vendors';
-import Panel from '../../panel/panel';
-
+import { Panel } from '../../panel/panel';
 import { Header } from '../header';
 import popupStyle from '../popup.less';
 import { Footer } from './footer';
 
 const SECTION_PURPOSES = 0;
 const SECTION_VENDORS = 1;
-
 
 export default class Details extends Component {
   state = {
@@ -52,23 +50,9 @@ export default class Details extends Component {
     }
   };
 
-  componentDidMount() {
-    this.props.updateCSSPrefs();
-  }
-
   render(props, state) {
-    const {
-      onCancel,
-      onSave,
-      onClose,
-      store,
-      localization,
-      config,
-      updateCSSPrefs,
-    } = props;
-
-    const { selectedPanelIndex, showEnableAll } = state;
-
+    const { onSave, store, localization, config, updateCSSPrefs } = props;
+    const { selectedPanelIndex } = state;
     const {
       vendorList = {},
       customPurposeList = {},
@@ -88,35 +72,33 @@ export default class Details extends Component {
       <div class={cx(popupStyle.content, popupStyle.modal)}>
         <div class={style.details}>
           <Header titleKey="details.title" />
-          <div class={style.body}>
-            <Panel selectedIndex={selectedPanelIndex}>
-              <Purposes
-                localization={localization}
-                purposes={purposes}
-                features={features}
-                vendors={vendors}
-                customPurposes={customPurposes}
-                selectedPurposeIds={selectedPurposeIds}
-                selectedCustomPurposeIds={selectedCustomPurposeIds}
-                selectPurpose={selectPurpose}
-                selectCustomPurpose={selectCustomPurpose}
-                onShowVendors={this.handleShowVendors}
-                config={config}
-                updateCSSPrefs={updateCSSPrefs}
-              />
-              <Vendors
-                localization={localization}
-                selectedVendorIds={selectedVendorIds}
-                selectAllVendors={selectAllVendors}
-                selectVendor={selectVendor}
-                vendors={vendors}
-                onShowPurposes={this.handleShowPurposes}
-                onHandleEnableAll={this.handleEnableAll}
-                config={config}
-                updateCSSPrefs={updateCSSPrefs}
-              />
-            </Panel>
-          </div>
+          <Panel className={style.body} selectedIndex={selectedPanelIndex}>
+            <Purposes
+              localization={localization}
+              purposes={purposes}
+              features={features}
+              vendors={vendors}
+              customPurposes={customPurposes}
+              selectedPurposeIds={selectedPurposeIds}
+              selectedCustomPurposeIds={selectedCustomPurposeIds}
+              selectPurpose={selectPurpose}
+              selectCustomPurpose={selectCustomPurpose}
+              onShowVendors={this.handleShowVendors}
+              config={config}
+              updateCSSPrefs={updateCSSPrefs}
+            />
+            <Vendors
+              localization={localization}
+              selectedVendorIds={selectedVendorIds}
+              selectAllVendors={selectAllVendors}
+              selectVendor={selectVendor}
+              vendors={vendors}
+              onShowPurposes={this.handleShowPurposes}
+              onHandleEnableAll={this.handleEnableAll}
+              config={config}
+              updateCSSPrefs={updateCSSPrefs}
+            />
+          </Panel>
           <Footer
             showVendorsLink={selectedPanelIndex === SECTION_PURPOSES}
             onSaveClick={onSave}
