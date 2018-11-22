@@ -1,13 +1,8 @@
 import { h, Component } from 'preact';
+
 import style from './footer.less';
 import Label from '../label/label';
 import CloseButton from '../closebutton/closebutton';
-
-class LocalLabel extends Label {
-  static defaultProps = {
-    prefix: 'footer',
-  };
-}
 
 export default class Footer extends Component {
   static defaultProps = {
@@ -26,12 +21,8 @@ export default class Footer extends Component {
     showConsentTool();
   };
 
-  componentDidMount() {
-    this.props.updateCSSPrefs();
-  }
-
   render(props) {
-    const { store, localization, config, updateCSSPrefs } = props;
+    const { store, config, updateCSSPrefs } = props;
     const { isFooterShowing } = store;
 
     return (
@@ -50,27 +41,9 @@ export default class Footer extends Component {
           updateCSSPrefs={updateCSSPrefs}
         />
         <div class={style.message}>
-          <LocalLabel
-            providedValue={
-              localization && localization.footer
-                ? localization.footer.closedMessage
-                : ''
-            }
-            localizeKey="closedMessage"
-          >
-            A reminder you can control your user privacy preferences
-          </LocalLabel>
+          <Label localizeKey="footer.closedMessage" />
           <a class={style.openConsent} onClick={this.handleShowConsent}>
-            <LocalLabel
-              providedValue={
-                localization && localization.footer
-                  ? localization.footer.closedMessageLink
-                  : ''
-              }
-              localizeKey="closedMessageLink"
-            >
-              here
-            </LocalLabel>
+            <Label localizeKey="footer.closedMessageLink" />
           </a>
         </div>
       </div>

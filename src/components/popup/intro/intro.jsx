@@ -1,29 +1,19 @@
 import { h, Component } from 'preact';
 import cx from 'classnames';
 
-import Label from '../../label/label';
+import { Label } from '../../label/label';
+import { Title } from '../../typography/title';
 import { ConsentButtons } from '../consentbuttons';
 import popupStyle from '../popup.less';
 import { Footer } from './footer';
 import style from './intro.less';
-import { Title } from '../../typography/title';
-
-class LocalLabel extends Label {
-  static defaultProps = {
-    prefix: 'intro',
-  };
-}
 
 export default class Intro extends Component {
-  componentDidMount() {
-    this.props.updateCSSPrefs();
-  }
-
   renderTitle() {
     const { config } = this.props;
     return (
       <Title alignment={config.layout === 'footer' && 'left'}>
-        <LocalLabel localizeKey="title" />
+        <Label localizeKey="intro.title" />
         {config && config.companyName && <span>{config.companyName}</span>}
       </Title>
     );
@@ -39,7 +29,7 @@ export default class Intro extends Component {
           {config.layout === 'modal' && this.renderTitle()}
           <div class={style.description}>
             {config.layout === 'footer' && this.renderTitle()}
-            <LocalLabel localizeKey="description" />
+            <Label localizeKey="intro.description" />
           </div>
           <ConsentButtons
             className={style.btns}
