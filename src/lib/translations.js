@@ -12,17 +12,17 @@ export default {
   //     description:
   //       'Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.',
   //     deviceInformationPopover: `
-	// 			<strong>Information that may be used:</strong>
-	// 			<ul>
-	// 				<li>Type of browser and its settings</li>
-	// 				<li>Information about the device's operating system</li>
-	// 				<li>Cookie information</li>
-	// 				<li>Information about other identifiers assigned to the device</li>
-	// 				<li>The IP address from which the device accesses a client's website or mobile application</li>
-	// 				<li>Information about the user's activity on that device, including web pages and mobile apps visited or used</li>
-	// 				<li>Information about the geographic location of the device when it accesses a website or mobile application</li>
-	// 			</ul>
-	// 		`,
+  //       <strong>Information that may be used:</strong>
+  //       <ul>
+  //         <li>Type of browser and its settings</li>
+  //         <li>Information about the device's operating system</li>
+  //         <li>Cookie information</li>
+  //         <li>Information about other identifiers assigned to the device</li>
+  //         <li>The IP address from which the device accesses a client's website or mobile application</li>
+  //         <li>Information about the user's activity on that device, including web pages and mobile apps visited or used</li>
+  //         <li>Information about the geographic location of the device when it accesses a website or mobile application</li>
+  //       </ul>
+  //     `,
   //     acceptAll: 'Accept all',
   //     showPurposes: 'Learn more',
   //   },
@@ -67,16 +67,16 @@ export default {
   //     closedMessageLink: 'here',
   //     deviceInformationHeader: 'Information that may be used:',
   //     deviceInformation: `
-	// 			<ul>
-	// 				<li>Type of browser and its settings</li>
-	// 				<li>Information about the device's operating system</li>
-	// 				<li>Cookie information</li>
-	// 				<li>Information about other identifiers assigned to the device</li>
-	// 				<li>The IP address from which the device accesses a client's website or mobile application</li>
-	// 				<li>Information about the user's activity on that device, including web pages and mobile apps visited or used</li>
-	// 				<li>Information about the geographic location of the device when it accesses a website or mobile application</li>
-	// 			</ul>
-	// 		`,
+  //       <ul>
+  //         <li>Type of browser and its settings</li>
+  //         <li>Information about the device's operating system</li>
+  //         <li>Cookie information</li>
+  //         <li>Information about other identifiers assigned to the device</li>
+  //         <li>The IP address from which the device accesses a client's website or mobile application</li>
+  //         <li>Information about the user's activity on that device, including web pages and mobile apps visited or used</li>
+  //         <li>Information about the geographic location of the device when it accesses a website or mobile application</li>
+  //       </ul>
+  //     `,
   //     purposesHeader: 'Purposes for storing information:',
   //   },
   // },
@@ -87,27 +87,27 @@ export default {
   //     description:
   //       'Los anuncios nos ayudan a que esta aplicación funcione. Cuando utiliza nuestra aplicación, empresas seleccionadas pueden acceder y usar información en su dispositivo para diversos fines incluso para publicar anuncios relevantes o contenido personalizado.',
   //     deviceInformationPopover: `
-	// 			<strong>Información que puede ser utilizada:</strong>
-	// 			<ul>
-	// 				<li>Tipo de navegador y su configuración</li>
-	// 				<li>Información sobre el sistema operativo del dispositivo</li>
-	// 				<li>Información de cookies</li>
-	// 				<li>Información sobre otros identificadores asignados al dispositivo</li>
-	// 				<li>La dirección IP desde la cual el dispositivo accede al sitio web o aplicación móvil de un cliente</li>
-	// 				<li>Información sobre la actividad del usuario en ese dispositivo, incluidas las páginas web y las aplicaciones móviles visitadas o utilizadas</li>
-	// 				<li>Información sobre la ubicación geográfica del dispositivo cuando accede a un sitio web o aplicación móvil</li>
-	// 			</ul>
-	// 		`,
+  //       <strong>Información que puede ser utilizada:</strong>
+  //       <ul>
+  //         <li>Tipo de navegador y su configuración</li>
+  //         <li>Información sobre el sistema operativo del dispositivo</li>
+  //         <li>Información de cookies</li>
+  //         <li>Información sobre otros identificadores asignados al dispositivo</li>
+  //         <li>La dirección IP desde la cual el dispositivo accede al sitio web o aplicación móvil de un cliente</li>
+  //         <li>Información sobre la actividad del usuario en ese dispositivo, incluidas las páginas web y las aplicaciones móviles visitadas o utilizadas</li>
+  //         <li>Información sobre la ubicación geográfica del dispositivo cuando accede a un sitio web o aplicación móvil</li>
+  //       </ul>
+  //     `,
   //     purposesPopover: `
-	// 			<strong>Propósitos para almacenar información:</strong>
-	// 			<ul>
-	// 				<li>Almacenamiento y acceso a la información</li>
-	// 				<li>Selección y entrega de anuncios</li>
-	// 				<li>Selección y entrega de contenido</li>
-	// 				<li>Personalización</li>
-	// 				<li>Medida</li>
-	// 			</ul>
-	// 		`,
+  //       <strong>Propósitos para almacenar información:</strong>
+  //       <ul>
+  //         <li>Almacenamiento y acceso a la información</li>
+  //         <li>Selección y entrega de anuncios</li>
+  //         <li>Selección y entrega de contenido</li>
+  //         <li>Personalización</li>
+  //         <li>Medida</li>
+  //       </ul>
+  //     `,
   //     acceptAll: 'OK, continuar a la página',
   //     showPurposes: 'Conozca más',
   //   },
@@ -149,16 +149,16 @@ export default {
   //     closedMessageLink: '',
   //     deviceInformationHeader: 'Información que puede ser utilizada:',
   //     deviceInformation: `
-	// 			<ul>
-	// 				<li>Tipo de navegador y su configuración</li>
-	// 				<li>Información sobre el sistema operativo del dispositivo</li>
-	// 				<li>Información de cookies</li>
-	// 				<li>Información sobre otros identificadores asignados al dispositivo</li>
-	// 				<li>La dirección IP desde la cual el dispositivo accede al sitio web o aplicación móvil de un cliente</li>
-	// 				<li>Información sobre la actividad del usuario en ese dispositivo, incluidas las páginas web y las aplicaciones móviles visitadas o utilizadas</li>
-	// 				<li>Información sobre la ubicación geográfica del dispositivo cuando accede a un sitio web o aplicación móvil</li>
-	// 			</ul>
-	// 		`,
+  //       <ul>
+  //         <li>Tipo de navegador y su configuración</li>
+  //         <li>Información sobre el sistema operativo del dispositivo</li>
+  //         <li>Información de cookies</li>
+  //         <li>Información sobre otros identificadores asignados al dispositivo</li>
+  //         <li>La dirección IP desde la cual el dispositivo accede al sitio web o aplicación móvil de un cliente</li>
+  //         <li>Información sobre la actividad del usuario en ese dispositivo, incluidas las páginas web y las aplicaciones móviles visitadas o utilizadas</li>
+  //         <li>Información sobre la ubicación geográfica del dispositivo cuando accede a un sitio web o aplicación móvil</li>
+  //       </ul>
+  //     `,
   //     purposesHeader: 'Propósitos para almacenar información:',
   //   },
   // },
@@ -169,27 +169,27 @@ export default {
   //     description:
   //       'Mit Hilfe von Anzeigen können wir diese App ausführen. Wenn Sie unsere App besuchen/verwenden, können ausgewählte Unternehmen auf Ihrem Gerät Informationen für verschiedene Zwecke abrufen und verwenden, einschließlich um die relevanten Anzeigen oder personalisierten Inhalt anzuzeigen.',
   //     deviceInformationPopover: `
-	// 			<strong>Informationen, die verwendet werden können:</strong>
-	// 			<ul>
-	// 				<li>Browser und seine Einstellungen</li>
-	// 				<li>Informationen zum Betriebssystem des Geräts</li>
-	// 				<li>Cookie-Informationen</li>
-	// 				<li>Informationen zu anderen Kennungen, die dem Gerät zugewiesen sind</li>
-	// 				<li>Die IP-Adresse, von der das Gerät auf die Website oder die mobile Anwendung eines Kunden zugreift</li>
-	// 				<li>Informationen zu den Aktivitäten auf dem Gerät, welche Webseiten und mobilen Apps der Benutzer besucht oder verwendet hat</li>
-	// 				<li>Informationen zum Geo Location des Geräts beim Zugriff auf eine Website oder eine mobile Anwendung</li>
-	// 			</ul>
-	// 		`,
+  //       <strong>Informationen, die verwendet werden können:</strong>
+  //       <ul>
+  //         <li>Browser und seine Einstellungen</li>
+  //         <li>Informationen zum Betriebssystem des Geräts</li>
+  //         <li>Cookie-Informationen</li>
+  //         <li>Informationen zu anderen Kennungen, die dem Gerät zugewiesen sind</li>
+  //         <li>Die IP-Adresse, von der das Gerät auf die Website oder die mobile Anwendung eines Kunden zugreift</li>
+  //         <li>Informationen zu den Aktivitäten auf dem Gerät, welche Webseiten und mobilen Apps der Benutzer besucht oder verwendet hat</li>
+  //         <li>Informationen zum Geo Location des Geräts beim Zugriff auf eine Website oder eine mobile Anwendung</li>
+  //       </ul>
+  //     `,
   //     purposesPopover: `
-	// 			<strong>Zwecke zum Speichern von Informationen:</strong>
-	// 			<ul>
-	// 				<li>Speicherung und Zugriff auf Informationen</li>
-	// 				<li>Anzeigenauswahl und Lieferung</li>
-	// 				<li>Inhaltsauswahl und Lieferung</li>
-	// 				<li>Personalisierung</li>
-	// 				<li>Messung</li>
-	// 			</ul>
-	// 		`,
+  //       <strong>Zwecke zum Speichern von Informationen:</strong>
+  //       <ul>
+  //         <li>Speicherung und Zugriff auf Informationen</li>
+  //         <li>Anzeigenauswahl und Lieferung</li>
+  //         <li>Inhaltsauswahl und Lieferung</li>
+  //         <li>Personalisierung</li>
+  //         <li>Messung</li>
+  //       </ul>
+  //     `,
   //     acceptAll: 'OK, Weiter zur Website',
   //     showPurposes: 'Erfahren Sie mehr',
   //   },
@@ -232,16 +232,16 @@ export default {
   //     closedMessageLink: '',
   //     deviceInformationHeader: 'Informationen, die verwendet werden können:',
   //     deviceInformation: `
-	// 			<ul>
-	// 				<li>Browser und seine Einstellungen</li>
-	// 				<li>Informationen zum Betriebssystem des Geräts</li>
-	// 				<li>Cookie-Informationen</li>
-	// 				<li>Informationen zu anderen Kennungen, die dem Gerät zugewiesen sind</li>
-	// 				<li>Die IP-Adresse, von der das Gerät auf die Website oder die mobile Anwendung eines Kunden zugreift</li>
-	// 				<li>Informationen zu den Aktivitäten auf dem Gerät, welche Webseiten und mobilen Apps der Benutzer besucht oder verwendet hat</li>
-	// 				<li>Informationen zum Geo Location des Geräts beim Zugriff auf eine Website oder eine mobile Anwendung</li>
-	// 			</ul>
-	// 		`,
+  //       <ul>
+  //         <li>Browser und seine Einstellungen</li>
+  //         <li>Informationen zum Betriebssystem des Geräts</li>
+  //         <li>Cookie-Informationen</li>
+  //         <li>Informationen zu anderen Kennungen, die dem Gerät zugewiesen sind</li>
+  //         <li>Die IP-Adresse, von der das Gerät auf die Website oder die mobile Anwendung eines Kunden zugreift</li>
+  //         <li>Informationen zu den Aktivitäten auf dem Gerät, welche Webseiten und mobilen Apps der Benutzer besucht oder verwendet hat</li>
+  //         <li>Informationen zum Geo Location des Geräts beim Zugriff auf eine Website oder eine mobile Anwendung</li>
+  //       </ul>
+  //     `,
   //     purposesHeader: 'Zwecke zum Speichern von Informationen:',
   //   },
   // },
@@ -252,27 +252,27 @@ export default {
   //     description:
   //       'Reklamy pomagają uruchomić tę aplikację. Podczas korzystania z naszej aplikacji, wybrane firmy mogą uzyskiwać dostęp do informacji o urządzeniu i korzystać z nich w różnych celach, w tym do wyświetlania trafnych reklam lub spersonalizowanych treści.',
   //     deviceInformationPopover: `
-	// 			<strong>Informacja, którą można wykorzystać:</strong>
-	// 			<ul>
-	// 				<li>Typ przeglądarki i jej ustawienia</li>
-	// 				<li>Informacja o systemie operacyjnym urządzenia</li>
-	// 				<li>Informacja o plikach cookie</li>
-	// 				<li>Informacja o innych identyfikatorach przydzielonych do urządzenia</li>
-	// 				<li>Adres IP, z którego urządzenie uzyskuje dostęp do strony internetowej klienta lub aplikacji mobilnej</li>
-	// 				<li>Informacja o aktywności użytkownika na tym urządzeniu - w tym odwiedzanych stronach internetowych i aplikacjach mobilnych</li>
-	// 				<li>Informacja o położeniu geograficznym urządzenia, gdy uzyskuje dostęp do strony internetowej lub aplikacji mobilnej</li>
-	// 			</ul>
-	// 		`,
+  //       <strong>Informacja, którą można wykorzystać:</strong>
+  //       <ul>
+  //         <li>Typ przeglądarki i jej ustawienia</li>
+  //         <li>Informacja o systemie operacyjnym urządzenia</li>
+  //         <li>Informacja o plikach cookie</li>
+  //         <li>Informacja o innych identyfikatorach przydzielonych do urządzenia</li>
+  //         <li>Adres IP, z którego urządzenie uzyskuje dostęp do strony internetowej klienta lub aplikacji mobilnej</li>
+  //         <li>Informacja o aktywności użytkownika na tym urządzeniu - w tym odwiedzanych stronach internetowych i aplikacjach mobilnych</li>
+  //         <li>Informacja o położeniu geograficznym urządzenia, gdy uzyskuje dostęp do strony internetowej lub aplikacji mobilnej</li>
+  //       </ul>
+  //     `,
   //     purposesPopover: `
-	// 			<strong>Cele przechowywania informacji:</strong>
-	// 			<ul>
-	// 				<li>Przechowywanie i dostęp do informacji</li>
-	// 				<li>Wybór i emitowanie reklamy</li>
-	// 				<li>Wybór treści i emitowanie</li>
-	// 				<li>Personalizacja</li>
-	// 				<li>Pomiar</li>
-	// 			</ul>
-	// 		`,
+  //       <strong>Cele przechowywania informacji:</strong>
+  //       <ul>
+  //         <li>Przechowywanie i dostęp do informacji</li>
+  //         <li>Wybór i emitowanie reklamy</li>
+  //         <li>Wybór treści i emitowanie</li>
+  //         <li>Personalizacja</li>
+  //         <li>Pomiar</li>
+  //       </ul>
+  //     `,
   //     acceptAll: 'Przejdź do strony',
   //     showPurposes: 'Więcej',
   //   },
@@ -314,16 +314,16 @@ export default {
   //     closedMessageLink: '',
   //     deviceInformationHeader: 'Informacja, którą można wykorzystać:',
   //     deviceInformation: `
-	// 			<ul>
-	// 				<li>Typ przeglądarki i jej ustawienia</li>
-	// 				<li>Informacja o systemie operacyjnym urządzenia</li>
-	// 				<li>Informacja o plikach cookie</li>
-	// 				<li>Informacja o innych identyfikatorach przydzielonych do urządzenia</li>
-	// 				<li>Adres IP, z którego urządzenie uzyskuje dostęp do strony internetowej klienta lub aplikacji mobilnej</li>
-	// 				<li>Informacja o aktywności użytkownika na tym urządzeniu - w tym odwiedzanych stronach internetowych i aplikacjach mobilnych</li>
-	// 				<li>Informacja o położeniu geograficznym urządzenia, gdy uzyskuje dostęp do strony internetowej lub aplikacji mobilnej</li>
-	// 			</ul>
-	// 		`,
+  //       <ul>
+  //         <li>Typ przeglądarki i jej ustawienia</li>
+  //         <li>Informacja o systemie operacyjnym urządzenia</li>
+  //         <li>Informacja o plikach cookie</li>
+  //         <li>Informacja o innych identyfikatorach przydzielonych do urządzenia</li>
+  //         <li>Adres IP, z którego urządzenie uzyskuje dostęp do strony internetowej klienta lub aplikacji mobilnej</li>
+  //         <li>Informacja o aktywności użytkownika na tym urządzeniu - w tym odwiedzanych stronach internetowych i aplikacjach mobilnych</li>
+  //         <li>Informacja o położeniu geograficznym urządzenia, gdy uzyskuje dostęp do strony internetowej lub aplikacji mobilnej</li>
+  //       </ul>
+  //     `,
   //     purposesHeader: 'Cele przechowywania informacji:',
   //   },
   // },
@@ -334,27 +334,27 @@ export default {
   //     description:
   //       'Skelbimai padeda mums palaikyti šį tinklalapį. Kai jūs naudojates mūsų tinklalapiu, kai kurios pasirinktos įmonės gali turėti prieigą prie informacijos, saugomos jūsų įrenginyje, ir ją naudoti įvairiems tikslams, įskaitant pritaikymą reklamoje arba indivizualizuotame turinyje.',
   //     deviceInformationPopover: `
-	// 			<strong>Informacija, kuri gali būti naudojama:</strong>
-	// 			<ul>
-	// 				<li>Naršyklės tipas ir jos nustatymai</li>
-	// 				<li>Informacija apie įrenginio operacinę sistemą</li>
-	// 				<li>Informacija apie slapukus</li>
-	// 				<li>Informacija apie kitus įrenginiui priskirtus identifikatorius</li>
-	// 				<li>IP addresas, iš kurio įrenginys prisijungia prie kliento tinklalapio arba mobilios programėlės</li>
-	// 				<li>Informacija apie vartotojo veiksmus, atliekamus naudojantis šiuo įrenginiu, įskaitant jo lankomus tinklalapius ir naudojamas mobilias programėles</li>
-	// 				<li>Informacija apie geografinę prietaiso buvimo vietą, kai įrenginys prisijungia prie svetainės arba mobilios programėlės</li>
-	// 			</ul>
-	// 		`,
+  //       <strong>Informacija, kuri gali būti naudojama:</strong>
+  //       <ul>
+  //         <li>Naršyklės tipas ir jos nustatymai</li>
+  //         <li>Informacija apie įrenginio operacinę sistemą</li>
+  //         <li>Informacija apie slapukus</li>
+  //         <li>Informacija apie kitus įrenginiui priskirtus identifikatorius</li>
+  //         <li>IP addresas, iš kurio įrenginys prisijungia prie kliento tinklalapio arba mobilios programėlės</li>
+  //         <li>Informacija apie vartotojo veiksmus, atliekamus naudojantis šiuo įrenginiu, įskaitant jo lankomus tinklalapius ir naudojamas mobilias programėles</li>
+  //         <li>Informacija apie geografinę prietaiso buvimo vietą, kai įrenginys prisijungia prie svetainės arba mobilios programėlės</li>
+  //       </ul>
+  //     `,
   //     purposesPopover: `
-	// 			<strong>Informacijos saugojimo paskirtys:</strong>
-	// 			<ul>
-	// 				<li>Informacijos saugojimas ir prieiga prie informacijos</li>
-	// 				<li>Reklamos parinkimas ir paleidimas</li>
-	// 				<li>Turinio pasirinkimas ir pristatymas</li>
-	// 				<li>Individualizavimas</li>
-	// 				<li>Matavimai</li>
-	// 			</ul>
-	// 		`,
+  //       <strong>Informacijos saugojimo paskirtys:</strong>
+  //       <ul>
+  //         <li>Informacijos saugojimas ir prieiga prie informacijos</li>
+  //         <li>Reklamos parinkimas ir paleidimas</li>
+  //         <li>Turinio pasirinkimas ir pristatymas</li>
+  //         <li>Individualizavimas</li>
+  //         <li>Matavimai</li>
+  //       </ul>
+  //     `,
   //     acceptAll: 'Gerai, pereiti prie svetainės',
   //     showPurposes: 'Sužinoti daugiau',
   //   },
@@ -397,16 +397,16 @@ export default {
   //     closedMessageLink: '',
   //     deviceInformationHeader: 'Informacija, kuri gali būti naudojama:',
   //     deviceInformation: `
-	// 			<ul>
-	// 				<li>Naršyklės tipas ir jos nustatymai</li>
-	// 				<li>Informacija apie įrenginio operacinę sistemą</li>
-	// 				<li>Informacija apie slapukus</li>
-	// 				<li>Informacija apie kitus įrenginiui priskirtus identifikatorius</li>
-	// 				<li>IP addresas, iš kurio įrenginys prisijungia prie kliento tinklalapio arba mobilios programėlės</li>
-	// 				<li>Informacija apie vartotojo veiksmus, atliekamus naudojantis šiuo įrenginiu, įskaitant jo lankomus tinklalapius ir naudojamas mobilias programėles</li>
-	// 				<li>Informacija apie geografinę prietaiso buvimo vietą, kai įrenginys prisijungia prie svetainės arba mobilios programėlės</li>
-	// 			</ul>
-	// 		`,
+  //       <ul>
+  //         <li>Naršyklės tipas ir jos nustatymai</li>
+  //         <li>Informacija apie įrenginio operacinę sistemą</li>
+  //         <li>Informacija apie slapukus</li>
+  //         <li>Informacija apie kitus įrenginiui priskirtus identifikatorius</li>
+  //         <li>IP addresas, iš kurio įrenginys prisijungia prie kliento tinklalapio arba mobilios programėlės</li>
+  //         <li>Informacija apie vartotojo veiksmus, atliekamus naudojantis šiuo įrenginiu, įskaitant jo lankomus tinklalapius ir naudojamas mobilias programėles</li>
+  //         <li>Informacija apie geografinę prietaiso buvimo vietą, kai įrenginys prisijungia prie svetainės arba mobilios programėlės</li>
+  //       </ul>
+  //     `,
   //     purposesHeader: 'Informacijos saugojimo paskirtys:',
   //   },
   // },
@@ -417,27 +417,27 @@ export default {
   //     description:
   //       'Quando utilizzi il nostro sito / la nostra applicazione, le aziende selezionate possono avere accesso alle informazioni del tuo dispositivo ed usarle per diverse finalità, come ad esempio mostrarti inserzioni in linea con i tuoi interessi o contenuti personalizzati.',
   //     deviceInformationPopover: `
-	// 			<strong>Informazioni che potranno essere utilizzate:</strong>
-	// 			<ul>
-	// 				<li>Tipologia di browser e configurazione</li>
-	// 				<li>Informazioni sul sistema operativo del dispositivo</li>
-	// 				<li>Informazioni sui cookies</li>
-	// 				<li>Informazioni su altri dati identificativi assegnati al dispositivo</li>
-	// 				<li>Indirizzo IP da cui il dispositivo accede al sito o all’app di un cliente</li>
-	// 				<li>Informazioni sull’attività dell’utente sul dispositivo, comprese le pagine visitate e le app utilizzte</li>
-	// 				<li>Informazioni sulla posizione del dispositivo quando l’utente accede a un sito o a un’app</li>
-	// 			</ul>
-	// 		`,
+  //       <strong>Informazioni che potranno essere utilizzate:</strong>
+  //       <ul>
+  //         <li>Tipologia di browser e configurazione</li>
+  //         <li>Informazioni sul sistema operativo del dispositivo</li>
+  //         <li>Informazioni sui cookies</li>
+  //         <li>Informazioni su altri dati identificativi assegnati al dispositivo</li>
+  //         <li>Indirizzo IP da cui il dispositivo accede al sito o all’app di un cliente</li>
+  //         <li>Informazioni sull’attività dell’utente sul dispositivo, comprese le pagine visitate e le app utilizzte</li>
+  //         <li>Informazioni sulla posizione del dispositivo quando l’utente accede a un sito o a un’app</li>
+  //       </ul>
+  //     `,
   //     purposesPopover: `
-	// 			<strong>Finalità delle informazioni archiviate:</strong>
-	// 			<ul>
-	// 				<li>Archivio e accesso alle informazioni</li>
-	// 				<li>Selezione ed erogazione di inserzioni</li>
-	// 				<li>Selezione ed erogazione di contenuti</li>
-	// 				<li>Personalizzazione</li>
-	// 				<li>Misurazioni</li>
-	// 			</ul>
-	// 		`,
+  //       <strong>Finalità delle informazioni archiviate:</strong>
+  //       <ul>
+  //         <li>Archivio e accesso alle informazioni</li>
+  //         <li>Selezione ed erogazione di inserzioni</li>
+  //         <li>Selezione ed erogazione di contenuti</li>
+  //         <li>Personalizzazione</li>
+  //         <li>Misurazioni</li>
+  //       </ul>
+  //     `,
   //     acceptAll: 'Va bene, vai al sito',
   //     showPurposes: 'Maggiori informazioni',
   //   },
@@ -480,16 +480,16 @@ export default {
   //     closedMessageLink: '',
   //     deviceInformationHeader: 'Informazioni che potranno essere utilizzate:',
   //     deviceInformation: `
-	// 			<ul>
-	// 				<li>Tipologia di browser e configurazione</li>
-	// 				<li>Informazioni sul sistema operativo del dispositivo</li>
-	// 				<li>Informazioni sui cookies</li>
-	// 				<li>Informazioni su altri dati identificativi assegnati al dispositivo</li>
-	// 				<li>Indirizzo IP da cui il dispositivo accede al sito o all’app di un cliente</li>
-	// 				<li>Informazioni sull’attività dell’utente sul dispositivo, comprese le pagine visitate e le app utilizzte</li>
-	// 				<li>Informazioni sulla posizione del dispositivo quando l’utente accede a un sito o a un’app</li>
-	// 			</ul>
-	// 		`,
+  //       <ul>
+  //         <li>Tipologia di browser e configurazione</li>
+  //         <li>Informazioni sul sistema operativo del dispositivo</li>
+  //         <li>Informazioni sui cookies</li>
+  //         <li>Informazioni su altri dati identificativi assegnati al dispositivo</li>
+  //         <li>Indirizzo IP da cui il dispositivo accede al sito o all’app di un cliente</li>
+  //         <li>Informazioni sull’attività dell’utente sul dispositivo, comprese le pagine visitate e le app utilizzte</li>
+  //         <li>Informazioni sulla posizione del dispositivo quando l’utente accede a un sito o a un’app</li>
+  //       </ul>
+  //     `,
   //     purposesHeader: 'Finalità delle informazioni archiviate:',
   //   },
   // },
@@ -500,27 +500,27 @@ export default {
   //     description:
   //       'La publicité nous permet de faire fonctionner notre app. Lorsque vous utilisez notre app certaines entreprises sélectionnées peuvent avoir accès et utiliser des informations concernant votre appareil à des fins diverses, incluant des publicités pertinentes ou du contenu personnalisé.',
   //     deviceInformationPopover: `
-	// 			<strong>Peuvent être utilisées:</strong>
-	// 			<ul>
-	// 				<li>Des informations sur le type de navigateur et ses réglages</li>
-	// 				<li>Des informations sur le système d’exploitation de l’appareil</li>
-	// 				<li>Des informations sur les Cookies</li>
-	// 				<li>Des informations sur d’autres identifiants assignés à l’appareil</li>
-	// 				<li>L’adresse IP à partir de laquelle le système accède au site du client ou à l’application mobile du client</li>
-	// 				<li>Des informations sur l’activité de l’utilisateur sur l’appareil en question, incluant les pages web et les applications mobiles visitées ou utilisées</li>
-	// 				<li>Des informations sur la situation géographique de l’appareil lorsque celui-ci accède à un site ou une application mobile</li>
-	// 			</ul>
-	// 		`,
+  //       <strong>Peuvent être utilisées:</strong>
+  //       <ul>
+  //         <li>Des informations sur le type de navigateur et ses réglages</li>
+  //         <li>Des informations sur le système d’exploitation de l’appareil</li>
+  //         <li>Des informations sur les Cookies</li>
+  //         <li>Des informations sur d’autres identifiants assignés à l’appareil</li>
+  //         <li>L’adresse IP à partir de laquelle le système accède au site du client ou à l’application mobile du client</li>
+  //         <li>Des informations sur l’activité de l’utilisateur sur l’appareil en question, incluant les pages web et les applications mobiles visitées ou utilisées</li>
+  //         <li>Des informations sur la situation géographique de l’appareil lorsque celui-ci accède à un site ou une application mobile</li>
+  //       </ul>
+  //     `,
   //     purposesPopover: `
-	// 			<strong>Les raisons pour lesquelles les informations sont conservées:</strong>
-	// 			<ul>
-	// 				<li>Stockage et accès à l’information</li>
-	// 				<li>Sélection de la publicité et de sa livraison</li>
-	// 				<li>Sélection du contenu et de sa livraison</li>
-	// 				<li>Personnalisation</li>
-	// 				<li>Mesures</li>
-	// 			</ul>
-	// 		`,
+  //       <strong>Les raisons pour lesquelles les informations sont conservées:</strong>
+  //       <ul>
+  //         <li>Stockage et accès à l’information</li>
+  //         <li>Sélection de la publicité et de sa livraison</li>
+  //         <li>Sélection du contenu et de sa livraison</li>
+  //         <li>Personnalisation</li>
+  //         <li>Mesures</li>
+  //       </ul>
+  //     `,
   //     acceptAll: 'OK, Continuer vers le Site',
   //     showPurposes: 'En savoir plus',
   //   },
@@ -563,16 +563,16 @@ export default {
   //     closedMessageLink: '',
   //     deviceInformationHeader: 'Peuvent être utilisées:',
   //     deviceInformation: `
-	// 			<ul>
-	// 				<li>Des informations sur le type de navigateur et ses réglages</li>
-	// 				<li>Des informations sur le système d’exploitation de l’appareil</li>
-	// 				<li>Des informations sur les Cookies</li>
-	// 				<li>Des informations sur d’autres identifiants assignés à l’appareil</li>
-	// 				<li>L’adresse IP à partir de laquelle le système accède au site du client ou à l’application mobile du client</li>
-	// 				<li>Des informations sur l’activité de l’utilisateur sur l’appareil en question, incluant les pages web et les applications mobiles visitées ou utilisées</li>
-	// 				<li>Des informations sur la situation géographique de l’appareil lorsque celui-ci accède à un site ou une application mobile</li>
-	// 			</ul>
-	// 		`,
+  //       <ul>
+  //         <li>Des informations sur le type de navigateur et ses réglages</li>
+  //         <li>Des informations sur le système d’exploitation de l’appareil</li>
+  //         <li>Des informations sur les Cookies</li>
+  //         <li>Des informations sur d’autres identifiants assignés à l’appareil</li>
+  //         <li>L’adresse IP à partir de laquelle le système accède au site du client ou à l’application mobile du client</li>
+  //         <li>Des informations sur l’activité de l’utilisateur sur l’appareil en question, incluant les pages web et les applications mobiles visitées ou utilisées</li>
+  //         <li>Des informations sur la situation géographique de l’appareil lorsque celui-ci accède à un site ou une application mobile</li>
+  //       </ul>
+  //     `,
   //     purposesHeader:
   //       'Les raisons pour lesquelles les informations sont conservées:',
   //   },
@@ -584,7 +584,7 @@ export default {
       description:
         'údaje o tom, jak procházíte naše stránky a jaký obsah vás zajímá, nám pomáhají zlepšovat naše stávající služby a vyvíjet nové. Můžeme vám doporučovat obsah a zobrazovat reklamu na základě vašich zájmů a také vyhodnocovat úspěšnost jednotlivých služeb, obsahu nebo reklamy. K některým informacím mohou mít přístup i vybrané společnosti, které jsou našimi partnery. ',
       deviceInformationPopover:
-        '\n\t\t\t\t<strong>Jaké informace můžeme použít:</strong>\n\t\t\t\t<ul>\n\t\t\t\t\t<li>typ prohlížeče a jeho nastavení,</li>\n\t\t\t\t\t<li>informace o operačním systému zařízení,</li>\n\t\t\t\t\t<li>informace uložené v souborech cookies,</li>\n\t\t\t\t\t<li>informace o jiných identifikačních údajích zařízení,</li>\n\t\t\t\t\t<li>IP adresa, ze které zařízení získává přístup ke stránkám či k mobilní aplikaci,</li>\n\t\t\t\t\t<li>informace ohledně vaší aktivity, včetně navštívených webů či použitých mobilních aplikací,</li>\n\t\t\t\t\t<li>informace o zeměpisné poloze zařízení v průběhu návštěvy webu či v průběhu užívání mobilní aplikace.</li>\n\t\t\t\t</ul>\n\t\t\t',
+        '<strong>Jaké informace můžeme použít:</strong><ul><li>typ prohlížeče a jeho nastavení,</li><li>informace o operačním systému zařízení,</li><li>informace uložené v souborech cookies,</li><li>informace o jiných identifikačních údajích zařízení,</li><li>IP adresa, ze které zařízení získává přístup ke stránkám či k mobilní aplikaci,</li><li>informace ohledně vaší aktivity, včetně navštívených webů či použitých mobilních aplikací,</li><li>informace o zeměpisné poloze zařízení v průběhu návštěvy webu či v průběhu užívání mobilní aplikace.</li></ul>',
       acceptAll: 'rozumím a přijímám',
       showPurposes: 'více informací',
     },
@@ -629,7 +629,7 @@ export default {
       closedMessageLink: 'upravit zde.',
       deviceInformationHeader: 'Informace, které mohou být použity:',
       deviceInformation:
-        '\n\t\t\t\t<ul>\n\t\t\t\t\t<li>typ prohlížeče a jeho nastavení,</li>\n\t\t\t\t\t<li>informace o operačním systému zařízení,</li>\n\t\t\t\t\t<li>informace uložené v souborech cookies,</li>\n\t\t\t\t\t<li>informace o jiných identifikačních údajích zařízení,</li>\n\t\t\t\t\t<li>IP adresa, ze které zařízení získává přístup ke stránkám či k mobilní aplikaci,</li>\n\t\t\t\t\t<li>informace ohledně vaší aktivity, včetně navštívených webů či použitých mobilních aplikací,</li>\n\t\t\t\t\t<li>informace o zeměpisné poloze zařízení v průběhu návštěvy webu či v průběhu užívání mobilní aplikace.</li>\n\t\t\t\t</ul>\n\t\t\t',
+        '<ul><li>typ prohlížeče a jeho nastavení,</li><li>informace o operačním systému zařízení,</li><li>informace uložené v souborech cookies,</li><li>informace o jiných identifikačních údajích zařízení,</li><li>IP adresa, ze které zařízení získává přístup ke stránkám či k mobilní aplikaci,</li><li>informace ohledně vaší aktivity, včetně navštívených webů či použitých mobilních aplikací,</li><li>informace o zeměpisné poloze zařízení v průběhu návštěvy webu či v průběhu užívání mobilní aplikace.</li></ul>',
       purposesHeader: 'Jak s daty zacházíme:',
     },
   },
