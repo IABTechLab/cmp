@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import style from './details.less';
 import Purposes from './purposes/purposes';
-import Vendors from './vendors/vendors';
+import { Vendors } from './vendors/vendors';
 import { Panel } from '../../panel/panel';
 import { Header } from '../header';
 import popupStyle from '../popup.less';
@@ -30,7 +30,11 @@ export default class Details extends Component {
     });
   };
 
-  handleEnableAll = () => {
+  handleSelectVendor = ({ dataId, isSelected }) => {
+    this.props.store.selectVendor(dataId, isSelected);
+  };
+
+  handleSelectAllVendors = () => {
     const shouldSelectAll = this.state.showEnableAll;
     const { selectAllVendors, selectAllPurposes } = this.props.store;
 
@@ -60,8 +64,6 @@ export default class Details extends Component {
       publisherConsentData,
       selectPurpose,
       selectCustomPurpose,
-      selectAllVendors,
-      selectVendor,
     } = store;
     const { selectedPurposeIds, selectedVendorIds } = vendorConsentData;
     const { selectedCustomPurposeIds } = publisherConsentData;
@@ -88,15 +90,11 @@ export default class Details extends Component {
               updateCSSPrefs={updateCSSPrefs}
             />
             <Vendors
-              localization={localization}
-              selectedVendorIds={selectedVendorIds}
-              selectAllVendors={selectAllVendors}
-              selectVendor={selectVendor}
-              vendors={vendors}
+              onSelectVendor={this.handleSelectVendor}
+              onSelectAllVendors={this.handleSelectAllVendors}
               onShowPurposes={this.handleShowPurposes}
-              onHandleEnableAll={this.handleEnableAll}
-              config={config}
-              updateCSSPrefs={updateCSSPrefs}
+              selectedVendorIds={selectedVendorIds}
+              vendors={vendors}
             />
           </Panel>
           <Footer

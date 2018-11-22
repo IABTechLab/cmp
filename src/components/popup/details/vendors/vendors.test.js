@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 import { h, render } from 'preact';
 import { expect } from 'chai';
-import style from './vendors.less';
+import style from '../vendortable.less';
 
 import Vendors from './vendors';
 
@@ -26,7 +26,7 @@ describe('Vendors', () => {
       scratch,
     );
 
-    const vendorRows = vendors.querySelectorAll(`.${style.vendorContent} tr`);
+    const vendorRows = vendors.querySelectorAll(`.${style.vendorTable} tbody tr`);
     expect(vendorRows.length).to.equal(4);
   });
 
