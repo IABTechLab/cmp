@@ -35,7 +35,7 @@ export class Summary extends Component {
           <Header
             showChevron
             onChevronClick={onShowIntro}
-            titleKey="footer.deviceInformationHeader "
+            titleKey="footer.deviceInformationHeader"
           />
           <Purposes allPurposes={allPurposes} />
           <Footer onShowPurposes={onShowPurposes} onAcceptAll={onAcceptAll} />

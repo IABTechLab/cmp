@@ -4,11 +4,23 @@ import style from './purposes.less';
 import Switch from '../../../switch/switch';
 import Label from '../../../label/label';
 
-export const Detail = ({ selectedPurpose, currentPurposeLocalizePrefix, localization, features, purposeIsActive, showLocalVendors, localVendors }) => {
+export const Detail = ({
+  selectedPurpose,
+  currentPurposeLocalizePrefix,
+  localization,
+  features,
+  purposeIsActive,
+  showLocalVendors,
+  localVendors,
+  setScrollRef,
+  onHideLocalVendors,
+  onShowLocalVendors,
+  handleSelectPurpose
+}) => {
   return (
     <div
       class={style.purposeDescription}
-      ref={scrollRef => (this.scrollRef = scrollRef)}
+      ref={setScrollRef}
     >
       <div class={style.purposeDetail + ' primaryText'}>
         <div class={style.detailHeader}>
@@ -52,7 +64,7 @@ export const Detail = ({ selectedPurpose, currentPurposeLocalizePrefix, localiza
             <div class={style.active}>
               <Switch
                 isSelected={purposeIsActive}
-                onClick={this.handleSelectPurpose}
+                onClick={handleSelectPurpose}
               />
               {purposeIsActive && (
                 <Label
@@ -94,7 +106,7 @@ export const Detail = ({ selectedPurpose, currentPurposeLocalizePrefix, localiza
             </span>
           </div>
           {!showLocalVendors && (
-            <a class={style.vendorLink} onClick={this.onShowLocalVendors}>
+            <a class={style.vendorLink} onClick={onShowLocalVendors}>
               <Label
                 providedValue={
                   localization && localization.purposes
@@ -108,7 +120,7 @@ export const Detail = ({ selectedPurpose, currentPurposeLocalizePrefix, localiza
             </a>
           )}
           {showLocalVendors && (
-            <a class={style.vendorLink} onClick={this.onHideLocalVendors}>
+            <a class={style.vendorLink} onClick={onHideLocalVendors}>
               <Label
                 providedValue={
                   localization && localization.purposes
