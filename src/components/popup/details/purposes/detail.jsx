@@ -1,3 +1,4 @@
+import { Vendortable } from './../vendortable';
 import { h, Component } from 'preact';
 
 import style from './purposes.less';
@@ -23,6 +24,7 @@ export const Detail = ({
       ref={setScrollRef}
     >
       <div class={style.purposeDetail + ' primaryText'}>
+
         <div class={style.detailHeader}>
           <div class={style.title}>
             <Label localizeKey={`${currentPurposeLocalizePrefix}.title`}>
@@ -46,9 +48,7 @@ export const Detail = ({
                   : ''
               }
               localizeKey="featureHeader"
-            >
-              This will include the following features:
-            </Label>
+            />
           </p>
           <ul>
             {features.map((feature, index) => (
@@ -128,52 +128,11 @@ export const Detail = ({
                     : ''
                 }
                 localizeKey="hideVendors"
-              >
-                Hide companies
-              </Label>
+              />
             </a>
           )}
           {showLocalVendors && (
-            <div>
-              <div class={style.vendorHeader}>
-                <table class={style.vendorList}>
-                  <thead>
-                    <tr>
-                      <th>
-                        <Label
-                          providedValue={
-                            localization && localization.purposes
-                              ? localization.purposes.company
-                              : ''
-                          }
-                          localizeKey="company"
-                        >
-                          Company
-                        </Label>
-                      </th>
-                    </tr>
-                  </thead>
-                </table>
-              </div>
-              <div class={style.vendorContent}>
-                <table class={style.vendorList}>
-                  <tbody>
-                    {localVendors.map(({ name, policyUrl }, index) => (
-                      <tr
-                        key={index + name}
-                        class={index % 2 === 1 ? style.even : ''}
-                      >
-                        <td>
-                          <a href={policyUrl} target="_blank">
-                            <div class={style.vendorName}>{name}</div>
-                          </a>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            <Vendortable vendors={localVendors} displayControls={false} />
           )}
         </div>
       </div>
