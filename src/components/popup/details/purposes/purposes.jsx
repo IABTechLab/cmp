@@ -1,11 +1,11 @@
 import { h, Component } from 'preact';
 
 import style from './purposes.less';
-import { List } from './list';
+import { PurposeList } from './list';
 import { Disclaimer } from './disclaimer';
-import { Detail } from './detail';
+import { PurposeDetail } from './detail';
 
-export default class Purposes extends Component {
+export class Purposes extends Component {
   state = {
     selectedPurposeIndex: 0,
     showLocalVendors: false,
@@ -81,6 +81,14 @@ export default class Purposes extends Component {
     });
   };
 
+  onToggleLocalVendors = () => {
+    if (this.state.showLocalVendors) {
+      this.onHideLocalVendors();
+    } else {
+      this.onShowLocalVendors();
+    }
+  };
+
   setScrollRef = scrollRef => (this.scrollRef = scrollRef);
 
   render(props, state) {
@@ -113,17 +121,16 @@ export default class Purposes extends Component {
       <div class={style.container}>
         <Disclaimer onShowVendors={onShowVendors} />
         <div class={style.purposes}>
-          <List
+          <PurposeList
             allPurposes={allPurposes}
             purposes={purposes}
             selectedPurposeIndex={selectedPurposeIndex}
             onPurposeClick={this.handleSelectPurposeDetail}
           />
           {selectedPurpose && (
-            <Detail
+            <PurposeDetail
               setScrollRef={this.setScrollRef}
-              onShowLocalVendors={this.onShowLocalVendors}
-              onHideLocalVendors={this.onHideLocalVendors}
+              onToggleLocalVendors={this.onToggleLocalVendors}
               handleSelectPurpose={this.handleSelectPurpose}
               selectedPurpose={selectedPurpose}
               currentPurposeLocalizePrefix={currentPurposeLocalizePrefix}

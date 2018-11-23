@@ -1,8 +1,8 @@
 import { h } from 'preact';
 
-import Label from '../../../label/label';
-import { Link, LocalizedLink } from '../../../link/link';
-import { Paragraph } from '../../../typography/paragraph';
+import { Label } from '../../../label';
+import { Link, LocalizedLink } from '../../../link';
+import { Paragraph } from '../../../typography';
 
 export const Description = ({
   naiUrl,

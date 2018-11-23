@@ -1,13 +1,14 @@
 import { h, Component } from 'preact';
 import cx from 'classnames';
 
-import style from './details.less';
-import Purposes from './purposes/purposes';
-import { Vendors } from './vendors/vendors';
-import { Panel } from '../../panel/panel';
+import { Panel } from '../../panel';
 import { Header } from '../header';
 import popupStyle from '../popup.less';
+
+import { Purposes } from './purposes';
+import { Vendors } from './vendors';
 import { Footer } from './footer';
+import style from './details.less';
 
 const SECTION_PURPOSES = 0;
 const SECTION_VENDORS = 1;

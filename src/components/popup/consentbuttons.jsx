@@ -15,13 +15,9 @@ export const ConsentButtons = ({ onShowPurposes, onAcceptAll, className }) => {
       >
         <Label localizeKey="intro.showPurposes" />
       </Button>
-      <Button
-        name="footerAccept"
-        class={style.acceptAll}
-        onClick={onAcceptAll}
-      >
+      <Button name="footerAccept" class={style.acceptAll} onClick={onAcceptAll}>
         <Label localizeKey="intro.acceptAll" />
       </Button>
     </div>
   );
-}
+};

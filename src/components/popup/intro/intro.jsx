@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import cx from 'classnames';
 
-import { Label } from '../../label/label';
+import { Label } from '../../label';
 import { Title } from '../../typography/title';
 import { ConsentButtons } from '../consentbuttons';
 import popupStyle from '../popup.less';

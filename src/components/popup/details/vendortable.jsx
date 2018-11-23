@@ -1,15 +1,16 @@
 import { h } from 'preact';
 
+import { Label } from '../../label';
+import { Switch } from '../../switch';
+import { Link } from '../../link';
 import style from './vendortable.less';
-import Label from '../../label/label';
-import Switch from '../../switch/switch';
 
-export function Vendortable({
-  vendors,
-  displayControls,
-  onVendorToggle,
-  selectedVendorIds,
-}) {
+export const Vendortable = ({
+  vendors = [],
+  displayControls = false,
+  onVendorToggle = () => {},
+  selectedVendorIds = new Set(),
+}) => {
   return (
     <table class={style.vendorTable}>
       <thead>
@@ -28,9 +29,9 @@ export function Vendortable({
         {vendors.map(({ name, policyUrl, id }, index) => (
           <tr key={index + name} class={index % 2 === 1 ? style.even : ''}>
             <td>
-              <a href={policyUrl} target="_blank">
-                <div class={style.vendorName}>{name}</div>
-              </a>
+              <Link href={policyUrl} blank>
+                {name}
+              </Link>
             </td>
             {displayControls && (
               <td>
@@ -46,4 +47,4 @@ export function Vendortable({
       </tbody>
     </table>
   );
-}
+};

@@ -1,8 +1,11 @@
 import { h } from 'preact';
 import cx from 'classnames';
 
-import Label from '../../label/label';
+import { Label } from '../../label';
+import { Ul } from '../../ul';
 import style from '../summary/summary.less';
+
+const formatPurpose = purpose => purpose.name;
 
 export const Purposes = ({ allPurposes }) => {
   return (
@@ -16,11 +19,7 @@ export const Purposes = ({ allPurposes }) => {
         localizeKey="footer.purposesHeader"
         class={cx(style.subtitle, 'primaryText')}
       />
-      <ul>
-        {allPurposes.map(({ name }) => (
-          <li class="primaryText">{name}</li>
-        ))}
-      </ul>
+      <Ul items={allPurposes} formatItem={formatPurpose} />
     </div>
   );
 };

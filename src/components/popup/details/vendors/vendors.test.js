@@ -26,7 +26,9 @@ describe('Vendors', () => {
       scratch,
     );
 
-    const vendorRows = vendors.querySelectorAll(`.${style.vendorTable} tbody tr`);
+    const vendorRows = vendors.querySelectorAll(
+      `.${style.vendorTable} tbody tr`,
+    );
     expect(vendorRows.length).to.equal(4);
   });
 

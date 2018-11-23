@@ -1,15 +1,15 @@
 import { h } from 'preact';
 
+import { Label } from '../../../label';
+import { LocalizedLink } from '../../../link';
 import style from './purposes.less';
-import Label from '../../../label/label';
 
-export const Disclaimer = ({ onShowVendors }) => {
-  return (
-    <div class={style.disclaimer + ' primaryText'}>
-      <Label localizeKey="purposes.disclaimer" />
-      <a class={style.vendorLink} onClick={onShowVendors}>
-        <Label localizeKey="purposes.disclaimerVendorLink" />
-      </a>
-    </div>
-  );
-};
+export const Disclaimer = ({ onShowVendors }) => (
+  <div class={style.disclaimer}>
+    <Label localizeKey="purposes.disclaimer" />
+    <LocalizedLink
+      localizeKey="purposes.disclaimerVendorLink"
+      onClick={onShowVendors}
+    />
+  </div>
+);
