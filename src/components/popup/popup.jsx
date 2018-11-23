@@ -2,10 +2,14 @@ import { h, Component } from 'preact';
 import style from './popup.less';
 import Intro from './intro/intro';
 import Details from './details/details';
-import Panel from '../panel/panel';
+import { Panel } from '../panel/panel';
+import { Summary } from './summary/summary';
 
 const SECTION_INTRO = 0;
-const SECTION_DETAILS = 1;
+const SECTION_SUMMARY = 1;
+const SECTION_DETAILS = 2;
+// const SECTION_PURPOSES = 2;
+// const SECTION_VENDORS = 3;
 
 export default class Popup extends Component {
   state = {
@@ -26,49 +30,66 @@ export default class Popup extends Component {
     });
   };
 
-  handleShowDetails = () => {
+  showSection = section => {
     this.setState({
-      selectedPanelIndex: SECTION_DETAILS,
+      selectedPanelIndex: section,
     });
   };
 
-  handleClose = () => {};
+  showIntro = () => {
+    this.showSection(SECTION_INTRO);
+  };
 
-  componentDidMount() {
-    this.props.updateCSSPrefs();
-  }
+  showSummary = () => {
+    this.showSection(SECTION_SUMMARY);
+  };
+
+  showDetails = () => {
+    this.showSection(SECTION_DETAILS);
+  };
+
+  handleClose = () => {};
 
   render(props, state) {
     const { store, localization, config, updateCSSPrefs } = props;
     const { selectedPanelIndex } = state;
 
     return (
-      <div class={style.popup} style={{ display: 'flex' }}>
+      <div class={style.popup}>
         {config.blockBrowsing && (
           <div class={style.overlay} onClick={this.handleClose} />
         )}
-        <div name="content">
-          <Panel selectedIndex={selectedPanelIndex}>
-            <Intro
-              onAcceptAll={this.onAcceptAll}
-              onShowPurposes={this.handleShowDetails}
-              onClose={this.handleClose}
-              localization={localization}
-              store={store}
-              config={config}
-              updateCSSPrefs={updateCSSPrefs}
-            />
-            <Details
-              onSave={this.props.onSave}
-              onCancel={this.onCancel}
-              store={this.props.store}
-              onClose={this.handleClose}
-              localization={localization}
-              config={config}
-              updateCSSPrefs={updateCSSPrefs}
-            />
-          </Panel>
-        </div>
+        <Panel selectedIndex={selectedPanelIndex}>
+          <Intro
+            onAcceptAll={this.onAcceptAll}
+            onShowSummary={this.showSummary}
+            onShowPurposes={this.showDetails}
+            onClose={this.handleClose}
+            localization={localization}
+            store={store}
+            config={config}
+            updateCSSPrefs={updateCSSPrefs}
+          />
+          <Summary
+            onAcceptAll={this.onAcceptAll}
+            onShowIntro={this.showIntro}
+            onShowPurposes={this.showDetails}
+            onClose={this.handleClose}
+            localization={localization}
+            store={store}
+            layout={config.layout}
+            updateCSSPrefs={updateCSSPrefs}
+          />
+          <Details
+            onSave={this.props.onSave}
+            onCancel={this.onCancel}
+            store={this.props.store}
+            onClose={this.handleClose}
+            localization={localization}
+            config={config}
+            updateCSSPrefs={updateCSSPrefs}
+          />
+        </Panel>
       </div>
     );
   }

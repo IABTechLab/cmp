@@ -1,25 +1,25 @@
-import { h, Component } from 'preact';
+import { h, createElement } from 'preact';
 import Localize from '../../lib/localize';
 
-export default class Label extends Component {
-  static defaultProps = {
-    prefix: '',
-  };
+export const Label = ({
+  is = 'span',
+  prefix,
+  localizeKey,
+  children,
+  providedValue,
+  ...rest
+}) => {
+  const key = prefix ? `${prefix}.${localizeKey}` : localizeKey;
+  const localizedContent = providedValue || Localize.lookup(key);
 
-  render(props, state) {
-    const { prefix, localizeKey, className, children, providedValue } = props;
-    const key = prefix ? `${prefix}.${localizeKey}` : localizeKey;
-    const localizedContent = providedValue || Localize.lookup(key);
+  return createElement(
+    is,
+    {
+      dangerouslySetInnerHTML: localizedContent && { __html: localizedContent },
+      ...rest,
+    },
+    !localizedContent && children,
+  );
+};
 
-    return (
-      <span
-        class={props.class || className}
-        dangerouslySetInnerHTML={
-          localizedContent && { __html: localizedContent }
-        }
-      >
-        {!localizedContent && children}
-      </span>
-    );
-  }
-}
+export default Label;

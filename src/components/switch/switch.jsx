@@ -1,9 +1,12 @@
 import { h, Component } from 'preact';
+
+import { Label } from '../label';
 import style from './switch.less';
 
 export default class Switch extends Component {
   static defaultProps = {
     onClick: () => {},
+    displayLabel: false,
   };
 
   handleClicked = () => {
@@ -16,33 +19,41 @@ export default class Switch extends Component {
   }
 
   render(props) {
-    const { isSelected, isDisabled, color } = props;
-
+    const { isSelected, isDisabled, color, displayLabel } = props;
+    const switchLabelKey = isSelected ? 'active' : 'inactive';
     return (
-      <span
-        class={[
-          style.switch,
-          props.class,
-          isSelected ? style.isSelected : '',
-        ].join(' ')}
-        onClick={this.handleClicked}
-      >
-        <input
-          checked={isSelected}
-          className={style.native}
-          disabled={isDisabled}
-          type="checkbox"
-        />
+      <div>
         <span
-          class={style.visualizationContainer}
-          style={{ backgroundColor: isSelected ? color : null }}
-        />
-        <span
-          class={style.visualizationGlow}
-          style={{ backgroundColor: color }}
-        />
-        <span class={style.visualizationHandle} />
-      </span>
+          class={[
+            style.switch,
+            props.class,
+            isSelected ? style.isSelected : '',
+          ].join(' ')}
+          onClick={this.handleClicked}
+        >
+          <input
+            checked={isSelected}
+            className={style.native}
+            disabled={isDisabled}
+            type="checkbox"
+          />
+          <span
+            class={style.visualizationContainer}
+            style={{ backgroundColor: isSelected ? color : null }}
+          />
+          <span
+            class={style.visualizationGlow}
+            style={{ backgroundColor: color }}
+          />
+          <span class={style.visualizationHandle} />
+        </span>
+        {displayLabel && (
+          <Label
+            class={style.label}
+            localizeKey={`purposes.${switchLabelKey}`}
+          />
+        )}
+      </div>
     );
   }
 }

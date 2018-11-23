@@ -1,0 +1,35 @@
+@import '../../../style/variables';
+
+table.vendorTable {
+  border: 1px solid @color-border;
+  width: 100%;
+  border-collapse: collapse;
+
+  thead tr {
+    background-color: @color-table-background;
+    border: 1px solid @color-border;
+    text-transform: uppercase;
+  }
+
+  tr {
+    min-height: 40px;
+    th {
+      font-weight: bold;
+    }
+    td,
+    th {
+      text-align: left;
+      padding: 5px;
+      &:first-child {
+        width: 100%;
+      }
+      &:last-child {
+        padding-right: 25px;
+      }
+    }
+  }
+
+  tr.even {
+    background-color: @color-table-background;
+  }
+}

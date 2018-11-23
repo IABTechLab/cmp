@@ -81,18 +81,18 @@ export default class App extends Component {
   };
 
   updateCSSPrefs = () => {
-    const elems = this.elementsWithReplaceableCss;
-    const base = this.base;
-    for (let elem in elems) {
-      let cssRules = elems[elem];
-      let selectedEls = base.querySelectorAll(elem) || [];
-      // Necessary for compatibility with Microsoft browsers
-      Array.prototype.forEach.call(selectedEls, function(currentEl) {
-        for (let cssProp in cssRules) {
-          currentEl.style[cssProp] = cssRules[cssProp];
-        }
-      });
-    }
+    // const elems = this.elementsWithReplaceableCss;
+    // const base = this.base;
+    // for (let elem in elems) {
+    //   let cssRules = elems[elem];
+    //   let selectedEls = base.querySelectorAll(elem) || [];
+    //   // Necessary for compatibility with Microsoft browsers
+    //   Array.prototype.forEach.call(selectedEls, function(currentEl) {
+    //     for (let cssProp in cssRules) {
+    //       currentEl.style[cssProp] = cssRules[cssProp];
+    //     }
+    //   });
+    // }
   };
 
   onSave = () => {
@@ -176,7 +176,10 @@ export default class App extends Component {
     const { store } = state;
     const { config } = props;
     const userLocalization = config.localization[currentLocale.split('-')[0]];
-    const showPopup = store.isConsentToolShowing || store.isFooterConsentToolShowing || store.isThinConsentToolShowing;
+    const showPopup =
+      store.isConsentToolShowing ||
+      store.isFooterConsentToolShowing ||
+      store.isThinConsentToolShowing;
 
     return (
       <div class={style.gdpr}>
