@@ -13,7 +13,7 @@ import style from './details.less';
 const SECTION_PURPOSES = 0;
 const SECTION_VENDORS = 1;
 
-export default class Details extends Component {
+export class Details extends Component {
   state = {
     selectedPanelIndex: SECTION_PURPOSES,
     showEnableAll: true,
