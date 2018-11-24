@@ -1,9 +1,10 @@
 import { h, Component } from 'preact';
+
+import { Panel } from '../panel';
+import { Intro } from './intro';
+import { Summary } from './summary';
+import { Details } from './details';
 import style from './popup.less';
-import Intro from './intro/intro';
-import Details from './details/details';
-import { Panel } from '../panel/panel';
-import { Summary } from './summary/summary';
 
 const SECTION_INTRO = 0;
 const SECTION_SUMMARY = 1;
