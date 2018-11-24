@@ -1,25 +1,18 @@
-import { h, Component } from 'preact';
+import { h } from 'preact';
+import cx from 'classnames';
+
 import style from './button.less';
 
-export default class Button extends Component {
-  static defaultProps = {
-    onClick: () => {},
-    invert: false,
-  };
-
-  render(props) {
-    const { children, onClick, invert, name } = props;
-
-    return (
-      <button
-        name={name}
-        class={[style.button, props.class, invert ? style.invert : ''].join(
-          ' ',
-        )}
-        onClick={onClick}
-      >
-        {children}
-      </button>
-    );
-  }
-}
+export const Button = ({ children, onClick, invert, name, ...rest }) => (
+  <button
+    name={name}
+    class={cx({
+      [style.button]: true,
+      [rest.class]: !!rest.class,
+      [style.invert]: invert,
+    })}
+    onClick={onClick}
+  >
+    {children}
+  </button>
+);
