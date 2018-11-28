@@ -8,7 +8,7 @@ import popupStyle from '../popup.less';
 import { Footer } from './footer';
 import style from './intro.less';
 
-export default class Intro extends Component {
+export class Intro extends Component {
   renderTitle() {
     const { config } = this.props;
     return (

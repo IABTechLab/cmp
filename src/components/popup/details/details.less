@@ -3,11 +3,13 @@
 .details {
   display: flex;
   flex-direction: column;
+  height: 100%;
   max-height: 500px;
+  min-height: 0;
 
   .body {
-    flex: 1;
     display: flex;
+    flex-grow: 1;
     min-height: 0;
   }
 
@@ -16,6 +18,7 @@
     justify-content: space-between;
     border-top: 1px solid @color-border;
     flex-wrap: wrap-reverse;
+    flex-shrink: 0;
 
     button {
       flex: 1;
