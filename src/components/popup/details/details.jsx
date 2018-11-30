@@ -1,10 +1,8 @@
 import { h, Component } from 'preact';
-import cx from 'classnames';
 
 import { Panel } from '../../panel';
 import { Header } from '../header';
-import popupStyle from '../popup.less';
-
+import { PopupContent } from '../popupcontent';
 import { Purposes } from './purposes';
 import { Vendors } from './vendors';
 import { Footer } from './footer';
@@ -72,7 +70,7 @@ export class Details extends Component {
     const { purposes: customPurposes = [] } = customPurposeList;
 
     return (
-      <div class={cx(popupStyle.content, popupStyle.modal)}>
+      <PopupContent layout="modal">
         <div class={style.details}>
           <Header titleKey="details.title" />
           <Panel className={style.body} selectedIndex={selectedPanelIndex}>
@@ -105,7 +103,7 @@ export class Details extends Component {
             onBackClick={this.handleBack}
           />
         </div>
-      </div>
+      </PopupContent>
     );
   }
 }
