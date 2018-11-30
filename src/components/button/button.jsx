@@ -8,7 +8,6 @@ export const Button = (
   { children, onClick, invert, name, ...rest },
   { theme },
 ) => {
-  // console.log(context);
   const styles = invert
     ? {
         borderColor: theme.colorPrimary,
@@ -35,6 +34,7 @@ export const Button = (
     </button>
   );
 };
+
 Button.contextTypes = {
   theme: PropTypes.object.isRequired,
 };
