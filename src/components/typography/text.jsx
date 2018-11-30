@@ -4,16 +4,16 @@ import PropTypes from 'prop-types';
 
 import style from './title.less';
 
-export const Title = ({ children, alignment, ...rest }, { theme }) => (
-  <div
-    class={cx({ [style.title]: true, [style[alignment]]: !!alignment })}
+export const Text = ({ children, alignment, ...rest }, { theme }) => (
+  <span
+    class={cx({ [style.text]: true, [style[alignment]]: !!alignment })}
     {...rest}
     style={{ color: theme.colorTextPrimary }}
   >
     {children}
-  </div>
+  </span>
 );
 
-Title.contextTypes = {
+Text.contextTypes = {
   theme: PropTypes.object.isRequired,
 };
