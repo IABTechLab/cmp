@@ -1,11 +1,20 @@
 import { h } from 'preact';
+import PropTypes from 'prop-types';
 
 import { Label } from '../label';
 import { Button } from '../button';
 import style from './summary/summary.less';
 
-export const ConsentButtons = ({ onShowPurposes, onAcceptAll, className }) => (
-  <div class={className}>
+export const ConsentButtons = (
+  { onShowPurposes, onAcceptAll, className, layout },
+  { theme },
+) => (
+  <div
+    class={className}
+    style={{
+      borderColor: layout !== 'footer' ? theme.colorBorder : 'transparent',
+    }}
+  >
     <Button
       name="footerReject"
       class={style.rejectAll}
@@ -19,3 +28,7 @@ export const ConsentButtons = ({ onShowPurposes, onAcceptAll, className }) => (
     </Button>
   </div>
 );
+
+ConsentButtons.contextTypes = {
+  theme: PropTypes.object.isRequired,
+};
