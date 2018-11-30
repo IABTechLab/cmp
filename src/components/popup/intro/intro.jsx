@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { Label } from '../../label';
 import { Title } from '../../typography/title';
 import { ConsentButtons } from '../consentbuttons';
-import popupStyle from '../popup.less';
+import { PopupContent } from '../popupcontent';
 import { Footer } from './footer';
 import style from './intro.less';
 
@@ -23,7 +23,7 @@ export class Intro extends Component {
     const { onAcceptAll, onShowPurposes, onShowSummary, config } = props;
 
     return (
-      <div class={cx(popupStyle.content, popupStyle[config.layout])}>
+      <PopupContent layout={config.layout}>
         <div class={cx(style.container, style[`container-${config.layout}`])}>
           {config.logoUrl && <img class={style.logo} src={config.logoUrl} />}
           {config.layout === 'modal' && this.renderTitle()}
@@ -32,13 +32,14 @@ export class Intro extends Component {
             <Label localizeKey="intro.description" />
           </div>
           <ConsentButtons
+            layout={config.layout}
             className={style.btns}
             onAcceptAll={onAcceptAll}
             onShowPurposes={onShowPurposes}
           />
         </div>
         <Footer onShowSummary={onShowSummary} />
-      </div>
+      </PopupContent>
     );
   }
 }
