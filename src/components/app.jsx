@@ -4,6 +4,7 @@ import { currentLocale } from '../lib/localize';
 
 import Popup from './popup/popup';
 import Footer from './footer/footer';
+import { ThemeProvider } from './config';
 
 export default class App extends Component {
   state = {
@@ -182,23 +183,25 @@ export default class App extends Component {
       store.isThinConsentToolShowing;
 
     return (
-      <div class={style.gdpr}>
-        {showPopup && (
-          <Popup
+      <ThemeProvider>
+        <div class={style.gdpr}>
+          {showPopup && (
+            <Popup
+              store={store}
+              localization={userLocalization}
+              onSave={this.onSave}
+              config={config}
+              updateCSSPrefs={this.updateCSSPrefs}
+            />
+          )}
+          <Footer
             store={store}
             localization={userLocalization}
-            onSave={this.onSave}
             config={config}
             updateCSSPrefs={this.updateCSSPrefs}
           />
-        )}
-        <Footer
-          store={store}
-          localization={userLocalization}
-          config={config}
-          updateCSSPrefs={this.updateCSSPrefs}
-        />
-      </div>
+        </div>
+      </ThemeProvider>
     );
   }
 }
