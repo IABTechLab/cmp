@@ -121,6 +121,7 @@
     "preact-compat": "^3.15.0",
     "preact-render-to-string": "^3.6.0",
     "promise-polyfill": "^7.1.0",
+    "prop-types": "^15.6.2",
     "proptypes": "^1.0.0",
     "query-string": "^5.0.1",
     "react-codemirror2": "^4.0.0",
