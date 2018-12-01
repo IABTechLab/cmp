@@ -11,15 +11,14 @@
 				window.addEventListener('message', function(event) {
 					window.__cmp.receiveMessage(event);
 				});
-
-				var commandQueue = [];
+        var commandQueue = [];
 				var cmp = function(command, parameter, callback) {
 					commandQueue.push({
 						command: command,
 						parameter: parameter,
 						callback: callback
 					});
-				};
+        };
 				cmp.commandQueue = commandQueue;
 				cmp.receiveMessage = function(event) {
 					var data = event && event.data && event.data.__cmpCall;

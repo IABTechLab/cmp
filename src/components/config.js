@@ -30,7 +30,6 @@ export class ThemeProvider extends Component {
   }
 
   render() {
-    console.log('render', this.props.children.length);
     return <div>{this.props.children}</div>;
   }
 }
