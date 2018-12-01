@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import cx from 'classnames';
 
 import { Label } from '../../label';
-import { Title } from '../../typography/title';
+import { Title, Paragraph } from '../../typography';
 import { ConsentButtons } from '../consentbuttons';
 import { PopupContent } from '../popupcontent';
 import { Footer } from './footer';
@@ -27,10 +27,13 @@ export class Intro extends Component {
         <div class={cx(style.container, style[`container-${config.layout}`])}>
           {config.logoUrl && <img class={style.logo} src={config.logoUrl} />}
           {config.layout === 'modal' && this.renderTitle()}
-          <div class={style.description}>
+          <Paragraph
+            alignment={config.layout === 'footer' ? 'left' : 'center'}
+            class={style.description}
+          >
             {config.layout === 'footer' && this.renderTitle()}
             <Label localizeKey="intro.description" />
-          </div>
+          </Paragraph>
           <ConsentButtons
             layout={config.layout}
             className={style.btns}
