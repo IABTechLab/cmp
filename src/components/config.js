@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import camelCase from 'lodash/camelCase';
 
 const theme = {
-  'color-primary': 'green',
+  'color-primary': '#0a82be',
   'color-secondary': '#eaeaea',
-  'color-border': 'navy',
-  'color-background': 'lightgray',
-  'color-text-primary': 'navy',
+  'color-border': '#dddddd',
+  'color-background': '#ffffff',
+  'color-text-primary': '#333333',
   'color-text-secondary': '#0a82be',
-  'color-linkColor': 'green',
+  'color-linkColor': '#0a82be',
   'color-table-background': '#f7f7f7',
   'font-family': 'Noto Sans',
   'custom-font-url': '',
