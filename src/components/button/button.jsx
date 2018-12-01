@@ -16,7 +16,7 @@ export const Button = (
       }
     : {
         borderColor: theme.colorPrimary,
-        color: theme.colorBackground,
+        color: 'white',
         backgroundColor: theme.colorPrimary,
       };
   return (
