@@ -1,5 +1,10 @@
 import { h, createElement } from 'preact';
 import Localize from '../../lib/localize';
+import Parser from 'html-react-parser';
+
+const replacer = domNode => {
+  console.log(domNode);
+};
 
 export const Label = ({
   is = 'span',
@@ -7,18 +12,23 @@ export const Label = ({
   localizeKey,
   children,
   providedValue,
+  replace = replacer,
   ...rest
 }) => {
   const key = prefix ? `${prefix}.${localizeKey}` : localizeKey;
-  const localizedContent = providedValue || Localize.lookup(key);
+  let localizedContent = providedValue || Localize.lookup(key);
+
+  if (localizedContent && localizedContent.indexOf('<') > -1) {
+    console.log('html translation', localizedContent);
+    localizedContent = Parser(localizedContent, { replace });
+  }
 
   return createElement(
     is,
     {
-      dangerouslySetInnerHTML: localizedContent && { __html: localizedContent },
       ...rest,
     },
-    !localizedContent && children,
+    localizedContent || children,
   );
 };
 
