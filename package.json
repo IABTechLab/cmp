@@ -92,6 +92,7 @@
     "less-loader": "^4.0.3",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
+    "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-loader": "^2.0.3",
     "preact-jsx-chai": "^2.2.1",
     "prettier": "^1.14.3",

@@ -96,9 +96,10 @@ const commonConfig = {
             loader: 'postcss-loader',
             options: {
               sourceMap: CSS_MAPS,
-              plugins: () => {
-                autoprefixer({ browsers: ['last 2 versions'] });
-              },
+              plugins: [
+                autoprefixer({ browsers: ['last 2 versions'] }),
+                require('postcss-flexbugs-fixes'),
+              ],
             },
           },
           {
