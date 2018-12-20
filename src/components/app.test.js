@@ -31,7 +31,7 @@ describe('App', () => {
   it('add listeners to the store to receive updates and to know when to update CSS', () => {
     const store = new Store();
     render(<App store={store} config={config} />, scratch);
-    expect(store.listeners.size).to.equal(2);
+    expect(store.listeners.size).to.equal(1);
   });
 
   it('persist state on save', () => {

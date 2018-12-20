@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-no-bind */
-import { h, render } from 'preact';
+import { h } from 'preact';
 import { expect } from 'chai';
 import style from './purposes.less';
-
-import Purposes from './purposes';
+import { Purposes } from './purposes';
+import { renderWithThemeProvider } from '../../../../test/helpers';
 
 describe('Purposes', () => {
   let scratch;
@@ -13,7 +13,7 @@ describe('Purposes', () => {
   });
 
   it('should render links for vendors and all standard and custom purposes', () => {
-    const purposes = render(
+    const purposes = renderWithThemeProvider(
       <Purposes
         updateCSSPrefs={() => {}}
         purposes={[{ id: 1, name: 'Purpose 1' }, { id: 2, name: 'Purpose 2' }]}
@@ -28,17 +28,21 @@ describe('Purposes', () => {
   });
 
   it('should render li elements for each Feature', () => {
-    const purposes = render(
+    let ref = null;
+    const purposes = renderWithThemeProvider(
       <Purposes
         updateCSSPrefs={() => {}}
+        ref={el => {
+          ref = el;
+        }}
         purposes={[{ id: 1, name: 'Purpose 1' }, { id: 2, name: 'Purpose 2' }]}
         customPurposes={[{ id: 1, name: 'Custom Purpose 1' }]}
         features={[{ id: 1, name: 'Feature 1' }, { id: 2, name: 'Feature 2' }]}
       />,
       scratch,
     );
-
-    const features = purposes.querySelectorAll(`.${style.featureItem}`);
+    ref.handleSelectPurposeDetail(1)();
+    const features = purposes.querySelectorAll(`li`);
     expect(features.length).to.equal(2);
   });
 
@@ -47,7 +51,7 @@ describe('Purposes', () => {
     const selectCustomPurpose = jest.fn();
 
     let purposes;
-    render(
+    renderWithThemeProvider(
       <Purposes
         updateCSSPrefs={() => {}}
         ref={ref => (purposes = ref)}
@@ -72,7 +76,7 @@ describe('Purposes', () => {
     const selectCustomPurpose = jest.fn();
 
     let purposes;
-    render(
+    renderWithThemeProvider(
       <Purposes
         updateCSSPrefs={() => {}}
         ref={ref => (purposes = ref)}
