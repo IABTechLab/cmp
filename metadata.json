@@ -1,11 +1,11 @@
 {
   "cmpVersion": 1,
   "cmpId": 15,
-  "maxCookieLifespanDays" : 390,
+  "maxCookieLifespanDays": 390,
   "cmpGlobalName": "__cmp",
   "globalConsentLocation": "https://cdn.digitrust.mgr.consensu.org/1/portal.html",
   "globalVendorListLocation": "https://vendorlist.consensu.org/vendorlist.json",
-  "localizedVendorListProvider": "https://cdn.cpex.cz/cmp/general/purposes-${consentLanguage}.json",
+  "localizedVendorListProvider": "https://vendorlist.consensu.org/purposes-${consentLanguage}.json",
   "digitrustRedirectLocation": "https://cdn.digitru.st/prod/1.5.10/redirect.html?redirect=",
   "countryCodes": [
     "GB",
