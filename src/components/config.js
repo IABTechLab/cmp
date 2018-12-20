@@ -12,7 +12,8 @@ const theme = {
   'color-linkColor': '#0a82be',
   'color-table-background': '#f7f7f7',
   'font-family': 'Noto Sans',
-  'custom-font-url': '',
+  'custom-font-url':
+    'https://fonts.googleapis.com/css?family=Noto+Sans&amp;subset=latin-ext',
 };
 
 export const mapLegacyTheme = css => {
@@ -27,6 +28,17 @@ export class ThemeProvider extends Component {
     return {
       theme: this.props.theme,
     };
+  }
+
+  componentWillMount() {
+    if (this.props.theme.customFontUrl) {
+      const head = document.head;
+      const link = document.createElement('link');
+      link.type = 'text/css';
+      link.rel = 'stylesheet';
+      link.href = this.props.theme.customFontUrl;
+      head.appendChild(link);
+    }
   }
 
   render() {
