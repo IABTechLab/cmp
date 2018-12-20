@@ -27,7 +27,7 @@ export const Button = (
         [rest.class]: !!rest.class,
         [style.invert]: invert,
       })}
-      style={styles}
+      style={{ ...styles, fontFamily: theme.fontFamily }}
       onClick={onClick}
     >
       {children}

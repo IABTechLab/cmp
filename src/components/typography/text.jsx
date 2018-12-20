@@ -8,7 +8,7 @@ export const Text = ({ children, alignment, ...rest }, { theme }) => (
   <span
     class={cx({ [style.text]: true, [style[alignment]]: !!alignment })}
     {...rest}
-    style={{ color: theme.colorTextPrimary }}
+    style={{ color: theme.colorTextPrimary, fontFamily: theme.fontFamily }}
   >
     {children}
   </span>

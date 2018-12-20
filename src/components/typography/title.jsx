@@ -8,7 +8,7 @@ export const Title = ({ children, alignment, ...rest }, { theme }) => (
   <div
     class={cx({ [style.title]: true, [style[alignment]]: !!alignment })}
     {...rest}
-    style={{ color: theme.colorTextPrimary }}
+    style={{ color: theme.colorTextPrimary, fontFamily: theme.fontFamily }}
   >
     {children}
   </div>

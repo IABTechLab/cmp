@@ -54,7 +54,9 @@ export default class Popup extends Component {
   render(props, state) {
     const { store, localization, config, updateCSSPrefs } = props;
     const { selectedPanelIndex } = state;
-
+    if (!store.isConsentToolShowing) {
+      return null;
+    }
     return (
       <div class={style.popup}>
         {config.blockBrowsing && (

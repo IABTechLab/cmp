@@ -51,7 +51,7 @@ export default class Switch extends Component {
         </span>
         {displayLabel && (
           <Label
-            style={{ color: theme.colorPrimary }}
+            style={{ color: theme.colorPrimary, fontFamily: theme.fontFamily }}
             class={style.label}
             localizeKey={`purposes.${switchLabelKey}`}
           />

@@ -7,7 +7,7 @@ export const Paragraph = ({ children, ...rest }, { theme }) => (
   <p
     class={style.paragraph}
     {...rest}
-    style={{ color: theme.colorTextPrimary }}
+    style={{ color: theme.colorTextPrimary, fontFamily: theme.fontFamily }}
   >
     {children}
   </p>

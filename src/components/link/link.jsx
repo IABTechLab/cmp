@@ -8,7 +8,7 @@ export const Link = ({ onClick, blank, children, ...rest }, { theme }) => (
     onClick={onClick}
     target={blank ? '_blank' : ''}
     {...rest}
-    style={{ color: theme.colorLinkColor }}
+    style={{ color: theme.colorLinkColor, fontFamily: theme.fontFamily }}
   >
     {children}
   </a>

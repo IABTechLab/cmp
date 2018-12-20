@@ -6,7 +6,11 @@ import style from './ul.less';
 const itemFormatter = val => val.toString();
 
 export const Li = ({ children, ...rest }, { theme }) => (
-  <li style={{ color: theme.colorTextPrimary }} class={style.li} {...rest}>
+  <li
+    style={{ color: theme.colorTextPrimary, fontFamily: theme.fontFamily }}
+    class={style.li}
+    {...rest}
+  >
     {children}
   </li>
 );
