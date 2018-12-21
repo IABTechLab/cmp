@@ -7,11 +7,19 @@ const replacer = domNode => {
 };
 
 export const Label = (
-  { is = 'span', prefix, localizeKey, children, replace = replacer, ...rest },
+  {
+    is = 'span',
+    prefix,
+    localizeKey,
+    children,
+    replace = replacer,
+    providedValue,
+    ...rest
+  },
   { translate = key => key },
 ) => {
   const key = prefix ? `${prefix}.${localizeKey}` : localizeKey;
-  let localizedContent = translate(key);
+  let localizedContent = providedValue || translate(key);
 
   if (localizedContent && localizedContent.indexOf('<') > -1) {
     localizedContent = Parser(localizedContent, { replace });
