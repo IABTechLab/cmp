@@ -29,10 +29,7 @@ export class ThemeProvider extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {}
-
   componentWillMount() {
-    console.log(this.props.theme);
     if (this.props.theme.customFontUrl) {
       const head = document.head;
       const link = document.createElement('link');

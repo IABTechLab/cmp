@@ -2,9 +2,10 @@ import { h, Component } from 'preact';
 
 import style from './app.less';
 import { currentLocale } from '../lib/localize';
-import { ThemeProvider, mapLegacyTheme } from './config';
+import { ThemeProvider, mapLegacyTheme } from './theme';
 import { Popup } from './popup';
 import { Footer } from './footer';
+import { LocalizationProvider } from './localization';
 
 export default class App extends Component {
   state = {
@@ -81,23 +82,28 @@ export default class App extends Component {
       store.isThinConsentToolShowing;
 
     return (
-      <ThemeProvider theme={config.theme || mapLegacyTheme(config.css)}>
-        <div class={style.gdpr}>
-          {showPopup && (
-            <Popup
+      <LocalizationProvider
+        language={store.consentLanguage}
+        translations={config.localization}
+      >
+        <ThemeProvider theme={config.theme || mapLegacyTheme(config.css)}>
+          <div class={style.gdpr}>
+            {showPopup && (
+              <Popup
+                store={store}
+                localization={userLocalization}
+                onSave={this.onSave}
+                config={config}
+              />
+            )}
+            <Footer
               store={store}
               localization={userLocalization}
-              onSave={this.onSave}
               config={config}
             />
-          )}
-          <Footer
-            store={store}
-            localization={userLocalization}
-            config={config}
-          />
-        </div>
-      </ThemeProvider>
+          </div>
+        </ThemeProvider>
+      </LocalizationProvider>
     );
   }
 }
