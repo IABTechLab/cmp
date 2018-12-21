@@ -24,7 +24,7 @@ export default class Footer extends Component {
   };
 
   render(props) {
-    const { store, config, updateCSSPrefs } = props;
+    const { store, config } = props;
     const { isFooterShowing } = store;
 
     return (
@@ -40,7 +40,6 @@ export default class Footer extends Component {
           class={style.close}
           onClick={this.handleClose}
           config={config}
-          updateCSSPrefs={updateCSSPrefs}
         />
         <div class={style.message}>
           <Label is={Text} localizeKey="footer.closedMessage" />

@@ -52,7 +52,7 @@ export default class Popup extends Component {
   handleClose = () => {};
 
   render(props, state) {
-    const { store, localization, config, updateCSSPrefs } = props;
+    const { store, localization, config } = props;
     const { selectedPanelIndex } = state;
     if (!store.isConsentToolShowing) {
       return null;
@@ -71,7 +71,6 @@ export default class Popup extends Component {
             localization={localization}
             store={store}
             config={config}
-            updateCSSPrefs={updateCSSPrefs}
           />
           <Summary
             onAcceptAll={this.onAcceptAll}
@@ -81,7 +80,6 @@ export default class Popup extends Component {
             localization={localization}
             store={store}
             layout={config.layout}
-            updateCSSPrefs={updateCSSPrefs}
           />
           <Details
             onSave={this.props.onSave}
@@ -90,7 +88,6 @@ export default class Popup extends Component {
             onClose={this.handleClose}
             localization={localization}
             config={config}
-            updateCSSPrefs={updateCSSPrefs}
           />
         </Panel>
       </div>

@@ -54,7 +54,7 @@ export class Details extends Component {
   };
 
   render(props, state) {
-    const { onSave, store, localization, config, updateCSSPrefs } = props;
+    const { onSave, store, localization, config } = props;
     const { selectedPanelIndex } = state;
     const {
       vendorList = {},
@@ -86,7 +86,6 @@ export class Details extends Component {
               selectCustomPurpose={selectCustomPurpose}
               onShowVendors={this.handleShowVendors}
               config={config}
-              updateCSSPrefs={updateCSSPrefs}
             />
             <Vendors
               onSelectVendor={this.handleSelectVendor}
