@@ -8,7 +8,7 @@ const replacer = domNode => {
 
 export const Label = (
   { is = 'span', prefix, localizeKey, children, replace = replacer, ...rest },
-  { translate },
+  { translate = key => key },
 ) => {
   const key = prefix ? `${prefix}.${localizeKey}` : localizeKey;
   let localizedContent = translate(key);
