@@ -3,17 +3,16 @@ import PropTypes from 'prop-types';
 import camelCase from 'lodash/camelCase';
 
 const theme = {
-  'color-primary': '#0a82be',
-  'color-secondary': '#eaeaea',
-  'color-border': '#dddddd',
-  'color-background': '#ffffff',
-  'color-text-primary': '#333333',
-  'color-text-secondary': '#0a82be',
-  'color-linkColor': '#0a82be',
-  'color-table-background': '#f7f7f7',
-  'font-family': 'Noto Sans',
-  'custom-font-url':
-    'https://fonts.googleapis.com/css?family=Noto+Sans&amp;subset=latin-ext',
+  colorPrimary: '#0a82be',
+  colorSecondary: '#eaeaea',
+  colorBorder: '#dddddd',
+  colorBackground: '#ffffff',
+  colorTextPrimary: '#333333',
+  colorTextSecondary: '#0a82be',
+  colorLinkColor: '#0a82be',
+  colorTableBackground: '#f7f7f7',
+  fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+  customFontUrl: null,
 };
 
 export const mapLegacyTheme = css => {
@@ -26,11 +25,14 @@ export const mapLegacyTheme = css => {
 export class ThemeProvider extends Component {
   getChildContext() {
     return {
-      theme: this.props.theme,
+      theme: { ...theme, ...this.props.theme },
     };
   }
 
+  componentWillReceiveProps(nextProps) {}
+
   componentWillMount() {
+    console.log(this.props.theme);
     if (this.props.theme.customFontUrl) {
       const head = document.head;
       const link = document.createElement('link');

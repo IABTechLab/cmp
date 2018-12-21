@@ -38,6 +38,7 @@ const defaultConfig = {
     'font-family': "'Helvetica Neue', Helvetica, Arial, sans-serif",
     'custom-font-url': null,
   },
+  theme: null,
   digitrust: {
     redirects: false,
   },
