@@ -248,15 +248,19 @@ function decodePublisherConsentData(cookieValue, source) {
 }
 
 function readCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
+	const values = document.cookie.split('; ').reduce((acc,str) => {
+		const pair = str.split('=');
+		if (pair[0] === name) {
+			acc.push(pair[1]);
+		}
+		return acc;
+	},[]);
 
-  if (parts.length === 2) {
-    return parts
-      .pop()
-      .split(';')
-      .shift();
-  }
+	if (values.length > 0) {
+		return values.pop();
+	}
+
+	return null;
 }
 
 function writeCookie(name, value, maxAgeSeconds, path = '/') {
@@ -451,20 +455,26 @@ function writeVendorConsentCookie(vendorConsentData) {
 }
 
 export {
-  writeCookie,
-  encodeVendorConsentData,
-  decodeVendorConsentData,
-  convertVendorsToRanges,
-  encodePublisherConsentData,
-  decodePublisherConsentData,
-  readGlobalVendorConsentCookie,
-  writeGlobalVendorConsentCookie,
-  readLocalVendorConsentCookie,
-  writeLocalVendorConsentCookie,
-  readVendorConsentCookie,
-  writeVendorConsentCookie,
-  readPublisherConsentCookie,
-  writePublisherConsentCookie,
-  PUBLISHER_CONSENT_COOKIE_NAME,
-  VENDOR_CONSENT_COOKIE_NAME,
+	readCookie,
+	writeCookie,
+	encodeVendorConsentData,
+	decodeVendorConsentData,
+
+	convertVendorsToRanges,
+
+	encodePublisherConsentData,
+	decodePublisherConsentData,
+
+	readGlobalVendorConsentCookie,
+	writeGlobalVendorConsentCookie,
+	readLocalVendorConsentCookie,
+	writeLocalVendorConsentCookie,
+	readVendorConsentCookie,
+	writeVendorConsentCookie,
+
+	readPublisherConsentCookie,
+	writePublisherConsentCookie,
+
+	PUBLISHER_CONSENT_COOKIE_NAME,
+	VENDOR_CONSENT_COOKIE_NAME
 };
