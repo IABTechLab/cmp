@@ -19,7 +19,6 @@ export const Label = ({
   let localizedContent = providedValue || Localize.lookup(key);
 
   if (localizedContent && localizedContent.indexOf('<') > -1) {
-    console.log('html translation', localizedContent);
     localizedContent = Parser(localizedContent, { replace });
   }
 
