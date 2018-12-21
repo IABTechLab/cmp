@@ -84,6 +84,7 @@ describe('App', () => {
   it('respects css config', () => {
     const store = new Store();
     config.update({ css: { 'font-family': 'MonoType' } });
+
     let app;
     render(
       <App
@@ -97,6 +98,6 @@ describe('App', () => {
 
     expect(app.props.config.css['font-family']).to.equal('MonoType');
     expect(scratch.style['font-family']).to.not.equal('MonoType');
-    expect(scratch.innerHTML).to.contain('style="font-family: MonoType;"');
+    expect(scratch.innerHTML).to.contain('font-family: MonoType');
   });
 });

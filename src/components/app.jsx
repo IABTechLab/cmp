@@ -1,11 +1,10 @@
 import { h, Component } from 'preact';
-import style from './app.less';
-import { currentLocale } from '../lib/localize';
 
-import Popup from './popup/popup';
-import Footer from './footer/footer';
-import { ThemeProvider } from './config';
-import { addStyleSheet } from '../lib/utils';
+import { currentLocale } from '../lib/localize';
+import { ThemeProvider, mapLegacyTheme } from './config';
+import Popup from './popup';
+import Footer from './footer';
+import style from './app.less';
 
 export default class App extends Component {
   state = {
@@ -72,10 +71,6 @@ export default class App extends Component {
     }
   }
 
-  componentDidMount() {
-    addStyleSheet(this.props.config.css['custom-font-url']);
-  }
-
   render(props, state) {
     const { store } = state;
     const { config } = props;
@@ -86,7 +81,7 @@ export default class App extends Component {
       store.isThinConsentToolShowing;
 
     return (
-      <ThemeProvider>
+      <ThemeProvider theme={config.theme || mapLegacyTheme(config.css)}>
         <div class={style.gdpr}>
           {showPopup && (
             <Popup
@@ -94,14 +89,12 @@ export default class App extends Component {
               localization={userLocalization}
               onSave={this.onSave}
               config={config}
-              updateCSSPrefs={this.updateCSSPrefs}
             />
           )}
           <Footer
             store={store}
             localization={userLocalization}
             config={config}
-            updateCSSPrefs={this.updateCSSPrefs}
           />
         </div>
       </ThemeProvider>
