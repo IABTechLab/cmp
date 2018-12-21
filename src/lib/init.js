@@ -33,20 +33,51 @@ export function init(configUpdates) {
           cookieVersion: 1,
         });
 
-        const _fetchLocalizedPurposeList =
-          store.consentLanguage.toLowerCase() === 'en'
-            ? Promise.resolve
-            : fetchLocalizedPurposeList;
-        // Request lists
-        return Promise.all([
-          fetchVendorList().then(resp => {
-            store.updateVendorList(resp);
-            _fetchLocalizedPurposeList().then(localized => {
-              localized && store.updateLocalizedPurposeList(localized);
+        const loadVendorsAndPurposes = () => {
+          const _fetchLocalizedPurposeList =
+            store.consentLanguage.toLowerCase() === 'en'
+              ? Promise.resolve
+              : fetchLocalizedPurposeList;
+
+          // Request lists
+          return Promise.all([
+            fetchVendorList().then(resp => {
+              store.updateVendorList(resp);
+
+              _fetchLocalizedPurposeList().then(localized => {
+                localized && store.updateLocalizedPurposeList(localized);
+              });
+            }),
+            fetchCustomPurposeList().then(store.updateCustomPurposeList),
+          ]);
+        };
+
+        const loadRemoteConfig = () => {
+          console.log('load remote config from', config.remoteConfigUrl);
+          return fetch(config.remoteConfigUrl)
+            .then(response => response.json())
+            .then(
+              ({ vendors, purposes, features, vendorListVersion, ...rest }) => {
+                store.updateVendorList({
+                  vendors,
+                  purposes,
+                  version: vendorListVersion,
+                });
+                store.updateLocalizedPurposeList({ purposes, features });
+                config.update(rest);
+              },
+            )
+            .catch(err => {
+              console.log('remote config not loaded', err);
+              return loadVendorsAndPurposes();
             });
-          }),
-          fetchCustomPurposeList().then(store.updateCustomPurposeList),
-        ])
+        };
+
+        const loadCmpConfigurationData = config.remoteConfigUrl
+          ? loadRemoteConfig
+          : loadVendorsAndPurposes;
+
+        return loadCmpConfigurationData()
           .then(() => {
             // Pull queued command from __cmp stub
             const { commandQueue = [] } = window[CMP_GLOBAL_NAME] || {};

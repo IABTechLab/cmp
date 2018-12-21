@@ -39,6 +39,7 @@ const defaultConfig = {
     'custom-font-url': null,
   },
   theme: null,
+  remoteConfigUrl: null,
   digitrust: {
     redirects: false,
   },
