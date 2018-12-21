@@ -2,8 +2,8 @@ import { h, Component } from 'preact';
 
 import { currentLocale } from '../lib/localize';
 import { ThemeProvider, mapLegacyTheme } from './config';
-import Popup from './popup';
-import Footer from './footer';
+import { Popup } from './popup';
+import { Footer } from './footer';
 import style from './app.less';
 
 export default class App extends Component {
