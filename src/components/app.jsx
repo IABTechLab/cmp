@@ -72,14 +72,22 @@ export default class App extends Component {
     }
   }
 
+  onFooterClose = () => {
+    this.props.store.toggleFooterShowing(false);
+  };
+
+  onShowConsent = () => {
+    this.props.store.cmp.commands.showConsentTool();
+  };
+
   render(props, state) {
     const { store } = state;
     const { config } = props;
-    const userLocalization = config.localization[currentLocale.split('-')[0]];
     const showPopup =
       store.isConsentToolShowing ||
       store.isFooterConsentToolShowing ||
       store.isThinConsentToolShowing;
+    const showFooter = store.isFooterShowing && config.showFooterAfterSubmit;
 
     return (
       <LocalizationProvider
@@ -89,18 +97,14 @@ export default class App extends Component {
         <ThemeProvider theme={config.theme || mapLegacyTheme(config.css)}>
           <div class={style.gdpr}>
             {showPopup && (
-              <Popup
-                store={store}
-                localization={userLocalization}
-                onSave={this.onSave}
-                config={config}
+              <Popup store={store} onSave={this.onSave} config={config} />
+            )}
+            {showFooter && (
+              <Footer
+                onClose={this.onFooterClose}
+                onShowConsent={this.onShowConsent}
               />
             )}
-            <Footer
-              store={store}
-              localization={userLocalization}
-              config={config}
-            />
           </div>
         </ThemeProvider>
       </LocalizationProvider>
