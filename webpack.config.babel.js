@@ -216,8 +216,9 @@ module.exports = [
       new BabelEnginePlugin({
         presets: ['env'],
       }),
-      new BundleAnalyzerPlugin(),
-    ].concat(ENV === 'production' ? uglifyPlugin : []),
+    ].concat(
+      ENV === 'production' ? [uglifyPlugin, new BundleAnalyzerPlugin()] : [],
+    ),
   },
   // Docs config
   {

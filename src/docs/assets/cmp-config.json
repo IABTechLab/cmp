@@ -1,0 +1,112 @@
+{
+  "theme": {
+    "colorBackground": "#333",
+    "colorBorder": "#222",
+    "colorTextPrimary": "#eee",
+    "colorTableBackground": "#555",
+    "fontFamily": "Noto Sans",
+    "customFontUrl": "https://fonts.googleapis.com/css?family=Noto+Sans&amp;subset=latin-ext"
+  },
+  "localization": {
+    "cs": {
+      "intro": {
+        "title": "Ahoj"
+      }
+    }
+  },
+  "vendorListVersion": 93,
+  "purposes": [
+    {
+      "id": 1,
+      "name": "Ukládání a zpracování údajů",
+      "description": "Údaje ukládáme a zpětně přistupujeme k datům a informacím, které už jsou na vašem zařízení uloženy – např. reklamním identifikátorům, identifikátorům zařízení, souborům cookies a dalším podobným technologiím."
+    },
+    {
+      "id": 2,
+      "name": "Personalizace",
+      "description": "Shromažďujeme a zpracováváme informace o tom, jak naše služby používáte, a následně je využíváme pro personalizaci reklamy nebo obsahu. Tato data mohou být využita i na dalších webových stránkách a aplikacích, ať už našich, nebo našich smluvních partnerů. Údaje o obsahu webových stránek nebo aplikací, které navštěvujete, zpravidla využíváme pro odvození vašich zájmů, na jejichž základě vám následně zobrazujeme reklamu nebo doporučujeme obsah."
+    },
+    {
+      "id": 3,
+      "name": "Výběr, zobrazování a reporting reklamy",
+      "description": "Shromažďujeme informace o vašich zájmech, o reklamách, které jsme vám zobrazili, o frekvenci jejich zobrazení, času a místě a zda jste v souvislosti s danou reklamou provedli nějakou akci, například klik na reklamu nebo nákup, a slučujeme je s již dříve uloženými daty. To nám umožňuje lépe vybírat reklamu, kterou vám zobrazujeme, a následně vyhodnotit její účinnost. V této souvislosti nesledujeme údaje, na jejichž základě provádíme personalizaci obsahu nebo reklam v rámci ostatních webů, aplikací nebo služeb, ať už našich, nebo našich partnerů."
+    },
+    {
+      "id": 4,
+      "name": "Výběr, zobrazování a reporting obsahu",
+      "description": "Shromažďujeme informace o vašich zájmech, o obsahu, který jsme vám zobrazili, o frekvenci jeho zobrazení, času a místě jeho zobrazení a zda jste v souvislosti s daným obsahem provedli nějakou akci, například klik na odkaz, a slučujeme je s již dříve uloženými daty. To nám umožňuje lépe vybírat obsah, který vám zobrazujeme, a následně vyhodnotit jeho účinnost. V této souvislosti nesledujeme údaje, na jejichž základě provádíme personalizaci obsahu nebo reklam v rámci ostatních webů, aplikací nebo služeb, ať už našich, nebo našich partnerů."
+    },
+    {
+      "id": 5,
+      "name": "Měření",
+      "description": "Sledujeme informace o vašich zájmech, o obsahu, který jsme vám zobrazili, o frekvenci jeho zobrazení, času a místě jeho zobrazení a zda jste v souvislosti s daným obsahem provedli nějakou akci, například klik na odkaz, a slučujeme je s již dříve uloženými daty. Tyto informace slučujeme s daty, která o vašem chování máme z minulosti. Tyto informace nám umožňují změřit, jaká je úspěšnost obsahu, který vám zobrazujeme. V této souvislosti nesledujeme údaje, na jejichž základě provádíme personalizaci obsahu nebo reklam v rámci ostatních webů, aplikací nebo služeb, ať už našich, nebo našich partnerů."
+    }
+  ],
+  "features": [
+    {
+      "id": 1,
+      "name": "Párování off-line údajů",
+      "description": "slučujeme je s daty z off-line zdrojů, která jsme už získali dříve,"
+    },
+    {
+      "id": 2,
+      "name": "Propojování zařízení",
+      "description": "zpracováváme data, která umožňují vaši identifikaci napříč zařízeními, která používáte,"
+    },
+    {
+      "id": 3,
+      "name": "Údaje o přesné zeměpisné poloze",
+      "description": "v případě, že k tomuto účelu má třetí strana souhlas, zpracováváme data o vaší přesné zeměpisné poloze."
+    }
+  ],
+  "vendors": [
+    {
+      "id": 1,
+      "name": "Globex",
+      "policyUrl": "https://www.example.com/",
+      "purposeIds": [1, 2, 4],
+      "legIntPurposeIds": [3, 5],
+      "featureIds": [1, 2]
+    },
+    {
+      "id": 2,
+      "name": "Initech",
+      "policyUrl": "https://www.example.com/",
+      "purposeIds": [1, 3, 5],
+      "legIntPurposeIds": [],
+      "featureIds": [3]
+    },
+    {
+      "id": 3,
+      "name": "CRS",
+      "policyUrl": "https://www.example.com/",
+      "purposeIds": [1, 2, 3, 4, 5],
+      "legIntPurposeIds": [],
+      "featureIds": [1, 2, 3]
+    },
+    {
+      "id": 4,
+      "name": "Umbrella",
+      "policyUrl": "https://www.example.com/",
+      "purposeIds": [1, 3, 5],
+      "legIntPurposeIds": [4],
+      "featureIds": [1, 3]
+    },
+    {
+      "id": 5,
+      "name": "Aperture",
+      "policyUrl": "https://www.example.com/",
+      "purposeIds": [1, 3, 5],
+      "legIntPurposeIds": [],
+      "featureIds": [3]
+    },
+    {
+      "id": 6,
+      "name": "Pierce and Pierce",
+      "policyUrl": "https://www.example.com/",
+      "purposeIds": [1, 3, 5],
+      "legIntPurposeIds": [],
+      "featureIds": [3]
+    }
+  ]
+}

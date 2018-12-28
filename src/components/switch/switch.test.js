@@ -1,9 +1,10 @@
 /* eslint-disable react/jsx-no-bind */
-import { h, render } from 'preact';
+import { h } from 'preact';
 import { expect } from 'chai';
 import style from './switch.less';
 
 import Switch from './switch';
+import { renderWithThemeProvider } from '../../test/helpers';
 
 describe('Switch', () => {
   let scratch;
@@ -13,25 +14,30 @@ describe('Switch', () => {
   });
 
   it('should render switch component selected', () => {
-    const switchComponent = <Switch isSelected />;
-    expect(switchComponent).to.contain(style.isSelected);
+    const switchEl = renderWithThemeProvider(<Switch isSelected />);
+
+    expect(switchEl.querySelectorAll(`.${style.isSelected}`)).to.have.length(1);
   });
 
   it('should render switch component not selected', () => {
-    const switchComponent = <Switch isSelected={false} />;
-    expect(switchComponent).to.not.contain(style.isSelected);
+    const switchEl = renderWithThemeProvider(<Switch isSelected={false} />);
+    expect(switchEl.querySelectorAll(`.${style.isSelected}`)).to.have.length(0);
   });
 
   it('should handle a click event', done => {
-    const switchComponent = (
+    let ref = null;
+    renderWithThemeProvider(
       <Switch
         isSelected
+        ref={el => {
+          ref = el;
+        }}
         onClick={() => {
           done();
         }}
-      />
+      />,
+      scratch,
     );
-    const rendered = render(switchComponent, scratch);
-    rendered.click();
+    ref.handleClicked();
   });
 });

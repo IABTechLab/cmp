@@ -9,7 +9,6 @@
   .disclaimer {
     font-size: 12px;
     padding: 10px;
-    border-bottom: 1px solid @color-border;
   }
 
   .switchText {
@@ -23,15 +22,15 @@
 
     .purposeList {
       font-size: 12px;
-      font-weight: bold;
       flex: 1;
       max-width: 200px;
-      border-right: 1px solid @color-border;
       overflow-y: auto;
       overflow-x: hidden;
+      direction: rtl;
     }
     .purposeItem {
       display: flex;
+      direction: ltr;
       align-items: center;
       height: 50px;
       padding-left: 10px;
@@ -41,11 +40,11 @@
       cursor: pointer;
 
       &:last-child {
-        border-bottom: 1px solid @color-border;
+        border-width: 0;
       }
 
       &.selectedPurpose {
-        background-color: white;
+        font-weight: bold;
         cursor: auto;
       }
     }

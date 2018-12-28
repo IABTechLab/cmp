@@ -2,7 +2,7 @@ import { h } from 'preact';
 
 import { Label } from '../../../label';
 import { LocalizedLink } from '../../../link';
-import { Paragraph, Title } from '../../../typography';
+import { Paragraph, Title, Text } from '../../../typography';
 import { Row } from '../../../layout';
 import { Switch } from '../../../switch';
 import { Ul } from '../../../ul';
@@ -45,7 +45,11 @@ export const PurposeDetail = ({
           isSelected={purposeIsActive}
           onClick={handleSelectPurpose}
         />
-        <Label class={style.switchText} localizeKey="purposes.switchText" />
+        <Label
+          is={Text}
+          class={style.switchText}
+          localizeKey="purposes.switchText"
+        />
       </Row>
 
       <LocalizedLink
