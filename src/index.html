@@ -5,26 +5,20 @@
 	<title>GDPR Documentation</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <style>
-    body {
-      background-color: khaki;
-    }
-  </style>
 	<script>
 		(function(window) {
 			window.__cmp = (function() {
 				window.addEventListener('message', function(event) {
 					window.__cmp.receiveMessage(event);
 				});
-
-				var commandQueue = [];
+        var commandQueue = [];
 				var cmp = function(command, parameter, callback) {
 					commandQueue.push({
 						command: command,
 						parameter: parameter,
 						callback: callback
 					});
-				};
+        };
 				cmp.commandQueue = commandQueue;
 				cmp.receiveMessage = function(event) {
 					var data = event && event.data && event.data.__cmpCall;
@@ -45,9 +39,8 @@
 					storePublisherConsentGlobally: false,
 					storePublisherData: true,
           layout: 'modal', // modal, footer, thin
-					logging: "debug",
+          logging: "debug",
 					blockBrowsing: false,
-					forceLocale: 'cs',
 					testingMode: 'always show',
 					showFooterAfterSubmit: true,
 				};

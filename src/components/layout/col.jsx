@@ -3,6 +3,8 @@ import cx from 'classnames';
 
 import style from './layout.less';
 
-export const Col = ({ children, className }) => (
-  <div class={cx(style.column, className)}>{children}</div>
+export const Col = ({ children, className, ...rest }) => (
+  <div class={cx(style.column, className)} {...rest}>
+    {children}
+  </div>
 );

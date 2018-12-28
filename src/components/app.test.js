@@ -31,7 +31,7 @@ describe('App', () => {
   it('add listeners to the store to receive updates and to know when to update CSS', () => {
     const store = new Store();
     render(<App store={store} config={config} />, scratch);
-    expect(store.listeners.size).to.equal(2);
+    expect(store.listeners.size).to.equal(1);
   });
 
   it('persist state on save', () => {
@@ -84,6 +84,7 @@ describe('App', () => {
   it('respects css config', () => {
     const store = new Store();
     config.update({ css: { 'font-family': 'MonoType' } });
+
     let app;
     render(
       <App
@@ -97,6 +98,6 @@ describe('App', () => {
 
     expect(app.props.config.css['font-family']).to.equal('MonoType');
     expect(scratch.style['font-family']).to.not.equal('MonoType');
-    expect(scratch.innerHTML).to.contain('style="font-family: MonoType;"');
+    expect(scratch.innerHTML).to.contain('font-family: MonoType');
   });
 });

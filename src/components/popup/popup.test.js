@@ -1,9 +1,11 @@
 /* eslint-disable react/jsx-no-bind */
-import { h, render } from 'preact';
+import { h } from 'preact';
 import { expect } from 'chai';
 import Store from '../../lib/store';
+import style from './popup.less';
 
 import Popup from './popup';
+import { renderWithThemeProvider } from '../../test/helpers';
 
 describe('Popup', () => {
   let scratch;
@@ -15,15 +17,17 @@ describe('Popup', () => {
   it('should render with overlay hidden', () => {
     const store = new Store();
     store.isConsentToolShowing = false;
-    const popup = <Popup config={{}} updateCSSPrefs={() => {}} store={store} />;
-    expect(popup).to.contain('display: none');
+    const popup = renderWithThemeProvider(
+      <Popup config={{}} updateCSSPrefs={() => {}} store={store} />,
+    );
+    expect(popup.querySelectorAll(`.${style.popup}`)).to.have.length(0);
   });
 
   it('should render with overlay visible', () => {
     const store = new Store();
     store.isConsentToolShowing = true;
-    const popup = <Popup config={{}} store={store} />;
-    expect(popup).to.contain('display: flex');
+    const popup = renderWithThemeProvider(<Popup config={{}} store={store} />);
+    expect(popup.querySelectorAll(`.${style.popup}`)).to.have.length(1);
   });
 
   it('should handle accept all', done => {
@@ -33,7 +37,7 @@ describe('Popup', () => {
     store.selectAllCustomPurposes = jest.fn();
 
     let popup;
-    render(
+    renderWithThemeProvider(
       <Popup
         config={{}}
         updateCSSPrefs={() => {}}
@@ -54,8 +58,9 @@ describe('Popup', () => {
 
   it('should render a logo', () => {
     const store = new Store();
+    store.isConsentToolShowing = true;
 
-    render(
+    renderWithThemeProvider(
       <Popup
         config={{ logoUrl: 'https://www.example.com/image.jpg' }}
         updateCSSPrefs={() => {}}
@@ -74,7 +79,7 @@ describe('Popup', () => {
     const store = new Store();
 
     let popup;
-    render(
+    renderWithThemeProvider(
       <Popup
         config={{}}
         updateCSSPrefs={() => {}}
@@ -85,9 +90,9 @@ describe('Popup', () => {
     );
 
     expect(popup.state.selectedPanelIndex).to.equal(0);
-    popup.handleShowDetails();
+    popup.showSummary();
     expect(popup.state.selectedPanelIndex).to.equal(1);
-    popup.onCancel();
+    popup.showIntro();
     expect(popup.state.selectedPanelIndex).to.equal(0);
   });
 });

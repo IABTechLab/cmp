@@ -22,14 +22,11 @@ export class Purposes extends Component {
 
   handleSelectPurposeDetail = index => {
     return () => {
-      this.setState(
-        {
-          selectedPurposeIndex: index,
-          showLocalVendors: false,
-          localVendors: [],
-        },
-        this.props.updateCSSPrefs,
-      );
+      this.setState({
+        selectedPurposeIndex: index,
+        showLocalVendors: false,
+        localVendors: [],
+      });
       this.scrollRef.scrollTop = 0;
     };
   };
@@ -54,7 +51,7 @@ export class Purposes extends Component {
 
   onShowLocalVendors = () => {
     const { selectedPurposeIndex } = this.state;
-    const { vendors, updateCSSPrefs } = this.props;
+    const { vendors } = this.props;
     const localVendors = vendors
       .map(vendor => {
         let purposeId = selectedPurposeIndex + 1;
@@ -65,13 +62,10 @@ export class Purposes extends Component {
           return vendor;
       })
       .filter(vendor => vendor);
-    this.setState(
-      {
-        showLocalVendors: true,
-        localVendors,
-      },
-      updateCSSPrefs,
-    );
+    this.setState({
+      showLocalVendors: true,
+      localVendors,
+    });
   };
 
   onHideLocalVendors = () => {

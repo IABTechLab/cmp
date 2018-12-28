@@ -1,8 +1,10 @@
 import { h, Component } from 'preact';
 
 import style from './footer.less';
-import Label from '../label/label';
-import CloseButton from '../closebutton/closebutton';
+import { Label } from '../label';
+import { CloseButton } from '../closebutton';
+import { Text } from '../typography';
+import { LocalizedLink } from '../link';
 
 export default class Footer extends Component {
   static defaultProps = {
@@ -22,7 +24,7 @@ export default class Footer extends Component {
   };
 
   render(props) {
-    const { store, config, updateCSSPrefs } = props;
+    const { store, config } = props;
     const { isFooterShowing } = store;
 
     return (
@@ -38,13 +40,14 @@ export default class Footer extends Component {
           class={style.close}
           onClick={this.handleClose}
           config={config}
-          updateCSSPrefs={updateCSSPrefs}
         />
         <div class={style.message}>
-          <Label localizeKey="footer.closedMessage" />
-          <a class={style.openConsent} onClick={this.handleShowConsent}>
-            <Label localizeKey="footer.closedMessageLink" />
-          </a>
+          <Label is={Text} localizeKey="footer.closedMessage" />
+          <LocalizedLink
+            localizeKey="footer.closedMessageLink"
+            class={style.openConsent}
+            onClick={this.handleShowConsent}
+          />
         </div>
       </div>
     );

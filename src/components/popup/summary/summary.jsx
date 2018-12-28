@@ -1,46 +1,40 @@
-import { h, Component } from 'preact';
+import { h } from 'preact';
 import cx from 'classnames';
 
-import popupStyle from '../popup.less';
 import { Header } from '../header';
-import style from './summary.less';
+import { PopupContent } from '../popupcontent';
 import { Purposes } from './purposes';
 import { Footer } from './footer';
+import style from './summary.less';
 
-export class Summary extends Component {
-  static defaultProps = {};
+export const Summary = ({
+  onShowPurposes,
+  onAcceptAll,
+  onShowIntro,
+  store,
+  layout,
+}) => {
+  let allPurposes = [];
 
-  componentDidMount() {
-    this.props.updateCSSPrefs();
+  if (store.vendorList && store.vendorList.purposes) {
+    allPurposes = allPurposes.concat(store.vendorList.purposes);
   }
 
-  componentDidUpdate() {
-    this.props.updateCSSPrefs();
+  if (store.customPurposeList && store.customPurposeList.purposes) {
+    allPurposes = allPurposes.concat(store.customPurposeList.purposes);
   }
 
-  render(props) {
-    const { onShowPurposes, onAcceptAll, onShowIntro, store, layout } = props;
-
-    let allPurposes = [];
-    if (store.vendorList && store.vendorList.purposes) {
-      allPurposes = allPurposes.concat(store.vendorList.purposes);
-    }
-    if (store.customPurposeList && store.customPurposeList.purposes) {
-      allPurposes = allPurposes.concat(store.customPurposeList.purposes);
-    }
-
-    return (
-      <div class={cx(popupStyle.content, popupStyle[layout])}>
-        <div class={cx(style.container, style[`container-${layout}`])}>
-          <Header
-            showChevron
-            onChevronClick={onShowIntro}
-            titleKey="footer.deviceInformationHeader"
-          />
-          <Purposes allPurposes={allPurposes} />
-          <Footer onShowPurposes={onShowPurposes} onAcceptAll={onAcceptAll} />
-        </div>
+  return (
+    <PopupContent layout={layout}>
+      <div class={cx(style.container, style[`container-${layout}`])}>
+        <Header
+          showChevron
+          onChevronClick={onShowIntro}
+          titleKey="footer.deviceInformationHeader"
+        />
+        <Purposes allPurposes={allPurposes} />
+        <Footer onShowPurposes={onShowPurposes} onAcceptAll={onAcceptAll} />
       </div>
-    );
-  }
-}
+    </PopupContent>
+  );
+};
