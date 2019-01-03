@@ -83,6 +83,7 @@ describe('App', () => {
 
   it('respects css config', () => {
     const store = new Store();
+    store.toggleFooterShowing(true);
     config.update({ css: { 'font-family': 'MonoType' } });
 
     let app;
