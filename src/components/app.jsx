@@ -1,7 +1,6 @@
 import { h, Component } from 'preact';
 
 import style from './app.less';
-import { currentLocale } from '../lib/localize';
 import { ThemeProvider, mapLegacyTheme } from './theme';
 import { Popup } from './popup';
 import { Footer } from './footer';
