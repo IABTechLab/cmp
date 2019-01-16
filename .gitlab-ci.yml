@@ -1,7 +1,10 @@
-image: node:9.2.0
+stages:
+  - build
 
-pages:
+build:
   stage: build
+  tags:
+    - HostShell
   script:
     - npm install
     - npm run build
