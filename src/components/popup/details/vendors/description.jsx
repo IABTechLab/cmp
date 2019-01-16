@@ -13,7 +13,7 @@ export const Description = ({
 }) => {
   return (
     <div>
-      <Paragraph>
+      <Paragraph id="vendorsDescription">
         <Label localizeKey="vendors.description" />
         <Link href={naiUrl} blank>
           NAI,
@@ -38,6 +38,7 @@ export const Description = ({
       <Paragraph>
         <Label localizeKey="vendors.description3" />
         <LocalizedLink
+          id="vendorsSelectAll"
           localizeKey="vendors.description3Link"
           onClick={onSelectAllVendors}
         />

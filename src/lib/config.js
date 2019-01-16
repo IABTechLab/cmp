@@ -23,7 +23,7 @@ const defaultConfig = {
   digitrustRedirectUrl: metadata.digitrustRedirectLocation,
   testingMode: 'normal',
   blockBrowsing: true,
-  layout: null,
+  layout: 'modal',
   showFooterAfterSubmit: true,
   logoUrl: null,
   css: {

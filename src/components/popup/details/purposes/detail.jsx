@@ -53,6 +53,7 @@ export const PurposeDetail = ({
       </Row>
 
       <LocalizedLink
+        id="purposeShowVendors"
         localizeKey={`purposes.${toggleVendorsKey}`}
         onClick={onToggleLocalVendors}
       />

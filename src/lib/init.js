@@ -53,22 +53,30 @@ export function init(configUpdates) {
         };
 
         const loadRemoteConfig = () => {
-          console.log('load remote config from', config.remoteConfigUrl);
+          log.debug('load remote config from', config.remoteConfigUrl);
           return fetch(config.remoteConfigUrl)
             .then(response => response.json())
             .then(
               ({ vendors, purposes, features, vendorListVersion, ...rest }) => {
+                config.update(rest);
+
+                if (!vendors || vendors.length === 0) {
+                  return fetchVendorList().then(res => {
+                    store.updateVendorList(res);
+                    store.updateLocalizedPurposeList({ purposes, features });
+                  });
+                }
+
                 store.updateVendorList({
                   vendors,
                   purposes,
                   version: vendorListVersion,
                 });
                 store.updateLocalizedPurposeList({ purposes, features });
-                config.update(rest);
               },
             )
             .catch(err => {
-              console.log('remote config not loaded', err);
+              log.error('remote config not loaded', err);
               return loadVendorsAndPurposes();
             });
         };
@@ -80,7 +88,12 @@ export function init(configUpdates) {
         return loadCmpConfigurationData()
           .then(() => {
             // Pull queued command from __cmp stub
-            const { commandQueue = [] } = window[CMP_GLOBAL_NAME] || {};
+            const { commandQueue = [], onConfigLoaded } =
+              window[CMP_GLOBAL_NAME] || {};
+
+            if (typeof onConfigLoaded === 'function') {
+              onConfigLoaded(config);
+            }
 
             // Replace the __cmp with our implementation
             const cmp = new Cmp(store, config);
