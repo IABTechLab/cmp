@@ -12,8 +12,8 @@ export class LocalizationProvider extends Component {
   }
 
   translate = key => {
-    const { translations, language } = this.props;
-    const lang = language.toLowerCase();
+    const { translations, language, forceLocale } = this.props;
+    const lang = forceLocale || language.toLowerCase();
     const translated = get(translations[lang], key);
     if (!translated) {
       return get(defaultTranslations[lang], key);

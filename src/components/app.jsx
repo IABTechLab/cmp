@@ -90,6 +90,7 @@ export default class App extends Component {
 
     return (
       <LocalizationProvider
+        forceLocale={config.forceLocale}
         language={store.consentLanguage}
         translations={config.localization}
       >

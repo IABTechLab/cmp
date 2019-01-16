@@ -25,7 +25,9 @@ export class Intro extends Component {
     return (
       <PopupContent layout={config.layout}>
         <div class={cx(style.container, style[`container-${config.layout}`])}>
-          {config.logoUrl && <img class={style.logo} src={config.logoUrl} />}
+          {config.logoUrl && (
+            <img id="companyLogo" class={style.logo} src={config.logoUrl} />
+          )}
           {config.layout === 'modal' && this.renderTitle()}
           <Paragraph
             alignment={config.layout === 'footer' ? 'left' : 'center'}

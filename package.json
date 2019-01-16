@@ -8,9 +8,11 @@
     "prestart": "npm run build",
     "build": "cross-env NODE_ENV=production webpack --progress",
     "prebuild": "npm run clean && mkdirp build",
-    "test": "npm run -s lint && jest --coverage && ./node_modules/.bin/webdriver-manager update && ./node_modules/.bin/protractor",
+    "test": "npm run -s lint && npm run unit_tests && npm run protractor",
     "unit_tests": "npm run -s lint && jest --coverage",
-    "protractor": "./node_modules/webdriver-manager/bin/webdriver-manager update && ./node_modules/protractor/bin/protractor protractor.conf.js",
+    "e2e": "npm run update_webdriver_manager && npm run protractor_tests",
+    "protractor": "npm run update_webdriver_manager && npm run protractor_tests",
+    "update_webdriver_manager": "./node_modules/protractor/bin/webdriver-manager update",
     "protractor_tests": "./node_modules/protractor/bin/protractor protractor.conf.js",
     "test:watch": "npm run -s test -- --watch",
     "lint": "eslint src test",
@@ -56,6 +58,26 @@
       "src/components/**/*.{js,jsx}"
     ]
   },
+  "dependencies": {
+    "browserstack-local": "^1.3.7",
+    "classnames": "^2.2.6",
+    "codemirror": "^5.34.0",
+    "core-js": "^2.5.3",
+    "html-react-parser": "^0.4.7",
+    "js-beautify": "^1.7.5",
+    "lodash": "^4.17.4",
+    "preact": "^8.1.0",
+    "preact-compat": "^3.15.0",
+    "preact-render-to-string": "^3.6.0",
+    "promise-polyfill": "^7.1.0",
+    "prop-types": "^15.6.2",
+    "proptypes": "^1.0.0",
+    "query-string": "^5.0.1",
+    "react-codemirror2": "^4.0.0",
+    "react-router-dom": "^4.2.2",
+    "serve": "^6.0.0",
+    "whatwg-fetch": "^2.0.3"
+  },
   "devDependencies": {
     "autoprefixer": "^7.0.1",
     "babel": "^6.5.2",
@@ -86,6 +108,7 @@
     "husky": "^1.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jasmine": "^3.1.0",
+    "jasmine-spec-reporter": "^4.2.1",
     "jest": "^22.2.1",
     "json-loader": "^0.5.4",
     "less": "^3.0.0-alpha.3",
@@ -111,24 +134,5 @@
     "webpack": "^3.0.0",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-dev-server": "^2.4.4"
-  },
-  "dependencies": {
-    "classnames": "^2.2.6",
-    "codemirror": "^5.34.0",
-    "core-js": "^2.5.3",
-    "html-react-parser": "^0.4.7",
-    "js-beautify": "^1.7.5",
-    "lodash": "^4.17.4",
-    "preact": "^8.1.0",
-    "preact-compat": "^3.15.0",
-    "preact-render-to-string": "^3.6.0",
-    "promise-polyfill": "^7.1.0",
-    "prop-types": "^15.6.2",
-    "proptypes": "^1.0.0",
-    "query-string": "^5.0.1",
-    "react-codemirror2": "^4.0.0",
-    "react-router-dom": "^4.2.2",
-    "serve": "^6.0.0",
-    "whatwg-fetch": "^2.0.3"
   }
 }

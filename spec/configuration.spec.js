@@ -1,115 +1,179 @@
+/* global browser,element,by */
 const utils = require('./support/utils');
+const protractor = require('protractor');
+const translations = require('../src/lib/translations');
 
-describe('different configurations', () => {
+const { browser, element, by } = protractor;
 
+const cssColor = 'rgb(0, 0, 255)';
+
+describe(utils.suiteTitle('Configuration'), () => {
   beforeEach(() => {
     utils.clearCookies();
     browser.waitForAngularEnabled(false);
   });
 
-  describe('Layout - Modal', () => {
-    beforeEach(() => {
-      browser.get("/e2e/layout-modal.html");
-      browser.sleep(300);
-    });
+  // Layout
+  it('should display correctly when layout is set to modal', () => {
+    browser.get('/?layout=modal');
+    browser.sleep(500);
 
-    it('has a page title', () => {
-      const el = element.all(by.css('[class^=intro_title]')).first();
-      expect(el.getText()).toContain("Thanks for visiting");
-    });
+    const popup = element(by.css('[class^=popup_content]'));
+    const el = element(by.css('[class^=title_title]'));
+    const acceptBtn = element(by.name('footerAccept'));
+    const learnMoreBtn = element(by.name('footerReject'));
+    const showSummaryBtn = element(by.name('ctrl'));
 
-    it('does not write a cookie when Learn More is clicked', () => {
-      element(by.css('[class*=intro_rejectAll]')).click();
-      utils.getCookies().then((cookies) => {
-        expect(cookies.length).toEqual(0);
+    expect(el.getText()).toContain(translations.en.intro.title);
+    expect(browser.isElementPresent(acceptBtn)).toEqual(true);
+    expect(browser.isElementPresent(learnMoreBtn)).toEqual(true);
+    expect(browser.isElementPresent(showSummaryBtn)).toEqual(true);
+
+    Promise.all([
+      popup.getSize(),
+      popup.getLocation(),
+      browser.driver
+        .manage()
+        .window()
+        .getSize(),
+    ]).then(([size, location, browserSize]) => {
+      // check size of the modal
+      expect(size.width).toEqual(700);
+      expect(size.height).toBeLessThanOrEqual(500);
+
+      // check position of the modal
+      expect(location.x).toBe((browserSize.width - size.width) / 2);
+      // Firefox task bar height is 74px
+      // expect(location.y).toBe((browserSize.height - size.height) / 2);
+    });
+  });
+
+  it('should display correctly when layout is set to footer', () => {
+    browser.get('/?layout=footer');
+    browser.sleep(500);
+
+    const popup = element(by.css('[class^=popup_content]'));
+    const el = element(by.css('[class^=title_title]'));
+    const acceptBtn = element(by.name('footerAccept'));
+    const learnMoreBtn = element(by.name('footerReject'));
+    const showSummaryBtn = element(by.name('ctrl'));
+
+    expect(el.getText()).toContain(translations.en.intro.title);
+    expect(browser.isElementPresent(acceptBtn)).toEqual(true);
+    expect(browser.isElementPresent(learnMoreBtn)).toEqual(true);
+    expect(browser.isElementPresent(showSummaryBtn)).toEqual(true);
+
+    Promise.all([
+      popup.getSize(),
+      popup.getLocation(),
+      browser.driver
+        .manage()
+        .window()
+        .getSize(),
+    ]).then(([size, location, browserSize]) => {
+      // check size of the modal
+      expect(size.width).toEqual(browserSize.width);
+      expect(size.height).toBeLessThanOrEqual(500);
+
+      // check position of the modal
+      expect(location.x).toBe(0);
+      // expect(location.y).toBe((browserSize.height - size.height) / 2);
+    });
+  });
+
+  it('should display correctly when layout is set to thin', () => {
+    browser.get(`/?layout=thin`);
+    browser.sleep(300);
+    expect(
+      browser.isElementPresent(element(by.css('[class^=title_title]'))),
+    ).toEqual(false);
+  });
+
+  // Css / Theme
+  it('should respect css.colorPrimary parameter correctly', () => {
+    browser.get(`/?css.colorPrimary=${cssColor}`);
+    browser.sleep(300);
+  });
+
+  it('should respect css.colorLink parameter correctly', () => {
+    browser.get(`/?css.colorLink=${cssColor}`);
+    browser.sleep(300);
+  });
+
+  it('should respect css.colorBorder parameter correctly', () => {
+    browser.get(`/?css.colorBorder=${cssColor}`);
+    browser.sleep(300);
+  });
+
+  it('should respect css.colorBackground parameter correctly', () => {
+    browser.get(`/?css.colorBackground=${cssColor}`);
+    browser.sleep(300);
+    element(by.css('[class^=popup_content]'))
+      .getCssValue('background-color')
+      .then(val => {
+        expect(val).toEqual(cssColor);
+      });
+  });
+
+  it('should respect css.colorTextPrimary parameter correctly', () => {
+    browser.get(`/?css.colorTextPrimary=${cssColor}`);
+    browser.sleep(300);
+  });
+
+  it('should respect css.colorTextSecondary parameter correctly', () => {
+    browser.get(`/?css.colorTextSecondary=${cssColor}`);
+    browser.sleep(300);
+  });
+
+  it('should respect css.colorLinkColor parameter correctly', () => {
+    browser.get(`/?css.colorLinkColor=${cssColor}`);
+    browser.sleep(300);
+
+    // Check links in purposes
+    element(by.name('footerReject')).click();
+    element.all(by.tagName('a')).each(el => {
+      el.getCssValue('color').then(val => {
+        expect(val).toBe(cssColor);
       });
     });
 
-    it('writes a cookie when submitted', () => {
-      element(by.css('[class*=intro_acceptAll]')).click();
-      utils.getCookies().then((cookies) => {
-        expect(cookies.length).toEqual(2);
-        for (let i in cookies) {
-          const cookie = cookies[i];
-          expect(["pubconsent", "euconsent"]).toContain(cookie.name);
-          expect(cookie.domain).toEqual("localhost");
-          expect(cookie.value).toMatch(/[\w\d\W]+/);
-        }
-      });
-    });
-
-    describe('clicking the caret to expand the footer', () => {
-      beforeEach(() => {
-        element.all(by.css('[class*=footer_icon]')).first().click();
-        browser.sleep(300);
-      })
-
-      it('expands the language at the bottom when the caret icon is clicked', () => {
-        const titleEl = element(by.css('[class*=footer_headerMessage]'));
-        expect(titleEl.getText()).toContain("INFORMATION THAT MAY BE USED:");
-        const bodyEl = element(by.css('[class*=footer_content]'));
-        expect(bodyEl.getText()).toContain("Information about other identifiers assigned to the device");
-        expect(bodyEl.getText()).toContain("Ad selection, delivery, reporting");
-      });
-
-      describe('properly writes cookies when users interact with the reject and accept buttons after clicking the caret to expand', () => {
-        it('reject', () => {
-          element(by.name('footerReject')).click();
-          utils.getCookies().then((cookies) => {
-            expect(cookies.length).toEqual(0);
-          });
-        });
-
-        it('accept', () => {
-          element(by.name('footerAccept')).click();
-          utils.getCookies().then((cookies) => {
-            expect(cookies.length).toEqual(2);
-            for (let i in cookies) {
-              const cookie = cookies[i];
-              expect(["pubconsent", "euconsent"]).toContain(cookie.name);
-              expect(cookie.domain).toEqual("localhost");
-              expect(cookie.value).toMatch(/[\w\d\W]+/);
-            }
-          });
-        });
+    // Check links in vendors
+    element(by.id('detailsShowVendors')).click();
+    element.all(by.tagName('a')).each(el => {
+      el.getCssValue('color').then(val => {
+        expect(val).toBe(cssColor);
       });
     });
   });
 
-  describe('Layout - Thin', () => {
-    beforeEach(() => {
-      browser.get("/e2e/layout-thin.html");
-      browser.sleep(300);
-    });
+  // Logo
+  it('should display a logo when logoUrl is set', () => {
+    const logoUrl = 'https://www.freelogodesign.org/Content/img/logo-ex-4.png';
 
-    it('does NOT have a page title', () => {
-      expect(browser.isElementPresent(element(by.css('[class^=introThin_title]')))).toEqual(false);
-    });
+    browser.get(`/?logoUrl=${logoUrl}`);
+    browser.sleep(300);
 
-    it('writes a cookie when submitted', () => {
-      element(by.css('[class*=introThin_acceptAll]')).click();
-      utils.getCookies().then((cookies) => {
-        expect(cookies.length).toEqual(2);
-        for (let i in cookies) {
-          const cookie = cookies[i];
-          expect(["pubconsent", "euconsent"]).toContain(cookie.name);
-          expect(cookie.domain).toEqual("localhost");
-          expect(cookie.value).toMatch(/[\w\d\W]+/);
-        }
-      });
-    });
+    const logoEl = element(by.id('companyLogo'));
+
+    expect(browser.isElementPresent(logoEl)).toEqual(true);
+    expect(logoEl.getAttribute('src')).toEqual(logoUrl);
   });
 
-  describe('Company Name', () => {
-    beforeEach(() => {
-      browser.get("/e2e/company_name.html");
-      browser.sleep(300);
-    });
-
-    it('title contains the company name specified in the config', () => {
-      const el = element.all(by.css('[class^=intro_title]')).first();
-      expect(el.getText()).toContain("Roadrunner and Coyote Enterprises");
-    });
+  // Block browsing
+  it('should display an overlay when blockBrowsing is true', () => {
+    browser.get(`/?blockBrowsing=true`);
+    browser.sleep(300);
+    expect(
+      browser.isElementPresent(element(by.css('[class^=popup_overlay]'))),
+    ).toEqual(true);
   });
 
+  // Company name
+  it('should contain the company name if specified in the config', () => {
+    const companyName = 'Roadrunner and Coyote Enterprises';
+    browser.get(`/?companyName=${companyName}`);
+    browser.sleep(300);
+    const el = element(by.css('[class^=title_title]'));
+    expect(el.getText()).toContain(companyName);
+  });
 });

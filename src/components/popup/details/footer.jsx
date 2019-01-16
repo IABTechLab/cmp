@@ -19,13 +19,18 @@ export const Footer = ({
       <Row className={style.footerCta}>
         {showVendorsLink && (
           <LocalizedLink
+            id="detailsShowVendors"
             localizeKey="details.showVendors"
             onClick={onShowVendorsClick}
           />
         )}
-        <LocalizedLink localizeKey="details.back" onClick={onBackClick} />
+        <LocalizedLink
+          id="detailsGoBack"
+          localizeKey="details.back"
+          onClick={onBackClick}
+        />
       </Row>
-      <Button onClick={onSaveClick}>
+      <Button name="detailsSave" onClick={onSaveClick}>
         <Label localizeKey="details.save" />
       </Button>
     </Row>

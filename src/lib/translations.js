@@ -4,10 +4,10 @@
  * per locale.  Empty values will use the english value provided
  * inline in each component.
  */
-export default {
+module.exports = {
   en: {
     intro: {
-      title: 'Thanks for visiting ',
+      title: 'Thanks for visiting',
       domain: '',
       description:
         'Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.',
