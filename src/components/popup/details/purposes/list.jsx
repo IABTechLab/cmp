@@ -14,13 +14,13 @@ export const PurposeList = (
       const isActive = selectedPurposeIndex === i;
       const itemStyles = isActive
         ? {
-            backgroundColor: theme.colorBackground,
-            color: theme.colorTextPrimary,
+            backgroundColor: theme.activeTabBackground || theme.colorBackground,
+            color: theme.activeTabTextColor || theme.colorTextPrimary,
             borderColor: theme.colorBorder,
           }
         : {
-            backgroundColor: theme.colorPrimary,
-            color: 'white',
+            backgroundColor: theme.inactiveTabBackground || theme.colorPrimary,
+            color: theme.inactiveTabTextColor || 'white',
             borderColor: theme.colorBorder,
             borderRightWidth: 1,
             borderRightStyle: 'solid',

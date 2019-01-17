@@ -10,14 +10,14 @@ export const Button = (
 ) => {
   const styles = invert
     ? {
-        borderColor: theme.colorPrimary,
-        color: theme.colorPrimary,
+        borderColor: theme.buttonBackground || theme.colorPrimary,
+        color: theme.buttonBackground || theme.colorPrimary,
         backgroundColor: theme.colorBackground,
       }
     : {
-        borderColor: theme.colorPrimary,
-        color: 'white',
-        backgroundColor: theme.colorPrimary,
+        borderColor: theme.buttonBackground || theme.colorPrimary,
+        color: theme.buttonTextColor || 'white',
+        backgroundColor: theme.buttonBackground || theme.colorPrimary,
       };
   return (
     <button
