@@ -34,7 +34,7 @@ export default class App extends Component {
     if (!config.blockBrowsing) {
       document.addEventListener(
         'click',
-        function(event) {
+        event => {
           const target = event.target;
           const showConsentToolButtonClicked = RegExp('showConsentTool').test(
             target.getAttribute('onclick'),
@@ -47,16 +47,18 @@ export default class App extends Component {
             isThinConsentToolShowing,
             isFooterShowing,
           } = store;
+          const isPopupVisible =
+            isConsentToolShowing ||
+            isFooterConsentToolShowing ||
+            isThinConsentToolShowing ||
+            isFooterShowing;
 
           if (
-            (isConsentToolShowing ||
-              isFooterConsentToolShowing ||
-              isThinConsentToolShowing ||
-              isFooterShowing) &&
+            isPopupVisible &&
             !showConsentToolButtonClicked &&
             !appDiv.contains(target)
           ) {
-            store.toggleConsentToolShowing(true);
+            store.toggleConsentToolShowing(false);
 
             // Render footer style CMP if no consent decision has been submitted yet
             if (!cmp.submitted) {
