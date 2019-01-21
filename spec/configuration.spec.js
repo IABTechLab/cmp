@@ -128,10 +128,11 @@ describe(utils.suiteTitle('Configuration'), () => {
   it('should respect css.colorLinkColor parameter correctly', () => {
     browser.get(`/?css.colorLinkColor=${cssColor}`);
     browser.sleep(300);
+    const popup = element(by.css('[class^=popup_popup]'));
 
     // Check links in purposes
     element(by.name('footerReject')).click();
-    element.all(by.tagName('a')).each(el => {
+    popup.all(by.tagName('a')).each(el => {
       el.getCssValue('color').then(val => {
         expect(val).toBe(cssColor);
       });
@@ -139,7 +140,7 @@ describe(utils.suiteTitle('Configuration'), () => {
 
     // Check links in vendors
     element(by.id('detailsShowVendors')).click();
-    element.all(by.tagName('a')).each(el => {
+    popup.all(by.tagName('a')).each(el => {
       el.getCssValue('color').then(val => {
         expect(val).toBe(cssColor);
       });
