@@ -16,9 +16,14 @@ describe('Popup', () => {
 
   it('should render with overlay hidden', () => {
     const store = new Store();
-    store.isConsentToolShowing = false;
+
     const popup = renderWithThemeProvider(
-      <Popup config={{}} updateCSSPrefs={() => {}} store={store} />,
+      <Popup
+        config={{}}
+        updateCSSPrefs={() => {}}
+        store={store}
+        visible={false}
+      />,
     );
     expect(popup.querySelectorAll(`.${style.popup}`)).to.have.length(0);
   });
@@ -26,7 +31,9 @@ describe('Popup', () => {
   it('should render with overlay visible', () => {
     const store = new Store();
     store.isConsentToolShowing = true;
-    const popup = renderWithThemeProvider(<Popup config={{}} store={store} />);
+    const popup = renderWithThemeProvider(
+      <Popup config={{}} store={store} visible />,
+    );
     expect(popup.querySelectorAll(`.${style.popup}`)).to.have.length(1);
   });
 
@@ -65,13 +72,14 @@ describe('Popup', () => {
         config={{ logoUrl: 'https://www.example.com/image.jpg' }}
         updateCSSPrefs={() => {}}
         store={store}
+        visible
         ref={() => {}}
       />,
       scratch,
     );
 
     expect(scratch.innerHTML).to.contain(
-      `<img class="logo" src="https://www.example.com/image.jpg">`,
+      `<img id="companyLogo" class="logo" src="https://www.example.com/image.jpg">`,
     );
   });
 

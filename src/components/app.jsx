@@ -99,7 +99,12 @@ export default class App extends Component {
         <ThemeProvider theme={config.theme || mapLegacyTheme(config.css)}>
           <div class={style.gdpr}>
             {showPopup && (
-              <Popup store={store} onSave={this.onSave} config={config} />
+              <Popup
+                visible={showPopup}
+                store={store}
+                onSave={this.onSave}
+                config={config}
+              />
             )}
             {showFooter && (
               <Footer
