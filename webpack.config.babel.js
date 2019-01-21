@@ -9,6 +9,7 @@ const BabelEnginePlugin = require('babel-engine-plugin');
 
 const bundleAnalyzerPlugin = new BundleAnalyzerPlugin({
   analyzerMode: 'static',
+  openAnalyzer: false,
 });
 
 const ENV = process.env.NODE_ENV || 'development';
