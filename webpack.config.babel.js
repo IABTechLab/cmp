@@ -7,6 +7,10 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 const BabelEnginePlugin = require('babel-engine-plugin');
 
+const bundleAnalyzerPlugin = new BundleAnalyzerPlugin({
+  analyzerMode: 'static',
+});
+
 const ENV = process.env.NODE_ENV || 'development';
 
 const CSS_MAPS = ENV !== 'production';
@@ -216,9 +220,7 @@ module.exports = [
       new BabelEnginePlugin({
         presets: ['env'],
       }),
-    ].concat(
-      ENV === 'production' ? [uglifyPlugin, new BundleAnalyzerPlugin()] : [],
-    ),
+    ].concat(ENV === 'production' ? [uglifyPlugin, bundleAnalyzerPlugin] : []),
   },
   // Docs config
   {
