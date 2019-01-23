@@ -7,11 +7,10 @@ build:
     - HostShell
   script:
     - npm install
-    - npm run unit_tests
+    - npm run test:unit
     - npm run build
   artifacts:
     paths:
       - build
   only:
     - tags
- 
