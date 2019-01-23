@@ -7,9 +7,13 @@ build:
     - HostShell
   script:
     - npm install
+    - npm run unit_tests
     - npm run build
   artifacts:
     paths:
       - build
   only:
+    - tags
+  except:
     - master
+
