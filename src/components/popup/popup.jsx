@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import cx from 'classnames';
 
 import { Panel } from '../panel';
 import { Intro } from './intro';
@@ -60,7 +61,7 @@ export default class Popup extends Component {
     }
 
     return (
-      <div class={style.popup}>
+      <div class={cx(style.popup, style[`popup-${config.layout}`])}>
         {config.blockBrowsing && (
           <div class={style.overlay} onClick={this.handleClose} />
         )}
