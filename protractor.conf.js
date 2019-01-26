@@ -1,32 +1,53 @@
 const browserstack = require('browserstack-local');
 
-exports.config = {
+const availableBrowsers = {
+  chrome: {
+    browserName: 'chrome',
+    chromeOptions: {
+      args: ['--headless', '--disable-gpu', '--window-size=800,600'],
+    },
+  },
+
+  firefox: {
+    browserName: 'firefox',
+    'moz:firefoxOptions': {
+      args: ['--headless', '--width=800', '--height=600'],
+    },
+  },
+
+  safari: {
+    browserName: 'safari',
+  },
+
+  ie: {
+    browserName: 'ie',
+  },
+
+  edge: {
+    browserName: 'ie',
+  },
+};
+
+const browsers = process.env.BROWSERS
+  ? process.env.BROWSERS.split(',')
+  : ['chrome'];
+
+const baseUrl = process.env.BASE_URL || 'http://localhost:8080';
+
+const config = {
+  baseUrl,
+  framework: 'jasmine',
   specs: ['spec/**/*.spec.js'],
 
   jasmineNodeOpts: {
     print() {},
   },
 
-  multiCapabilities: [
-    // {
-    //   browserName: 'chrome',
-    //   chromeOptions: {
-    //     args: ['--headless', '--disable-gpu', '--window-size=800,600'],
-    //   },
-    // },
-    // {
-    //   browserName: 'safari',
-    // },
-    {
-      browserName: 'firefox',
-      'moz:firefoxOptions': {
-        args: ['--headless', '--width=800', '--height=600'],
-      },
-    },
-    // {
-    //   browserName: 'ie',
-    // },
-  ],
+  multiCapabilities: browsers
+    .filter(
+      browserName => typeof availableBrowsers[browserName] !== 'undefined',
+    )
+    .map(browserName => availableBrowsers[browserName]),
 
   onPrepare() {
     var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
@@ -47,12 +68,21 @@ exports.config = {
       }),
     );
   },
-
-  baseUrl: 'http://localhost:8080',
-  framework: 'jasmine',
 };
 
-// exports.config.multiCapabilities.forEach(caps => {
-//   for (var i in exports.config.commonCapabilities)
-//     caps[i] = caps[i] || exports.config.commonCapabilities[i];
-// });
+if (process.env.BROWSERSTACK == 1) {
+  config.seleniumAddress = 'http://hub-cloud.browserstack.com/wd/hub';
+  config.commonCapabilities = {
+    'browserstack.user': process.env.BROWSERSTACK_USER,
+    'browserstack.key': process.env.BROWSERSTACK_KEY,
+    // 'browserstack.local': true,
+  };
+
+  config.multiCapabilities.forEach(cap => {
+    for (let key in config.commonCapabilities) {
+      cap[key] = cap[key] || config.commonCapabilities[key];
+    }
+  });
+}
+
+exports.config = config;
