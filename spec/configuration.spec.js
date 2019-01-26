@@ -93,16 +93,63 @@ describe(utils.suiteTitle('Configuration'), () => {
   it('should respect css.colorPrimary parameter correctly', () => {
     browser.get(`/?css.colorPrimary=${cssColor}`);
     browser.sleep(300);
-  });
 
-  it('should respect css.colorLink parameter correctly', () => {
-    browser.get(`/?css.colorLink=${cssColor}`);
-    browser.sleep(300);
+    element(by.name('footerAccept'))
+      .getCssValue('background-color')
+      .then(val => {
+        expect(val).toBe(cssColor);
+      });
+
+    element(by.name('footerReject'))
+      .getCssValue('border-top-color')
+      .then(val => {
+        expect(val).toBe(cssColor);
+      });
+
+    element(by.name('footerReject'))
+      .getCssValue('color')
+      .then(val => {
+        expect(val).toBe(cssColor);
+      });
+
+    element(by.name('footerReject')).click();
+
+    element.all(by.css('[class^=purposes_purposeItem]')).then(els => {
+      els[1].getCssValue('background-color').then(val => {
+        expect(val).toBe(cssColor);
+      });
+    });
+
+    element(by.css('[class^=switch_visualizationContainer]'))
+      .getCssValue('background-color')
+      .then(val => {
+        expect(val).toBe(cssColor);
+      });
   });
 
   it('should respect css.colorBorder parameter correctly', () => {
     browser.get(`/?css.colorBorder=${cssColor}`);
     browser.sleep(300);
+
+    const popup = element(by.css('[class^=popup_content]'));
+
+    popup.getCssValue('border-top-color').then(val => {
+      expect(val).toBe(cssColor);
+    });
+
+    element(by.css('[class^=divider_divider]'))
+      .getCssValue('background-color')
+      .then(val => {
+        expect(val).toBe(cssColor);
+      });
+
+    element(by.name('footerReject')).click();
+
+    element(by.css('[class^=purposes_purposeItem]'))
+      .getCssValue('border-top-color')
+      .then(val => {
+        expect(val).toBe(cssColor);
+      });
   });
 
   it('should respect css.colorBackground parameter correctly', () => {
@@ -118,8 +165,48 @@ describe(utils.suiteTitle('Configuration'), () => {
   it('should respect css.colorTextPrimary parameter correctly', () => {
     browser.get(`/?css.colorTextPrimary=${cssColor}`);
     browser.sleep(300);
+
+    const popup = element(by.css('[class^=popup_popup]'));
+
+    // check intro
+    element(by.css('[class^=title_title]'))
+      .getCssValue('color')
+      .then(val => {
+        expect(val).toBe(cssColor);
+      });
+
+    popup.all(by.tagName('p')).each(el => {
+      el.getCssValue('color').then(val => {
+        expect(val).toBe(cssColor);
+      });
+    });
+
+    // check summary
+    element(by.name('ctrl')).click();
+
+    popup.all(by.css('[class^=summary_subtitle]')).each(el => {
+      el.getCssValue('color').then(val => {
+        expect(val).toBe(cssColor);
+      });
+    });
+
+    popup.all(by.tagName('li')).each(el => {
+      el.getCssValue('color').then(val => {
+        expect(val).toBe(cssColor);
+      });
+    });
+
+    // check purposes
+    element(by.name('footerReject')).click();
+
+    element(by.css('[class^=purposes_switchText]'))
+      .getCssValue('color')
+      .then(val => {
+        expect(val).toBe(cssColor);
+      });
   });
 
+  // Not used at this moment
   it('should respect css.colorTextSecondary parameter correctly', () => {
     browser.get(`/?css.colorTextSecondary=${cssColor}`);
     browser.sleep(300);
@@ -129,9 +216,11 @@ describe(utils.suiteTitle('Configuration'), () => {
     browser.get(`/?css.colorLinkColor=${cssColor}`);
     browser.sleep(300);
 
+    const popup = element(by.css('[class^=popup_popup]'));
+
     // Check links in purposes
     element(by.name('footerReject')).click();
-    element.all(by.tagName('a')).each(el => {
+    popup.all(by.tagName('a')).each(el => {
       el.getCssValue('color').then(val => {
         expect(val).toBe(cssColor);
       });
@@ -139,7 +228,7 @@ describe(utils.suiteTitle('Configuration'), () => {
 
     // Check links in vendors
     element(by.id('detailsShowVendors')).click();
-    element.all(by.tagName('a')).each(el => {
+    popup.all(by.tagName('a')).each(el => {
       el.getCssValue('color').then(val => {
         expect(val).toBe(cssColor);
       });
