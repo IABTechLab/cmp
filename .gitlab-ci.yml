@@ -27,6 +27,9 @@ unit_test:
   tags:
     - HostShell
 
+  dependencies:
+    - build
+
   script:
     - npm install
     - npm run test:unit
@@ -60,3 +63,6 @@ e2e_test:
 
   dependencies:
     - deploy
+
+  only:
+    - tags
