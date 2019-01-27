@@ -17,9 +17,6 @@ build:
     paths:
       - build
 
-  only:
-    - master
-
 # unit tess
 unit_test:
   stage: unit_test
@@ -31,7 +28,6 @@ unit_test:
     - build
 
   script:
-    - npm install
     - npm run test:unit
 
 # now deployment
