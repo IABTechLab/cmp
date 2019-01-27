@@ -42,7 +42,7 @@ deploy:
     - HostShell
 
   script:
-    - './node_modules/.bin/now --token=$NOW_TOKEN && /node_modules/.bin/now alias --token=$NOW_TOKEN'
+    - ./node_modules/.bin/now --token=$NOW_TOKEN && /node_modules/.bin/now alias --token=$NOW_TOKEN
 
   dependencies:
     - build
