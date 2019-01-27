@@ -1,16 +1,62 @@
 stages:
   - build
+  - unit_test
+  - deploy
+  - e2e_test
 
+# build
 build:
   stage: build
   tags:
     - HostShell
   script:
     - npm install
-    - npm run test:unit
     - npm run build
+
   artifacts:
     paths:
       - build
+
+  only:
+    - master
+
+# unit tess
+unit_test:
+  stage: unit_test
+
+  tags:
+    - HostShell
+
+  script:
+    - npm install
+    - npm run test:unit
+
+# now deployment
+deploy:
+  stage: deploy
+
+  tags:
+    - HostShell
+
+  scipt:
+    - now --token=$NOW_TOKEN && now alias --token=$NOW_TOKEN
+
+  dependencies:
+    - build
+
   only:
     - tags
+
+# e2e tests
+e2e_test:
+  stage: e2e_test
+
+  tags:
+    - HostShell
+
+  script:
+    - echo $BASE_URL
+    - echo $NOW_TOKEN
+
+  dependencies:
+    - deploy
