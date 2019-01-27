@@ -4,6 +4,10 @@ stages:
   - deploy
   - e2e_test
 
+cache:
+  paths:
+    - node_modules/
+
 # build
 build:
   stage: build
