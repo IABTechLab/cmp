@@ -38,8 +38,8 @@ deploy:
   tags:
     - HostShell
 
-  scipt:
-    - now --token=$NOW_TOKEN && now alias --token=$NOW_TOKEN
+  script:
+    - 'now --token=$NOW_TOKEN && now alias --token=$NOW_TOKEN'
 
   dependencies:
     - build
