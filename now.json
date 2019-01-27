@@ -1,4 +1,6 @@
 {
   "version": 2,
+  "name": "cmp",
+  "alias": "cpex-cmp.now.sh",
   "builds": [{ "src": "build/**/*", "use": "@now/static" }]
 }
