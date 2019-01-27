@@ -25,9 +25,6 @@ unit_test:
   tags:
     - HostShell
 
-  dependencies:
-    - build
-
   script:
     - npm run test:unit
 
