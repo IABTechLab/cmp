@@ -47,7 +47,7 @@ export const Vendortable = (
               style={isEven && { backgroundColor: theme.colorTableBackground }}
             >
               <td>
-                <Link href={policyUrl} blank>
+                <Link className={style.vendorName} href={policyUrl} blank>
                   {name}
                 </Link>
               </td>
