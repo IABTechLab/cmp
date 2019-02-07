@@ -43,6 +43,8 @@ const defaultConfig = {
   digitrust: {
     redirects: false,
   },
+  abTest: false,
+  variants: [],
 };
 
 class Config {
@@ -94,7 +96,9 @@ class Config {
 
   copy = () => {
     return Object.keys(defaultConfig).reduce((result, key) => {
-      if (
+      if (Array.isArray(defaultConfig[key])) {
+        result[key] = [].slice.call(defaultConfig[key]);
+      } else if (
         typeof defaultConfig[key] === 'object' &&
         defaultConfig[key] !== null
       ) {
