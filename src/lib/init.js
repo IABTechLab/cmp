@@ -14,6 +14,7 @@ import {
 import { checkIfUserInEU } from './utils';
 import log from './log';
 import config from './config';
+import { pickVariant } from './abTesting';
 const metadata = require('../../metadata.json');
 
 const getConsentData = () => {
@@ -27,7 +28,7 @@ const getConsentData = () => {
 
 const loadConfig = configUrl => {
   if (configUrl) {
-    log.debug('load remote config from', config.remoteConfigUrl);
+    log.debug('load remote config from', configUrl);
     return fetch(configUrl)
       .then(response => response.json())
       .catch(err => ({}));
@@ -36,11 +37,18 @@ const loadConfig = configUrl => {
 };
 
 export function init(configUpdates) {
+  let configUrl = config.remoteConfigUrl;
+
   config.update(configUpdates);
   log.debug('Using configuration:', config);
 
+  if (config.abTest === true && Array.isArray(config.variants)) {
+    log.info('A/B testing active');
+    configUrl = pickVariant(config.variants).configUrl;
+  }
+
   // Fetch the current vendor consent before initializing
-  return loadConfig(config.remoteConfigUrl).then(
+  return loadConfig(configUrl).then(
     ({ vendors, purposes, features, vendorListVersion, ...rest }) => {
       config.update(rest);
 

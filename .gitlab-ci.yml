@@ -56,8 +56,8 @@ deploy:
   dependencies:
     - build
 
-  # only:
-  #   - tags
+  only:
+    - tags
 
 # e2e tests
 e2e_test:
