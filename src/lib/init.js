@@ -37,14 +37,16 @@ const loadConfig = configUrl => {
 };
 
 export function init(configUpdates) {
-  let configUrl = config.remoteConfigUrl;
-
   config.update(configUpdates);
   log.debug('Using configuration:', config);
 
-  if (config.abTest === true && Array.isArray(config.variants)) {
+  let configUrl = config.remoteConfigUrl;
+
+  if (!!config.abTest === true && Array.isArray(config.variants)) {
     log.info('A/B testing active');
-    configUrl = pickVariant(config.variants).configUrl;
+    const variant = pickVariant(config.variants);
+    configUrl = variant.configUrl;
+    config.update({ activeVariant: variant });
   }
 
   // Fetch the current vendor consent before initializing
