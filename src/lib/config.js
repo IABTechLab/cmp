@@ -45,6 +45,7 @@ const defaultConfig = {
   },
   abTest: false,
   variants: [],
+  activeVariant: null,
   publisher: null,
 };
 
