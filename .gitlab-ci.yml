@@ -67,8 +67,7 @@ e2e_test:
     - HostShell
 
   script:
-    - echo $BASE_URL
-    - echo $NOW_TOKEN
+    - npm run test:e2e
 
   dependencies:
     - build
