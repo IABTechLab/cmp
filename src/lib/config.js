@@ -47,6 +47,7 @@ const defaultConfig = {
   variants: [],
   activeVariant: null,
   publisher: null,
+  duplicateConsent: false,
 };
 
 class Config {
