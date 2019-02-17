@@ -447,6 +447,11 @@ function readVendorConsentCookie() {
 }
 
 function writeVendorConsentCookie(vendorConsentData) {
+  if (config.duplicateConsent) {
+    return writeGlobalVendorConsentCookie(vendorConsentData).then(() =>
+      writeLocalVendorConsentCookie(vendorConsentData),
+    );
+  }
   return config.storeConsentGlobally &&
     (config.globalVendorListLocation === metadata.globalVendorListLocation ||
       config.globalConsentLocation !== metadata.globalConsentLocation)
@@ -463,6 +468,8 @@ export {
   encodePublisherConsentData,
   decodePublisherConsentData,
   readGlobalVendorConsentCookie,
+  readGlobalPublisherConsentCookie,
+  readLocalPublisherConsentCookie,
   writeGlobalVendorConsentCookie,
   readLocalVendorConsentCookie,
   writeLocalVendorConsentCookie,
