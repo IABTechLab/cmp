@@ -4,12 +4,12 @@ import { publisherVersionMap } from '../../../lib/cookie/definitions';
 import CookieEncoder from './cookieEncoder';
 
 export default class PublisherCookieEncoder extends Component {
-  render() {
-    return (
-      <CookieEncoder
-        title="Encode Publisher Consent Cookie"
-        versionMap={publisherVersionMap}
-      />
-    );
-  }
+	render() {
+		return (
+			<CookieEncoder
+				title="Encode Publisher Consent Cookie"
+				versionMap={publisherVersionMap}
+			/>
+		);
+	}
 }

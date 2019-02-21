@@ -1,73 +1,73 @@
 @import '../../../style/variables';
 
 .details {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
 
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-transform: uppercase;
-    font-weight: bold;
-    flex: 0 0 60px;
-    border-bottom: 1px solid @color-border;
-  }
-  .title {
-    padding-left: 10px;
-    font-size: 24px;
-    font-weight: 700;
-  }
-  .disclaimer {
-    font-size: 12px;
-    padding: 10px;
-    border-bottom: 1px solid @color-border;
-  }
-  .body {
-    flex: 1;
-    display: flex;
-    min-height: 0;
-  }
-  .footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex: 0 1 60px;
-    border-top: 1px solid @color-border;
-  }
-  .leftFooter {
-  }
-  .rightFooter {
-  }
-  .vendorLink {
-    padding-left: 10px;
-    display: block;
-    font-size: 12px;
-  }
-  .save {
-    margin-right: 20px;
-    min-width: 220px;
-  }
-  .cancel {
-    margin-right: 15px;
-  }
+	.header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		text-transform: uppercase;
+		font-weight: bold;
+		flex: 0 0 60px;
+		border-bottom: 1px solid @color-border;
+	}
+	.title {
+		padding-left: 10px;
+		font-size: 24px;
+		font-weight: 700;
+	}
+	.disclaimer {
+		font-size: 12px;
+		padding: 10px;
+		border-bottom: 1px solid @color-border;
+	}
+	.body {
+		flex: 1;
+		display: flex;
+		min-height: 0;
+	}
+	.footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex: 0 1 60px;
+		border-top: 1px solid @color-border;
+	}
+	.leftFooter {
+	}
+	.rightFooter {
+	}
+	.vendorLink {
+		padding-left: 10px;
+		display: block;
+		font-size: 12px;
+	}
+	.save {
+		margin-right: 20px;
+		min-width: 220px;
+	}
+	.cancel {
+		margin-right: 15px;
+	}
 }
 
 @media (max-width: 460px) {
-  .vendorLink {
-    display: none !important;
-  }
+	.vendorLink {
+		display: none !important;
+	}
 }
 
 @media (max-width: 375px) {
-  .save {
-    min-width: 0 !important;
-  }
+	.save {
+		min-width: 0 !important;
+	}
 }
 
 @media (max-width: 320px) {
-  .cancel {
-    margin-right: 10px !important;
-  }
+	.cancel {
+		margin-right: 10px !important;
+	}
 }

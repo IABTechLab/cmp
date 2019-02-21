@@ -5,11 +5,11 @@ const execute = `window.__cmp('showConsentTool', null, function(result){
 });`;
 
 export default class ShowConsent extends Example {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Show Consent Tool',
-      execute,
-    };
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			title: 'Show Consent Tool',
+			execute,
+		};
+	}
 }

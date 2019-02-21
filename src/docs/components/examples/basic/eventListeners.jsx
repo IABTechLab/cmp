@@ -17,11 +17,11 @@ window.__cmp('addEventListener', 'onSubmit', function(result){
 `;
 
 export default class EventListeners extends Example {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Event Listeners',
-      setup,
-    };
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			title: 'Event Listeners',
+			setup,
+		};
+	}
 }

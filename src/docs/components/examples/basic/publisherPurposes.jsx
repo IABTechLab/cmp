@@ -5,11 +5,11 @@ const execute = `window.__cmp('getPublisherConsents', null, function(result){
 });`;
 
 export default class PublisherPurposes extends Example {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Get Publisher Consents',
-      execute,
-    };
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			title: 'Get Publisher Consents',
+			execute,
+		};
+	}
 }

@@ -5,11 +5,11 @@ const execute = `window.__cmp('getConsentData', 'vendorConsents', function(resul
 });`;
 
 export default class ConsentData extends Example {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Get Consent Data',
-      execute,
-    };
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			title: 'Get Consent Data',
+			execute,
+		};
+	}
 }

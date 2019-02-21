@@ -49,12 +49,12 @@ window.__cmp('showConsentTool');
 `;
 
 export default class InspectVendorData extends Example {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Inspect Existing Vendor Consent Information',
-      setup,
-      execute,
-    };
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			title: 'Inspect Existing Vendor Consent Information',
+			setup,
+			execute,
+		};
+	}
 }

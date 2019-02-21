@@ -5,11 +5,11 @@ const execute = `window.__cmp('ping', null, function(result){
 });`;
 
 export default class Ping extends Example {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Ping',
-      execute,
-    };
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			title: 'Ping',
+			execute,
+		};
+	}
 }

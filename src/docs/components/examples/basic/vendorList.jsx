@@ -5,11 +5,11 @@ const execute = `window.__cmp('getVendorList', null, function(result){
 });`;
 
 export default class VendorList extends Example {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Get Vendor List',
-      execute,
-    };
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			title: 'Get Vendor List',
+			execute,
+		};
+	}
 }
