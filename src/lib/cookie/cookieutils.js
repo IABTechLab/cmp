@@ -51,15 +51,15 @@ function encode6BitCharacters(string, numBits) {
 		typeof string !== 'string'
 			? ''
 			: string
-					.split('')
-					.map(char => {
-						const int = Math.max(
-							0,
-							char.toUpperCase().charCodeAt(0) - SIX_BIT_ASCII_OFFSET,
-						);
-						return encodeIntToBits(int > 25 ? 0 : int, 6);
-					})
-					.join('');
+				.split('')
+				.map(char => {
+					const int = Math.max(
+						0,
+						char.toUpperCase().charCodeAt(0) - SIX_BIT_ASCII_OFFSET,
+					);
+					return encodeIntToBits(int > 25 ? 0 : int, 6);
+				})
+				.join('');
 	return padRight(encoded, numBits).substr(0, numBits);
 }
 
@@ -187,20 +187,21 @@ function decodeField({ input, output, startPosition, field }) {
 				fieldValue: decode6BitCharacters(input, startPosition, bitCount),
 			};
 		case 'list':
-			return new Array(listEntryCount).fill().reduce(
-				acc => {
-					const { decodedObject, newPosition } = decodeFields({
-						input,
-						fields: field.fields,
-						startPosition: acc.newPosition,
-					});
-					return {
-						fieldValue: [...acc.fieldValue, decodedObject],
-						newPosition,
-					};
-				},
-				{ fieldValue: [], newPosition: startPosition },
-			);
+			return new Array(listEntryCount).fill()
+				.reduce(
+					acc => {
+						const { decodedObject, newPosition } = decodeFields({
+							input,
+							fields: field.fields,
+							startPosition: acc.newPosition,
+						});
+						return {
+							fieldValue: [...acc.fieldValue, decodedObject],
+							newPosition,
+						};
+					},
+					{ fieldValue: [], newPosition: startPosition },
+				);
 		default:
 			log.warn(
 				`Cookie definition field found without decoder or type: ${name}`,
