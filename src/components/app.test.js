@@ -48,7 +48,7 @@ describe('App', () => {
 				notify={notify}
 				ref={ref => (app = ref)}
 			/>,
-			scratch,
+			scratch
 		);
 
 		app.onSave();
@@ -69,15 +69,15 @@ describe('App', () => {
 				notify={() => {}}
 				ref={ref => (app = ref)}
 			/>,
-			scratch,
+			scratch
 		);
 
 		expect(app.state.store.vendorConsentData.selectedVendorIds).to.deep.equal(
-			new Set(),
+			new Set()
 		);
 		store.selectVendor(1, true);
 		expect(app.state.store.vendorConsentData.selectedVendorIds).to.deep.equal(
-			new Set([1]),
+			new Set([1])
 		);
 	});
 
@@ -92,7 +92,7 @@ describe('App', () => {
 				notify={() => {}}
 				ref={ref => (app = ref)}
 			/>,
-			scratch,
+			scratch
 		);
 
 		expect(app.props.config.css['font-family']).to.equal('MonoType');

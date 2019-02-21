@@ -24,7 +24,7 @@ export function updateLocalizationSettings(userConfig) {
 	const [language] = currentLocale.split('-');
 	localizedValues = {
 		...localizedMap[language],
-		...localizedMap[currentLocale],
+		...localizedMap[currentLocale]
 	};
 	return currentLocale.substr(0, 2).toUpperCase();
 }
@@ -38,8 +38,8 @@ function processLocalized(data = {}) {
 			[locale]: {
 				...acc[locale],
 				...flattenObject(data[language]),
-				...flattenObject(data[locale]),
-			},
+				...flattenObject(data[locale])
+			}
 		};
 	}, {});
 }
@@ -77,5 +77,5 @@ export class Localize {
 
 export default new Localize({
 	...translations,
-	...config.localization,
+	...config.localization
 });

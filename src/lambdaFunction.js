@@ -31,7 +31,7 @@ const GDPR_COUNTRIES = new Set([
 	'SK',
 	'SI',
 	'EE',
-	'LV',
+	'LV'
 ]);
 
 function parseCookies(headers) {
@@ -75,7 +75,7 @@ function encodeQueryString(
 	gdprApplies,
 	consentString,
 	addParms,
-	redirectContainsMacros,
+	redirectContainsMacros
 ) {
 	if ((addParms && addParms === '1') || !redirectContainsMacros) {
 		return `?gdpr=${gdprApplies}&gdpr_consent=${consentString}`;
@@ -115,32 +115,32 @@ exports.handler = (event, context, callback) => {
 				'access-control-allow-credentials': [
 					{
 						key: 'Access-Control-Allow-Credentials',
-						value: 'true',
-					},
+						value: 'true'
+					}
 				],
 				'access-control-allow-methods': [
 					{
 						key: 'Access-Control-Allow-Methods',
-						value: 'GET, OPTIONS',
-					},
+						value: 'GET, OPTIONS'
+					}
 				],
 				'access-control-allow-origin': [
 					{
 						key: 'Access-Control-Allow-Origin',
-						value: origin,
-					},
+						value: origin
+					}
 				],
 				'content-type': [
 					{
 						key: 'Content-Type',
-						value: 'application/json',
-					},
-				],
+						value: 'application/json'
+					}
+				]
 			},
 			body: JSON.stringify({
 				gdpr: gdprApplies,
-				gdpr_consent: consentString,
-			}),
+				gdpr_consent: consentString
+			})
 		};
 	} else {
 		const redirectContainsMacros = containsMacros(parsedQueryString.redirect);
@@ -155,17 +155,17 @@ exports.handler = (event, context, callback) => {
 							performMacroSubstitution(
 								parsedQueryString.redirect,
 								gdprApplies,
-								consentString,
+								consentString
 							) +
 							encodeQueryString(
 								gdprApplies,
 								consentString,
 								parsedQueryString.add_parms,
-								redirectContainsMacros,
-							),
-					},
-				],
-			},
+								redirectContainsMacros
+							)
+					}
+				]
+			}
 		};
 	}
 

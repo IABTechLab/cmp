@@ -4,11 +4,11 @@ import style from './popover.less';
 
 export default class Popover extends Component {
 	state = {
-		show: false,
+		show: false
 	};
 
 	static defaultProps = {
-		content: '',
+		content: ''
 	};
 
 	mouseEnter = () => {
@@ -28,7 +28,7 @@ export default class Popover extends Component {
 			inlineContent,
 			inlineLocalizeKey,
 			popoverContent,
-			popoverLocalizeKey,
+			popoverLocalizeKey
 		} = props;
 
 		const { show } = state;

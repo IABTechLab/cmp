@@ -8,7 +8,7 @@ export default logLevels.reduce((logger, funcName, index) => {
 		const { logging } = config;
 		if (logging && console && typeof console[consoleFunc] === 'function') {
 			const enabledLevelIndex = logLevels.indexOf(
-				logging.toString().toLocaleLowerCase(),
+				logging.toString().toLocaleLowerCase()
 			);
 			if (
 				logging === true ||
@@ -17,7 +17,7 @@ export default logLevels.reduce((logger, funcName, index) => {
 				const [message, ...rest] = [...args];
 				console[consoleFunc](
 					`${funcName.toUpperCase()} - (CMP) ${message}`,
-					...rest,
+					...rest
 				);
 			}
 		}

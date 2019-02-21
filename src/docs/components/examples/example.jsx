@@ -10,7 +10,7 @@ export default class Example extends Component {
 	log = text => {
 		this.setState({
 			logOutput: `[${new Date().toTimeString()}] - ${text}\n${this.state
-				.logOutput || ''}`,
+				.logOutput || ''}`
 		});
 	};
 
@@ -50,7 +50,7 @@ export default class Example extends Component {
 		const { setup, execute } = this.state;
 		this.setState({
 			setup: this.formatCode(setup),
-			execute: this.formatCode(execute),
+			execute: this.formatCode(execute)
 		});
 
 		if (setup) {
@@ -78,7 +78,7 @@ export default class Example extends Component {
 									smartIndent: true,
 									tabSize: 2,
 									mode: 'javascript',
-									readOnly: true,
+									readOnly: true
 								}}
 							/>
 						</div>
@@ -101,7 +101,7 @@ export default class Example extends Component {
 									indentWithTabs: true,
 									smartIndent: true,
 									tabSize: 2,
-									mode: 'javascript',
+									mode: 'javascript'
 								}}
 							/>
 						</div>

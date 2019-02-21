@@ -3,7 +3,7 @@ import {
 	NUM_BITS_VERSION,
 	metadataVersionMap,
 	vendorVersionMap,
-	publisherVersionMap,
+	publisherVersionMap
 } from './definitions';
 
 const SIX_BIT_ASCII_OFFSET = 65;
@@ -51,15 +51,15 @@ function encode6BitCharacters(string, numBits) {
 		typeof string !== 'string'
 			? ''
 			: string
-				.split('')
-				.map(char => {
-					const int = Math.max(
-						0,
-						char.toUpperCase().charCodeAt(0) - SIX_BIT_ASCII_OFFSET,
-					);
-					return encodeIntToBits(int > 25 ? 0 : int, 6);
-				})
-				.join('');
+					.split('')
+					.map(char => {
+						const int = Math.max(
+							0,
+							char.toUpperCase().charCodeAt(0) - SIX_BIT_ASCII_OFFSET
+						);
+						return encodeIntToBits(int > 25 ? 0 : int, 6);
+					})
+					.join('');
 	return padRight(encoded, numBits).substr(0, numBits);
 }
 
@@ -90,7 +90,7 @@ function decode6BitCharacters(bitString, start, length) {
 	let decodeStart = start;
 	while (decodeStart < start + length) {
 		decoded += String.fromCharCode(
-			SIX_BIT_ASCII_OFFSET + decodeBitsToInt(bitString, decodeStart, 6),
+			SIX_BIT_ASCII_OFFSET + decodeBitsToInt(bitString, decodeStart, 6)
 		);
 		decodeStart += 6;
 	}
@@ -123,7 +123,7 @@ function encodeField({ input, field }) {
 		case 'bits':
 			return padRight(fieldValue, bitCount - fieldValue.length).substring(
 				0,
-				bitCount,
+				bitCount
 			);
 		case '6bitchar':
 			return encode6BitCharacters(fieldValue, bitCount);
@@ -133,13 +133,13 @@ function encodeField({ input, field }) {
 					acc +
 					encodeFields({
 						input: listValue,
-						fields: field.fields,
+						fields: field.fields
 					}),
-				'',
+				''
 			);
 		default:
 			log.warn(
-				`Cookie definition field found without encoder or type: ${name}`,
+				`Cookie definition field found without encoder or type: ${name}`
 			);
 			return '';
 	}
@@ -184,27 +184,26 @@ function decodeField({ input, output, startPosition, field }) {
 			return { fieldValue: input.substr(startPosition, bitCount) };
 		case '6bitchar':
 			return {
-				fieldValue: decode6BitCharacters(input, startPosition, bitCount),
+				fieldValue: decode6BitCharacters(input, startPosition, bitCount)
 			};
 		case 'list':
-			return new Array(listEntryCount).fill()
-				.reduce(
-					acc => {
-						const { decodedObject, newPosition } = decodeFields({
-							input,
-							fields: field.fields,
-							startPosition: acc.newPosition,
-						});
-						return {
-							fieldValue: [...acc.fieldValue, decodedObject],
-							newPosition,
-						};
-					},
-					{ fieldValue: [], newPosition: startPosition },
-				);
+			return new Array(listEntryCount).fill().reduce(
+				acc => {
+					const { decodedObject, newPosition } = decodeFields({
+						input,
+						fields: field.fields,
+						startPosition: acc.newPosition
+					});
+					return {
+						fieldValue: [...acc.fieldValue, decodedObject],
+						newPosition
+					};
+				},
+				{ fieldValue: [], newPosition: startPosition }
+			);
 		default:
 			log.warn(
-				`Cookie definition field found without decoder or type: ${name}`,
+				`Cookie definition field found without decoder or type: ${name}`
 			);
 			return {};
 	}
@@ -218,7 +217,7 @@ function decodeFields({ input, fields, startPosition = 0 }) {
 			input,
 			output: acc,
 			startPosition: position,
-			field,
+			field
 		});
 		if (fieldValue !== undefined) {
 			acc[name] = fieldValue;
@@ -232,7 +231,7 @@ function decodeFields({ input, fields, startPosition = 0 }) {
 	}, {});
 	return {
 		decodedObject,
-		newPosition: position,
+		newPosition: position
 	};
 }
 
@@ -248,7 +247,7 @@ function encodeDataToBits(data, definitionMap) {
 		log.error('Could not find cookieVersion to encode');
 	} else if (!definitionMap[cookieVersion]) {
 		log.error(
-			`Could not find definition to encode cookie version ${cookieVersion}`,
+			`Could not find definition to encode cookie version ${cookieVersion}`
 		);
 	} else {
 		const cookieFields = definitionMap[cookieVersion].fields;
@@ -266,7 +265,7 @@ function encodeCookieValue(data, definitionMap) {
 		// Pad length to multiple of 8
 		const paddedBinaryValue = padRight(
 			binaryValue,
-			7 - ((binaryValue.length + 7) % 8),
+			7 - ((binaryValue.length + 7) % 8)
 		);
 
 		// Encode to bytes
@@ -322,14 +321,14 @@ function decodeCookieBitValue(bitString, definitionMap) {
 		return {};
 	} else if (!vendorVersionMap[cookieVersion]) {
 		log.error(
-			`Could not find definition to decode cookie version ${cookieVersion}`,
+			`Could not find definition to decode cookie version ${cookieVersion}`
 		);
 		return {};
 	}
 	const cookieFields = definitionMap[cookieVersion].fields;
 	const { decodedObject } = decodeFields({
 		input: bitString,
-		fields: cookieFields,
+		fields: cookieFields
 	});
 	return decodedObject;
 }
@@ -367,5 +366,5 @@ export {
 	decodeVendorCookieValue,
 	encodePublisherCookieValue,
 	decodePublisherCookieValue,
-	decode6BitCharacters,
+	decode6BitCharacters
 };

@@ -32,5 +32,5 @@ export {
 	publisherVersionList,
 	publisherVersionMap,
 	metadataVersionList,
-	metadataVersionMap,
+	metadataVersionMap
 };

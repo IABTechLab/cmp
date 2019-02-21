@@ -5,13 +5,13 @@ import CloseButton from '../closebutton/closebutton';
 
 class LocalLabel extends Label {
 	static defaultProps = {
-		prefix: 'footer',
+		prefix: 'footer'
 	};
 }
 
 export default class Footer extends Component {
 	static defaultProps = {
-		onShowConsent: () => {},
+		onShowConsent: () => {}
 	};
 
 	handleClose = () => {
@@ -39,7 +39,7 @@ export default class Footer extends Component {
 				class={style.footer}
 				style={{
 					display:
-						isFooterShowing && config.showFooterAfterSubmit ? 'flex' : 'none',
+						isFooterShowing && config.showFooterAfterSubmit ? 'flex' : 'none'
 				}}
 			>
 				<CloseButton

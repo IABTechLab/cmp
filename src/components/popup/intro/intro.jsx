@@ -8,7 +8,7 @@ import IntroFooter from './footer';
 
 class LocalLabel extends Label {
 	static defaultProps = {
-		prefix: 'intro',
+		prefix: 'intro'
 	};
 }
 
@@ -16,7 +16,7 @@ export default class Intro extends Component {
 	static defaultProps = {};
 
 	state = {
-		footerExpanded: false,
+		footerExpanded: false
 	};
 
 	componentDidMount() {
@@ -69,7 +69,7 @@ export default class Intro extends Component {
 			localization,
 			store,
 			updateCSSPrefs,
-			config,
+			config
 		} = props;
 
 		return (

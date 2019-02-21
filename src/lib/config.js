@@ -16,7 +16,7 @@ const defaultConfig = {
 	repromptOptions: {
 		fullConsentGiven: 360,
 		someConsentGiven: 30,
-		noConsentGiven: 30,
+		noConsentGiven: 30
 	},
 	useGeolocationOnly: false,
 	geoIPVendor: 'https://cmp.digitru.st/1/geoip.json',
@@ -36,11 +36,11 @@ const defaultConfig = {
 		'color-linkColor': '#0a82be',
 		'color-table-background': '#f7f7f7',
 		'font-family': "'Helvetica Neue', Helvetica, Arial, sans-serif",
-		'custom-font-url': null,
+		'custom-font-url': null
 	},
 	digitrust: {
-		redirects: false,
-	},
+		redirects: false
+	}
 };
 
 class Config {
@@ -48,7 +48,7 @@ class Config {
 		this.individualOverwritesAllowed = {
 			repromptOptions: true,
 			css: true,
-			digitrust: true,
+			digitrust: true
 		};
 
 		this.update(defaultConfig);
@@ -65,12 +65,12 @@ class Config {
 							Object.assign(obj, updates[key]);
 							acc.validUpdates = {
 								...acc.validUpdates,
-								[key]: obj,
+								[key]: obj
 							};
 						} else {
 							acc.validUpdates = {
 								...acc.validUpdates,
-								[key]: updates[key],
+								[key]: updates[key]
 							};
 						}
 					} else {
@@ -78,13 +78,13 @@ class Config {
 					}
 					return acc;
 				},
-				{ validUpdates: {}, invalidKeys: [] },
+				{ validUpdates: {}, invalidKeys: [] }
 			);
 
 			Object.assign(this, validUpdates);
 			if (invalidKeys.length) {
 				log.warn(
-					`Invalid CMP config values not applied: ${invalidKeys.join(', ')}`,
+					`Invalid CMP config values not applied: ${invalidKeys.join(', ')}`
 				);
 			}
 		}

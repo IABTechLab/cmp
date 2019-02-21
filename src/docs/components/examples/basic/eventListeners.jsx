@@ -21,7 +21,7 @@ export default class EventListeners extends Example {
 		super(props);
 		this.state = {
 			title: 'Event Listeners',
-			setup,
+			setup
 		};
 	}
 }

@@ -16,7 +16,7 @@ import {
 	readVendorConsentCookie,
 	convertVendorsToRanges,
 	PUBLISHER_CONSENT_COOKIE_NAME,
-	VENDOR_CONSENT_COOKIE_NAME,
+	VENDOR_CONSENT_COOKIE_NAME
 } from './cookie';
 
 jest.mock('../portal');
@@ -28,47 +28,47 @@ const vendorList = {
 	purposes: [
 		{
 			id: 1,
-			name: 'Accessing a Device or Browser',
+			name: 'Accessing a Device or Browser'
 		},
 		{
 			id: 2,
-			name: 'Advertising Personalisation',
+			name: 'Advertising Personalisation'
 		},
 		{
 			id: 3,
-			name: 'Analytics',
+			name: 'Analytics'
 		},
 		{
 			id: 4,
-			name: 'Content Personalisation',
-		},
+			name: 'Content Personalisation'
+		}
 	],
 	vendors: [
 		{
 			id: 1,
-			name: 'Globex',
+			name: 'Globex'
 		},
 		{
 			id: 2,
-			name: 'Initech',
+			name: 'Initech'
 		},
 		{
 			id: 3,
-			name: 'CRS',
+			name: 'CRS'
 		},
 		{
 			id: 4,
-			name: 'Umbrella',
+			name: 'Umbrella'
 		},
 		{
 			id: 10,
-			name: 'Pierce and Pierce',
+			name: 'Pierce and Pierce'
 		},
 		{
 			id: 8,
-			name: 'Aperture',
-		},
-	],
+			name: 'Aperture'
+		}
+	]
 };
 
 describe('cookie', () => {
@@ -94,8 +94,7 @@ describe('cookie', () => {
 		document.cookie = `${VENDOR_CONSENT_COOKIE_NAME}=consentstring;path=/`;
 		const cookieValue = readCookie(VENDOR_CONSENT_COOKIE_NAME);
 
-		expect(cookieValue).to.equal("consentstring");
-
+		expect(cookieValue).to.equal('consentstring');
 	});
 
 	it('it returns the last occurence, if there are multiple cookies with the same name', () => {
@@ -105,8 +104,7 @@ describe('cookie', () => {
 		document.cookie = `${VENDOR_CONSENT_COOKIE_NAME}=consentstringwithpathset;path=/`;
 
 		const cookieValue = readCookie(VENDOR_CONSENT_COOKIE_NAME);
-		expect(cookieValue).to.equal("consentstringwithpathset");
-
+		expect(cookieValue).to.equal('consentstringwithpathset');
 	});
 
 	it('encodes and decodes the vendor cookie object back to original value', () => {
@@ -121,17 +119,17 @@ describe('cookie', () => {
 			created: aDate,
 			lastUpdated: aDate,
 			selectedPurposeIds: new Set([1, 2]),
-			selectedVendorIds: new Set([1, 2, 4]),
+			selectedVendorIds: new Set([1, 2, 4])
 		};
 
 		const encodedString = encodeVendorConsentData({
 			...vendorConsentData,
-			vendorList,
+			vendorList
 		});
 		const decoded = decodeVendorConsentData(encodedString, 'local');
 		const output = Object.assign(
 			{ consentString: encodedString, source: 'local' },
-			vendorConsentData,
+			vendorConsentData
 		);
 
 		expect(decoded).to.deep.equal(output);
@@ -147,7 +145,7 @@ describe('cookie', () => {
 			vendorListVersion: 1,
 			created: aDate,
 			lastUpdated: aDate,
-			selectedPurposeIds: new Set([1, 2]),
+			selectedPurposeIds: new Set([1, 2])
 		};
 
 		const publisherConsentData = {
@@ -158,26 +156,26 @@ describe('cookie', () => {
 			created: aDate,
 			lastUpdated: aDate,
 			source: 'local',
-			selectedCustomPurposeIds: new Set([25, 26]),
+			selectedCustomPurposeIds: new Set([25, 26])
 		};
 
 		const encodedString = encodePublisherConsentData({
 			...vendorConsentData,
 			...publisherConsentData,
 			vendorList,
-			customPurposeList,
+			customPurposeList
 		});
 		const decoded = decodePublisherConsentData(encodedString, 'local');
 
 		expect(decoded).to.deep.include({
 			...vendorConsentData,
-			...publisherConsentData,
+			...publisherConsentData
 		});
 	});
 
 	it('writes and reads the local cookie when globalConsent = false', () => {
 		config.update({
-			storeConsentGlobally: false,
+			storeConsentGlobally: false
 		});
 
 		const vendorConsentData = {
@@ -185,7 +183,7 @@ describe('cookie', () => {
 			cmpId: 1,
 			vendorListVersion: 1,
 			created: aDate,
-			lastUpdated: aDate,
+			lastUpdated: aDate
 		};
 
 		return writeVendorConsentCookie(vendorConsentData).then(() => {
@@ -198,7 +196,7 @@ describe('cookie', () => {
 
 	it('writes the global cookie to the local domain when globalConsent = true and writing to portal domain is unsupported', () => {
 		config.update({
-			storeConsentGlobally: true,
+			storeConsentGlobally: true
 		});
 
 		const vendorConsentData = {
@@ -206,12 +204,12 @@ describe('cookie', () => {
 			cmpId: 1,
 			vendorListVersion: 1,
 			created: aDate,
-			lastUpdated: aDate,
+			lastUpdated: aDate
 		};
 
 		return writeVendorConsentCookie(vendorConsentData).then(() => {
 			expect(
-				mockPortal.sendPortalCommand.mock.calls[0][0].command,
+				mockPortal.sendPortalCommand.mock.calls[0][0].command
 			).to.deep.equal('writeVendorConsent');
 			expect(document.cookie).to.contain(VENDOR_CONSENT_COOKIE_NAME);
 		});
@@ -219,7 +217,7 @@ describe('cookie', () => {
 
 	it('reads the global cookie when globalConsent = true', () => {
 		config.update({
-			storeConsentGlobally: true,
+			storeConsentGlobally: true
 		});
 
 		const vendorConsentData = {
@@ -227,12 +225,12 @@ describe('cookie', () => {
 			cmpId: 1,
 			vendorListVersion: 1,
 			created: aDate,
-			lastUpdated: aDate,
+			lastUpdated: aDate
 		};
 
 		return readVendorConsentCookie(vendorConsentData).then(() => {
 			expect(
-				mockPortal.sendPortalCommand.mock.calls[0][0].command,
+				mockPortal.sendPortalCommand.mock.calls[0][0].command
 			).to.deep.equal('readVendorConsent');
 		});
 	});
@@ -240,7 +238,7 @@ describe('cookie', () => {
 	it('writes and reads the publisher consent cookie locally', () => {
 		config.update({
 			storePublisherConsentGlobally: false,
-			storePublisherData: true,
+			storePublisherData: true
 		});
 
 		const publisherConsentData = {
@@ -257,7 +255,7 @@ describe('cookie', () => {
 			vendorList,
 			customPurposeList,
 			selectedPurposeIds: new Set([1, 2]),
-			selectedCustomPurposeIds: new Set([25, 26]),
+			selectedCustomPurposeIds: new Set([25, 26])
 		};
 
 		return writePublisherConsentCookie(publisherConsentData).then(() => {
@@ -275,7 +273,7 @@ describe('cookie', () => {
 					lastUpdated: aDate,
 					source: 'local',
 					selectedPurposeIds: new Set([1, 2]),
-					selectedCustomPurposeIds: new Set([25, 26]),
+					selectedCustomPurposeIds: new Set([25, 26])
 				});
 			});
 		});
@@ -285,7 +283,7 @@ describe('cookie', () => {
 		config.update({
 			storePublisherConsentGlobally: true,
 			globalPublisherConsentLocation: 'https://www.example.com',
-			storePublisherData: true,
+			storePublisherData: true
 		});
 
 		const publisherConsentData = {
@@ -294,12 +292,12 @@ describe('cookie', () => {
 			publisherPurposesVersion: 1,
 			created: aDate,
 			lastUpdated: aDate,
-			source: 'global',
+			source: 'global'
 		};
 
 		return writePublisherConsentCookie(publisherConsentData).then(() => {
 			expect(
-				mockPortal.sendPortalCommand.mock.calls[0][0].command,
+				mockPortal.sendPortalCommand.mock.calls[0][0].command
 			).to.deep.equal('writePublisherConsent');
 			expect(document.cookie).to.contain(PUBLISHER_CONSENT_COOKIE_NAME);
 		});
@@ -307,7 +305,7 @@ describe('cookie', () => {
 
 	it('converts selected vendor list to a range', () => {
 		const maxVendorId = Math.max(
-			...vendorList.vendors.map(vendor => vendor.id),
+			...vendorList.vendors.map(vendor => vendor.id)
 		);
 		const ranges = convertVendorsToRanges(maxVendorId, new Set([2, 3, 4]));
 
@@ -315,36 +313,36 @@ describe('cookie', () => {
 			{
 				isRange: true,
 				startVendorId: 2,
-				endVendorId: 4,
-			},
+				endVendorId: 4
+			}
 		]);
 	});
 
 	it('converts selected vendor list to multiple ranges', () => {
 		const maxVendorId = Math.max(
-			...vendorList.vendors.map(vendor => vendor.id),
+			...vendorList.vendors.map(vendor => vendor.id)
 		);
 		const ranges = convertVendorsToRanges(
 			maxVendorId,
-			new Set([2, 3, 5, 6, 10]),
+			new Set([2, 3, 5, 6, 10])
 		);
 
 		expect(ranges).to.deep.equal([
 			{
 				isRange: true,
 				startVendorId: 2,
-				endVendorId: 3,
+				endVendorId: 3
 			},
 			{
 				isRange: true,
 				startVendorId: 5,
-				endVendorId: 6,
+				endVendorId: 6
 			},
 			{
 				isRange: false,
 				startVendorId: 10,
-				endVendorId: undefined,
-			},
+				endVendorId: undefined
+			}
 		]);
 	});
 });

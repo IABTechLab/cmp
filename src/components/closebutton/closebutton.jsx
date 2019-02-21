@@ -6,7 +6,7 @@ export default class CloseButton extends Component {
 		onClick: () => {},
 		width: 30,
 		height: 30,
-		hasBorder: true,
+		hasBorder: true
 	};
 
 	componentDidMount() {
@@ -21,7 +21,7 @@ export default class CloseButton extends Component {
 				class={[
 					style.closeButton,
 					hasBorder ? style.hasBorder : '',
-					props.class,
+					props.class
 				].join(' ')}
 				onClick={onClick}
 			>

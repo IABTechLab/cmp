@@ -14,25 +14,25 @@ const SECTION_VENDORS = 1;
 
 class LocalLabel extends Label {
 	static defaultProps = {
-		prefix: 'details',
+		prefix: 'details'
 	};
 }
 
 export default class Details extends Component {
 	state = {
 		selectedPanelIndex: SECTION_PURPOSES,
-		showEnableAll: true,
+		showEnableAll: true
 	};
 
 	handleShowVendors = () => {
 		this.setState({
-			selectedPanelIndex: SECTION_VENDORS,
+			selectedPanelIndex: SECTION_VENDORS
 		});
 	};
 
 	handleShowPurposes = () => {
 		this.setState({
-			selectedPanelIndex: SECTION_PURPOSES,
+			selectedPanelIndex: SECTION_PURPOSES
 		});
 	};
 
@@ -49,7 +49,7 @@ export default class Details extends Component {
 		const { onCancel } = this.props;
 		const { selectedPanelIndex } = this.state;
 		this.setState({
-			selectedPanelIndex: Math.max(0, selectedPanelIndex - 1),
+			selectedPanelIndex: Math.max(0, selectedPanelIndex - 1)
 		});
 		if (selectedPanelIndex === SECTION_PURPOSES) {
 			onCancel();
@@ -68,7 +68,7 @@ export default class Details extends Component {
 			store,
 			localization,
 			config,
-			updateCSSPrefs,
+			updateCSSPrefs
 		} = props;
 
 		const { selectedPanelIndex, showEnableAll } = state;
@@ -81,7 +81,7 @@ export default class Details extends Component {
 			selectPurpose,
 			selectCustomPurpose,
 			selectAllVendors,
-			selectVendor,
+			selectVendor
 		} = store;
 		const { selectedPurposeIds, selectedVendorIds } = vendorConsentData;
 		const { selectedCustomPurposeIds } = publisherConsentData;

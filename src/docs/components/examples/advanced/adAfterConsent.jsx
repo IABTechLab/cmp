@@ -24,7 +24,7 @@ export default class ConsentData extends Example {
 			title: 'Load Ad After Consent',
 			setup,
 			execute,
-			hasContent: true,
+			hasContent: true
 		};
 	}
 }

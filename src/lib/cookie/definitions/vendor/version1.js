@@ -16,19 +16,19 @@ export default {
 			name: 'vendorIdBitString',
 			type: 'bits',
 			numBits: decodedObject => decodedObject.maxVendorId,
-			validator: decodedObject => !decodedObject.isRange,
+			validator: decodedObject => !decodedObject.isRange
 		},
 		{
 			name: 'defaultConsent',
 			type: 'bool',
 			numBits: 1,
-			validator: decodedObject => decodedObject.isRange,
+			validator: decodedObject => decodedObject.isRange
 		},
 		{
 			name: 'numEntries',
 			numBits: 12,
 			type: 'int',
-			validator: decodedObject => decodedObject.isRange,
+			validator: decodedObject => decodedObject.isRange
 		},
 		{
 			name: 'vendorRangeList',
@@ -39,20 +39,20 @@ export default {
 				{
 					name: 'isRange',
 					type: 'bool',
-					numBits: 1,
+					numBits: 1
 				},
 				{
 					name: 'startVendorId',
 					type: 'int',
-					numBits: 16,
+					numBits: 16
 				},
 				{
 					name: 'endVendorId',
 					type: 'int',
 					numBits: 16,
-					validator: decodedObject => decodedObject.isRange,
-				},
-			],
-		},
-	],
+					validator: decodedObject => decodedObject.isRange
+				}
+			]
+		}
+	]
 };

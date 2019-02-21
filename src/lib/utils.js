@@ -11,7 +11,7 @@ export {
 	getAmountOfConsentGiven,
 	checkIfCookieIsOld,
 	getTimestamp,
-	getConsentsCount,
+	getConsentsCount
 };
 
 const metadata = require('../../metadata.json');
@@ -20,7 +20,7 @@ const CONSENT_PROPS = [
 	'purposeConsents',
 	'vendorConsents',
 	'customPurposes',
-	'standardPurposes',
+	'standardPurposes'
 ];
 const EU_LANGUAGE_CODES = new Set(metadata.languageCodes);
 const EU_COUNTRY_CODES = new Set(metadata.countryCodes);
@@ -53,7 +53,7 @@ function getConsentsCount(consentObject, vendorList) {
 			const indexes = Object.keys(consents);
 			if (CONSENT_PROPS[i] === 'vendorConsents') {
 				consents = indexes.map(
-					index => consents[index] && activeVendors[index],
+					index => consents[index] && activeVendors[index]
 				);
 				total += Object.keys(activeVendors).length;
 			} else {
@@ -75,13 +75,13 @@ function checkReprompt(
 	repromptOptions,
 	vendorList,
 	vendorConsents,
-	publisherConsents,
+	publisherConsents
 ) {
 	const oldestCookieTime = Math.min(
 		...[
 			vendorConsents.lastUpdated || 0,
-			publisherConsents.lastUpdated || 0,
-		].map(getTimestamp),
+			publisherConsents.lastUpdated || 0
+		].map(getTimestamp)
 	);
 
 	const { total, consented } = [vendorConsents, publisherConsents].reduce(
@@ -91,7 +91,7 @@ function checkReprompt(
 			previous.consented += current.consented;
 			return previous;
 		},
-		{ total: 0, consented: 0 },
+		{ total: 0, consented: 0 }
 	);
 
 	const consentRange = getAmountOfConsentGiven(total, consented);
@@ -103,7 +103,7 @@ function checkReprompt(
 function checkIfGDPRApplies(geoVendor, callback) {
 	const navigator = window.navigator;
 	const browserLanguageCheckResult = checkIfLanguageLocaleApplies(
-		navigator.languages || [navigator.browserLanguage],
+		navigator.languages || [navigator.browserLanguage]
 	);
 	if (browserLanguageCheckResult) {
 		callback({ applies: true, language: true, location: false });
@@ -132,7 +132,7 @@ function checkIfUserInEU(geoVendor, callback) {
 			return Promise.resolve({
 				applies: result,
 				language: false,
-				location: result,
+				location: result
 			});
 		})
 		.catch(() => {

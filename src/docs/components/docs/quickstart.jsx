@@ -8,7 +8,7 @@ import JSCode from 'codemirror/mode/htmlmixed/htmlmixed'; // eslint-disable-line
 const { host, pathname } = window.location;
 const SCRIPT_PATH = Url.resolve(
 	`//${host}${pathname}`,
-	'../cmp.complete.bundle.js',
+	'../cmp.complete.bundle.js'
 );
 
 const basicInclude = `
@@ -67,7 +67,7 @@ export default class Setup extends Component {
 							tabSize: 2,
 							mode: 'htmlmixed',
 							viewportMargin: Infinity,
-							readOnly: true,
+							readOnly: true
 						}}
 					/>
 					<p>
@@ -135,7 +135,7 @@ export default class Setup extends Component {
 							tabSize: 2,
 							mode: 'htmlmixed',
 							viewportMargin: Infinity,
-							readOnly: true,
+							readOnly: true
 						}}
 					/>
 					<p>
@@ -158,7 +158,7 @@ export default class Setup extends Component {
 							tabSize: 2,
 							mode: 'htmlmixed',
 							viewportMargin: Infinity,
-							readOnly: true,
+							readOnly: true
 						}}
 					/>
 					<p>Log messages will be output to your browser console.</p>

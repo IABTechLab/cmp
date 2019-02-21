@@ -15,10 +15,10 @@ describe('portal', () => {
 					{
 						vendorConsent: {
 							...data,
-							result: true,
-						},
+							result: true
+						}
 					},
-					'*',
+					'*'
 				);
 			}
 		});

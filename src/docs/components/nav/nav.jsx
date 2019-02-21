@@ -27,7 +27,7 @@ import QuickStart from '../docs/quickstart';
 export const navItems = [
 	{
 		title: 'Intro',
-		items: [{ to: '/', title: 'Introduction To GDPR', component: Intro }],
+		items: [{ to: '/', title: 'Introduction To GDPR', component: Intro }]
 	},
 	{
 		title: 'Docs',
@@ -35,8 +35,8 @@ export const navItems = [
 			{ to: '/quickstart', title: 'Quick Start', component: QuickStart },
 			{ to: '/setup', title: 'Setup Script', component: Setup },
 			{ to: '/config', title: 'Configuration', component: Configration },
-			{ to: '/cmp-api', title: 'CMP API', component: CmpApi },
-		],
+			{ to: '/cmp-api', title: 'CMP API', component: CmpApi }
+		]
 	},
 	{
 		title: 'Basic Examples',
@@ -46,21 +46,21 @@ export const navItems = [
 			{
 				to: '/basic/events',
 				title: 'Event Listeners',
-				component: EventListeners,
+				component: EventListeners
 			},
 			{
 				to: '/basic/vendor',
 				title: 'Get Vendor Consents',
-				component: VendorConsents,
+				component: VendorConsents
 			},
 			{ to: '/basic/data', title: 'Get Consent Data', component: ConsentData },
 			{ to: '/basic/list', title: 'Get Vendor List', component: VendorList },
 			{
 				to: '/basic/publisher',
 				title: 'Get Publisher Consents',
-				component: PublisherPurposes,
-			},
-		],
+				component: PublisherPurposes
+			}
+		]
 	},
 	{
 		title: 'IFrame Examples',
@@ -68,24 +68,24 @@ export const navItems = [
 			{
 				to: '/iframe/show',
 				title: 'Show Consent Tool',
-				component: () => <IFrame iframeId="showConsentTool" />,
+				component: () => <IFrame iframeId="showConsentTool" />
 			},
 			{
 				to: '/iframe/events',
 				title: 'Event Listeners',
-				component: () => <IFrame iframeId="addEventListeners" />,
+				component: () => <IFrame iframeId="addEventListeners" />
 			},
 			{
 				to: '/iframe/vendor',
 				title: 'Get Vendor Consents',
-				component: () => <IFrame iframeId="getVendorConsents" />,
+				component: () => <IFrame iframeId="getVendorConsents" />
 			},
 			{
 				to: '/iframe/data',
 				title: 'Get Consent Data',
-				component: () => <IFrame iframeId="getConsentData" />,
-			},
-		],
+				component: () => <IFrame iframeId="getConsentData" />
+			}
+		]
 	},
 	{
 		title: 'Advanced Examples',
@@ -93,19 +93,19 @@ export const navItems = [
 			{
 				to: '/advanced/require-consent',
 				title: 'Require Consent',
-				component: RequireConsent,
+				component: RequireConsent
 			},
 			{
 				to: '/advanced/inspect-vendor-consent',
 				title: 'Inspect Vendor Consent',
-				component: InspectVendorConsent,
+				component: InspectVendorConsent
 			},
 			{
 				to: '/advanced/ad-after-consent',
 				title: 'Load Ad After Consent',
-				component: AdAfterConsent,
-			},
-		],
+				component: AdAfterConsent
+			}
+		]
 	},
 	{
 		title: 'Tools',
@@ -113,30 +113,30 @@ export const navItems = [
 			{
 				to: '/tools/vendor-list-builder',
 				title: 'Vendor List Builder',
-				component: VendorListBuilder,
+				component: VendorListBuilder
 			},
 			{
 				to: '/tools/vendor-cookie-encoder',
 				title: 'Encode Vendor Cookie',
-				component: VendorCookieEncoder,
+				component: VendorCookieEncoder
 			},
 			{
 				to: '/tools/vendor-cookie-decoder',
 				title: 'Decode Vendor Cookie',
-				component: VendorCookieDecoder,
+				component: VendorCookieDecoder
 			},
 			{
 				to: '/tools/publisher-cookie-encoder',
 				title: 'Encode Publisher Cookie',
-				component: PublisherCookieEncoder,
+				component: PublisherCookieEncoder
 			},
 			{
 				to: '/tools/publisher-cookie-decoder',
 				title: 'Decode Publisher Cookie',
-				component: PublisherCookieDecoder,
-			},
-		],
-	},
+				component: PublisherCookieDecoder
+			}
+		]
+	}
 ];
 
 export default class Nav extends Component {
@@ -173,7 +173,7 @@ export default class Nav extends Component {
 											>
 												{title}
 											</Link>
-										),
+										)
 								)}
 							</div>
 						))}

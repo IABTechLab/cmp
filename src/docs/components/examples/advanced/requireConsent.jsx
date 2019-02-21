@@ -30,7 +30,7 @@ export default class ConsentData extends Example {
 		this.state = {
 			title: 'Require Consent For Vendor',
 			setup,
-			execute,
+			execute
 		};
 	}
 }

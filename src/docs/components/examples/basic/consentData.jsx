@@ -9,7 +9,7 @@ export default class ConsentData extends Example {
 		super(props);
 		this.state = {
 			title: 'Get Consent Data',
-			execute,
+			execute
 		};
 	}
 }

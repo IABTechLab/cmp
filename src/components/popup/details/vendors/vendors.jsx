@@ -6,7 +6,7 @@ import Label from '../../../label/label';
 
 class LocalLabel extends Label {
 	static defaultProps = {
-		prefix: 'vendors',
+		prefix: 'vendors'
 	};
 }
 
@@ -21,7 +21,7 @@ export default class Vendors extends Component {
 		handleEnableAll: () => {},
 		vendors: [],
 		selectedVendorIds: new Set(),
-		selectVendor: () => {},
+		selectVendor: () => {}
 	};
 
 	handleAcceptAll = () => {
@@ -51,7 +51,7 @@ export default class Vendors extends Component {
 			onShowPurposes,
 			onHandleEnableAll,
 			localization,
-			config,
+			config
 		} = props;
 
 		return (
@@ -203,9 +203,9 @@ export default class Vendors extends Component {
 										policyUrl,
 										purposeIds,
 										legIntPurposeIds,
-										featureIds,
+										featureIds
 									},
-									index,
+									index
 								) => (
 									<tr key={id} class={index % 2 === 1 ? style.even : ''}>
 										<td>
@@ -221,7 +221,7 @@ export default class Vendors extends Component {
 											/>
 										</td>
 									</tr>
-								),
+								)
 							)}
 						</tbody>
 					</table>

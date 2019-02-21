@@ -17,7 +17,7 @@ const readVendorListPromise = fetch(config.globalVendorListLocation)
 	.then(res => res.json())
 	.catch(() => {
 		log.error(
-			`Failed to load local vendor list from vendors.json, trying global`,
+			`Failed to load local vendor list from vendors.json, trying global`
 		);
 		return fetch(GLOBAL_VENDOR_LIST_DOMAIN)
 			.then(resp => resp.json())
@@ -34,7 +34,7 @@ function readCookie(name) {
 			parts
 				.pop()
 				.split(';')
-				.shift(),
+				.shift()
 		);
 	}
 	return Promise.resolve();
@@ -66,7 +66,7 @@ const commands = {
 
 	writePublisherConsent: ({ encodedValue }) => {
 		return writeCookie({ name: PUBLISHER_COOKIE_NAME, value: encodedValue });
-	},
+	}
 };
 
 window.addEventListener('message', event => {
@@ -78,10 +78,10 @@ window.addEventListener('message', event => {
 				{
 					vendorConsent: {
 						...data,
-						result,
-					},
+						result
+					}
 				},
-				event.origin,
+				event.origin
 			);
 		});
 	}

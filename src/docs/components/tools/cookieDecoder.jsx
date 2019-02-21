@@ -4,7 +4,7 @@ import { Controlled as CodeMirror } from 'react-codemirror2';
 
 import {
 	decodeCookieValue,
-	decodeCookieBitValue,
+	decodeCookieBitValue
 } from '../../../lib/cookie/cookieutils';
 
 export default class CookieDecoder extends Component {
@@ -12,7 +12,7 @@ export default class CookieDecoder extends Component {
 		super(props);
 		this.state = {
 			bitString: '',
-			b64: '',
+			b64: ''
 		};
 	}
 
@@ -20,7 +20,7 @@ export default class CookieDecoder extends Component {
 		const input = e.target.value;
 		this.setState({
 			b64: input,
-			decodedB64: decodeCookieValue(input, this.props.versionMap),
+			decodedB64: decodeCookieValue(input, this.props.versionMap)
 		});
 	};
 
@@ -28,7 +28,7 @@ export default class CookieDecoder extends Component {
 		const input = e.target.value;
 		this.setState({
 			bitString: input,
-			decodedBits: decodeCookieBitValue(input, this.props.versionMap),
+			decodedBits: decodeCookieBitValue(input, this.props.versionMap)
 		});
 	};
 
@@ -52,7 +52,7 @@ export default class CookieDecoder extends Component {
 							smartIndent: true,
 							tabSize: 2,
 							mode: 'javascript',
-							readOnly: true,
+							readOnly: true
 						}}
 					/>
 				)}
@@ -71,7 +71,7 @@ export default class CookieDecoder extends Component {
 							smartIndent: true,
 							tabSize: 2,
 							mode: 'javascript',
-							readOnly: true,
+							readOnly: true
 						}}
 					/>
 				)}

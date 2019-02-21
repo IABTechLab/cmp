@@ -9,6 +9,6 @@ export default {
 		{ name: 'consentScreen', type: 'int', numBits: 6 },
 		{ name: 'consentLanguage', type: '6bitchar', numBits: 12 },
 		{ name: 'vendorListVersion', type: 'int', numBits: 12 },
-		{ name: 'publisherPurposesVersion', type: 'int', numBits: 12 },
-	],
+		{ name: 'publisherPurposesVersion', type: 'int', numBits: 12 }
+	]
 };

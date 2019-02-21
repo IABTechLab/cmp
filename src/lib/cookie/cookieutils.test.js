@@ -14,7 +14,7 @@ import {
 	decodeVendorCookieValue,
 	encodePublisherCookieValue,
 	decodePublisherCookieValue,
-	decode6BitCharacters,
+	decode6BitCharacters
 } from './cookieutils';
 
 describe('cookieutils', () => {
@@ -113,7 +113,7 @@ describe('cookieutils', () => {
 			created: aDate,
 			lastUpdated: aDate,
 			cmpId: 1,
-			vendorListVersion: 1,
+			vendorListVersion: 1
 		};
 
 		const bitString = encodeVendorCookieValue(consentData);
@@ -128,7 +128,7 @@ describe('cookieutils', () => {
 			created: aDate,
 			lastUpdated: aDate,
 			cmpId: 1,
-			vendorListVersion: 1,
+			vendorListVersion: 1
 		};
 
 		const bitString = encodeVendorCookieValue(consentData);
@@ -153,7 +153,7 @@ describe('cookieutils', () => {
 			consentScreen: 0,
 			consentLanguage: 'EN',
 			vendorListVersion: 1,
-			publisherPurposesVersion: 1,
+			publisherPurposesVersion: 1
 		};
 
 		const bitString = encodeMetadataValue(data);
@@ -183,13 +183,13 @@ describe('cookieutils', () => {
 				{
 					isRange: true,
 					startVendorId: 2,
-					endVendorId: 4,
+					endVendorId: 4
 				},
 				{
 					isRange: false,
-					startVendorId: 1,
-				},
-			],
+					startVendorId: 1
+				}
+			]
 		};
 
 		const bitString = encodeVendorCookieValue(consentData);
@@ -218,13 +218,13 @@ describe('cookieutils', () => {
 			vendorRangeList: [
 				{
 					isRange: false,
-					startVendorId: 2,
+					startVendorId: 2
 				},
 				{
 					isRange: false,
-					startVendorId: 1,
-				},
-			],
+					startVendorId: 1
+				}
+			]
 		};
 
 		const bitString = encodeVendorCookieValue(consentData);
@@ -248,7 +248,7 @@ describe('cookieutils', () => {
 			purposeIdBitString: '000000001010101010001100',
 			maxVendorId: 5,
 			isRange: false,
-			vendorIdBitString: '10011',
+			vendorIdBitString: '10011'
 		};
 
 		const bitString = encodeVendorCookieValue(consentData);
@@ -272,7 +272,7 @@ describe('cookieutils', () => {
 			publisherPurposesVersion: 1,
 			numCustomPurposes: 4,
 			standardPurposeIdBitString: '000000001010101010001100',
-			customPurposeIdBitString: '1011',
+			customPurposeIdBitString: '1011'
 		};
 
 		const bitString = encodePublisherCookieValue(consentData);

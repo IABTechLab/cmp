@@ -9,7 +9,7 @@ const SECTION_DETAILS = 1;
 
 export default class Popup extends Component {
 	state = {
-		selectedPanelIndex: SECTION_INTRO,
+		selectedPanelIndex: SECTION_INTRO
 	};
 
 	onAcceptAll = () => {
@@ -22,13 +22,13 @@ export default class Popup extends Component {
 
 	onCancel = () => {
 		this.setState({
-			selectedPanelIndex: SECTION_INTRO,
+			selectedPanelIndex: SECTION_INTRO
 		});
 	};
 
 	handleShowDetails = () => {
 		this.setState({
-			selectedPanelIndex: SECTION_DETAILS,
+			selectedPanelIndex: SECTION_DETAILS
 		});
 	};
 

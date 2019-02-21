@@ -20,7 +20,7 @@ describe('Purposes', () => {
 				customPurposes={[{ id: 1, name: 'Custom Purpose 1' }]}
 				features={[]}
 			/>,
-			scratch,
+			scratch
 		);
 
 		const purposeLinks = purposes.querySelectorAll(`.${style.purposeItem}`);
@@ -35,7 +35,7 @@ describe('Purposes', () => {
 				customPurposes={[{ id: 1, name: 'Custom Purpose 1' }]}
 				features={[{ id: 1, name: 'Feature 1' }, { id: 2, name: 'Feature 2' }]}
 			/>,
-			scratch,
+			scratch
 		);
 
 		const features = purposes.querySelectorAll(`.${style.featureItem}`);
@@ -56,7 +56,7 @@ describe('Purposes', () => {
 				selectPurpose={selectPurpose}
 				selectCustomPurpose={selectCustomPurpose}
 			/>,
-			scratch,
+			scratch
 		);
 
 		purposes.handleSelectPurposeDetail(1)();
@@ -82,7 +82,7 @@ describe('Purposes', () => {
 				selectPurpose={selectPurpose}
 				selectCustomPurpose={selectCustomPurpose}
 			/>,
-			scratch,
+			scratch
 		);
 
 		purposes.handleSelectPurposeDetail(2)();

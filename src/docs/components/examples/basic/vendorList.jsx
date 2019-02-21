@@ -9,7 +9,7 @@ export default class VendorList extends Example {
 		super(props);
 		this.state = {
 			title: 'Get Vendor List',
-			execute,
+			execute
 		};
 	}
 }

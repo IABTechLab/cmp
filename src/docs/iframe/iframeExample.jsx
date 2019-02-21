@@ -23,7 +23,7 @@ const iframeMap = {
 		command: 'getVendorConsents',
 		parameter: [0,1,2]
 	}
-};`,
+};`
 	},
 	showConsentTool: {
 		title: 'Show Consent Tool From IFrame',
@@ -32,7 +32,7 @@ const iframeMap = {
 		callId: 'iframe:' + (++this.callId),
 		command: 'showConsentTool'
 	}
-};`,
+};`
 	},
 	getConsentData: {
 		title: 'Get Consent Data From IFrame',
@@ -41,7 +41,7 @@ const iframeMap = {
 		callId: 'iframe:' + (++this.callId),
 		command: 'getConsentData'
 	}
-};`,
+};`
 	},
 	addEventListeners: {
 		title: 'Add Event Listeners From IFrame',
@@ -51,8 +51,8 @@ const iframeMap = {
 		command: 'addEventListener',
 		parameter: 'onSubmit'
 	}
-}`,
-	},
+}`
+	}
 };
 
 class App extends Example {
@@ -71,7 +71,7 @@ window.top.postMessage(message, '*');`
 		this.state = {
 			setup: commonSetup + setup,
 			title,
-			execute,
+			execute
 		};
 	}
 }

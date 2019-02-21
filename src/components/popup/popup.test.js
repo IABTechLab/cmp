@@ -46,7 +46,7 @@ describe('Popup', () => {
 					done();
 				}}
 			/>,
-			scratch,
+			scratch
 		);
 
 		popup.onAcceptAll();
@@ -62,11 +62,11 @@ describe('Popup', () => {
 				store={store}
 				ref={() => {}}
 			/>,
-			scratch,
+			scratch
 		);
 
 		expect(scratch.innerHTML).to.contain(
-			`<img class="logo" src="https://www.example.com/image.jpg">`,
+			`<img class="logo" src="https://www.example.com/image.jpg">`
 		);
 	});
 
@@ -81,7 +81,7 @@ describe('Popup', () => {
 				store={store}
 				ref={ref => (popup = ref)}
 			/>,
-			scratch,
+			scratch
 		);
 
 		expect(popup.state.selectedPanelIndex).to.equal(0);

@@ -9,7 +9,7 @@ const mockPortal = require('./portal');
 import {
 	fetchVendorList,
 	fetchLocalizedPurposeList,
-	fetchCustomPurposeList,
+	fetchCustomPurposeList
 } from './vendor';
 
 describe('vendor', () => {
@@ -32,7 +32,7 @@ describe('vendor', () => {
 		window.fetch = jest.fn().mockImplementation(() => Promise.reject());
 		fetchVendorList().then(() => {
 			expect(mockPortal.sendPortalCommand.mock.calls[0][0]).to.deep.equal({
-				command: 'readVendorList',
+				command: 'readVendorList'
 			});
 			done();
 		});
@@ -40,12 +40,12 @@ describe('vendor', () => {
 
 	it('fetchLocalizedPurposeList fetches the configured URL based on language params', done => {
 		config.update({
-			forceLocale: 'DE',
+			forceLocale: 'DE'
 		});
 
 		fetchLocalizedPurposeList().then(() => {
 			expect(window.fetch.mock.calls[0][0]).to.equal(
-				'https://vendorlist.consensu.org/purposes-de.json',
+				'https://vendorlist.consensu.org/purposes-de.json'
 			);
 			done();
 		});
@@ -53,7 +53,7 @@ describe('vendor', () => {
 
 	it('fetchCustomPurposeList returns nothing if there is no customPurposeListLocation', done => {
 		config.update({
-			customPurposeListLocation: undefined,
+			customPurposeListLocation: undefined
 		});
 
 		fetchCustomPurposeList().then(() => {
@@ -64,7 +64,7 @@ describe('vendor', () => {
 
 	it('fetchCustomPurposeList returns nothing if storePublisherData = false', done => {
 		config.update({
-			storePublisherData: true,
+			storePublisherData: true
 		});
 
 		fetchCustomPurposeList().then(() => {
@@ -75,7 +75,7 @@ describe('vendor', () => {
 
 	it('fetchCustomPurposeList fetches the configured URL', done => {
 		config.update({
-			customPurposeListLocation: 'somepath.json',
+			customPurposeListLocation: 'somepath.json'
 		});
 
 		fetchCustomPurposeList().then(() => {

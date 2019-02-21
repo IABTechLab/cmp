@@ -30,7 +30,7 @@ describe('Details', () => {
 				store={store}
 				ref={ref => (details = ref)}
 			/>,
-			scratch,
+			scratch
 		);
 
 		expect(details.state.selectedPanelIndex).to.equal(0);

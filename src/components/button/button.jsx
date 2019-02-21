@@ -4,7 +4,7 @@ import style from './button.less';
 export default class Button extends Component {
 	static defaultProps = {
 		onClick: () => {},
-		invert: false,
+		invert: false
 	};
 
 	render(props) {
@@ -14,7 +14,7 @@ export default class Button extends Component {
 			<button
 				name={name}
 				class={[style.button, props.class, invert ? style.invert : ''].join(
-					' ',
+					' '
 				)}
 				onClick={onClick}
 			>

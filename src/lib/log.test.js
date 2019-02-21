@@ -25,7 +25,7 @@ describe('log', () => {
 
 	it('use console.log for "debug"', () => {
 		config.update({
-			logging: 'debug',
+			logging: 'debug'
 		});
 
 		log.debug('debug');
@@ -35,7 +35,7 @@ describe('log', () => {
 
 	it('respects logging level "error"', () => {
 		config.update({
-			logging: 'error',
+			logging: 'error'
 		});
 
 		log.debug('debug');

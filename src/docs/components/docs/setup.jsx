@@ -15,7 +15,7 @@ export default class Setup extends Component {
 		const config = {
 			globalConsentLocation: `//${CURRENT_LOCATION}portal.html`,
 			storeConsentGlobally: true,
-			storePublisherData: false,
+			storePublisherData: false
 		};
 
 		const bookmarkScript = `javascript:(function(){
@@ -25,7 +25,7 @@ export default class Setup extends Component {
 
 		this.setState({
 			bookmarklet: bookmarkScript,
-			tag: beautify(`<head><script>${buildScript()}</script></head>`),
+			tag: beautify(`<head><script>${buildScript()}</script></head>`)
 		});
 	}
 
@@ -55,7 +55,7 @@ export default class Setup extends Component {
 						tabSize: 2,
 						mode: 'htmlmixed',
 						viewportMargin: Infinity,
-						readOnly: true,
+						readOnly: true
 					}}
 				/>
 			</div>

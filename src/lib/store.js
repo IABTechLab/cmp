@@ -1,7 +1,7 @@
 import {
 	writePublisherConsentCookie,
 	writeVendorConsentCookie,
-	readVendorConsentCookie,
+	readVendorConsentCookie
 } from './cookie/cookie';
 import config from './config';
 import { updateLocalizationSettings } from './localize';
@@ -39,7 +39,7 @@ export default class Store {
 		vendorConsentData,
 		publisherConsentData,
 		vendorList,
-		customPurposeList,
+		customPurposeList
 	} = {}) {
 		// Keep track of data that has already been persisted
 		this.persistedVendorConsentData = copyData(vendorConsentData);
@@ -52,14 +52,14 @@ export default class Store {
 				cmpVersion,
 				selectedPurposeIds: new Set(),
 				selectedVendorIds: new Set(),
-				isEU: null,
+				isEU: null
 			},
-			vendorConsentData,
+			vendorConsentData
 		);
 
 		const consentLanguage = updateLocalizationSettings({
 			forceLocale: config.forceLocale,
-			localization: config.localization,
+			localization: config.localization
 		});
 		this.consentLanguage = consentLanguage;
 		this.vendorConsentData.consentLanguage = consentLanguage;
@@ -69,9 +69,9 @@ export default class Store {
 				cookieVersion,
 				cmpId,
 				cmpVersion,
-				selectedCustomPurposeIds: new Set(),
+				selectedCustomPurposeIds: new Set()
 			},
-			publisherConsentData,
+			publisherConsentData
 		);
 		this.publisherConsentData.consentLanguage = consentLanguage;
 
@@ -104,7 +104,7 @@ export default class Store {
 			vendorListVersion,
 			maxVendorId = 0,
 			selectedVendorIds = new Set(),
-			selectedPurposeIds = new Set(),
+			selectedPurposeIds = new Set()
 		} = persistedVendorConsentData;
 
 		const { purposes = [], vendors = [] } = vendorList;
@@ -125,7 +125,7 @@ export default class Store {
 			vendorIds.forEach(
 				id =>
 					(vendorMap[id] =
-						selectedVendorIds.has(id) && allowedVendorIds.has(id)),
+						selectedVendorIds.has(id) && allowedVendorIds.has(id))
 			);
 		} else {
 			// In case the vendor list has not been loaded yet find the highest
@@ -133,7 +133,7 @@ export default class Store {
 			const lastVendorId = Math.max(
 				maxVendorId,
 				...vendors.map(({ id }) => id),
-				...Array.from(selectedVendorIds),
+				...Array.from(selectedVendorIds)
 			);
 
 			// Map all IDs up to the highest vendor ID found
@@ -145,7 +145,7 @@ export default class Store {
 		// Map all purpose IDs
 		const lastPurposeId = Math.max(
 			...purposes.map(({ id }) => id),
-			...Array.from(selectedPurposeIds),
+			...Array.from(selectedPurposeIds)
 		);
 
 		const purposeMap = {};
@@ -167,7 +167,7 @@ export default class Store {
 			vendorListVersion,
 			maxVendorId,
 			purposeConsents: purposeMap,
-			vendorConsents: vendorMap,
+			vendorConsents: vendorMap
 		};
 	};
 
@@ -189,7 +189,7 @@ export default class Store {
 				isEU,
 				consentString,
 				source,
-				consentScreen,
+				consentScreen
 			});
 		});
 	};
@@ -203,7 +203,7 @@ export default class Store {
 			vendorList = {},
 			customPurposeList = {},
 			persistedPublisherConsentData = {},
-			persistedVendorConsentData = {},
+			persistedVendorConsentData = {}
 		} = this;
 
 		const {
@@ -216,7 +216,7 @@ export default class Store {
 			consentLanguage,
 			vendorListVersion,
 			publisherPurposesVersion,
-			selectedCustomPurposeIds = new Set(),
+			selectedCustomPurposeIds = new Set()
 		} = persistedPublisherConsentData;
 
 		const { selectedPurposeIds = new Set() } = persistedVendorConsentData;
@@ -231,7 +231,7 @@ export default class Store {
 
 		const lastCustomPurposeId = Math.max(
 			...customPurposes.map(({ id }) => id),
-			...Array.from(selectedCustomPurposeIds),
+			...Array.from(selectedCustomPurposeIds)
 		);
 
 		// Map all purpose IDs
@@ -256,7 +256,7 @@ export default class Store {
 			vendorListVersion,
 			publisherPurposesVersion,
 			standardPurposes: standardPurposeMap,
-			customPurposes: customPurposeMap,
+			customPurposes: customPurposeMap
 		};
 	};
 
@@ -274,7 +274,7 @@ export default class Store {
 			vendorConsentData,
 			publisherConsentData,
 			vendorList,
-			customPurposeList,
+			customPurposeList
 		} = this;
 
 		const { vendorListVersion = 1 } = vendorList || {};
@@ -302,7 +302,7 @@ export default class Store {
 				...vendorConsentData,
 				...publisherConsentData,
 				vendorList,
-				customPurposeList,
+				customPurposeList
 			});
 		}
 
@@ -342,7 +342,7 @@ export default class Store {
 		const { vendors = [] } = this.vendorList || {};
 		const operation = isSelected ? 'add' : 'delete';
 		vendors.forEach(({ id }) =>
-			this.vendorConsentData.selectedVendorIds[operation](id),
+			this.vendorConsentData.selectedVendorIds[operation](id)
 		);
 		this.storeUpdate();
 	};
@@ -361,7 +361,7 @@ export default class Store {
 		const { purposes = [] } = this.vendorList || {};
 		const operation = isSelected ? 'add' : 'delete';
 		purposes.forEach(({ id }) =>
-			this.vendorConsentData.selectedPurposeIds[operation](id),
+			this.vendorConsentData.selectedPurposeIds[operation](id)
 		);
 		this.storeUpdate();
 	};
@@ -380,7 +380,7 @@ export default class Store {
 		const { purposes = [] } = this.customPurposeList || {};
 		const operation = isSelected ? 'add' : 'delete';
 		purposes.forEach(({ id }) =>
-			this.publisherConsentData.selectedCustomPurposeIds[operation](id),
+			this.publisherConsentData.selectedCustomPurposeIds[operation](id)
 		);
 		this.storeUpdate();
 	};
@@ -445,7 +445,7 @@ export default class Store {
 		this.vendorConsentData.maxVendorId = Math.max(
 			maxVendorId,
 			...vendors.map(({ id }) => id),
-			...Array.from(selectedVendorIds),
+			...Array.from(selectedVendorIds)
 		);
 		this.vendorConsentData.vendorListVersion = version;
 		this.publisherConsentData.vendorListVersion = version;

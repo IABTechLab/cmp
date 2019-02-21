@@ -20,10 +20,10 @@ describe('Vendors', () => {
 					{ id: 1, name: 'Vendor 1' },
 					{ id: 2, name: 'Vendor 2' },
 					{ id: 3, name: 'Vendor 3' },
-					{ id: 4, name: 'Vendor 4' },
+					{ id: 4, name: 'Vendor 4' }
 				]}
 			/>,
-			scratch,
+			scratch
 		);
 
 		const vendorRows = vendors.querySelectorAll(`.${style.vendorContent} tr`);
@@ -42,11 +42,11 @@ describe('Vendors', () => {
 					{ id: 1, name: 'Vendor 1' },
 					{ id: 2, name: 'Vendor 2' },
 					{ id: 3, name: 'Vendor 3' },
-					{ id: 4, name: 'Vendor 4' },
+					{ id: 4, name: 'Vendor 4' }
 				]}
 				selectVendor={selectVendor}
 			/>,
-			scratch,
+			scratch
 		);
 
 		vendors.handleSelectVendor({ dataId: 2, isSelected: true });
@@ -66,11 +66,11 @@ describe('Vendors', () => {
 					{ id: 1, name: 'Vendor 1' },
 					{ id: 2, name: 'Vendor 2' },
 					{ id: 3, name: 'Vendor 3' },
-					{ id: 4, name: 'Vendor 4' },
+					{ id: 4, name: 'Vendor 4' }
 				]}
 				selectAllVendors={selectAllVendors}
 			/>,
-			scratch,
+			scratch
 		);
 
 		vendors.handleAcceptAll();
@@ -89,11 +89,11 @@ describe('Vendors', () => {
 					{ id: 1, name: 'Vendor 1' },
 					{ id: 2, name: 'Vendor 2' },
 					{ id: 3, name: 'Vendor 3' },
-					{ id: 4, name: 'Vendor 4' },
+					{ id: 4, name: 'Vendor 4' }
 				]}
 				selectAllVendors={selectAllVendors}
 			/>,
-			scratch,
+			scratch
 		);
 
 		vendors.handleRejectAll();

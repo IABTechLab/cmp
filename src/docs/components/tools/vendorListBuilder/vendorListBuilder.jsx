@@ -14,7 +14,7 @@ export default class VendorListBuilder extends Component {
 			vendors,
 			purposes,
 			selectedPurposeIds: new Set(purposes.map(({ id }) => id)),
-			selectedVendorIds: new Set(vendors.map(({ id }) => id)),
+			selectedVendorIds: new Set(vendors.map(({ id }) => id))
 		};
 	}
 
@@ -34,7 +34,7 @@ export default class VendorListBuilder extends Component {
 			const { purposes } = this.state;
 			if (all) {
 				this.setState({
-					selectedPurposeIds: new Set(purposes.map(({ id }) => id)),
+					selectedPurposeIds: new Set(purposes.map(({ id }) => id))
 				});
 			} else {
 				this.setState({ selectedPurposeIds: new Set() });
@@ -58,7 +58,7 @@ export default class VendorListBuilder extends Component {
 			const { vendors } = this.state;
 			if (all) {
 				this.setState({
-					selectedVendorIds: new Set(vendors.map(({ id }) => id)),
+					selectedVendorIds: new Set(vendors.map(({ id }) => id))
 				});
 			} else {
 				this.setState({ selectedVendorIds: new Set() });
@@ -72,17 +72,17 @@ export default class VendorListBuilder extends Component {
 			purposes,
 			vendors,
 			selectedPurposeIds,
-			selectedVendorIds,
+			selectedVendorIds
 		} = this.state;
 
 		const json = JSON.stringify(
 			{
 				version,
 				purposes: purposes.filter(({ id }) => selectedPurposeIds.has(id)),
-				vendors: vendors.filter(({ id }) => selectedVendorIds.has(id)),
+				vendors: vendors.filter(({ id }) => selectedVendorIds.has(id))
 			},
 			null,
-			2,
+			2
 		);
 
 		const dataUrl = `data:text/csv;charset=utf-8,${encodeURIComponent(json)}`;
@@ -99,7 +99,7 @@ export default class VendorListBuilder extends Component {
 			purposes,
 			vendors,
 			selectedPurposeIds,
-			selectedVendorIds,
+			selectedVendorIds
 		} = state;
 
 		return (

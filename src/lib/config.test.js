@@ -4,7 +4,7 @@ import config from './config';
 describe('config', () => {
 	it('updates nested config props', () => {
 		expect(config.css['font-family']).to.equal(
-			"'Helvetica Neue', Helvetica, Arial, sans-serif",
+			"'Helvetica Neue', Helvetica, Arial, sans-serif"
 		);
 		expect(config.css['color-primary']).to.equal('#0a82be');
 		config.update({ css: { 'font-family': 'MonoType' } });
@@ -22,7 +22,7 @@ describe('config', () => {
 				return !{ update: true, copy: true, individualOverwritesAllowed: true }[
 					key
 				];
-			}),
+			})
 		);
 		Object.keys(copy).forEach(key => {
 			expect(copy[key]).to.be.deep.equal(config[key]);

@@ -6,7 +6,7 @@ import Checkbox from '../checkbox/checkbox';
 import {
 	encodeField,
 	encodeDataToBits,
-	encodeCookieValue,
+	encodeCookieValue
 } from '../../../lib/cookie/cookieutils';
 
 export default class CookieEncoder extends Component {
@@ -14,7 +14,7 @@ export default class CookieEncoder extends Component {
 		super(props);
 
 		this.state = {
-			selectedCookieVersion: 1,
+			selectedCookieVersion: 1
 		};
 		this.initVersion();
 	}
@@ -45,7 +45,7 @@ export default class CookieEncoder extends Component {
 			case 'list':
 				decodedObject[name] = [];
 				fields.map(listField =>
-					this.setDefaultValues(decodedObject[name], listField),
+					this.setDefaultValues(decodedObject[name], listField)
 				);
 				break;
 		}
@@ -56,13 +56,13 @@ export default class CookieEncoder extends Component {
 			const { name, type } = field;
 			const text = e.target.value;
 			const decodedObject = {
-				...this.state.decodedObject,
+				...this.state.decodedObject
 			};
 			const propertyPath = _.filter([objectPath, name]).join('.');
 			_.set(
 				decodedObject,
 				propertyPath,
-				_.get(decodedObject, propertyPath, ''),
+				_.get(decodedObject, propertyPath, '')
 			);
 
 			switch (type) {
@@ -99,7 +99,7 @@ export default class CookieEncoder extends Component {
 			}
 
 			this.setState({
-				decodedObject,
+				decodedObject
 			});
 		};
 	};
@@ -108,7 +108,7 @@ export default class CookieEncoder extends Component {
 		return event => {
 			const cookieVersion = event.target.value;
 			this.setState({
-				selectedCookieVersion: cookieVersion,
+				selectedCookieVersion: cookieVersion
 			});
 			this.initVersion();
 			this.handleInputChanged(field)(event);
@@ -207,7 +207,7 @@ export default class CookieEncoder extends Component {
 					{type !== 'list'
 						? encodeField({
 								input: fieldObject,
-								field,
+								field
 						  })
 						: ''}
 				</td>
@@ -245,8 +245,8 @@ export default class CookieEncoder extends Component {
 										rows.push(
 											this.renderInputRow(
 												f,
-												_.filter([objectPath, name, `[${i}]`]).join('.'),
-											),
+												_.filter([objectPath, name, `[${i}]`]).join('.')
+											)
 										);
 									});
 								}

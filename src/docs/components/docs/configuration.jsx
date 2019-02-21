@@ -32,7 +32,7 @@ export default class CmpApi extends Component {
 						tabSize: 2,
 						mode: 'javascript',
 						viewportMargin: Infinity,
-						readOnly: true,
+						readOnly: true
 					}}
 				/>
 

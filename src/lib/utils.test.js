@@ -11,7 +11,7 @@ import {
 	getAmountOfConsentGiven,
 	checkIfCookieIsOld,
 	getTimestamp,
-	getConsentsCount,
+	getConsentsCount
 } from './utils';
 import config from './config';
 
@@ -24,55 +24,55 @@ describe('utils', () => {
 		it('returns true if there are no cookies set', () => {
 			const vendorConsent = {
 				purposeConsents: {
-					'1': false,
+					'1': false
 				},
 				vendorConsents: {
-					'1': false,
-				},
+					'1': false
+				}
 			};
 			const publisherConsent = {
 				customPurposes: {
-					'1': false,
+					'1': false
 				},
 				standardPurposes: {
-					'1': false,
-				},
+					'1': false
+				}
 			};
 			expect(
 				checkReprompt(
 					repromptOptions,
 					vendorList,
 					vendorConsent,
-					publisherConsent,
-				),
+					publisherConsent
+				)
 			).eq(true);
 		});
 
 		it('returns true if atleast one cookie is not set', () => {
 			const vendorConsent = {
 				purposeConsents: {
-					'1': false,
+					'1': false
 				},
 				vendorConsents: {
-					'1': false,
-				},
+					'1': false
+				}
 			};
 			const publisherConsent = {
 				lastUpdated: Date.now(),
 				customPurposes: {
-					'1': false,
+					'1': false
 				},
 				standardPurposes: {
-					'1': false,
-				},
+					'1': false
+				}
 			};
 			expect(
 				checkReprompt(
 					repromptOptions,
 					vendorList,
 					vendorConsent,
-					publisherConsent,
-				),
+					publisherConsent
+				)
 			).eq(true);
 		});
 
@@ -80,28 +80,28 @@ describe('utils', () => {
 			const vendorConsent = {
 				lastUpdated: Date.now(),
 				purposeConsents: {
-					'1': false,
+					'1': false
 				},
 				vendorConsents: {
-					'1': false,
-				},
+					'1': false
+				}
 			};
 			const publisherConsent = {
 				lastUpdated: Date.now(),
 				customPurposes: {
-					'1': true,
+					'1': true
 				},
 				standardPurposes: {
-					'1': false,
-				},
+					'1': false
+				}
 			};
 			expect(
 				checkReprompt(
 					repromptOptions,
 					vendorList,
 					vendorConsent,
-					publisherConsent,
-				),
+					publisherConsent
+				)
 			).eq(false);
 		});
 
@@ -110,23 +110,23 @@ describe('utils', () => {
 			const vendorConsent = {
 				lastUpdated: Date.now() - 29 * day,
 				purposeConsents: {
-					'1': true,
+					'1': true
 				},
 				vendorConsents: {
 					'1': true,
 					'2': false,
 					'3': true,
-					'4': true,
-				},
+					'4': true
+				}
 			};
 			const publisherConsent = {
 				lastUpdated: Date.now(),
 				customPurposes: {
-					'1': true,
+					'1': true
 				},
 				standardPurposes: {
-					'1': true,
-				},
+					'1': true
+				}
 			};
 
 			expect(
@@ -134,8 +134,8 @@ describe('utils', () => {
 					repromptOptions,
 					vendorList,
 					vendorConsent,
-					publisherConsent,
-				),
+					publisherConsent
+				)
 			).eq(false);
 
 			vendorConsent.lastUpdated = Date.now() - 100 * day;
@@ -144,8 +144,8 @@ describe('utils', () => {
 					repromptOptions,
 					vendorList,
 					vendorConsent,
-					publisherConsent,
-				),
+					publisherConsent
+				)
 			).eq(false);
 
 			vendorConsent.lastUpdated = Date.now() - 361 * day;
@@ -154,8 +154,8 @@ describe('utils', () => {
 					repromptOptions,
 					vendorList,
 					vendorConsent,
-					publisherConsent,
-				),
+					publisherConsent
+				)
 			).eq(true);
 			vendorConsent.lastUpdated = Date.now() - 500 * day;
 			expect(
@@ -163,8 +163,8 @@ describe('utils', () => {
 					repromptOptions,
 					vendorList,
 					vendorConsent,
-					publisherConsent,
-				),
+					publisherConsent
+				)
 			).eq(true);
 
 			vendorConsent.purposeConsents['1'] = false;
@@ -174,8 +174,8 @@ describe('utils', () => {
 					repromptOptions,
 					vendorList,
 					vendorConsent,
-					publisherConsent,
-				),
+					publisherConsent
+				)
 			).eq(false);
 			vendorConsent.lastUpdated = Date.now() - 31 * day;
 			expect(
@@ -183,8 +183,8 @@ describe('utils', () => {
 					repromptOptions,
 					vendorList,
 					vendorConsent,
-					publisherConsent,
-				),
+					publisherConsent
+				)
 			).eq(true);
 
 			vendorConsent.vendorConsents['1'] = false;
@@ -196,8 +196,8 @@ describe('utils', () => {
 					repromptOptions,
 					vendorList,
 					vendorConsent,
-					publisherConsent,
-				),
+					publisherConsent
+				)
 			).eq(false);
 			vendorConsent.lastUpdated = Date.now() - 31 * day;
 			expect(
@@ -205,8 +205,8 @@ describe('utils', () => {
 					repromptOptions,
 					vendorList,
 					vendorConsent,
-					publisherConsent,
-				),
+					publisherConsent
+				)
 			).eq(true);
 		});
 	});
@@ -222,11 +222,11 @@ describe('utils', () => {
 			langMock.mockImplementation(() => returnValues.shift());
 			Object.defineProperty(window.navigator, 'languages', {
 				get: langMock,
-				configurable: true,
+				configurable: true
 			});
 			Object.defineProperty(window.navigator, 'browserLanguage', {
 				get: langMock,
-				configurable: true,
+				configurable: true
 			});
 		});
 
@@ -266,7 +266,7 @@ describe('utils', () => {
 				expect(window.fetch.mock.calls.length).to.equal(1);
 
 				window.fetch.mockImplementation(() =>
-					Promise.resolve({ headers: new Map([['X-GeoIP-Country', 'LT']]) }),
+					Promise.resolve({ headers: new Map([['X-GeoIP-Country', 'LT']]) })
 				);
 				checkIfGDPRApplies('url', res => {
 					expect(res.applies).eq(true);
@@ -307,7 +307,7 @@ describe('utils', () => {
 
 		it('returns true for EU countries', done => {
 			window.fetch.mockImplementation(() =>
-				Promise.resolve({ headers: new Map([['X-GeoIP-Country', 'LT']]) }),
+				Promise.resolve({ headers: new Map([['X-GeoIP-Country', 'LT']]) })
 			);
 			checkIfUserInEU('url', res => {
 				expect(res.applies).eq(true);
@@ -332,8 +332,8 @@ describe('utils', () => {
 					{ id: 3 },
 					{ id: 4 },
 					{ id: 5 },
-					{ id: 6 },
-				],
+					{ id: 6 }
+				]
 			};
 			consentObject = {
 				cookieVersion: 1,
@@ -345,7 +345,7 @@ describe('utils', () => {
 					'2': true,
 					'3': true,
 					'4': true,
-					'5': true,
+					'5': true
 				},
 				vendorConsents: {
 					'1': false,
@@ -353,17 +353,17 @@ describe('utils', () => {
 					'3': true,
 					'4': false,
 					'5': true,
-					'6': true,
+					'6': true
 				},
 				customPurposes: {
 					'1': false,
-					'2': false,
+					'2': false
 				},
 				standardPurposes: {
 					'1': true,
 					'2': true,
-					'3': true,
-				},
+					'3': true
+				}
 			};
 		});
 
@@ -388,7 +388,7 @@ describe('utils', () => {
 		it('returns true or false depending on if the language locale is a known locale in the EU', () => {
 			expect(checkIfLanguageLocaleApplies(['en-US', 'ja'])).to.eq(false);
 			expect(
-				checkIfLanguageLocaleApplies(['en-US', 'pt-BR', 'cy', 'es-mx']),
+				checkIfLanguageLocaleApplies(['en-US', 'pt-BR', 'cy', 'es-mx'])
 			).to.eq(true);
 		});
 	});
@@ -415,7 +415,7 @@ describe('utils', () => {
 	describe('getTimestamp', () => {
 		it('returns timestamp for provided date string', () => {
 			expect(getTimestamp('Tue May 08 2018 21:06:12 GMT+0300 (EEST)')).eq(
-				1525802772000,
+				1525802772000
 			);
 			expect(getTimestamp(0)).eq(0);
 		});

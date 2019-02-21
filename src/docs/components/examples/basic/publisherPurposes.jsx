@@ -9,7 +9,7 @@ export default class PublisherPurposes extends Example {
 		super(props);
 		this.state = {
 			title: 'Get Publisher Consents',
-			execute,
+			execute
 		};
 	}
 }

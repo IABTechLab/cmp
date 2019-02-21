@@ -29,7 +29,7 @@ export default class IntroFooter extends Component {
 			onToggleExpanded,
 			showLearnMoreButton,
 			learnMoreButton,
-			layout,
+			layout
 		} = props;
 
 		let allPurposes = [];

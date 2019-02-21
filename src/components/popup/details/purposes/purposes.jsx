@@ -5,7 +5,7 @@ import Label from '../../../label/label';
 
 class LocalLabel extends Label {
 	static defaultProps = {
-		prefix: 'purposes',
+		prefix: 'purposes'
 	};
 }
 
@@ -13,7 +13,7 @@ export default class Purposes extends Component {
 	state = {
 		selectedPurposeIndex: 0,
 		showLocalVendors: false,
-		localVendors: [],
+		localVendors: []
 	};
 
 	static defaultProps = {
@@ -21,7 +21,7 @@ export default class Purposes extends Component {
 		purposes: [],
 		customPurposes: [],
 		selectedPurposeIds: new Set(),
-		selectedCustomPurposeIds: new Set(),
+		selectedCustomPurposeIds: new Set()
 	};
 
 	handleSelectPurposeDetail = index => {
@@ -30,9 +30,9 @@ export default class Purposes extends Component {
 				{
 					selectedPurposeIndex: index,
 					showLocalVendors: false,
-					localVendors: [],
+					localVendors: []
 				},
-				this.props.updateCSSPrefs,
+				this.props.updateCSSPrefs
 			);
 			this.scrollRef.scrollTop = 0;
 		};
@@ -45,7 +45,7 @@ export default class Purposes extends Component {
 			customPurposes,
 			selectPurpose,
 			selectCustomPurpose,
-			updateCSSPrefs,
+			updateCSSPrefs
 		} = this.props;
 		const allPurposes = [...purposes, ...customPurposes];
 		const id = allPurposes[selectedPurposeIndex].id;
@@ -73,16 +73,16 @@ export default class Purposes extends Component {
 		this.setState(
 			{
 				showLocalVendors: true,
-				localVendors: localVendors,
+				localVendors: localVendors
 			},
-			updateCSSPrefs,
+			updateCSSPrefs
 		);
 	};
 
 	onHideLocalVendors = () => {
 		this.setState({
 			showLocalVendors: false,
-			localVendors: [],
+			localVendors: []
 		});
 	};
 
@@ -103,7 +103,7 @@ export default class Purposes extends Component {
 			selectedPurposeIds,
 			selectedCustomPurposeIds,
 			localization,
-			config,
+			config
 		} = props;
 
 		const { selectedPurposeIndex, showLocalVendors } = state;
@@ -154,7 +154,7 @@ export default class Purposes extends Component {
 							<div
 								class={[
 									style.purposeItem,
-									selectedPurposeIndex === index ? style.selectedPurpose : '',
+									selectedPurposeIndex === index ? style.selectedPurpose : ''
 								].join(' ')}
 								onClick={this.handleSelectPurposeDetail(index)}
 							>

@@ -15,7 +15,7 @@ export default {
 		{
 			name: 'customPurposeIdBitString',
 			type: 'bits',
-			numBits: decodedObject => decodedObject.numCustomPurposes,
-		},
-	],
+			numBits: decodedObject => decodedObject.numCustomPurposes
+		}
+	]
 };

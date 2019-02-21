@@ -26,17 +26,17 @@ function fetchLocalizedPurposeList() {
 
 	const consentLanguage = updateLocalizationSettings({
 		forceLocale: config.forceLocale,
-		localization: config.localization,
+		localization: config.localization
 	});
 	let url = interpolate(metadata.localizedVendorListProvider, {
-		consentLanguage: consentLanguage.toLowerCase(),
+		consentLanguage: consentLanguage.toLowerCase()
 	});
 	return fetch(url)
 		.then(res => res.json())
 		.catch(err => {
 			log.error(
 				`Failed to load standard purposes in the selected language`,
-				err,
+				err
 			);
 		});
 }
@@ -53,7 +53,7 @@ function fetchCustomPurposeList() {
 				`Failed to load custom purposes list from ${
 					config.customPurposeListLocation
 				}`,
-				err,
+				err
 			);
 		});
 }

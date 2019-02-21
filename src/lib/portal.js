@@ -29,7 +29,7 @@ function openGlobalVendorPortal() {
 			const iframe = document.createElement('iframe');
 			iframe.setAttribute(
 				'style',
-				'width:1px;height:1px;position:absolute;left:-99px;top:-99px;',
+				'width:1px;height:1px;position:absolute;left:-99px;top:-99px;'
 			);
 			iframe.setAttribute('src', url);
 
@@ -44,8 +44,8 @@ function openGlobalVendorPortal() {
 			let portalTimeout = setTimeout(() => {
 				reject(
 					new Error(
-						`Communication could not be established with the vendor domain within ${PORTAL_LOAD_TIMEOUT_MILLISECONDS} milliseconds`,
-					),
+						`Communication could not be established with the vendor domain within ${PORTAL_LOAD_TIMEOUT_MILLISECONDS} milliseconds`
+					)
 				);
 			}, PORTAL_LOAD_TIMEOUT_MILLISECONDS);
 
@@ -96,8 +96,8 @@ function sendPortalCommand(message) {
 						new Error(
 							`${
 								message.command
-							} response not received from vendor domain within ${PORTAL_COMMAND_TIMEOUT_MILLISECONDS} milliseconds`,
-						),
+							} response not received from vendor domain within ${PORTAL_COMMAND_TIMEOUT_MILLISECONDS} milliseconds`
+						)
 					);
 				}, PORTAL_COMMAND_TIMEOUT_MILLISECONDS);
 
@@ -109,10 +109,10 @@ function sendPortalCommand(message) {
 					{
 						vendorConsent: {
 							callId,
-							...message,
-						},
+							...message
+						}
 					},
-					'*',
+					'*'
 				);
 			})
 			.catch(reject);

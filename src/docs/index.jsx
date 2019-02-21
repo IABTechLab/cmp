@@ -6,8 +6,8 @@ function init() {
 	eval(
 		buildScript({
 			logging: 'debug',
-			storePublisherData: true,
-		}),
+			storePublisherData: true
+		})
 	); // eslint-disable-line no-eval
 
 	let App = require('./components/app').default;

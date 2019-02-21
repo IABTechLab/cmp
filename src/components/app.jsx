@@ -7,42 +7,42 @@ import Footer from './footer/footer';
 
 export default class App extends Component {
 	state = {
-		store: this.props.store,
+		store: this.props.store
 	};
 
 	elementsWithReplaceableCss = {
 		// Tables
 		'thead tr': {
-			'background-color': this.props.config.css['color-table-background'],
+			'background-color': this.props.config.css['color-table-background']
 		},
 		'tr[class*=even]': {
-			'background-color': this.props.config.css['color-table-background'],
+			'background-color': this.props.config.css['color-table-background']
 		},
 
 		// Purposes
 		'div[class*=purposes_purposeItem]': {
 			'background-color': this.props.config.css['color-secondary'],
-			color: this.props.config.css['color-text-secondary'],
+			color: this.props.config.css['color-text-secondary']
 		},
 		'div[class*=selectedPurpose]': {
 			'background-color': this.props.config.css['color-primary'],
-			color: this.props.config.css['color-background'],
+			color: this.props.config.css['color-background']
 		},
 
 		// Footer
 		'div[class*=footer_footer]': {
 			'border-top': '3px solid ' + this.props.config.css['color-border'],
-			'background-color': this.props.config.css['color-background'],
+			'background-color': this.props.config.css['color-background']
 		},
 		'div[class*=footerV2_extended]': {
-			'border-top': '3px solid ' + this.props.config.css['color-border'],
+			'border-top': '3px solid ' + this.props.config.css['color-border']
 		},
 		'div[class*=footerV2_container]': {
-			'background-color': this.props.config.css['color-background'],
+			'background-color': this.props.config.css['color-background']
 		},
 		svg: {
 			'background-color': this.props.config.css['color-background'],
-			fill: this.props.config.css['color-primary'],
+			fill: this.props.config.css['color-primary']
 		},
 
 		// Vendors
@@ -51,33 +51,33 @@ export default class App extends Component {
 		// Application wide
 		'div[name^=content]': {
 			'box-shadow': '0 0 0 3px ' + this.props.config.css['color-border'],
-			'background-color': this.props.config.css['color-background'],
+			'background-color': this.props.config.css['color-background']
 		},
 		':not([name*=ctrl])': {
-			'font-family': this.props.config.css['font-family'],
+			'font-family': this.props.config.css['font-family']
 		},
 		'[class*=primaryText]': {
-			color: this.props.config.css['color-text-primary'],
+			color: this.props.config.css['color-text-primary']
 		},
 		'[class*=secondaryText]': {
-			color: this.props.config.css['color-text-secondary'],
+			color: this.props.config.css['color-text-secondary']
 		},
 		a: { color: this.props.config.css['color-linkColor'] },
 		'span[class*=isSelected] [class*=visualizationGlow]': {
-			'background-color': this.props.config.css['color-primary'],
+			'background-color': this.props.config.css['color-primary']
 		},
 		'span[class*=isSelected] [class*=visualizationContainer]': {
-			'background-color': this.props.config.css['color-primary'],
+			'background-color': this.props.config.css['color-primary']
 		},
 		'[class*=button]': {
 			color: this.props.config.css['color-background'],
-			'background-color': this.props.config.css['color-primary'],
+			'background-color': this.props.config.css['color-primary']
 		},
 		'[class*=button_invert]': {
 			color: this.props.config.css['color-primary'],
 			border: '2px solid ' + this.props.config.css['color-primary'],
-			'background-color': this.props.config.css['color-background'],
-		},
+			'background-color': this.props.config.css['color-background']
+		}
 	};
 
 	updateCSSPrefs = () => {
@@ -121,7 +121,7 @@ export default class App extends Component {
 				function(event) {
 					const target = event.target;
 					const showConsentToolButtonClicked = RegExp('showConsentTool').test(
-						target.getAttribute('onclick'),
+						target.getAttribute('onclick')
 					);
 					const appDiv = self.base;
 					const { layout } = config;
@@ -129,7 +129,7 @@ export default class App extends Component {
 						isConsentToolShowing,
 						isFooterConsentToolShowing,
 						isThinConsentToolShowing,
-						isFooterShowing,
+						isFooterShowing
 					} = store;
 
 					if (
@@ -150,7 +150,7 @@ export default class App extends Component {
 						}
 					}
 				},
-				false,
+				false
 			);
 		}
 	}

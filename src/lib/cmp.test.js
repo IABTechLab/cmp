@@ -17,47 +17,47 @@ const vendorList = {
 	purposes: [
 		{
 			id: 1,
-			name: 'Accessing a Device or Browser',
+			name: 'Accessing a Device or Browser'
 		},
 		{
 			id: 2,
-			name: 'Advertising Personalisation',
+			name: 'Advertising Personalisation'
 		},
 		{
 			id: 3,
-			name: 'Analytics',
+			name: 'Analytics'
 		},
 		{
 			id: 4,
-			name: 'Content Personalisation',
-		},
+			name: 'Content Personalisation'
+		}
 	],
 	vendors: [
 		{
 			id: 1,
-			name: 'Globex',
+			name: 'Globex'
 		},
 		{
 			id: 2,
-			name: 'Initech',
+			name: 'Initech'
 		},
 		{
 			id: 3,
-			name: 'CRS',
+			name: 'CRS'
 		},
 		{
 			id: 4,
-			name: 'Umbrella',
+			name: 'Umbrella'
 		},
 		{
 			id: 5,
-			name: 'Aperture',
+			name: 'Aperture'
 		},
 		{
 			id: 6,
-			name: 'Pierce and Pierce',
-		},
-	],
+			name: 'Pierce and Pierce'
+		}
+	]
 };
 
 describe('cmp', () => {
@@ -66,12 +66,12 @@ describe('cmp', () => {
 		repromptOptions: {
 			fullConsentGiven: 30,
 			someConsentGiven: 20,
-			noConsentGiven: 1,
+			noConsentGiven: 1
 		},
 		geoIPVendor: 'http://cmp.digitru.st/geoip.json',
 		storeConsentGlobally: false,
 		gdprAppliesGlobally: false,
-		copy: jest.fn().mockReturnValue('copy'),
+		copy: jest.fn().mockReturnValue('copy')
 	};
 
 	beforeEach(() => {
@@ -90,7 +90,7 @@ describe('cmp', () => {
 			cmp.processCommand('getPublisherConsents', null, data => {
 				expect(Object.keys(data.standardPurposes).length).to.equal(24); // Per the spec, future purposes may be added, up to 24 total
 				expect(Object.keys(data.customPurposes).length).to.equal(
-					customPurposeList.purposes.length,
+					customPurposeList.purposes.length
 				);
 				done();
 			});
@@ -101,14 +101,14 @@ describe('cmp', () => {
 				expect(success).to.be.true;
 				expect(Object.keys(data)).to.deep.equal([
 					'gdprAppliesGlobally',
-					'cmpLoaded',
+					'cmpLoaded'
 				]);
 				expect(data.gdprAppliesGlobally).to.eq(false);
 
 				cmp.processCommand('ping', (data, success) => {
 					expect(Object.keys(data)).to.deep.equal([
 						'gdprAppliesGlobally',
-						'cmpLoaded',
+						'cmpLoaded'
 					]);
 					expect(success).to.be.true;
 					done();
@@ -124,7 +124,7 @@ describe('cmp', () => {
 					'gdprAppliesGlobally',
 					'gdprAppliesLanguage',
 					'gdprAppliesLocation',
-					'submitted',
+					'submitted'
 				]);
 				expect(response.submitted).to.eq(false);
 				done();
@@ -147,10 +147,10 @@ describe('cmp', () => {
 		it('getVendorConsents executes', done => {
 			cmp.processCommand('getVendorConsents', null, data => {
 				expect(Object.keys(data.purposeConsents).length).to.equal(
-					vendorList.purposes.length,
+					vendorList.purposes.length
 				);
 				expect(Object.keys(data.vendorConsents).length).to.equal(
-					vendorList.vendors.length,
+					vendorList.vendors.length
 				);
 				done();
 			});
@@ -180,7 +180,7 @@ describe('cmp', () => {
 					'consentScreen',
 					'consentLanguage',
 					'vendorListVersion',
-					'publisherPurposesVersion',
+					'publisherPurposesVersion'
 				]);
 				expect(success).to.be.true;
 				done();
@@ -198,7 +198,7 @@ describe('cmp', () => {
 					'consentScreen',
 					'consentLanguage',
 					'vendorListVersion',
-					'publisherPurposesVersion',
+					'publisherPurposesVersion'
 				]);
 				expect(success).to.be.true;
 				done();
@@ -217,7 +217,7 @@ describe('cmp', () => {
 						return new Promise(resolve => {
 							resolve({ consentString: cmp.store.consentString });
 						});
-					},
+					}
 				};
 			});
 
@@ -234,7 +234,7 @@ describe('cmp', () => {
 				cmp.processCommand('getConsentData', null, data => {
 					expect(typeof data.consentData).to.equal('string');
 					expect(data.consentData).to.equal(
-						"here's a persisted consent string",
+						"here's a persisted consent string"
 					);
 					done();
 				});
@@ -329,7 +329,7 @@ describe('cmp', () => {
 				});
 				Object.defineProperty(window.navigator, 'cookieEnabled', {
 					get: () => true,
-					configurable: true,
+					configurable: true
 				});
 			});
 
@@ -366,12 +366,12 @@ describe('cmp', () => {
 			it('not renders cmp toolbox if cookies dissabled', () => {
 				Object.defineProperty(window.navigator, 'cookieEnabled', {
 					get: () => false,
-					configurable: true,
+					configurable: true
 				});
 				mockLog.warn.mockReset();
 				cmp.processCommand('renderCmpIfNeeded');
 				expect(mockLog.warn.mock.calls[0][0]).to.eq(
-					'Cookies are disabled. Ignoring CMP consent check',
+					'Cookies are disabled. Ignoring CMP consent check'
 				);
 			});
 
@@ -402,15 +402,15 @@ describe('cmp', () => {
 
 	it('processes messages from iframes', () => {
 		const source = {
-			postMessage: jest.fn(),
+			postMessage: jest.fn()
 		};
 		const processSpy = jest.spyOn(cmp, 'processCommand');
 		cmp.receiveMessage({
 			data: {
-				__cmpCall: { command: 'showConsentTool' },
+				__cmpCall: { command: 'showConsentTool' }
 			},
 			origin: {},
-			source,
+			source
 		});
 
 		expect(processSpy.mock.calls[0][0]).to.equal('showConsentTool');

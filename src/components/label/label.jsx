@@ -3,7 +3,7 @@ import Localize from '../../lib/localize';
 
 export default class Label extends Component {
 	static defaultProps = {
-		prefix: '',
+		prefix: ''
 	};
 
 	render(props, state) {

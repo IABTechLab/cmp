@@ -7,86 +7,86 @@ const commands = [
 		parameter: {
 			type: '[parameter] (Array)',
 			description:
-				'Array of vendor IDs. Omitting the parameter returns all vendor consents',
+				'Array of vendor IDs. Omitting the parameter returns all vendor consents'
 		},
 		callback: {
 			resultType: 'result (Object)',
 			resultDescription:
-				'Object containing consent data for vendor IDs requested',
-		},
+				'Object containing consent data for vendor IDs requested'
+		}
 	},
 	{
 		command: 'getPublisherConsents',
 		parameter: {
 			type: '[parameter]',
-			description: '(ignored)',
+			description: '(ignored)'
 		},
 		callback: {
 			resultType: 'result (Object)',
-			resultDescription: 'Object containing all purpose consent data',
-		},
+			resultDescription: 'Object containing all purpose consent data'
+		}
 	},
 	{
 		command: 'getConsentData',
 		parameter: {
 			type: '[parameter]',
-			description: '(ignored)',
+			description: '(ignored)'
 		},
 		callback: {
 			resultType: 'result (String)',
 			resultDescription:
-				'Base64 encoded string containing all vendor consent data',
-		},
+				'Base64 encoded string containing all vendor consent data'
+		}
 	},
 	{
 		command: 'getVendorList',
 		parameter: {
 			type: '[parameter]',
-			description: '(ignored)',
+			description: '(ignored)'
 		},
 		callback: {
 			resultType: 'result (Object)',
 			resultDescription:
-				'Object containing the entire vendor list of IDs and names',
-		},
+				'Object containing the entire vendor list of IDs and names'
+		}
 	},
 	{
 		command: 'showConsentTool',
 		parameter: {
 			type: '[parameter]',
-			description: '(ignored)',
+			description: '(ignored)'
 		},
 		callback: {
 			resultType: 'result (Boolean)',
-			resultDescription: 'true',
-		},
+			resultDescription: 'true'
+		}
 	},
 	{
 		command: 'addEventListener',
 		parameter: {
 			type: 'parameter (String)',
-			description: 'Name of the event to listen to',
+			description: 'Name of the event to listen to'
 		},
 		callback: {
 			description: 'Function to execute when the event is fired',
 			resultType: 'result (Object)',
 			resultDescription:
-				'Object containing the event name and any data the event may return',
-		},
+				'Object containing the event name and any data the event may return'
+		}
 	},
 	{
 		command: 'removeEventListener',
 		parameter: {
 			type: 'parameter (String)',
-			description: 'Name of the event to listen to',
+			description: 'Name of the event to listen to'
 		},
 		callback: {
 			description: 'Callback function to remove as a listener',
 			resultType: 'result (Object)',
 			resultDescription:
-				'Object containing the event name and any data the event may return',
-		},
-	},
+				'Object containing the event name and any data the event may return'
+		}
+	}
 ];
 
 const events = [
@@ -94,20 +94,20 @@ const events = [
 		name: 'isLoaded',
 		description:
 			'Fired when the full CMP implementation has been loaded and assigned to window.__cmp.  The vendors list from vendors.json is not guaranteed to be loaded. If the CMP is loaded before an event listener is added the listener will be fired immediately after being added.',
-		result: '{"event":"isLoaded"}',
+		result: '{"event":"isLoaded"}'
 	},
 	{
 		name: 'cmpReady',
 		description:
 			'Fired when the full CMP implementation has been loaded AND all vendor list information has been retrieved. If the CMP is ready before an event listener is added the listener will be fired immediately after being added.',
-		result: '{"event":"cmpReady"}',
+		result: '{"event":"cmpReady"}'
 	},
 	{
 		name: 'onSubmit',
 		description:
 			'Fired when the user submits consent data via the consent tool UI',
-		result: '{"event":"onSubmit"}',
-	},
+		result: '{"event":"onSubmit"}'
+	}
 ];
 
 export default class CmpApi extends Component {

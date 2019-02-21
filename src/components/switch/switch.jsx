@@ -3,7 +3,7 @@ import style from './switch.less';
 
 export default class Switch extends Component {
 	static defaultProps = {
-		onClick: () => {},
+		onClick: () => {}
 	};
 
 	handleClicked = () => {
@@ -23,7 +23,7 @@ export default class Switch extends Component {
 				class={[
 					style.switch,
 					props.class,
-					isSelected ? style.isSelected : '',
+					isSelected ? style.isSelected : ''
 				].join(' ')}
 				onClick={this.handleClicked}
 			>

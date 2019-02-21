@@ -54,7 +54,7 @@ export default class InspectVendorData extends Example {
 		this.state = {
 			title: 'Inspect Existing Vendor Consent Information',
 			setup,
-			execute,
+			execute
 		};
 	}
 }

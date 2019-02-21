@@ -3,7 +3,7 @@
 import log from './log';
 import {
 	encodeVendorConsentData,
-	encodePublisherConsentData,
+	encodePublisherConsentData
 } from './cookie/cookie';
 import { encodeMetadataValue, decodeMetadataValue } from './cookie/cookieutils';
 import { checkReprompt, checkIfGDPRApplies } from './utils';
@@ -45,7 +45,7 @@ export default class Cmp {
 					config.repromptOptions,
 					store.getVendorList(),
 					vendorConsents,
-					publisherConsents,
+					publisherConsents
 				);
 				const { testingMode } = config;
 
@@ -91,7 +91,7 @@ export default class Cmp {
 				metadata: this.generatePublisherConsentString(),
 				gdprApplies: this.gdprApplies,
 				hasGlobalScope: this.config.storeConsentGlobally,
-				...this.store.getPublisherConsentsObject(),
+				...this.store.getPublisherConsentsObject()
 			};
 			callback(consent, true);
 		},
@@ -103,14 +103,14 @@ export default class Cmp {
 		getVendorConsents: (vendorIds, callback = () => {}) => {
 			const {
 				purposeConsents,
-				vendorConsents,
+				vendorConsents
 			} = this.store.getVendorConsentsObject(vendorIds);
 			const consent = {
 				metadata: this.generateMetadataString(),
 				gdprApplies: this.gdprApplies,
 				hasGlobalScope: this.config.storeConsentGlobally,
 				purposeConsents,
-				vendorConsents,
+				vendorConsents
 			};
 
 			callback(consent, true);
@@ -144,7 +144,7 @@ export default class Cmp {
 				const output = {
 					gdprApplies: this.gdprApplies,
 					hasGlobalScope: this.config.storeConsentGlobally,
-					consentData: consent.consentString,
+					consentData: consent.consentString
 				};
 				callback(output, true);
 				return output;
@@ -167,7 +167,7 @@ export default class Cmp {
 		ping: (_ = () => {}, callback) => {
 			const result = {
 				gdprAppliesGlobally: this.config.gdprAppliesGlobally,
-				cmpLoaded: true,
+				cmpLoaded: true
 			};
 			if (!callback) {
 				callback = _;
@@ -181,7 +181,7 @@ export default class Cmp {
 				gdprAppliesGlobally: this.config.gdprAppliesGlobally,
 				gdprAppliesLanguage: this.gdprAppliesLanguage,
 				gdprAppliesLocation: this.gdprAppliesLocation,
-				submitted: this.submitted,
+				submitted: this.submitted
 			};
 			if (!callback) {
 				callback = _;
@@ -256,7 +256,7 @@ export default class Cmp {
 
 		getConfig: (_, callback = () => {}) => {
 			callback(this.config.copy(), true);
-		},
+		}
 	};
 
 	generatePublisherConsentString = () => {
@@ -264,7 +264,7 @@ export default class Cmp {
 			vendorList,
 			persistedVendorConsentData,
 			persistedPublisherConsentData,
-			customPurposeList,
+			customPurposeList
 		} = this.store;
 
 		let customPurposes = [];
@@ -312,7 +312,7 @@ export default class Cmp {
 				selectedPurposeIds: selectedAllowedPurposeIds,
 				selectedCustomPurposeIds: selectedAllowedCustomPurposeIds,
 				customPurposeList,
-				vendorList,
+				vendorList
 			})
 		);
 	};
@@ -322,7 +322,7 @@ export default class Cmp {
 			vendorList,
 			persistedVendorConsentData,
 			persistedPublisherConsentData,
-			customPurposeList,
+			customPurposeList
 		} = this.store;
 
 		return (
@@ -331,7 +331,7 @@ export default class Cmp {
 				vendorList,
 				...persistedVendorConsentData,
 				...persistedPublisherConsentData,
-				customPurposeList,
+				customPurposeList
 			})
 		);
 	};
@@ -376,7 +376,7 @@ export default class Cmp {
 				...persistedVendorConsentData,
 				selectedVendorIds: selectedAllowedVendorIds,
 				selectedPurposeIds: selectedAllowedPurposeIds,
-				vendorList,
+				vendorList
 			})
 		);
 	};
@@ -395,11 +395,11 @@ export default class Cmp {
 								__cmpReturn: {
 									callId,
 									command,
-									returnValue,
-								},
+									returnValue
+								}
 							},
-							event.origin,
-						),
+							event.origin
+						)
 					);
 				} else {
 					this.processCommand(command, parameter, callback);
@@ -419,8 +419,8 @@ export default class Cmp {
 			this.processCommand(command, parameter, returnValue =>
 				source.postMessage(
 					{ __cmpReturn: { callId, command, returnValue } },
-					origin,
-				),
+					origin
+				)
 			);
 		}
 	};
@@ -447,7 +447,7 @@ export default class Cmp {
 			this.commandQueue.push({
 				command,
 				parameter,
-				callback,
+				callback
 			});
 		} else {
 			log.info(`Proccess command: ${command}, parameter: ${parameter}`);

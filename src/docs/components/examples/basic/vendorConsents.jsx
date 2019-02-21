@@ -9,7 +9,7 @@ export default class VendorConsents extends Example {
 		super(props);
 		this.state = {
 			title: 'Get Vendor Consents',
-			execute,
+			execute
 		};
 	}
 }

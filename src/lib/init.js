@@ -4,12 +4,12 @@ import Store from './store';
 import Cmp, { CMP_GLOBAL_NAME } from './cmp';
 import {
 	readVendorConsentCookie,
-	readPublisherConsentCookie,
+	readPublisherConsentCookie
 } from './cookie/cookie';
 import {
 	fetchVendorList,
 	fetchLocalizedPurposeList,
-	fetchCustomPurposeList,
+	fetchCustomPurposeList
 } from './vendor';
 import { checkIfUserInEU } from './utils';
 import log from './log';
@@ -30,7 +30,7 @@ export function init(configUpdates) {
 					publisherConsentData,
 					cmpId: metadata.cmpId,
 					cmpVersion: metadata.cmpVersion,
-					cookieVersion: 1,
+					cookieVersion: 1
 				});
 
 				const _fetchLocalizedPurposeList =
@@ -45,7 +45,7 @@ export function init(configUpdates) {
 							localized && store.updateLocalizedPurposeList(localized);
 						});
 					}),
-					fetchCustomPurposeList().then(store.updateCustomPurposeList),
+					fetchCustomPurposeList().then(store.updateCustomPurposeList)
 				])
 					.then(() => {
 						// Pull queued command from __cmp stub
@@ -76,8 +76,8 @@ export function init(configUpdates) {
 								) {
 									window.location.replace(
 										`${config.digitrustRedirectUrl}${encodeURIComponent(
-											window.location.href,
-										)}`,
+											window.location.href
+										)}`
 									);
 								}
 							});
@@ -114,12 +114,12 @@ export function init(configUpdates) {
 										notify={cmp.notify}
 										config={config}
 									/>,
-									document.body,
+									document.body
 								);
 
 								// Notify listeners that the CMP is loaded
 								log.debug(
-									`Successfully loaded CMP version: ${metadata.cmpVersion}`,
+									`Successfully loaded CMP version: ${metadata.cmpVersion}`
 								);
 								cmp.isLoaded = true;
 								cmp.notify('isLoaded');

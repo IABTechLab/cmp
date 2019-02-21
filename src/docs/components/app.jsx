@@ -18,13 +18,13 @@ function buildRoute(item) {
 
 export default class App extends Component {
 	state = {
-		menuExpanded: false,
+		menuExpanded: false
 	};
 
 	toggleMenu = isExpanded => {
 		this.setState({
 			menuExpanded:
-				typeof isExpanded === 'boolean' ? isExpanded : !this.state.menuExpanded,
+				typeof isExpanded === 'boolean' ? isExpanded : !this.state.menuExpanded
 		});
 	};
 
@@ -32,14 +32,14 @@ export default class App extends Component {
 		const { menuExpanded } = state;
 		const routes = navItems.reduce(
 			(acc, navItem) => acc.concat(navItem.items.map(buildRoute)),
-			[],
+			[]
 		);
 
 		return (
 			<Router>
 				<div
 					className={classnames(style.app, {
-						[style.menuExpanded]: menuExpanded,
+						[style.menuExpanded]: menuExpanded
 					})}
 				>
 					<section className={style.nav}>

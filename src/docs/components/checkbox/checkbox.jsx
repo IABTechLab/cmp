@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 
 export default class Checkbox extends Component {
 	static defaultProps = {
-		onChange: () => {},
+		onChange: () => {}
 	};
 
 	render(props) {

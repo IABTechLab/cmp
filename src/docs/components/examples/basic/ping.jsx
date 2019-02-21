@@ -9,7 +9,7 @@ export default class Ping extends Example {
 		super(props);
 		this.state = {
 			title: 'Ping',
-			execute,
+			execute
 		};
 	}
 }

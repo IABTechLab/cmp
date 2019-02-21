@@ -24,7 +24,7 @@ export default {
 				</ul>
 			`,
 			acceptAll: 'Accept all',
-			showPurposes: 'Learn more',
+			showPurposes: 'Learn more'
 		},
 		details: {
 			title: 'Privacy preferences',
@@ -32,7 +32,7 @@ export default {
 			save: 'OK, Continue to site',
 			showVendors: 'Show all companies',
 			enableAll: 'Enable all',
-			disableAll: 'Disable all',
+			disableAll: 'Disable all'
 		},
 		purposes: {
 			active: 'Active',
@@ -45,7 +45,7 @@ export default {
 			featureHeader: 'This will include the following features:',
 			company: 'Company',
 			switchText:
-				'Publisher and their partners could collect anonymized information in order to improve your experience on our site.',
+				'Publisher and their partners could collect anonymized information in order to improve your experience on our site.'
 		},
 		vendors: {
 			company: 'Company',
@@ -57,7 +57,7 @@ export default {
 			description2: 'Customise how these companies use data on the ',
 			description2Link: 'previous page.',
 			description3: 'You can control the preferences for all companies by ',
-			description3Link: 'clicking here.',
+			description3Link: 'clicking here.'
 		},
 		footer: {
 			message:
@@ -77,8 +77,8 @@ export default {
 					<li>Information about the geographic location of the device when it accesses a website or mobile application</li>
 				</ul>
 			`,
-			purposesHeader: 'Purposes for storing information:',
-		},
+			purposesHeader: 'Purposes for storing information:'
+		}
 	},
 	es: {
 		intro: {
@@ -109,7 +109,7 @@ export default {
 				</ul>
 			`,
 			acceptAll: 'OK, continuar a la página',
-			showPurposes: 'Conozca más',
+			showPurposes: 'Conozca más'
 		},
 		details: {
 			title: 'Preferencias de privacidad',
@@ -117,7 +117,7 @@ export default {
 			save: 'OK, continuar a la página',
 			showVendors: 'Mostrar empresas',
 			enableAll: 'Habilitar todo',
-			disableAll: 'Deshabilitar todo',
+			disableAll: 'Deshabilitar todo'
 		},
 		purposes: {
 			active: 'Permitir',
@@ -129,7 +129,7 @@ export default {
 			hideVendors: 'Esconder empresas',
 			featureHeader: 'Esto incluirá las siguientes características:',
 			company: 'Empresa',
-			switchText: '',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Empresa',
@@ -141,7 +141,7 @@ export default {
 			description2: 'Personalice cómo estas empresas usan los datos en la ',
 			description2Link: 'página anterior.',
 			description3: '',
-			description3Link: '',
+			description3Link: ''
 		},
 		footer: {
 			message: '',
@@ -159,8 +159,8 @@ export default {
 					<li>Información sobre la ubicación geográfica del dispositivo cuando accede a un sitio web o aplicación móvil</li>
 				</ul>
 			`,
-			purposesHeader: 'Propósitos para almacenar información:',
-		},
+			purposesHeader: 'Propósitos para almacenar información:'
+		}
 	},
 	de: {
 		intro: {
@@ -191,7 +191,7 @@ export default {
 				</ul>
 			`,
 			acceptAll: 'OK, Weiter zur Website',
-			showPurposes: 'Erfahren Sie mehr',
+			showPurposes: 'Erfahren Sie mehr'
 		},
 		details: {
 			title: 'Datenschutzeinstellungen',
@@ -199,7 +199,7 @@ export default {
 			save: 'OK, Weiter zur Website',
 			showVendors: 'Firmen zeigen',
 			enableAll: 'Alle aktivieren',
-			disableAll: 'Alle deaktivieren',
+			disableAll: 'Alle deaktivieren'
 		},
 		purposes: {
 			active: 'Aktivieren',
@@ -211,7 +211,7 @@ export default {
 			hideVendors: 'Firmen ausblenden',
 			featureHeader: 'Dies beinhaltet die folgenden Funktionen:',
 			company: 'Firmen',
-			switchText: '',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Firmen',
@@ -224,7 +224,7 @@ export default {
 				'Können Sie anpassen, wie diese Unternehmen Daten verwenden ',
 			description2Link: 'Auf der vorherigen Seite.',
 			description3: '',
-			description3Link: '',
+			description3Link: ''
 		},
 		footer: {
 			message: '',
@@ -242,8 +242,8 @@ export default {
 					<li>Informationen zum Geo Location des Geräts beim Zugriff auf eine Website oder eine mobile Anwendung</li>
 				</ul>
 			`,
-			purposesHeader: 'Zwecke zum Speichern von Informationen:',
-		},
+			purposesHeader: 'Zwecke zum Speichern von Informationen:'
+		}
 	},
 	pl: {
 		intro: {
@@ -274,7 +274,7 @@ export default {
 				</ul>
 			`,
 			acceptAll: 'Przejdź do strony',
-			showPurposes: 'Więcej',
+			showPurposes: 'Więcej'
 		},
 		details: {
 			title: 'Preferencje prywatności',
@@ -282,7 +282,7 @@ export default {
 			save: 'Przejdź do strony',
 			showVendors: 'Pokaż firmy',
 			enableAll: 'Pozwól wszystkim',
-			disableAll: 'Zakazać wszystkich',
+			disableAll: 'Zakazać wszystkich'
 		},
 		purposes: {
 			active: 'Włącz',
@@ -294,7 +294,7 @@ export default {
 			hideVendors: 'Ukryj firmy',
 			featureHeader: 'Obejmie to następujące funkcje:',
 			company: 'Firmy',
-			switchText: '',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Firmy',
@@ -306,7 +306,7 @@ export default {
 			description2: 'Dostosuj sposób, w jaki te firmy wykorzystują dane na ',
 			description2Link: 'poprzedniej stronie.',
 			description3: '',
-			description3Link: '',
+			description3Link: ''
 		},
 		footer: {
 			message: '',
@@ -324,8 +324,8 @@ export default {
 					<li>Informacja o położeniu geograficznym urządzenia, gdy uzyskuje dostęp do strony internetowej lub aplikacji mobilnej</li>
 				</ul>
 			`,
-			purposesHeader: 'Cele przechowywania informacji:',
-		},
+			purposesHeader: 'Cele przechowywania informacji:'
+		}
 	},
 	lt: {
 		intro: {
@@ -356,7 +356,7 @@ export default {
 				</ul>
 			`,
 			acceptAll: 'Gerai, pereiti prie svetainės',
-			showPurposes: 'Sužinoti daugiau',
+			showPurposes: 'Sužinoti daugiau'
 		},
 		details: {
 			title: 'Privatumo nuostatos',
@@ -364,7 +364,7 @@ export default {
 			save: 'Paleisk',
 			showVendors: 'Rodyti įmones',
 			enableAll: 'Įjungti visus',
-			disableAll: 'Išjungti visus',
+			disableAll: 'Išjungti visus'
 		},
 		purposes: {
 			active: 'Aktyvus',
@@ -376,7 +376,7 @@ export default {
 			hideVendors: 'Paslėpti įmones',
 			featureHeader: 'Apima šias funkcijas:',
 			company: 'įmonė',
-			switchText: '',
+			switchText: ''
 		},
 		vendors: {
 			company: 'įmonė',
@@ -389,7 +389,7 @@ export default {
 				'Galite pasirinkti kaip šios įmonės galės naudotis jūsų duomenimis ',
 			description2Link: 'ankstesniame puslapyje.',
 			description3: '',
-			description3Link: '',
+			description3Link: ''
 		},
 		footer: {
 			message: '',
@@ -407,8 +407,8 @@ export default {
 					<li>Informacija apie geografinę prietaiso buvimo vietą, kai įrenginys prisijungia prie svetainės arba mobilios programėlės</li>
 				</ul>
 			`,
-			purposesHeader: 'Informacijos saugojimo paskirtys:',
-		},
+			purposesHeader: 'Informacijos saugojimo paskirtys:'
+		}
 	},
 	it: {
 		intro: {
@@ -439,7 +439,7 @@ export default {
 				</ul>
 			`,
 			acceptAll: 'Va bene, vai al sito',
-			showPurposes: 'Maggiori informazioni',
+			showPurposes: 'Maggiori informazioni'
 		},
 		details: {
 			title: 'Opzioni privacy',
@@ -447,7 +447,7 @@ export default {
 			save: 'Ok, vai alla pagina',
 			showVendors: 'Mostra le aziende',
 			enableAll: 'Abilita tutto',
-			disableAll: 'Disabilita tutto',
+			disableAll: 'Disabilita tutto'
 		},
 		purposes: {
 			active: 'Abilita',
@@ -459,7 +459,7 @@ export default {
 			hideVendors: 'Nascondere le aziende',
 			featureHeader: 'Ciò includerà le seguenti funzionalità:',
 			company: 'Azienda',
-			switchText: '',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Azienda',
@@ -472,7 +472,7 @@ export default {
 				'Personalizza il modo in cui le aziende useranno i dati nella ',
 			description2Link: 'pagina precedente',
 			description3: '',
-			description3Link: '',
+			description3Link: ''
 		},
 		footer: {
 			message: '',
@@ -490,8 +490,8 @@ export default {
 					<li>Informazioni sulla posizione del dispositivo quando l’utente accede a un sito o a un’app</li>
 				</ul>
 			`,
-			purposesHeader: 'Finalità delle informazioni archiviate:',
-		},
+			purposesHeader: 'Finalità delle informazioni archiviate:'
+		}
 	},
 	fr: {
 		intro: {
@@ -522,7 +522,7 @@ export default {
 				</ul>
 			`,
 			acceptAll: 'OK, Continuer vers le Site',
-			showPurposes: 'En savoir plus',
+			showPurposes: 'En savoir plus'
 		},
 		details: {
 			title: 'Préférences au sujet de la vie privée',
@@ -530,7 +530,7 @@ export default {
 			save: 'OK, Continuer vers le Site',
 			showVendors: 'Montrer les entreprises',
 			enableAll: 'Activer tout',
-			disableAll: 'Désactiver tout',
+			disableAll: 'Désactiver tout'
 		},
 		purposes: {
 			active: 'Activer',
@@ -542,7 +542,7 @@ export default {
 			hideVendors: 'Masquer les entreprises',
 			featureHeader: 'Ceci inclura les caractéristiques suivantes:',
 			company: 'Entreprise',
-			switchText: '',
+			switchText: ''
 		},
 		vendors: {
 			company: 'Entreprise',
@@ -555,7 +555,7 @@ export default {
 				'Personnalisez la manière dont ces entreprises utilisent votre donnée sur la ',
 			description2Link: 'page précédente.',
 			description3: '',
-			description3Link: '',
+			description3Link: ''
 		},
 		footer: {
 			message: '',
@@ -574,8 +574,8 @@ export default {
 				</ul>
 			`,
 			purposesHeader:
-				'Les raisons pour lesquelles les informations sont conservées:',
-		},
+				'Les raisons pour lesquelles les informations sont conservées:'
+		}
 	},
 	cs: {
 		intro: {
@@ -596,7 +596,7 @@ export default {
 				</ul>
 			`,
 			acceptAll: 'přijmout vše',
-			showPurposes: 'více informací',
+			showPurposes: 'více informací'
 		},
 		details: {
 			title: 'Nastavení soukromí',
@@ -604,7 +604,7 @@ export default {
 			save: 'OK, pokračovat na stránku',
 			showVendors: 'Ukázat společnosti',
 			enableAll: 'Zapnout vše',
-			disableAll: 'Vypnout vše',
+			disableAll: 'Vypnout vše'
 		},
 		purposes: {
 			active: 'Povoleno',
@@ -617,7 +617,7 @@ export default {
 			featureHeader: 'To bude zahrnovat následující funkce:',
 			company: 'společnosti',
 			switchText:
-				'Publisher and their partners could collect anonymized information in order to improve your experience on our site.',
+				'Publisher and their partners could collect anonymized information in order to improve your experience on our site.'
 		},
 		vendors: {
 			company: 'Společnost',
@@ -630,7 +630,7 @@ export default {
 				'Nastavení užívání dat těmito společnostmi můžete upravit na ',
 			description2Link: 'předchozí stránce.',
 			description3: 'Pro změnu nastavení pro všechny společnosti najednou ',
-			description3Link: 'klikněte zde.',
+			description3Link: 'klikněte zde.'
 		},
 		footer: {
 			message:
@@ -649,7 +649,7 @@ export default {
 					<li>Informace o zeměpisné poloze zařízení v průběhu návštěvy webu či užívání mobilní aplikace</li>
 				</ul>
 			`,
-			purposesHeader: 'Účely uchovávání informací:',
-		},
-	},
+			purposesHeader: 'Účely uchovávání informací:'
+		}
+	}
 };
