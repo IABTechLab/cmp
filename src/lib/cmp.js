@@ -81,6 +81,10 @@ export default class Cmp {
           });
         }
       }
+
+      if (cmp && typeof cmp.onConfigLoaded === 'function') {
+        cmp.onConfigLoaded(config);
+      }
     },
 
     /**
@@ -238,14 +242,14 @@ export default class Cmp {
       const self = this;
       let _command;
       switch (self.config.layout) {
-      case 'footer':
-        _command = 'toggleFooterConsentToolShowing';
-        break;
-      case 'thin':
-        _command = 'toggleThinConsentToolShowing';
-        break;
-      default:
-        _command = 'toggleConsentToolShowing';
+        case 'footer':
+          _command = 'toggleFooterConsentToolShowing';
+          break;
+        case 'thin':
+          _command = 'toggleThinConsentToolShowing';
+          break;
+        default:
+          _command = 'toggleConsentToolShowing';
       }
 
       self.cmpShown = true;
