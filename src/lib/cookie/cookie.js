@@ -275,13 +275,16 @@ function writeCookie(name, value, maxAgeSeconds, path = '/') {
  *
  * @returns Promise resolved with decoded cookie object
  */
-function readGlobalPublisherConsentCookie() {
+function readGlobalPublisherConsentCookie(fallbackToLocal) {
   log.debug('Request publisher consent data from global cookie');
   return sendPortalCommand({
     command: 'readPublisherConsent',
   })
     .then(result => {
       log.debug('Read publisher consent data from global cookie', result);
+      if (!result && !fallbackToLocal) {
+        return null;
+      }
       if (result) {
         return decodePublisherConsentData(result, 'global');
       }
@@ -367,13 +370,16 @@ function writePublisherConsentCookie(publisherConsentData) {
  *
  * @returns Promise resolved with decoded cookie object
  */
-function readGlobalVendorConsentCookie() {
+function readGlobalVendorConsentCookie(fallbackToLocal) {
   log.debug('Request consent data from global cookie');
   return sendPortalCommand({
     command: 'readVendorConsent',
   })
     .then(result => {
       log.debug('Read consent data from global cookie', result);
+      if (!result && !fallbackToLocal) {
+        return null;
+      }
       if (result) {
         return decodeVendorConsentData(result, 'global');
       }
