@@ -19,7 +19,18 @@ table.vendorTable {
     td,
     th {
       text-align: left;
+      font-size: 14px;
       padding: 5px;
+      &:nth-child(1) {
+        font-size: 14px;
+        font-weight: normal;
+      }
+      &:nth-child(2n) {
+        background-color: transparent;
+      }
+      &:nth-child(2n + 1) {
+        background-color: transparent;
+      }
       &:first-child {
         width: 100%;
       }
