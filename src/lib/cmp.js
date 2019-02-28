@@ -64,6 +64,7 @@ export default class Cmp {
             cmp('showConsentTool', callback);
           } else {
             self.notify('consentNotRequired');
+            window.PageviewCMP = 0;
             log.debug('rendering the CMP is not needed');
           }
         } else {
@@ -76,6 +77,7 @@ export default class Cmp {
               cmp('showConsentTool', callback);
             } else {
               self.notify('consentNotRequired');
+              window.PageviewCMP = 0;
               log.debug('rendering the CMP is not needed');
             }
           });

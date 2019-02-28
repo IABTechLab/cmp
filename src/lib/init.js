@@ -179,7 +179,8 @@ export function init(configUpdates) {
           return loadCmpConfigurationData()
             .then(() => {
               // Pull queued command from __cmp stub
-              const { commandQueue = [] } = window[CMP_GLOBAL_NAME] || {};
+              const { commandQueue = [], onConfigLoaded } =
+              window[CMP_GLOBAL_NAME] || {};
 
               // Replace the __cmp with our implementation
               const cmp = new Cmp(store, config);
@@ -187,6 +188,7 @@ export function init(configUpdates) {
 
               // Expose `processCommand` as the CMP implementation
               window[CMP_GLOBAL_NAME] = cmp.processCommand;
+              window[CMP_GLOBAL_NAME].onConfigLoaded = onConfigLoaded;
 
               // Execute any previously queued command
               cmp.commandQueue = commandQueue;
