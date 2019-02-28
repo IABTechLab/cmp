@@ -32,6 +32,49 @@ const storeConsentLocally = (vendorConsent, publisherConsent) => {
   ]);
 };
 
+const loadGlobalConsent = ({
+  localVendorConsentData,
+  localPublisherConsentData,
+}) => {
+  return Promise.all([
+    cookie.readGlobalVendorConsentCookie(),
+    cookie.readGlobalPublisherConsentCookie(),
+  ]).then(([globalVendorConsentData, globalPublisherConsentData]) => {
+    if (globalVendorConsentData) {
+      log.info('Global consent cookie present', globalVendorConsentData);
+      return storeConsentLocally(
+        globalVendorConsentData,
+        globalPublisherConsentData,
+      ).then(() => {
+        return {
+          vendorConsentData: globalVendorConsentData,
+          publisherConsentData: globalPublisherConsentData,
+        };
+      });
+    } else if (!globalVendorConsentData && localVendorConsentData) {
+      log.info(
+        'Global consent cookie not present, local present',
+        localVendorConsentData,
+      );
+
+      return Promise.all([
+        cookie.writeGlobalVendorConsentCookie(localVendorConsentData),
+        cookie.writeGlobalPublisherConsentCookie(localPublisherConsentData),
+      ]).then(() => {
+        return {
+          vendorConsentData: localVendorConsentData,
+          publisherConsentData: localPublisherConsentData,
+        };
+      });
+    }
+
+    return {
+      vendorConsentData: globalVendorConsentData,
+      publisherConsentData: globalPublisherConsentData,
+    };
+  });
+};
+
 const getAndCacheConsentData = () => {
   return Promise.all([
     cookie.readLocalVendorConsentCookie(),
@@ -39,6 +82,7 @@ const getAndCacheConsentData = () => {
   ]).then(([localVendorConsentData, localPublisherConsentData]) => {
     if (localVendorConsentData) {
       log.info('Local consent cookie present, using it');
+      loadGlobalConsent({ localVendorConsentData, localPublisherConsentData }); // check third party cookie but don't wait for the result
       return {
         vendorConsentData: localVendorConsentData,
         publisherConsentData: localPublisherConsentData,
@@ -46,30 +90,7 @@ const getAndCacheConsentData = () => {
     }
 
     log.info('Local consent cookie not present, check global');
-
-    return Promise.all([
-      cookie.readGlobalVendorConsentCookie(),
-      cookie.readGlobalPublisherConsentCookie(),
-    ]).then(([globalVendorConsentData, globalPublisherConsentData]) => {
-      log.info('Global consent cookie present', globalVendorConsentData);
-
-      if (globalVendorConsentData) {
-        return storeConsentLocally(
-          globalVendorConsentData,
-          globalPublisherConsentData,
-        ).then(() => {
-          return {
-            vendorConsentData: globalVendorConsentData,
-            publisherConsentData: globalPublisherConsentData,
-          };
-        });
-      }
-
-      return {
-        vendorConsentData: globalVendorConsentData,
-        publisherConsentData: globalPublisherConsentData,
-      };
-    });
+    return loadGlobalConsent();
   });
 };
 

@@ -471,6 +471,7 @@ export {
   readGlobalPublisherConsentCookie,
   readLocalPublisherConsentCookie,
   writeGlobalVendorConsentCookie,
+  writeGlobalPublisherConsentCookie,
   readLocalVendorConsentCookie,
   writeLocalVendorConsentCookie,
   readVendorConsentCookie,
