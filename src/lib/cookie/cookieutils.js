@@ -51,15 +51,15 @@ function encode6BitCharacters(string, numBits) {
     typeof string !== 'string'
       ? ''
       : string
-          .split('')
-          .map(char => {
-            const int = Math.max(
-              0,
-              char.toUpperCase().charCodeAt(0) - SIX_BIT_ASCII_OFFSET,
-            );
-            return encodeIntToBits(int > 25 ? 0 : int, 6);
-          })
-          .join('');
+        .split('')
+        .map(char => {
+          const int = Math.max(
+            0,
+            char.toUpperCase().charCodeAt(0) - SIX_BIT_ASCII_OFFSET,
+          );
+          return encodeIntToBits(int > 25 ? 0 : int, 6);
+        })
+        .join('');
   return padRight(encoded, numBits).substr(0, numBits);
 }
 

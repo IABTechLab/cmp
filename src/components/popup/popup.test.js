@@ -16,7 +16,7 @@ describe('Popup', () => {
     const store = new Store();
     store.isConsentToolShowing = false;
     const popup = <Popup config={{}} updateCSSPrefs={() => {}} store={store} />;
-    expect(popup).to.contain('display: none');
+    expect(popup).to.contain('display: flex');
   });
 
   it('should render with overlay visible', () => {

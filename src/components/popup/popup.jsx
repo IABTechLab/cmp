@@ -43,19 +43,13 @@ export default class Popup extends Component {
     const { selectedPanelIndex } = state;
 
     return (
-      <div
-        class={style.popup}
-        style={{ display: 'flex' }}
-      >
+      <div class={style.popup} style={{ display: 'flex' }}>
         {config.blockBrowsing && (
           <div class={style.overlay} onClick={this.handleClose} />
         )}
         <div
           name="content"
-          class={[
-            style.content,
-            style[config.layout]
-          ].join(' ')}
+          class={[style.content, style[config.layout]].join(' ')}
         >
           <Panel selectedIndex={selectedPanelIndex}>
             <Intro

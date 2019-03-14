@@ -15,38 +15,32 @@ export default class Intro extends Component {
 
   state = {
     footerExpanded: false,
-  }
+  };
 
   componentDidMount() {
     this.props.updateCSSPrefs();
   }
 
-  renderTitle () {
-    const {
-      localization,
-      config,
-    } = this.props;
+  renderTitle() {
+    const { localization, config } = this.props;
     return (
-
       <div class={style.title + ' primaryText'}>
-      <LocalLabel
-        providedValue={
-          localization && localization.intro
-            ? localization.intro.title
-            : ''
-        }
-        localizeKey="title"
-      >
-        Thanks for visiting{' '}
-      </LocalLabel>
-      {config && config.companyName && <span>{config.companyName}</span>}
-    </div>
-    )
+        <LocalLabel
+          providedValue={
+            localization && localization.intro ? localization.intro.title : ''
+          }
+          localizeKey="title"
+        >
+          Thanks for visiting{' '}
+        </LocalLabel>
+        {config && config.companyName && <span>{config.companyName}</span>}
+      </div>
+    );
   }
 
   toggleFooterExpanded = () => {
     this.setState({ footerExpanded: !this.state.footerExpanded });
-  }
+  };
 
   render(props, state) {
     const {
@@ -60,61 +54,59 @@ export default class Intro extends Component {
 
     return (
       <div class={style.intro}>
-        {
-          !this.state.footerExpanded
-          && (
-            <div class={style.content + ' ' + style[`content-${config.layout}`]}>
-              {config.logoUrl && <img class={style.logo} src={config.logoUrl} />}
-              {config.layout === 'modal' && this.renderTitle()}
-              <div class={style.description + ' primaryText'}>
-                {config.layout !== 'modal' && this.renderTitle()}
+        {!this.state.footerExpanded && (
+          <div class={style.content + ' ' + style[`content-${config.layout}`]}>
+            {config.logoUrl && <img class={style.logo} src={config.logoUrl} />}
+            {config.layout === 'modal' && this.renderTitle()}
+            <div class={style.description + ' primaryText'}>
+              {config.layout !== 'modal' && this.renderTitle()}
+              <LocalLabel
+                providedValue={
+                  localization && localization.intro
+                    ? localization.intro.description
+                    : ''
+                }
+                localizeKey="description"
+              >
+                Ads help us run this site. When you use our site selected
+                companies may access and use information on your device for
+                various purposes including to serve relevant ads or personalised
+                content.
+              </LocalLabel>
+            </div>
+
+            <div class={style.options}>
+              <Button
+                class={style.rejectAll}
+                invert={true}
+                onClick={onShowPurposes}
+              >
                 <LocalLabel
                   providedValue={
                     localization && localization.intro
-                      ? localization.intro.description
+                      ? localization.intro.showPurposes
                       : ''
                   }
-                  localizeKey="description"
+                  localizeKey="showPurposes"
                 >
-                  Ads help us run this site. When you use our site selected
-                  companies may access and use information on your device for
-                  various purposes including to serve relevant ads or personalised
-                  content.
+                  Learn more
                 </LocalLabel>
-              </div>
-
-              <div class={style.options}>
-                <Button
-                  class={style.rejectAll}
-                  invert={true}
-                  onClick={onShowPurposes}
+              </Button>
+              <Button class={style.acceptAll} onClick={onAcceptAll}>
+                <LocalLabel
+                  providedValue={
+                    localization && localization.intro
+                      ? localization.intro.acceptAll
+                      : ''
+                  }
+                  localizeKey="acceptAll"
                 >
-                  <LocalLabel
-                    providedValue={
-                      localization && localization.intro
-                        ? localization.intro.showPurposes
-                        : ''
-                    }
-                    localizeKey="showPurposes"
-                  >
-                    Learn more
-                  </LocalLabel>
-                </Button>
-                <Button class={style.acceptAll} onClick={onAcceptAll}>
-                  <LocalLabel
-                    providedValue={
-                      localization && localization.intro
-                        ? localization.intro.acceptAll
-                        : ''
-                    }
-                    localizeKey="acceptAll"
-                  >
-                    Accept all
-                  </LocalLabel>
-                </Button>
-              </div>
+                  Accept all
+                </LocalLabel>
+              </Button>
             </div>
-          )}
+          </div>
+        )}
         <IntroFooter
           onShowPurposes={onShowPurposes}
           onToggleExpanded={this.toggleFooterExpanded}
