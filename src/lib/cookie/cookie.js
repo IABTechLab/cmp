@@ -11,6 +11,7 @@ import {
 
 import { sendPortalCommand } from '../portal';
 import config from '../config';
+import { notifySas } from '../sas';
 const metadata = require('../../../metadata.json');
 
 const PUBLISHER_CONSENT_COOKIE_NAME = 'pubconsent';
@@ -391,32 +392,6 @@ function readGlobalVendorConsentCookie(fallbackToLocal) {
 }
 
 /**
- * Write vendor consent data to third-party cookie on the
- * global vendor list domain. Fallback to first-party cookie
- * if the operation fails.
- *
- * @returns Promise resolved after cookie is written
- */
-function writeGlobalVendorConsentCookie(vendorConsentData) {
-  log.debug('Write consent data to global cookie', vendorConsentData);
-  return sendPortalCommand({
-    command: 'writeVendorConsent',
-    encodedValue: encodeVendorConsentData(vendorConsentData),
-    vendorConsentData,
-    cmpVersion: metadata.cmpVersion,
-  })
-    .then(succeeded => {
-      if (!succeeded) {
-        return writeLocalVendorConsentCookie(vendorConsentData);
-      }
-      return Promise.resolve();
-    })
-    .catch(err => {
-      log.error('Failed writing global vendor consent cookie', err);
-    });
-}
-
-/**
  * Read vendor consent data from first-party cookie on the
  * local domain.
  *
@@ -429,6 +404,40 @@ function readLocalVendorConsentCookie() {
 }
 
 /**
+ * Write vendor consent data to third-party cookie on the
+ * global vendor list domain. Fallback to first-party cookie
+ * if the operation fails.
+ *
+ * @returns Promise resolved after cookie is written
+ */
+function writeGlobalVendorConsentCookie(vendorConsentData) {
+  log.debug('Write consent data to global cookie', vendorConsentData);
+  const euconsent = encodeVendorConsentData(vendorConsentData);
+  return sendPortalCommand({
+    command: 'writeVendorConsent',
+    encodedValue: euconsent,
+    vendorConsentData,
+    cmpVersion: metadata.cmpVersion,
+  })
+    .then(succeeded => {
+      if (!succeeded) {
+        return writeLocalVendorConsentCookie(vendorConsentData);
+      }
+
+      if (config.sasEnabled) {
+        return Promise.all(
+          config.sasUrls.map(url => notifySas(url, euconsent)),
+        );
+      }
+
+      return Promise.resolve();
+    })
+    .catch(err => {
+      log.error('Failed writing global vendor consent cookie', err);
+    });
+}
+
+/**
  * Write vendor consent data to first-party cookie on the
  * local domain.
  *
@@ -436,14 +445,19 @@ function readLocalVendorConsentCookie() {
  */
 function writeLocalVendorConsentCookie(vendorConsentData) {
   log.debug('Write consent data to local cookie', vendorConsentData);
+  const euconsent = encodeVendorConsentData(vendorConsentData);
   return Promise.resolve(
     writeCookie(
       VENDOR_CONSENT_COOKIE_NAME,
-      encodeVendorConsentData(vendorConsentData),
+      euconsent,
       VENDOR_CONSENT_COOKIE_MAX_AGE,
       '/',
     ),
-  );
+  ).then(() => {
+    if (config.sasEnabled) {
+      return Promise.all(config.sasUrls.map(url => notifySas(url, euconsent)));
+    }
+  });
 }
 
 function readVendorConsentCookie() {

@@ -12,6 +12,7 @@ import { checkIfUserInEU } from './utils';
 import log from './log';
 import config from './config';
 import { pickVariant } from './abTesting';
+import { notifySas } from './sas';
 const metadata = require('../../metadata.json');
 
 const getConsentData = () => {
@@ -35,7 +36,7 @@ const storeConsentLocally = (vendorConsent, publisherConsent) => {
 const loadGlobalConsent = ({
   localVendorConsentData,
   localPublisherConsentData,
-}) => {
+} = {}) => {
   return Promise.all([
     cookie.readGlobalVendorConsentCookie(),
     cookie.readGlobalPublisherConsentCookie(),
@@ -128,6 +129,35 @@ export function init(configUpdates) {
 
       return getConsent()
         .then(({ publisherConsentData, vendorConsentData }) => {
+          if (config.sasEnabled && config.sasUrls.length > 0) {
+            log.info('SAS enabled');
+
+            const sasLastCalled = localStorage.getItem('sasLastCalled') || 0;
+            const timestamp = Date.now();
+            const intervalMs = config.sasInterval * 60 * 60 * 1000;
+
+            if (timestamp - intervalMs > sasLastCalled) {
+              console.log('tset');
+
+              return cookie
+                .readLocalVendorConsentCookie()
+                .then(euconsent => {
+                  return Promise.all(
+                    config.sasUrls.map(url => {
+                      return notifySas(
+                        url,
+                        euconsent ? euconsent.consentString : '',
+                      );
+                    }),
+                  );
+                })
+                .then(() => ({ publisherConsentData, vendorConsentData }));
+            }
+            return { publisherConsentData, vendorConsentData };
+          }
+          return { publisherConsentData, vendorConsentData };
+        })
+        .then(({ publisherConsentData, vendorConsentData }) => {
           // Initialize the store with all of our consent data
           const store = new Store({
             vendorConsentData,
@@ -180,7 +210,7 @@ export function init(configUpdates) {
             .then(() => {
               // Pull queued command from __cmp stub
               const { commandQueue = [], onConfigLoaded } =
-              window[CMP_GLOBAL_NAME] || {};
+                window[CMP_GLOBAL_NAME] || {};
 
               // Replace the __cmp with our implementation
               const cmp = new Cmp(store, config);
