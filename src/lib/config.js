@@ -48,6 +48,9 @@ const defaultConfig = {
   activeVariant: null,
   publisher: null,
   duplicateConsent: false,
+  sasEnabled: false,
+  sasInterval: 24,
+  sasUrls: [],
 };
 
 class Config {
