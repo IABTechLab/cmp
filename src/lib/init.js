@@ -137,8 +137,6 @@ export function init(configUpdates) {
             const intervalMs = config.sasInterval * 60 * 60 * 1000;
 
             if (timestamp - intervalMs > sasLastCalled) {
-              console.log('tset');
-
               return cookie
                 .readLocalVendorConsentCookie()
                 .then(euconsent => {
