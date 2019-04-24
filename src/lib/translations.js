@@ -46,9 +46,9 @@ module.exports = {
       company: 'Company',
       switchText:
         'Publisher and their partners could collect anonymized information in order to improve your experience on our site.',
-      consentScope: 'Current site / All sites',
-      consentScopeHint:
-        'Toggle consent scope between current site or all sites in group',
+      consentScopeCurrent: 'Current site',
+      consentScopeAll: 'All sites',
+      consentScopeHint: 'I am giving consent to:',
     },
     vendors: {
       company: 'Company',
@@ -611,9 +611,9 @@ module.exports = {
       company: 'společnosti',
       switchText:
         'Za účelem zlepšování služeb můžeme my nebo naši smluvní partneři uchovávat a zpracovávat vaše údaje ve výše uvedeném rozsahu.',
-      consentScope: 'Tento web / Všechny weby CPEx',
-      consentScopeHint:
-        'Přepněte sdílení souhlasu pro tento web nebo všechny weby CPEx',
+      consentScopeCurrent: 'Tento web',
+      consentScopeAll: 'Všechny weby CPEx',
+      consentScopeHint: 'Souhlas uděluji pro:',
     },
     vendors: {
       company: 'Společnost',

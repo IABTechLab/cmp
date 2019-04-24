@@ -122,7 +122,7 @@ export class Purposes extends Component {
       <div class={style.container}>
         <Disclaimer onShowVendors={onShowVendors} />
         <Scope
-          isSelected={config.consentScope === 'all'}
+          consentScope={config.consentScope}
           onChange={this.onConsentScopeChange}
         />
         <div class={style.purposes}>
