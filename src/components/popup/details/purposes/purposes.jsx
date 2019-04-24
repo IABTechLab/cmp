@@ -101,7 +101,7 @@ export class Purposes extends Component {
       selectedPurposeIds,
       selectedCustomPurposeIds,
       localization,
-      config,
+      config = {},
     } = props;
 
     const { selectedPurposeIndex, showLocalVendors } = state;
