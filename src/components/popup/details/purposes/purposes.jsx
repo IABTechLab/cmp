@@ -4,6 +4,7 @@ import style from './purposes.less';
 import { PurposeList } from './list';
 import { Disclaimer } from './disclaimer';
 import { PurposeDetail } from './detail';
+import { Scope } from './scope';
 
 export class Purposes extends Component {
   state = {
@@ -83,6 +84,12 @@ export class Purposes extends Component {
     }
   };
 
+  onConsentScopeChange = ({ isSelected }) => {
+    const consentScope = isSelected ? 'all' : 'current';
+    this.props.config.update({ consentScope });
+    this.forceUpdate();
+  };
+
   setScrollRef = scrollRef => (this.scrollRef = scrollRef);
 
   render(props, state) {
@@ -114,6 +121,10 @@ export class Purposes extends Component {
     return (
       <div class={style.container}>
         <Disclaimer onShowVendors={onShowVendors} />
+        <Scope
+          isSelected={config.consentScope === 'all'}
+          onChange={this.onConsentScopeChange}
+        />
         <div class={style.purposes}>
           <PurposeList
             allPurposes={allPurposes}
