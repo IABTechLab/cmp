@@ -1,7 +1,7 @@
 exports.config = {
   specs: ['spec/**/*.spec.js'],
   capabilities: {
-    browserName: 'chrome'
+    browserName: 'firefox'
   },
   baseUrl: 'http://localhost:8080',
   framework: 'jasmine'
