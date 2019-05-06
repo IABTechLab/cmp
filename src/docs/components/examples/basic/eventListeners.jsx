@@ -1,7 +1,6 @@
-import Example from "../example";
+import Example from '../example';
 
-const setup =
-`myLogger('Add eventListener "isLoaded"');
+const setup = `myLogger('Add eventListener "isLoaded"');
 window.__cmp('addEventListener', 'isLoaded', function(result){
 	myLogger('Event "isLoaded" called: ' + JSON.stringify(result));
 });
@@ -18,11 +17,11 @@ window.__cmp('addEventListener', 'onSubmit', function(result){
 `;
 
 export default class EventListeners extends Example {
-	constructor(props) {
-		super(props);
-		this.state = {
-			title: 'Event Listeners',
-			setup
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: 'Event Listeners',
+      setup,
+    };
+  }
 }

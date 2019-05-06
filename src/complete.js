@@ -6,10 +6,12 @@ import 'core-js/fn/array/filter';
 import 'core-js/fn/array/from';
 
 import { init } from './lib/init';
-import { CMP_GLOBAL_NAME } from "./lib/cmp";
+import { CMP_GLOBAL_NAME } from './lib/cmp';
 
-const {config} = window[CMP_GLOBAL_NAME] || {};
+const { config } = window[CMP_GLOBAL_NAME] || {};
 const configUpdates = {
-	...config
+  ...config,
 };
-init(configUpdates).then(() => { window.__cmp('renderCmpIfNeeded'); });
+init(configUpdates).then(() => {
+  window.__cmp('renderCmpIfNeeded');
+});
