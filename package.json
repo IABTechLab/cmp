@@ -15,8 +15,7 @@
     "test:watch": "npm run -s test -- --watch",
     "lint": "eslint src test",
     "preversion": "npm test",
-    "version": "npm run build",
-    "format": "prettier \"src/**/*.{js,jsx,less}\" --write"
+    "version": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -88,7 +87,6 @@
     "ncp": "^2.0.0",
     "postcss-loader": "^2.0.3",
     "preact-jsx-chai": "^2.2.1",
-    "prettier": "^1.14.3",
     "protractor": "^5.3.2",
     "raw-loader": "^1.0.0-beta.0",
     "regenerator-runtime": "^0.11.1",

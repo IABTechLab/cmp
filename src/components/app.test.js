@@ -7,96 +7,84 @@ import config from '../lib/config';
 import App from './app';
 
 describe('App', () => {
-  let scratch;
+	let scratch;
 
-  beforeAll(() => {
-    scratch = document.createElement('div');
-    (document.body || document.documentElement).appendChild(scratch);
-  });
+	beforeAll(() => {
+		scratch = document.createElement('div');
+		(document.body || document.documentElement).appendChild(scratch);
+	});
 
-  beforeEach(() => {
-    scratch.innerHTML = '';
-  });
+	beforeEach(() => {
+		scratch.innerHTML = '';
+	});
 
-  afterAll(() => {
-    scratch.parentNode.removeChild(scratch);
-    scratch = null;
-  });
+	afterAll(() => {
+		scratch.parentNode.removeChild(scratch);
+		scratch = null;
+	});
 
-  it('should render app content', () => {
-    render(<App store={new Store()} config={config} />, scratch);
-    expect(scratch.innerHTML).to.contain(style.gdpr);
-  });
 
-  it('add listeners to the store to receive updates and to know when to update CSS', () => {
-    const store = new Store();
-    render(<App store={store} config={config} />, scratch);
-    expect(store.listeners.size).to.equal(2);
-  });
+	it('should render app content', () => {
+		render(<App store={new Store()} config={config} />, scratch);
+		expect(scratch.innerHTML).to.contain(style.gdpr);
+	});
 
-  it('persist state on save', () => {
-    const store = new Store();
-    const notify = jest.fn();
-    store.persist = jest.fn();
-    store.toggleConsentToolShowing = jest.fn();
+	it('add listeners to the store to receive updates and to know when to update CSS', () => {
+		const store = new Store();
+		render(<App store={store} config={config} />, scratch);
+		expect(store.listeners.size).to.equal(2);
+	});
 
-    let app;
-    render(
-      <App
-        store={store}
-        config={config}
-        notify={notify}
-        ref={ref => (app = ref)}
-      />,
-      scratch,
-    );
+	it('persist state on save', () => {
+		const store = new Store();
+		const notify = jest.fn();
+		store.persist = jest.fn();
+		store.toggleConsentToolShowing = jest.fn();
 
-    app.onSave();
+		let app;
+		render(<App
+			store={store}
+			config={config}
+			notify={notify}
+			ref={ref => app = ref}
+		/>, scratch);
 
-    expect(notify.mock.calls[0][0]).to.equal('onSubmit');
-    expect(store.persist.mock.calls.length).to.equal(1);
-    expect(store.toggleConsentToolShowing.mock.calls[0][0]).to.equal(false);
-  });
+		app.onSave();
 
-  it('updates local state when store changes', () => {
-    const store = new Store();
+		expect(notify.mock.calls[0][0]).to.equal('onSubmit');
+		expect(store.persist.mock.calls.length).to.equal(1);
+		expect(store.toggleConsentToolShowing.mock.calls[0][0]).to.equal(false);
+	});
 
-    let app;
-    render(
-      <App
-        store={store}
-        config={config}
-        notify={() => {}}
-        ref={ref => (app = ref)}
-      />,
-      scratch,
-    );
+	it('updates local state when store changes', () => {
+		const store = new Store();
 
-    expect(app.state.store.vendorConsentData.selectedVendorIds).to.deep.equal(
-      new Set(),
-    );
-    store.selectVendor(1, true);
-    expect(app.state.store.vendorConsentData.selectedVendorIds).to.deep.equal(
-      new Set([1]),
-    );
-  });
+		let app;
+		render(<App
+			store={store}
+			config={config}
+			notify={() => {}}
+			ref={ref => app = ref}
+		/>, scratch);
 
-  it('respects css config', () => {
-    const store = new Store();
-    config.update({ css: { 'font-family': 'MonoType' } });
-    let app;
-    render(
-      <App
-        store={store}
-        config={config}
-        notify={() => {}}
-        ref={ref => (app = ref)}
-      />,
-      scratch,
-    );
+		expect(app.state.store.vendorConsentData.selectedVendorIds).to.deep.equal(new Set());
+		store.selectVendor(1, true);
+		expect(app.state.store.vendorConsentData.selectedVendorIds).to.deep.equal(new Set([1]));
+	});
 
-    expect(app.props.config.css['font-family']).to.equal('MonoType');
-    expect(scratch.style['font-family']).to.not.equal('MonoType');
-    expect(scratch.innerHTML).to.contain('style="font-family: MonoType;"');
-  });
+	it('respects css config', () => {
+		const store = new Store();
+		config.update({ css: { 'font-family': 'MonoType' }});
+		let app;
+		render(<App
+			store={store}
+			config={config}
+			notify={() => {}}
+			ref={ref => app = ref}
+		/>, scratch);
+
+		expect(app.props.config.css['font-family']).to.equal('MonoType');
+		expect(scratch.style['font-family']).to.not.equal('MonoType');
+		expect(scratch.innerHTML).to.contain('style="font-family: MonoType;"');
+	});
 });

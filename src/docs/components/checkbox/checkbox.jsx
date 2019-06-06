@@ -1,23 +1,34 @@
 import { h, Component } from 'preact';
 
 export default class Checkbox extends Component {
-  static defaultProps = {
-    onChange: () => {},
-  };
 
-  render(props) {
-    const { children, onChange, isSelected, isDisabled } = props;
+	static defaultProps = {
+		onChange: () => {}
+	};
 
-    return (
-      <label class={props.class}>
-        <input
-          type="checkbox"
-          disabled={isDisabled}
-          checked={isSelected}
-          onChange={onChange}
-        />
-        <span>{children}</span>
-      </label>
-    );
-  }
+
+	render(props) {
+		const {
+			children,
+			onChange,
+			isSelected,
+			isDisabled
+		} = props;
+
+		return (
+			<label
+				class={props.class}
+			>
+				<input
+					type='checkbox'
+					disabled={isDisabled}
+					checked={isSelected}
+					onChange={onChange}
+				/>
+				<span>
+					{children}
+				</span>
+			</label>
+		);
+	}
 }
