@@ -24,10 +24,14 @@ const EU_COUNTRY_CODES = new Set(metadata.countryCodes);
 function initConstants() {
 	if (EU_COUNTRY_CODES.size === 0) {
 		for (var i in metadata.countryCodes) {
-			EU_COUNTRY_CODES.add(metadata.countryCodes[i]);
+			if (metadata.countryCodes.hasOwnProperty(i)) {
+				EU_COUNTRY_CODES.add(metadata.countryCodes[i]);
+			}
 		}
 		for (var j in metadata.languageCodes) {
-			EU_LANGUAGE_CODES.add(metadata.languageCodes[j]);
+			if (metadata.languageCodes.hasOwnProperty(j)) {
+				EU_LANGUAGE_CODES.add(metadata.languageCodes[j]);
+			}
 		}
 	}
 }

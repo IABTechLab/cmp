@@ -70,14 +70,18 @@ export default class App extends Component {
 		const elems = this.elementsWithReplaceableCss;
 		const base = this.base;
 		for(let elem in elems) {
-			let cssRules = elems[elem];
-			let selectedEls = base.querySelectorAll(elem) || [];
-			// Necessary for compatibility with Microsoft browsers
-			Array.prototype.forEach.call(selectedEls, function(currentEl) {
-				for(let cssProp in cssRules) {
-					currentEl.style[cssProp] = cssRules[cssProp];
-				}
-			});
+			if(elems.hasOwnProperty(elem)) {
+				let cssRules = elems[elem];
+				let selectedEls = base.querySelectorAll(elem) || [];
+				// Necessary for compatibility with Microsoft browsers
+				Array.prototype.forEach.call(selectedEls, function(currentEl) {
+					for(let cssProp in cssRules) {
+						if(cssRules.hasOwnProperty(cssProp)) {
+							currentEl.style[cssProp] = cssRules[cssProp];
+						}
+					}
+				});
+			}
 		}
 	};
 

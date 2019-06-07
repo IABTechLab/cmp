@@ -108,11 +108,15 @@ export default class Store {
 		// No consent will be allowed for vendors or purposes not on the list
 		const allowedVendorIds = new Set();
 		for (let i in vendors) {
-			allowedVendorIds.add(vendors[i].id);
+			if (vendors.hasOwnProperty(i)){
+				allowedVendorIds.add(vendors[i].id);
+			}
 		}
 		const allowedPurposeIds = new Set();
 		for (let j in purposes) {
-			allowedPurposeIds.add(purposes[j].id);
+			if (purposes.hasOwnProperty(j)){
+				allowedPurposeIds.add(purposes[j].id);
+			}
 		}
 
 		// Map requested vendorIds
@@ -216,7 +220,9 @@ export default class Store {
 		// No consent will be allowed for purposes not on the list
 		const allowedPurposeIds = new Set();
 		for (let i in purposes) {
-			allowedPurposeIds.add(purposes[i].id);
+			if (purposes.hasOwnProperty(i)){
+				allowedPurposeIds.add(purposes[i].id);
+			}
 		}
 
 		const lastCustomPurposeId = Math.max(
@@ -419,11 +425,15 @@ export default class Store {
 		if (!created) {
 			this.vendorConsentData.selectedPurposeIds = new Set();
 			for (let i in purposes) {
-				this.vendorConsentData.selectedPurposeIds.add(purposes[i].id);
+				if (purposes.hasOwnProperty(i)) {
+					this.vendorConsentData.selectedPurposeIds.add(purposes[i].id);
+				}
 			}
 			this.vendorConsentData.selectedVendorIds = new Set();
 			for (let j in vendors) {
-				this.vendorConsentData.selectedVendorIds.add(vendors[j].id);
+				if (vendors.hasOwnProperty(j)) {
+					this.vendorConsentData.selectedVendorIds.add(vendors[j].id);
+				}
 			}
 		}
 
@@ -448,7 +458,9 @@ export default class Store {
 			const {purposes = [],} = customPurposeList || {};
 			this.publisherConsentData.selectedCustomPurposeIds = new Set();
 			for (let i in purposes) {
-				this.publisherConsentData.selectedCustomPurposeIds.add(purposes[i].id);
+				if (purposes.hasOwnProperty(i)) {
+					this.publisherConsentData.selectedCustomPurposeIds.add(purposes[i].id);
+				}
 			}
 		}
 
