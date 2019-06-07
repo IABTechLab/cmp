@@ -269,13 +269,17 @@ export default class Cmp {
 
 		const allowedPurposeIds = new Set();
 		for (let i in purposes) {
-			allowedPurposeIds.add(purposes[i].id);
+			if (purposes.hasOwnProperty(i)) {
+				allowedPurposeIds.add(purposes[i].id);
+			}
 		}
 
 		const allowedCustomPurposeIds = new Set();
 		if (customPurposeList) {
 			for (let j in customPurposes) {
-				allowedCustomPurposeIds.add(customPurposes[j].id);
+				if (customPurposes.hasOwnProperty(j)) {
+					allowedCustomPurposeIds.add(customPurposes[j].id);
+				}
 			}
 		}
 
@@ -337,12 +341,16 @@ export default class Cmp {
 		// Filter consents by values that exist in the current vendorList
 		const allowedVendorIds = new Set();
 		for (let i in vendors) {
-			allowedVendorIds.add(vendors[i].id);
+			if (vendors.hasOwnProperty(i)) {
+				allowedVendorIds.add(vendors[i].id);
+			}
 		}
 
 		const allowedPurposeIds = new Set();
 		for (let j in purposes) {
-			allowedPurposeIds.add(purposes[j].id);
+			if (purposes.hasOwnProperty(j)) {
+				allowedPurposeIds.add(purposes[j].id);
+			}
 		}
 
 		const selectedAllowedVendorIds = new Set();
