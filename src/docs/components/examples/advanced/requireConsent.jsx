@@ -14,8 +14,7 @@ window.__cmp('addEventListener', 'onSubmit', function(result){
 });
 `;
 
-const execute =
-	`
+const execute = `
 window.__cmp('getVendorConsents', [0,1,2], function(result){
 	// Determine if we want to show the consent tool
 	// if (result.vendorConsents[1] === true)
@@ -26,12 +25,12 @@ window.__cmp('getVendorConsents', [0,1,2], function(result){
 `;
 
 export default class ConsentData extends Example {
-	constructor(props) {
-		super(props);
-		this.state = {
-			title: 'Require Consent For Vendor',
-			setup,
-			execute
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: 'Require Consent For Vendor',
+      setup,
+      execute,
+    };
+  }
 }

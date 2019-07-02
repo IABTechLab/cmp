@@ -2,28 +2,24 @@ import { h, Component } from 'preact';
 import style from './button.less';
 
 export default class Button extends Component {
+  static defaultProps = {
+    onClick: () => {},
+    invert: false,
+  };
 
-	static defaultProps = {
-		onClick: () => {},
-		invert: false
-	};
+  render(props) {
+    const { children, onClick, invert, name } = props;
 
-
-	render(props) {
-		const {
-			children,
-			onClick,
-			invert,
-			name
-		} = props;
-
-		return (
-			<button
-				name={name}
-				class={[style.button, props.class, invert ? style.invert : ''].join(' ')}
-				onClick={onClick}>
-				{children}
-			</button>
-		);
-	}
+    return (
+      <button
+        name={name}
+        class={[style.button, props.class, invert ? style.invert : ''].join(
+          ' ',
+        )}
+        onClick={onClick}
+      >
+        {children}
+      </button>
+    );
+  }
 }

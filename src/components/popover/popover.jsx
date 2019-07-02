@@ -4,36 +4,34 @@ import style from './popover.less';
 
 export default class Popover extends Component {
   state = {
-    show: false
+    show: false,
   };
 
   static defaultProps = {
-    content: ''
+    content: '',
   };
 
   mouseEnter = () => {
-    this.setState({show: true});
-  }
+    this.setState({ show: true });
+  };
 
   mouseLeave = () => {
-    this.setState({show: false});
-  }
+    this.setState({ show: false });
+  };
 
   handleClick = () => {
-    this.setState({show: !this.state.show});
-  }
+    this.setState({ show: !this.state.show });
+  };
 
   render(props, state) {
     const {
       inlineContent,
       inlineLocalizeKey,
       popoverContent,
-      popoverLocalizeKey
+      popoverLocalizeKey,
     } = props;
 
-    const {
-      show
-    } = state;
+    const { show } = state;
 
     return (
       <span>
@@ -42,13 +40,20 @@ export default class Popover extends Component {
           // onMouseEnter={this.mouseEnter}
           // onMouseLeave={this.mouseLeave}
         >
-          <Label providedValue={inlineContent} localizeKey={inlineLocalizeKey}>{inlineContent}</Label>
+          <Label providedValue={inlineContent} localizeKey={inlineLocalizeKey}>
+            {inlineContent}
+          </Label>
         </a>
-        {show &&
+        {show && (
           <div class={style.popover}>
-            <Label providedValue={popoverContent} localizeKey={popoverLocalizeKey}>{popoverLocalizeKey}</Label>
+            <Label
+              providedValue={popoverContent}
+              localizeKey={popoverLocalizeKey}
+            >
+              {popoverLocalizeKey}
+            </Label>
           </div>
-        }
+        )}
       </span>
     );
   }
