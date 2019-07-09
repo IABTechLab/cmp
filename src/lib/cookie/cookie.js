@@ -12,6 +12,7 @@ import {
 import { sendPortalCommand } from '../portal';
 import config from '../config';
 import { notifySas } from '../sas';
+import { areConsentsStoredGlobally } from '../utils';
 const metadata = require('../../../metadata.json');
 
 const PUBLISHER_CONSENT_COOKIE_NAME = 'pubconsent';
@@ -472,7 +473,7 @@ function readVendorConsentCookie() {
 }
 
 function writeVendorConsentCookie(vendorConsentData) {
-  if (config.duplicateConsent) {
+  if (areConsentsStoredGlobally(config)) {
     return writeGlobalVendorConsentCookie(vendorConsentData).then(() =>
       writeLocalVendorConsentCookie(vendorConsentData),
     );

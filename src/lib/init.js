@@ -8,11 +8,12 @@ import {
   fetchLocalizedPurposeList,
   fetchCustomPurposeList,
 } from './vendor';
-import { checkIfUserInEU } from './utils';
+import { checkIfUserInEU, areConsentsStoredGlobally } from './utils';
 import log from './log';
 import config from './config';
 import { pickVariant } from './abTesting';
 import { notifySas } from './sas';
+
 const metadata = require('../../metadata.json');
 
 const getConsentData = () => {
@@ -123,7 +124,7 @@ export function init(configUpdates) {
     ({ vendors, purposes, features, vendorListVersion, ...rest }) => {
       config.update(rest);
 
-      const getConsent = config.duplicateConsent
+      const getConsent = areConsentsStoredGlobally(config)
         ? getAndCacheConsentData
         : getConsentData;
 
