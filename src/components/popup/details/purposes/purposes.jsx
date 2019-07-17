@@ -86,7 +86,13 @@ export class Purposes extends Component {
 
   onConsentScopeChange = ({ isSelected }) => {
     const consentScope = isSelected ? 'all' : 'current';
-    this.props.config.update({ consentScope });
+
+    this.props.config.update({
+      consentScope,
+      // When scope is changed, we need to update storage boolean not to introduce clashes
+      storeConsentGlobally: false,
+      storePublisherConsentGlobally: false,
+    });
     this.forceUpdate();
   };
 

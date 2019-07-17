@@ -14,20 +14,8 @@
         var query = Qs.parse(window.location.search.replace('?', ''), {
           allowDots: true,
         });
-        console.log(query);
+        console.log('Query: ', query);
         var config = {
-          customPurposeListLocation: 'docs/purposes.json',
-          globalVendorListLocation: 'docs/vendors.json',
-          globalConsentLocation: 'docs/portal.html',
-          storeConsentGlobally: false,
-          storePublisherConsentGlobally: false,
-          storePublisherData: true,
-          layout: 'footer',
-          logging: 'debug',
-          blockBrowsing: false,
-          forceLocale: 'en',
-          testingMode: 'always show',
-          showFooterAfterSubmit: true,
         };
         for (var param in query) {
           config[param] = query[param];
@@ -45,7 +33,7 @@
             });
           };
           cmp.onConfigLoaded = function(config) {
-            console.log(config);
+            console.log('Config:', config);
             var isBrowingBlocked = config.blockBrowsing;
           };
           cmp.commandQueue = commandQueue;
