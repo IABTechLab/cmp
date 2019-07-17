@@ -16,6 +16,18 @@
         });
         console.log('Query: ', query);
         var config = {
+            customPurposeListLocation: 'docs/purposes.json',
+            globalVendorListLocation: 'docs/vendors.json',
+            globalConsentLocation: 'docs/portal.html',
+            storeConsentGlobally: false,
+            storePublisherConsentGlobally: false,
+            storePublisherData: true,
+            layout: 'footer',
+            logging: 'debug',
+            blockBrowsing: false,
+            forceLocale: 'en',
+            testingMode: 'always show',
+            showFooterAfterSubmit: true,
         };
         for (var param in query) {
           config[param] = query[param];

@@ -16,6 +16,8 @@ import { notifySas } from './sas';
 
 const metadata = require('../../metadata.json');
 
+const pjson = require('../../package.json');
+
 const getConsentData = () => {
   return Promise.all([
     cookie.readVendorConsentCookie(),
@@ -109,7 +111,7 @@ const loadConfig = configUrl => {
 export function init(configUpdates) {
   config.update(configUpdates);
   log.debug('Using configuration:', config);
-
+  log.info('Version:', pjson.version);
   let configUrl = config.remoteConfigUrl;
 
   if (!!config.abTest === true && Array.isArray(config.variants)) {
