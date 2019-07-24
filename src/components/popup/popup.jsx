@@ -11,11 +11,12 @@ const SECTION_INTRO = 0;
 const SECTION_SUMMARY = 1;
 const SECTION_DETAILS = 2;
 // const SECTION_PURPOSES = 2;
-// const SECTION_VENDORS = 3;
+const SECTION_VENDORS = 3;
 
 export default class Popup extends Component {
   state = {
     selectedPanelIndex: SECTION_INTRO,
+    directVendors: false,
   };
 
   onAcceptAll = () => {
@@ -47,7 +48,18 @@ export default class Popup extends Component {
   };
 
   showDetails = () => {
+    this.setState({
+      directVendors: false,
+    });
     this.showSection(SECTION_DETAILS);
+  };
+
+  showDirectVendors = () => {
+    // TODO this is semi-temporary directVendors approach
+    this.showSection(SECTION_DETAILS);
+    this.setState({
+      directVendors: true,
+    });
   };
 
   handleClose = () => {};
@@ -70,6 +82,7 @@ export default class Popup extends Component {
             onAcceptAll={this.onAcceptAll}
             onShowSummary={this.showSummary}
             onShowPurposes={this.showDetails}
+            onShowDirectVendors={this.showDirectVendors}
             onClose={this.handleClose}
             localization={localization}
             store={store}
@@ -91,6 +104,7 @@ export default class Popup extends Component {
             onClose={this.handleClose}
             localization={localization}
             config={config}
+            directVendors={this.state.directVendors}
           />
         </Panel>
       </div>

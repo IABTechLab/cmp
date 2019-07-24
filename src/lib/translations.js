@@ -81,6 +81,7 @@ module.exports = {
         </ul>
       `,
       purposesHeader: 'Purposes for storing information:',
+      directVendorsLink: 'HELLJOOOO',
     },
   },
   es: {

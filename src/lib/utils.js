@@ -180,6 +180,7 @@ function addStyleSheet(url) {
 }
 
 function areConsentsStoredGlobally(config) {
+  // TODO
   return (
     config.duplicateConsent &&
     config.storeConsentGlobally &&
