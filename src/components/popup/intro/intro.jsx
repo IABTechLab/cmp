@@ -43,10 +43,13 @@ export class Intro extends Component {
             {config.layout === 'footer' && this.renderTitle()}
             <Label localizeKey="intro.description" />
             {/*TODO move to middle to the text - link click action handler*/}
+            &nbsp;
             <LocalizedLink
-              localizeKey="footer.directVendorsLink"
+              localizeKey="intro.directVendorsLink"
               onClick={onShowDirectVendors}
             />
+            &nbsp;
+            <Label localizeKey="intro.description_part_2" />
           </Paragraph>
           <ConsentButtons
             layout={config.layout}

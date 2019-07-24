@@ -69,7 +69,6 @@ export class Details extends Component {
     const { purposes = [], vendors = [], features = [] } = vendorList;
     const { purposes: customPurposes = [] } = customPurposeList;
 
-    console.log('directVendors: ', directVendors);
     return (
       <PopupContent layout="modal">
         <div class={style.details}>
