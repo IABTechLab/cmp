@@ -9,14 +9,11 @@ module.exports = {
     intro: {
       title: 'Thanks for visiting',
       domain: '',
-
       // Next three properties are part od one continuous message
       description: 'Ads help us run this site. When you use our site',
-      // TODO translate PROJ-93
       directVendorsLink: 'selected companies',
       description_part_2:
         'may access and use information on your device for various purposes including to serve relevant ads or personalised content.',
-
       deviceInformationPopover: `
         <strong>Information that may be used:</strong>
         <ul>
@@ -94,12 +91,12 @@ module.exports = {
     intro: {
       title: 'Gracias por su visita ',
       domain: '',
+      // Next three properties are part od one continuous message
       description:
-        'Los anuncios nos ayudan a que esta aplicación funcione. Cuando utiliza nuestra aplicación, empresas seleccionadas pueden acceder y usar información en su dispositivo para diversos fines incluso para publicar anuncios relevantes o contenido personalizado.',
-      // TODO translate PROJ-93
-      directVendorsLink: 'directVendorsLink es',
-      description_part_2: 'rest of the message es',
-
+        'Los anuncios nos ayudan a que esta aplicación funcione. Cuando utiliza nuestra aplicación,  ',
+      directVendorsLink: 'empresas seleccionadas',
+      description_part_2:
+        'pueden acceder y usar información en su dispositivo para diversos fines incluso para publicar anuncios relevantes o contenido personalizado.',
       deviceInformationPopover: `
         <strong>Información que puede ser utilizada:</strong>
         <ul>
@@ -180,12 +177,12 @@ module.exports = {
     intro: {
       title: 'Danke für Ihren Besuch ',
       domain: '',
+      // Next three properties are part od one continuous message
       description:
-        'Mit Hilfe von Anzeigen können wir diese App ausführen. Wenn Sie unsere App besuchen/verwenden, können ausgewählte Unternehmen auf Ihrem Gerät Informationen für verschiedene Zwecke abrufen und verwenden, einschließlich um die relevanten Anzeigen oder personalisierten Inhalt anzuzeigen.',
-      // TODO translate PROJ-93
-      directVendorsLink: 'directVendorsLink de',
-      description_part_2: 'rest of the message de',
-
+        'Mit Hilfe von Anzeigen können wir diese App ausführen. Wenn Sie unsere App besuchen/verwenden, können',
+      directVendorsLink: 'ausgewählte Unternehmen',
+      description_part_2:
+        'auf Ihrem Gerät Informationen für verschiedene Zwecke abrufen und verwenden, einschließlich um die relevanten Anzeigen oder personalisierten Inhalt anzuzeigen.',
       deviceInformationPopover: `
         <strong>Informationen, die verwendet werden können:</strong>
         <ul>
@@ -267,12 +264,12 @@ module.exports = {
     intro: {
       title: 'Dziękujemy za wizytę ',
       domain: '',
+      // Next three properties are part od one continuous message
       description:
-        'Reklamy pomagają uruchomić tę aplikację. Podczas korzystania z naszej aplikacji, wybrane firmy mogą uzyskiwać dostęp do informacji o urządzeniu i korzystać z nich w różnych celach, w tym do wyświetlania trafnych reklam lub spersonalizowanych treści.',
-
-      // TODO translate PROJ-93
-      directVendorsLink: 'directVendorsLink pl',
-      description_part_2: 'rest of the message pl',
+        'Reklamy pomagają uruchomić tę aplikację. Podczas korzystania z naszej aplikacji,',
+      directVendorsLink: 'wybrane firmy',
+      description_part_2:
+        'mogą uzyskiwać dostęp do informacji o urządzeniu i korzystać z nich w różnych celach, w tym do wyświetlania trafnych reklam lub spersonalizowanych treści.',
 
       deviceInformationPopover: `
         <strong>Informacja, którą można wykorzystać:</strong>
@@ -354,12 +351,12 @@ module.exports = {
     intro: {
       title: 'Dėkojame už apsilankymą ',
       domain: '',
+      // Next three properties are part od one continuous message
       description:
-        'Skelbimai padeda mums palaikyti šį tinklalapį. Kai jūs naudojates mūsų tinklalapiu, kai kurios pasirinktos įmonės gali turėti prieigą prie informacijos, saugomos jūsų įrenginyje, ir ją naudoti įvairiems tikslams, įskaitant pritaikymą reklamoje arba indivizualizuotame turinyje.',
-
-      // TODO translate PROJ-93
-      directVendorsLink: 'directVendorsLink es',
-      description_part_2: 'rest of the message es',
+        'Skelbimai padeda mums palaikyti šį tinklalapį. Kai jūs naudojates mūsų tinklalapiu, kai kurios',
+      directVendorsLink: 'pasirinktos įmonės',
+      description_part_2:
+        'gali turėti prieigą prie informacijos, saugomos jūsų įrenginyje, ir ją naudoti įvairiems tikslams, įskaitant pritaikymą reklamoje arba indivizualizuotame turinyje.',
 
       deviceInformationPopover: `
         <strong>Informacija, kuri gali būti naudojama:</strong>
@@ -442,12 +439,12 @@ module.exports = {
     intro: {
       title: 'Grazie per aver visitato ',
       domain: '',
+      // Next three properties are part od one continuous message
       description:
-        'Quando utilizzi il nostro sito / la nostra applicazione, le aziende selezionate possono avere accesso alle informazioni del tuo dispositivo ed usarle per diverse finalità, come ad esempio mostrarti inserzioni in linea con i tuoi interessi o contenuti personalizzati.',
-
-      // TODO translate PROJ-93
-      directVendorsLink: 'directVendorsLink es',
-      description_part_2: 'rest of the message es',
+        'Quando utilizzi il nostro sito / la nostra applicazione, le aziende',
+      directVendorsLink: 'selezionate possono',
+      description_part_2:
+        'avere accesso alle informazioni del tuo dispositivo ed usarle per diverse finalità, come ad esempio mostrarti inserzioni in linea con i tuoi interessi o contenuti personalizzati.',
 
       deviceInformationPopover: `
         <strong>Informazioni che potranno essere utilizzate:</strong>
@@ -530,12 +527,12 @@ module.exports = {
     intro: {
       title: 'Merci d’avoir visité ',
       domain: '',
+      // Next three properties are part od one continuous message
       description:
-        'La publicité nous permet de faire fonctionner notre app. Lorsque vous utilisez notre app certaines entreprises sélectionnées peuvent avoir accès et utiliser des informations concernant votre appareil à des fins diverses, incluant des publicités pertinentes ou du contenu personnalisé.',
-
-      // TODO translate PROJ-93
-      directVendorsLink: 'directVendorsLink es',
-      description_part_2: 'rest of the message es',
+        'La publicité nous permet de faire fonctionner notre app. Lorsque vous utilisez notre app certaines',
+      directVendorsLink: 'entreprises sélectionnées',
+      description_part_2:
+        'peuvent avoir accès et utiliser des informations concernant votre appareil à des fins diverses, incluant des publicités pertinentes ou du contenu personnalisé.',
 
       deviceInformationPopover: `
         <strong>Peuvent être utilisées:</strong>
@@ -619,13 +616,11 @@ module.exports = {
     intro: {
       title: 'Vítejte,',
       domain: '',
+      // Next three properties are part od one continuous message
       description:
-        'údaje o tom, jak procházíte naše stránky a jaký obsah vás zajímá, nám pomáhají zlepšovat naše stávající služby a vyvíjet nové. Můžeme vám doporučovat obsah a zobrazovat reklamu na základě vašich zájmů a také vyhodnocovat úspěšnost jednotlivých služeb, obsahu nebo reklamy. K některým informacím mohou mít přístup i vybrané společnosti, které jsou našimi partnery. ',
-
-      // TODO translate PROJ-93
-      directVendorsLink: ' directVendorsLink es ',
-      description_part_2: 'rest of the message es',
-
+        'údaje o tom, jak procházíte naše stránky a jaký obsah vás zajímá, nám pomáhají zlepšovat naše stávající služby a vyvíjet nové. Můžeme vám doporučovat obsah a zobrazovat reklamu na základě vašich zájmů a také vyhodnocovat úspěšnost jednotlivých služeb, obsahu nebo reklamy. K některým informacím mohou mít přístup i',
+      directVendorsLink: 'vybrané společnosti',
+      description_part_2: ', které jsou našimi partnery. ',
       deviceInformationPopover:
         '<strong>Jaké informace můžeme použít:</strong><ul><li>typ prohlížeče a jeho nastavení,</li><li>informace o operačním systému zařízení,</li><li>informace uložené v souborech cookies,</li><li>informace o jiných identifikačních údajích zařízení,</li><li>IP adresa, ze které zařízení získává přístup ke stránkám či k mobilní aplikaci,</li><li>informace ohledně vaší aktivity, včetně navštívených webů či použitých mobilních aplikací,</li><li>informace o zeměpisné poloze zařízení v průběhu návštěvy webu či v průběhu užívání mobilní aplikace.</li></ul>',
       acceptAll: 'rozumím a přijímám',
