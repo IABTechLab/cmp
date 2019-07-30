@@ -6,6 +6,7 @@ import { Switch } from '../../switch';
 import { Link } from '../../link';
 import { Text } from '../../typography';
 import style from './vendortable.less';
+import { Chevron } from '../../chevron';
 
 export const Vendortable = (
   {
@@ -13,6 +14,7 @@ export const Vendortable = (
     displayControls = false,
     onVendorToggle = () => {},
     selectedVendorIds = new Set(),
+    showVendorDetails = () => {},
   },
   { theme },
 ) => {
@@ -38,8 +40,9 @@ export const Vendortable = (
         </tr>
       </thead>
       <tbody>
-        {vendors.map(({ name, policyUrl, id }, index) => {
+        {vendors.map(({ name, policyUrl, id, display }, index) => {
           const isEven = index % 2 === 1;
+          console.log('A', display);
           return (
             <tr
               key={index + name}
@@ -50,6 +53,28 @@ export const Vendortable = (
                 <Link className={style.vendorName} href={policyUrl} blank>
                   {name}
                 </Link>
+                <span
+                  onClick={() => {
+                    // TODO do as a component
+                    //Find index of specific object using findIndex method.
+                    const objIndex = vendors.findIndex(
+                      vendor => vendor.id === id,
+                    );
+                    vendors[objIndex].display = !vendors[objIndex].display;
+                    console.log(
+                      'Update: ',
+                      vendors.find(vendor => vendor.id === id),
+                    );
+                    showVendorDetails();
+                  }}
+                >
+                  detail
+                </span>
+                {display ? (
+                  <span>
+                    {vendors.find(vendor => vendor.id === id).toString()}
+                  </span>
+                ) : null}
               </td>
               {displayControls && (
                 <td>

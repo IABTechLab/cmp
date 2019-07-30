@@ -13,6 +13,7 @@ export const Vendors = ({
   onSelectAllVendors = () => {},
   onSelectVendor = () => {},
   vendors = [],
+  showVendorDetails = () => {},
   selectedVendorIds = new Set(),
 }) => (
   <div class={style.vendors}>
@@ -28,6 +29,7 @@ export const Vendors = ({
       vendors={vendors}
       onVendorToggle={onSelectVendor}
       selectedVendorIds={selectedVendorIds}
+      showVendorDetails={showVendorDetails}
     />
   </div>
 );

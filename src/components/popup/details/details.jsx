@@ -42,6 +42,10 @@ export class Details extends Component {
     this.setState({ showEnableAll: !this.state.showEnableAll });
   };
 
+  handleVendorDetails = () => {
+    this.forceUpdate();
+  };
+
   handleBack = () => {
     const { onCancel } = this.props;
     const { selectedPanelIndex } = this.state;
@@ -96,6 +100,7 @@ export class Details extends Component {
               onShowPurposes={this.handleShowPurposes}
               selectedVendorIds={selectedVendorIds}
               vendors={vendors}
+              showVendorDetails={this.handleVendorDetails}
             />
           </Panel>
           <Footer
