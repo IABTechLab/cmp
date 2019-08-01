@@ -7,14 +7,25 @@ import { Link } from '../../link';
 import { Text } from '../../typography';
 import style from './vendortable.less';
 import { Chevron } from '../../chevron';
+import { Row } from '../../layout';
 
 export const Vendortable = (
   {
     vendors = [],
+    purposes = [],
+    features = [],
     displayControls = false,
     onVendorToggle = () => {},
     selectedVendorIds = new Set(),
     showVendorDetails = () => {},
+    onChevronClick = id => {
+      return () => {
+        //Find index of specific object using findIndex method.
+        const objIndex = vendors.findIndex(vendor => vendor.id === id);
+        vendors[objIndex].display = !vendors[objIndex].display;
+        showVendorDetails();
+      };
+    },
   },
   { theme },
 ) => {
@@ -39,55 +50,105 @@ export const Vendortable = (
           )}
         </tr>
       </thead>
-      <tbody>
-        {vendors.map(({ name, policyUrl, id, display }, index) => {
+
+      {/*TODO is map good choice here ?*/
+      vendors.map(
+        (
+          {
+            name,
+            policyUrl,
+            id,
+            display,
+            purposeIds,
+            legIntPurposeIds,
+            featureIds,
+          },
+          index,
+        ) => {
           const isEven = index % 2 === 1;
           console.log('A', display);
           return (
-            <tr
-              key={index + name}
-              class={isEven ? style.even : ''}
-              style={isEven && { backgroundColor: theme.colorTableBackground }}
-            >
-              <td>
-                <Link className={style.vendorName} href={policyUrl} blank>
-                  {name}
-                </Link>
-                <Chevron
-                  onClick={() => {
-                    // TODO do as a component
-                    //Find index of specific object using findIndex method.
-                    const objIndex = vendors.findIndex(
-                      vendor => vendor.id === id,
-                    );
-                    vendors[objIndex].display = !vendors[objIndex].display;
-                    console.log(
-                      'Update: ',
-                      vendors.find(vendor => vendor.id === id),
-                    );
-                    showVendorDetails();
-                  }}
-                />
-              </td>
-              {displayControls && (
+            <tbody>
+              <tr
+                key={index + name}
+                class={isEven ? style.even : ''}
+                style={
+                  isEven && { backgroundColor: theme.colorTableBackground }
+                }
+              >
                 <td>
-                  <Switch
-                    dataId={id}
-                    isSelected={selectedVendorIds.has(id)}
-                    onClick={onVendorToggle}
-                  />
+                  <Row>
+                    <Chevron
+                      direction={display ? 'up' : 'down'}
+                      onClick={onChevronClick(id)}
+                    />
+                    <Link className={style.vendorName} href={policyUrl} blank>
+                      {name}
+                    </Link>
+                  </Row>
                 </td>
-              )}
+                {displayControls && (
+                  <td>
+                    <Switch
+                      dataId={id}
+                      isSelected={selectedVendorIds.has(id)}
+                      onClick={onVendorToggle}
+                    />
+                  </td>
+                )}
+              </tr>
 
               {display ? (
-                <span style={width}>
-                  {vendors.find(vendor => vendor.id === id).toString()}
-                </span>
+                <tr>
+                  <table style="width:100%">
+                    <tr>
+                      <td style={{ fontSize: 'bold' }}>Purposes:</td>
+                      <td>
+                        {' '}
+                        {purposes
+                          .filter(purpose => {
+                            return purposeIds.indexOf(purpose.id) > 0;
+                          })
+                          .map(purpose => {
+                            return purpose.name;
+                          })
+                          .join(', ')}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ fontSize: 'bold' }}>Features:</td>
+                      <td>
+                        {' '}
+                        {features
+                          .filter(feature => {
+                            return featureIds.indexOf(feature.id) > 0;
+                          })
+                          .map(feature => {
+                            return feature.name;
+                          })
+                          .join(', ')}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ fontSize: 'bold' }}>Legal purposes:</td>
+                      <td>
+                        {purposes
+                          .filter(purpose => {
+                            return legIntPurposeIds.indexOf(purpose.id) > 0;
+                          })
+                          .map(purpose => {
+                            return purpose.name;
+                          })
+                          .join(', ')}
+                      </td>
+                    </tr>
+                  </table>
+                </tr>
               ) : null}
-            </tr>
+            </tbody>
           );
-        })}
-      </tbody>
+        },
+      )}
     </table>
   );
 };

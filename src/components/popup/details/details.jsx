@@ -103,6 +103,8 @@ export class Details extends Component {
               onShowPurposes={this.handleShowPurposes}
               selectedVendorIds={selectedVendorIds}
               vendors={vendors}
+              purposes={purposes}
+              features={features}
               showVendorDetails={this.handleVendorDetails}
             />
           </Panel>
