@@ -64,6 +64,11 @@ module.exports = {
       description2Link: 'previous page.',
       description3: 'You can control the preferences for all companies by ',
       description3Link: 'clicking here.',
+      details: {
+        purposes: 'Purposes',
+        features: 'Features',
+        legalPurposes: 'Legal purposes',
+      },
     },
     footer: {
       message:

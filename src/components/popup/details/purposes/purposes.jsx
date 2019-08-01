@@ -127,10 +127,11 @@ export class Purposes extends Component {
     return (
       <div class={style.container}>
         <Disclaimer onShowVendors={onShowVendors} />
-        <Scope
-          consentScope={config.consentScope}
-          onChange={this.onConsentScopeChange}
-        />
+        {/*TODO temporarily hidden*/
+        /*        <Scope
+                  consentScope={config.consentScope}
+                  onChange={this.onConsentScopeChange}
+                />*/}
         <div class={style.purposes}>
           <PurposeList
             allPurposes={allPurposes}

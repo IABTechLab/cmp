@@ -66,7 +66,6 @@ export const Vendortable = (
           index,
         ) => {
           const isEven = index % 2 === 1;
-          console.log('A', display);
           return (
             <tbody>
               <tr
@@ -102,7 +101,9 @@ export const Vendortable = (
                 <tr>
                   <table style="width:100%">
                     <tr>
-                      <td style={{ fontSize: 'bold' }}>Purposes:</td>
+                      <td style={{ fontSize: 'bold' }}>
+                        <Label localizeKey={'vendors.details.purposes'} />:
+                      </td>
                       <td>
                         {' '}
                         {purposes
@@ -116,7 +117,9 @@ export const Vendortable = (
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ fontSize: 'bold' }}>Features:</td>
+                      <td style={{ fontSize: 'bold' }}>
+                        <Label localizeKey={'vendors.details.features'} />:
+                      </td>
                       <td>
                         {' '}
                         {features
@@ -130,7 +133,9 @@ export const Vendortable = (
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ fontSize: 'bold' }}>Legal purposes:</td>
+                      <td style={{ fontSize: 'bold' }}>
+                        <Label localizeKey={'vendors.details.legalPurposes'} />:
+                      </td>
                       <td>
                         {purposes
                           .filter(purpose => {
