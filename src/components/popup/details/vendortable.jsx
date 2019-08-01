@@ -53,7 +53,7 @@ export const Vendortable = (
                 <Link className={style.vendorName} href={policyUrl} blank>
                   {name}
                 </Link>
-                <span
+                <Chevron
                   onClick={() => {
                     // TODO do as a component
                     //Find index of specific object using findIndex method.
@@ -67,14 +67,7 @@ export const Vendortable = (
                     );
                     showVendorDetails();
                   }}
-                >
-                  detail
-                </span>
-                {display ? (
-                  <span>
-                    {vendors.find(vendor => vendor.id === id).toString()}
-                  </span>
-                ) : null}
+                />
               </td>
               {displayControls && (
                 <td>
@@ -85,6 +78,12 @@ export const Vendortable = (
                   />
                 </td>
               )}
+
+              {display ? (
+                <span style={width}>
+                  {vendors.find(vendor => vendor.id === id).toString()}
+                </span>
+              ) : null}
             </tr>
           );
         })}

@@ -57,8 +57,14 @@ export class Details extends Component {
     }
   };
 
+  componentDidMount() {
+    if (this.props.directVendors) {
+      this.handleShowVendors();
+    }
+  }
+
   render(props, state) {
-    const { onSave, store, localization, config, directVendors } = props;
+    const { onSave, store, localization, config } = props;
     const { selectedPanelIndex } = state;
     const {
       vendorList = {},
@@ -77,10 +83,7 @@ export class Details extends Component {
       <PopupContent layout="modal">
         <div class={style.details}>
           <Header titleKey="details.title" />
-          <Panel
-            className={style.body}
-            selectedIndex={directVendors ? SECTION_VENDORS : selectedPanelIndex}
-          >
+          <Panel className={style.body} selectedIndex={selectedPanelIndex}>
             <Purposes
               localization={localization}
               purposes={purposes}
