@@ -13,7 +13,7 @@ module.exports = {
       description: 'Ads help us run this site. When you use our site',
       directVendorsLink: 'selected companies',
       description_part_2:
-        'may access and use information on your device for various purposes including to serve relevant ads or personalised content.',
+        'may access and use information on your device for various purposes including to serve relevant ads or personalised content. You can change your consent choices at anytime by clearing your cookies and returning to this site.',
       deviceInformationPopover: `
         <strong>Information that may be used:</strong>
         <ul>
@@ -625,7 +625,8 @@ module.exports = {
       description:
         'údaje o tom, jak procházíte naše stránky a jaký obsah vás zajímá, nám pomáhají zlepšovat naše stávající služby a vyvíjet nové. Můžeme vám doporučovat obsah a zobrazovat reklamu na základě vašich zájmů a také vyhodnocovat úspěšnost jednotlivých služeb, obsahu nebo reklamy. K některým informacím mohou mít přístup i',
       directVendorsLink: 'vybrané společnosti',
-      description_part_2: ', které jsou našimi partnery. ',
+      description_part_2:
+        ', které jsou našimi partnery. Své nastavení můžete kdykoliv změnit tím, že smažete své soubory cookies a znovu načtete tuto stránku.',
       deviceInformationPopover:
         '<strong>Jaké informace můžeme použít:</strong><ul><li>typ prohlížeče a jeho nastavení,</li><li>informace o operačním systému zařízení,</li><li>informace uložené v souborech cookies,</li><li>informace o jiných identifikačních údajích zařízení,</li><li>IP adresa, ze které zařízení získává přístup ke stránkám či k mobilní aplikaci,</li><li>informace ohledně vaší aktivity, včetně navštívených webů či použitých mobilních aplikací,</li><li>informace o zeměpisné poloze zařízení v průběhu návštěvy webu či v průběhu užívání mobilní aplikace.</li></ul>',
       acceptAll: 'rozumím a přijímám',
