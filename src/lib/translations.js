@@ -65,9 +65,10 @@ module.exports = {
       description3: 'You can control the preferences for all companies by ',
       description3Link: 'clicking here.',
       details: {
-        purposes: 'Purposes',
-        features: 'Features',
-        legalPurposes: 'Legal purposes',
+        /*TODO*/
+        purposes: 'Účely',
+        features: 'Znaky',
+        legalPurposes: 'Právní účely',
       },
     },
     footer: {
@@ -668,6 +669,11 @@ module.exports = {
       description2Link: 'předchozí stránce.',
       description3: 'Pro změnu nastavení pro všechny společnosti najednou ',
       description3Link: 'klikněte zde.',
+      details: {
+        purposes: 'Purposes',
+        features: 'Features',
+        legalPurposes: 'Legal purposes',
+      },
     },
     footer: {
       message:

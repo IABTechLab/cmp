@@ -99,7 +99,7 @@ export const Vendortable = (
 
               {display ? (
                 <tr>
-                  <table style="width:100%">
+                  <table class="vendorDetail">
                     <tr>
                       <td style={{ fontSize: 'bold' }}>
                         <Label localizeKey={'vendors.details.purposes'} />:
