@@ -177,6 +177,7 @@ export function init(configUpdates) {
             // Request lists
             return Promise.all([
               fetchVendorList().then(resp => {
+                console.log('loadVendorsAndPurposes', resp);
                 store.updateVendorList(resp);
 
                 _fetchLocalizedPurposeList().then(localized => {
@@ -190,6 +191,7 @@ export function init(configUpdates) {
           const updateVendorsAndPurposes = () => {
             if (!vendors || vendors.length === 0) {
               return fetchVendorList().then(res => {
+                console.log('updateVendorsAndPurposes', res);
                 store.updateVendorList(res);
                 store.updateLocalizedPurposeList({ purposes, features });
               });

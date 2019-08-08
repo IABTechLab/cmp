@@ -4,6 +4,7 @@ import config from './config';
 import log from './log';
 import { updateLocalizationSettings } from './localize';
 import { sendPortalCommand } from './portal';
+
 const metadata = require('../../metadata.json');
 
 /**
@@ -14,8 +15,22 @@ const metadata = require('../../metadata.json');
 function fetchVendorList() {
   return fetch(config.globalVendorListLocation)
     .then(res => res.json())
+    .then(customVendors => {
+      // update selected vendors against global vendor list
+      return updateSelectedVendors(customVendors);
+    })
     .catch(() => {
       log.debug('Configured vendors.json not found. Requesting global list');
+      return sendPortalCommand({ command: 'readVendorList' });
+    });
+}
+
+function fetchGlobalVendorList() {
+  // TODO no magic string - extract somwhere
+  return fetch('https://vendorlist.consensu.org/vendorlist.json')
+    .then(res => res.json())
+    .catch(() => {
+      log.debug('Global vendor list not found');
       return sendPortalCommand({ command: 'readVendorList' });
     });
 }
@@ -55,6 +70,33 @@ function fetchCustomPurposeList() {
         }`,
         err,
       );
+    });
+}
+
+function updateSelectedVendors(selectedVendors) {
+  return fetchGlobalVendorList()
+    .then(globalVendors => {
+      if (selectedVendors) {
+        selectedVendors.lastUpdated = globalVendors.lastUpdated;
+        selectedVendors.version = globalVendors.vendorListVersion;
+        selectedVendors.vendors = selectedVendors.vendors
+          .map(customVendor => {
+            // update selected vendors with fetched global versions
+            return globalVendors.vendors.find(globalVendor => {
+              return customVendor && globalVendor.id === customVendor.id;
+            });
+          })
+          // filter out undefined vendors
+          .filter(customVendor => {
+            return customVendor && customVendor.id;
+          });
+        return selectedVendors;
+      }
+      return globalVendors;
+    })
+    .catch(err => {
+      log.debug('updateSelectedVendors: ', err);
+      return selectedVendors;
     });
 }
 
