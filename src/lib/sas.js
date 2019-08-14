@@ -12,7 +12,8 @@ const addPixel = url => {
 export const notifySas = (url, consent) => {
   const pixelUrl = url
     .replace('%CONSENT%', consent)
-    // TEMP fix - GDPR should not be 1 when no consent
+    // GDPR should not be 1 when no consent
+    // TODO hot fixes - implement better solution
     .replace('GDPR=1', consent ? 'GDPR=1' : 'GDPR=0');
 
   log.info('Notify SAS', pixelUrl);
