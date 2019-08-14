@@ -98,10 +98,10 @@ export const Vendortable = (
               </tr>
 
               {display ? (
-                <tr>
+                <div>
                   <table class="vendorDetail">
                     <tr>
-                      <td style={{ fontSize: 'bold' }}>
+                      <td style={{ fontSize: 'bold', width: 'auto' }}>
                         <Label localizeKey={'vendors.details.purposes'} />:
                       </td>
                       <td>
@@ -148,7 +148,7 @@ export const Vendortable = (
                       </td>
                     </tr>
                   </table>
-                </tr>
+                </div>
               ) : null}
             </tbody>
           );
