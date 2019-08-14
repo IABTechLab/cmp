@@ -99,55 +99,57 @@ export const Vendortable = (
 
               {display ? (
                 <div>
-                  <table class="vendorDetail">
-                    <tr>
-                      <td style={{ fontSize: 'bold', width: 'auto' }}>
-                        <Label localizeKey={'vendors.details.purposes'} />:
-                      </td>
-                      <td>
-                        {' '}
-                        {purposes
-                          .filter(purpose => {
-                            return purposeIds.indexOf(purpose.id) > 0;
-                          })
-                          .map(purpose => {
-                            return purpose.name;
-                          })
-                          .join(', ')}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style={{ fontSize: 'bold' }}>
-                        <Label localizeKey={'vendors.details.features'} />:
-                      </td>
-                      <td>
-                        {' '}
-                        {features
-                          .filter(feature => {
-                            return featureIds.indexOf(feature.id) > 0;
-                          })
-                          .map(feature => {
-                            return feature.name;
-                          })
-                          .join(', ')}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style={{ fontSize: 'bold' }}>
-                        <Label localizeKey={'vendors.details.legalPurposes'} />:
-                      </td>
-                      <td>
-                        {purposes
-                          .filter(purpose => {
-                            return legIntPurposeIds.indexOf(purpose.id) > 0;
-                          })
-                          .map(purpose => {
-                            return purpose.name;
-                          })
-                          .join(', ')}
-                      </td>
-                    </tr>
-                  </table>
+                  <Label
+                    style={{ fontSize: 'bold' }}
+                    localizeKey={'vendors.details.purposes'}
+                  />
+                  :
+                  <div>
+                    {' '}
+                    {purposes
+                      .filter(purpose => {
+                        return purposeIds.indexOf(purpose.id) > 0;
+                      })
+                      .map(purpose => {
+                        return purpose.name;
+                      })
+                      .join(', ')}
+                  </div>
+                  {features.length > 0 ? (
+                    <Label
+                      style={{ fontSize: 'bold' }}
+                      localizeKey={'vendors.details.features'}
+                    />
+                  ) : (
+                    <div>
+                      {' '}
+                      {features
+                        .filter(feature => {
+                          return featureIds.indexOf(feature.id) > 0;
+                        })
+                        .map(feature => {
+                          return feature.name;
+                        })
+                        .join(', ')}
+                    </div>
+                  )}
+                  {legIntPurposeIds.length > 0 ? (
+                    <Label
+                      style={{ fontSize: 'bold' }}
+                      localizeKey={'vendors.details.legalPurposes'}
+                    />
+                  ) : (
+                    <div>
+                      {purposes
+                        .filter(purpose => {
+                          return legIntPurposeIds.indexOf(purpose.id) > 0;
+                        })
+                        .map(purpose => {
+                          return purpose.name;
+                        })
+                        .join(', ')}
+                    </div>
+                  )}
                 </div>
               ) : null}
             </tbody>

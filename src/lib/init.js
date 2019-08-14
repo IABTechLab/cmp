@@ -176,8 +176,7 @@ export function init(configUpdates) {
 
             // Request lists
             return Promise.all([
-              fetchVendorList().then(resp => {
-                console.log('loadVendorsAndPurposes', resp);
+              fetchVendorList(vendors).then(resp => {
                 store.updateVendorList(resp);
 
                 _fetchLocalizedPurposeList().then(localized => {
@@ -189,22 +188,12 @@ export function init(configUpdates) {
           };
 
           const updateVendorsAndPurposes = () => {
-            if (!vendors || vendors.length === 0) {
-              return fetchVendorList().then(res => {
-                console.log('updateVendorsAndPurposes', res);
-                store.updateVendorList(res);
-                store.updateLocalizedPurposeList({ purposes, features });
-              });
-            }
-            store.updateVendorList({
-              vendors,
-              purposes,
-              version: vendorListVersion,
+            return fetchVendorList(vendors).then(res => {
+              store.updateVendorList(res);
+              store.updateLocalizedPurposeList({ purposes, features });
             });
-            store.updateLocalizedPurposeList({ purposes, features });
-            return Promise.resolve();
           };
-
+          console.log('config.remoteConfigUrl: ', config.remoteConfigUrl);
           const loadCmpConfigurationData = config.remoteConfigUrl
             ? updateVendorsAndPurposes
             : loadVendorsAndPurposes;

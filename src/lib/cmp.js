@@ -308,7 +308,7 @@ export default class Cmp {
           selectedAllowedCustomPurposeIds.add(id);
         });
     }
-
+    console.log('vendorList:', vendorList);
     // Encode the persisted data
     return (
       persistedPublisherConsentData &&

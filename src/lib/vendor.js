@@ -12,12 +12,18 @@ const metadata = require('../../metadata.json');
  * list is not found attempt to load it from the global list location
  * using the "portal" for cross domain communication.
  */
-function fetchVendorList() {
+function fetchVendorList(vendors) {
   return fetch(config.globalVendorListLocation)
     .then(res => res.json())
-    .then(customVendors => {
+    .then(globalVendors => {
       // update selected vendors against global vendor list
-      return updateSelectedVendors(customVendors);
+      console.log('fetchVendorList', globalVendors);
+      console.log('fetchVendorList', vendors);
+      if (!vendors || vendors.length === 0) {
+        return updateSelectedVendors(vendors, globalVendors);
+      }
+
+      return globalVendors;
     })
     .catch(() => {
       log.debug('Configured vendors.json not found. Requesting global list');
@@ -73,31 +79,21 @@ function fetchCustomPurposeList() {
     });
 }
 
-function updateSelectedVendors(selectedVendors) {
-  return fetchGlobalVendorList()
-    .then(globalVendors => {
-      if (selectedVendors) {
-        selectedVendors.lastUpdated = globalVendors.lastUpdated;
-        selectedVendors.version = globalVendors.vendorListVersion;
-        selectedVendors.vendors = selectedVendors.vendors
-          .map(customVendor => {
-            // update selected vendors with fetched global versions
-            return globalVendors.vendors.find(globalVendor => {
-              return customVendor && globalVendor.id === customVendor.id;
-            });
-          })
-          // filter out undefined vendors
-          .filter(customVendor => {
-            return customVendor && customVendor.id;
-          });
-        return selectedVendors;
-      }
-      return globalVendors;
+function updateSelectedVendors(selectedVendors, globalVendors) {
+  selectedVendors.lastUpdated = globalVendors.lastUpdated;
+  selectedVendors.version = globalVendors.vendorListVersion;
+  selectedVendors.vendors = selectedVendors.vendors
+    .map(customVendor => {
+      // update selected vendors with fetched global versions
+      return globalVendors.vendors.find(globalVendor => {
+        return customVendor && globalVendor.id === customVendor.id;
+      });
     })
-    .catch(err => {
-      log.debug('updateSelectedVendors: ', err);
-      return selectedVendors;
+    // filter out undefined vendors
+    .filter(customVendor => {
+      return customVendor && customVendor.id;
     });
+  return selectedVendors;
 }
 
 export { fetchVendorList, fetchLocalizedPurposeList, fetchCustomPurposeList };
