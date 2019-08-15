@@ -98,57 +98,21 @@ export const Vendortable = (
               </tr>
 
               {display ? (
-                <div>
-                  <Label
-                    style={{ fontSize: 'bold' }}
-                    localizeKey={'vendors.details.purposes'}
-                  />
-                  :
-                  <div>
-                    {' '}
-                    {purposes
-                      .filter(purpose => {
-                        return purposeIds.indexOf(purpose.id) > 0;
-                      })
-                      .map(purpose => {
-                        return purpose.name;
-                      })
-                      .join(', ')}
-                  </div>
-                  {features.length > 0 ? (
-                    <Label
-                      style={{ fontSize: 'bold' }}
-                      localizeKey={'vendors.details.features'}
-                    />
-                  ) : (
-                    <div>
-                      {' '}
-                      {features
-                        .filter(feature => {
-                          return featureIds.indexOf(feature.id) > 0;
-                        })
-                        .map(feature => {
-                          return feature.name;
-                        })
-                        .join(', ')}
-                    </div>
+                <div className={'vendorDetail'}>
+                  {DetailSubList(
+                    purposes,
+                    purposeIds,
+                    'vendors.details.purposes',
                   )}
-                  {legIntPurposeIds.length > 0 ? (
-                    <Label
-                      style={{ fontSize: 'bold' }}
-                      localizeKey={'vendors.details.legalPurposes'}
-                    />
-                  ) : (
-                    <div>
-                      {purposes
-                        .filter(purpose => {
-                          return legIntPurposeIds.indexOf(purpose.id) > 0;
-                        })
-                        .map(purpose => {
-                          return purpose.name;
-                        })
-                        .join(', ')}
-                    </div>
+                  {DetailSubList(
+                    features,
+                    featureIds,
+                    'vendors.details.features',
+                  )}
+                  {DetailSubList(
+                    purposes,
+                    legIntPurposeIds,
+                    'vendors.details.legalPurposes',
                   )}
                 </div>
               ) : null}
@@ -158,6 +122,28 @@ export const Vendortable = (
       )}
     </table>
   );
+
+  function DetailSubList(list, selectedIds, localizedKey) {
+    if (selectedIds.length === 0) {
+      return <div />;
+    }
+
+    return (
+      <div>
+        <Label style={{ fontSize: 'bold' }} localizeKey={localizedKey} />:
+        <div>
+          {list
+            .filter(item => {
+              return selectedIds.indexOf(item.id) !== -1;
+            })
+            .map(item => {
+              return item.name;
+            })
+            .join(', ')}
+        </div>
+      </div>
+    );
+  }
 };
 
 Vendortable.contextTypes = {
