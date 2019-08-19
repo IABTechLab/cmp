@@ -17,10 +17,9 @@ function fetchVendorList(vendors) {
     .then(res => res.json())
     .then(globalVendors => {
       // update selected vendors against global vendor list
-      if (!vendors || vendors.length === 0) {
+      if (vendors && vendors.length !== 0) {
         return updateSelectedVendors(vendors, globalVendors);
       }
-
       return globalVendors;
     })
     .catch(() => {

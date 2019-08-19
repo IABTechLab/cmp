@@ -193,7 +193,6 @@ export function init(configUpdates) {
               store.updateLocalizedPurposeList({ purposes, features });
             });
           };
-          console.log('config.remoteConfigUrl: ', config.remoteConfigUrl);
           const loadCmpConfigurationData = config.remoteConfigUrl
             ? updateVendorsAndPurposes
             : loadVendorsAndPurposes;
