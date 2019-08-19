@@ -17,8 +17,6 @@ function fetchVendorList(vendors) {
     .then(res => res.json())
     .then(globalVendors => {
       // update selected vendors against global vendor list
-      console.log('fetchVendorList', globalVendors);
-      console.log('fetchVendorList', vendors);
       if (!vendors || vendors.length === 0) {
         return updateSelectedVendors(vendors, globalVendors);
       }
@@ -27,16 +25,6 @@ function fetchVendorList(vendors) {
     })
     .catch(() => {
       log.debug('Configured vendors.json not found. Requesting global list');
-      return sendPortalCommand({ command: 'readVendorList' });
-    });
-}
-
-function fetchGlobalVendorList() {
-  // TODO no magic string - extract somwhere
-  return fetch('https://vendorlist.consensu.org/vendorlist.json')
-    .then(res => res.json())
-    .catch(() => {
-      log.debug('Global vendor list not found');
       return sendPortalCommand({ command: 'readVendorList' });
     });
 }
