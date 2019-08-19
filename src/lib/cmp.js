@@ -147,8 +147,11 @@ export default class Cmp {
      */
     getConsentData: (_, callback = () => {}) => {
       return this.store.getFullVendorConsentsObject().then(consent => {
+        // NO gdprApplies when no consentString
+        // TODO hot fixes - implement better solution
         const output = {
-          gdprApplies: this.gdprApplies,
+          gdprApplies:
+            consent && consent.consentString ? this.gdprApplies : false,
           hasGlobalScope: this.config.storeConsentGlobally,
           consentData: consent.consentString,
         };
