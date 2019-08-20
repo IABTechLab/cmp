@@ -422,8 +422,8 @@ export default class Store {
   };
 
   updateVendorList = vendorList => {
-    const { created, maxVendorId = 0 } = this.vendorConsentData;
-
+    const { created } = this.vendorConsentData;
+    const { maxVendorId = 0 } = vendorList || this.vendorConsentData;
     const { vendors = [], purposes = [] } = vendorList || {};
 
     // If vendor consent data has never been persisted set default selected status
@@ -447,6 +447,8 @@ export default class Store {
       ...vendors.map(({ id }) => id),
       ...Array.from(selectedVendorIds),
     );
+    console.log('vendorMM: ', maxVendorId);
+
     this.vendorConsentData.vendorListVersion = version;
     this.publisherConsentData.vendorListVersion = version;
     this.vendorList = vendorList;

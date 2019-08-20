@@ -69,7 +69,6 @@ function fetchCustomPurposeList() {
 function updateSelectedVendors(selectedVendors, globalVendors) {
   // TODO test atributes
   // probably obsolete
-  let maxId = 0;
   const updatedVendors = selectedVendors
     .map(customVendor => {
       // update selected vendors with fetched global versions
@@ -79,12 +78,6 @@ function updateSelectedVendors(selectedVendors, globalVendors) {
     })
     // filter out undefined vendors
     .filter(customVendor => {
-      if (!customVendor) {
-        return false;
-      }
-      if (customVendor.id > maxId) {
-        maxId = customVendor.id;
-      }
       return customVendor && customVendor.id;
     });
   return {
@@ -92,7 +85,10 @@ function updateSelectedVendors(selectedVendors, globalVendors) {
     // probably obsolete
     version: globalVendors.vendorListVersion,
     vendorListVersion: globalVendors.vendorListVersion,
-    maxVendorId: maxId,
+    // is set to highest GVL id, not used id
+    maxVendorId: globalVendors.vendors.reduce((prevMax, currenMax) => {
+      return currenMax.id > prevMax ? currenMax.id : prevMax;
+    }, 0),
     vendors: updatedVendors,
   };
 }
