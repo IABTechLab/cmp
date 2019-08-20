@@ -68,20 +68,32 @@ function fetchCustomPurposeList() {
 
 function updateSelectedVendors(selectedVendors, globalVendors) {
   // TODO test atributes
+  // probably obsolete
+  let maxId = 0;
+  const updatedVendors = selectedVendors
+    .map(customVendor => {
+      // update selected vendors with fetched global versions
+      return globalVendors.vendors.find(globalVendor => {
+        return customVendor && globalVendor.id === customVendor.id;
+      });
+    })
+    // filter out undefined vendors
+    .filter(customVendor => {
+      if (!customVendor) {
+        return false;
+      }
+      if (customVendor.id > maxId) {
+        maxId = customVendor.id;
+      }
+      return customVendor && customVendor.id;
+    });
   return {
     lastUpdated: globalVendors.lastUpdated,
+    // probably obsolete
     version: globalVendors.vendorListVersion,
-    vendors: selectedVendors
-      .map(customVendor => {
-        // update selected vendors with fetched global versions
-        return globalVendors.vendors.find(globalVendor => {
-          return customVendor && globalVendor.id === customVendor.id;
-        });
-      })
-      // filter out undefined vendors
-      .filter(customVendor => {
-        return customVendor && customVendor.id;
-      }),
+    vendorListVersion: globalVendors.vendorListVersion,
+    maxVendorId: maxId,
+    vendors: updatedVendors,
   };
 }
 
