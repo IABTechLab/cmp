@@ -17,7 +17,9 @@ function fetchVendorList(vendors) {
     .then(res => res.json())
     .then(globalVendors => {
       // update selected vendors against global vendor list
-      if (vendors && vendors.length !== 0) {
+      console.log('vendors:', vendors);
+      if (vendors) {
+        console.log('if passed:', vendors);
         return updateSelectedVendors(vendors, globalVendors);
       }
       return globalVendors;
@@ -67,20 +69,24 @@ function fetchCustomPurposeList() {
 }
 
 function updateSelectedVendors(selectedVendors, globalVendors) {
-  selectedVendors.lastUpdated = globalVendors.lastUpdated;
-  selectedVendors.version = globalVendors.vendorListVersion;
-  selectedVendors.vendors = selectedVendors.vendors
-    .map(customVendor => {
-      // update selected vendors with fetched global versions
-      return globalVendors.vendors.find(globalVendor => {
-        return customVendor && globalVendor.id === customVendor.id;
-      });
-    })
-    // filter out undefined vendors
-    .filter(customVendor => {
-      return customVendor && customVendor.id;
-    });
-  return selectedVendors;
+  let updatedVendors = {
+    lastUpdated: globalVendors.lastUpdated,
+    version: globalVendors.vendorListVersion,
+    vendors: selectedVendors
+      .map(customVendor => {
+        // update selected vendors with fetched global versions
+        return globalVendors.vendors.find(globalVendor => {
+          return customVendor && globalVendor.id === customVendor.id;
+        });
+      })
+      // filter out undefined vendors
+      .filter(customVendor => {
+        return customVendor && customVendor.id;
+      }),
+  };
+
+  console.log('updateSelectedVendors:', updatedVendors);
+  return updatedVendors;
 }
 
 export { fetchVendorList, fetchLocalizedPurposeList, fetchCustomPurposeList };
