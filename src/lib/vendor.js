@@ -17,9 +17,7 @@ function fetchVendorList(vendors) {
     .then(res => res.json())
     .then(globalVendors => {
       // update selected vendors against global vendor list
-      console.log('vendors:', vendors);
       if (vendors) {
-        console.log('if passed:', vendors);
         return updateSelectedVendors(vendors, globalVendors);
       }
       return globalVendors;
@@ -69,7 +67,8 @@ function fetchCustomPurposeList() {
 }
 
 function updateSelectedVendors(selectedVendors, globalVendors) {
-  let updatedVendors = {
+  // TODO test atributes
+  return {
     lastUpdated: globalVendors.lastUpdated,
     version: globalVendors.vendorListVersion,
     vendors: selectedVendors
@@ -84,9 +83,6 @@ function updateSelectedVendors(selectedVendors, globalVendors) {
         return customVendor && customVendor.id;
       }),
   };
-
-  console.log('updateSelectedVendors:', updatedVendors);
-  return updatedVendors;
 }
 
 export { fetchVendorList, fetchLocalizedPurposeList, fetchCustomPurposeList };

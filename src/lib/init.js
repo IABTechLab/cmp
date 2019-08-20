@@ -111,7 +111,9 @@ const loadConfig = configUrl => {
 export function init(configUpdates) {
   config.update(configUpdates);
   log.debug('Using configuration:', config);
-  log.info('Version:', pjson.version);
+  // LOG always
+  console.log('Version:', pjson.version);
+  // let configUrl = 'https://cdn.cpex.cz/cmp/general/cmp-config-demo3.json';
   let configUrl = config.remoteConfigUrl;
 
   if (!!config.abTest === true && Array.isArray(config.variants)) {
