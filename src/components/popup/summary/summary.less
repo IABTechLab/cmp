@@ -22,16 +22,24 @@
 .footer {
   border-top: solid 1px @color-border;
   padding: 8px 0 0 8px;
-  flex-direction: row;
+  flex-direction: column-reverse;
   flex-wrap: wrap;
   display: flex;
   justify-content: stretch;
 
   button {
-    flex: 1;
+    // flex: 1;
     margin-right: 8px;
     margin-bottom: 8px;
   }
+}
+
+.rejectAll {
+  border: none !important;
+  text-transform: none !important;
+  padding: 0 !important;
+  font-size: 12px !important;
+  background: none !important;
 }
 
 @media screen and (min-width: 730px) {
