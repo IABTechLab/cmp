@@ -13,6 +13,7 @@ export {
   getTimestamp,
   getConsentsCount,
   addStyleSheet,
+  areConsentsStoredGlobally,
 };
 
 const metadata = require('../../metadata.json');
@@ -176,4 +177,12 @@ function addStyleSheet(url) {
     link.href = url;
     head.appendChild(link);
   }
+}
+
+function areConsentsStoredGlobally(config) {
+  return (
+    config.duplicateConsent &&
+    config.storeConsentGlobally &&
+    config.storePublisherConsentGlobally
+  );
 }

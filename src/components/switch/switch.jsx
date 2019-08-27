@@ -20,11 +20,18 @@ export default class Switch extends Component {
   }
 
   render(props) {
-    const { isSelected, isDisabled, color, displayLabel } = props;
+    const {
+      isSelected,
+      isDisabled,
+      color,
+      displayLabel,
+      className,
+      labelKey,
+    } = props;
     const { theme } = this.context;
     const switchLabelKey = isSelected ? 'active' : 'inactive';
     return (
-      <div>
+      <div className={className}>
         <span
           class={[
             style.switch,
@@ -53,7 +60,7 @@ export default class Switch extends Component {
           <Label
             style={{ color: theme.colorPrimary, fontFamily: theme.fontFamily }}
             class={style.label}
-            localizeKey={`purposes.${switchLabelKey}`}
+            localizeKey={labelKey || `purposes.${switchLabelKey}`}
           />
         )}
       </div>

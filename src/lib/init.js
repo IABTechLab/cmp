@@ -8,7 +8,7 @@ import {
   fetchLocalizedPurposeList,
   fetchCustomPurposeList,
 } from './vendor';
-import { checkIfUserInEU } from './utils';
+import { checkIfUserInEU, areConsentsStoredGlobally } from './utils';
 import log from './log';
 import config from './config';
 import { pickVariant } from './abTesting';
@@ -123,7 +123,7 @@ export function init(configUpdates) {
     ({ vendors, purposes, features, vendorListVersion, ...rest }) => {
       config.update(rest);
 
-      const getConsent = config.duplicateConsent
+      const getConsent = areConsentsStoredGlobally(config)
         ? getAndCacheConsentData
         : getConsentData;
 
@@ -137,8 +137,6 @@ export function init(configUpdates) {
             const intervalMs = config.sasInterval * 60 * 60 * 1000;
 
             if (timestamp - intervalMs > sasLastCalled) {
-              console.log('tset');
-
               return cookie
                 .readLocalVendorConsentCookie()
                 .then(euconsent => {
@@ -175,7 +173,7 @@ export function init(configUpdates) {
 
             // Request lists
             return Promise.all([
-              fetchVendorList().then(resp => {
+              fetchVendorList(vendors).then(resp => {
                 store.updateVendorList(resp);
 
                 _fetchLocalizedPurposeList().then(localized => {
@@ -187,21 +185,11 @@ export function init(configUpdates) {
           };
 
           const updateVendorsAndPurposes = () => {
-            if (!vendors || vendors.length === 0) {
-              return fetchVendorList().then(res => {
-                store.updateVendorList(res);
-                store.updateLocalizedPurposeList({ purposes, features });
-              });
-            }
-            store.updateVendorList({
-              vendors,
-              purposes,
-              version: vendorListVersion,
+            return fetchVendorList(vendors).then(res => {
+              store.updateVendorList(res);
+              store.updateLocalizedPurposeList({ purposes, features });
             });
-            store.updateLocalizedPurposeList({ purposes, features });
-            return Promise.resolve();
           };
-
           const loadCmpConfigurationData = config.remoteConfigUrl
             ? updateVendorsAndPurposes
             : loadVendorsAndPurposes;

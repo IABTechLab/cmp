@@ -7,6 +7,7 @@ import { ConsentButtons } from '../consentbuttons';
 import { PopupContent } from '../popupcontent';
 import { Footer } from './footer';
 import style from './intro.less';
+import { LocalizedLink } from '../../link';
 
 export class Intro extends Component {
   renderTitle() {
@@ -20,7 +21,13 @@ export class Intro extends Component {
   }
 
   render(props) {
-    const { onAcceptAll, onShowPurposes, onShowSummary, config } = props;
+    const {
+      onAcceptAll,
+      onShowPurposes,
+      onShowSummary,
+      onShowDirectVendors,
+      config,
+    } = props;
 
     return (
       <PopupContent layout={config.layout}>
@@ -35,6 +42,11 @@ export class Intro extends Component {
           >
             {config.layout === 'footer' && this.renderTitle()}
             <Label localizeKey="intro.description" />
+            <LocalizedLink
+              localizeKey="intro.directVendorsLink"
+              onClick={onShowDirectVendors}
+            />
+            <Label localizeKey="intro.description_part_2" />
           </Paragraph>
           <ConsentButtons
             layout={config.layout}

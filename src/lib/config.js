@@ -51,6 +51,7 @@ const defaultConfig = {
   sasEnabled: false,
   sasInterval: 24,
   sasUrls: [],
+  consentScope: 'all',
 };
 
 class Config {

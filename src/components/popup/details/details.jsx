@@ -42,6 +42,10 @@ export class Details extends Component {
     this.setState({ showEnableAll: !this.state.showEnableAll });
   };
 
+  handleVendorDetails = () => {
+    this.forceUpdate();
+  };
+
   handleBack = () => {
     const { onCancel } = this.props;
     const { selectedPanelIndex } = this.state;
@@ -52,6 +56,12 @@ export class Details extends Component {
       onCancel();
     }
   };
+
+  componentDidMount() {
+    if (this.props.directVendors) {
+      this.handleShowVendors();
+    }
+  }
 
   render(props, state) {
     const { onSave, store, localization, config } = props;
@@ -93,6 +103,9 @@ export class Details extends Component {
               onShowPurposes={this.handleShowPurposes}
               selectedVendorIds={selectedVendorIds}
               vendors={vendors}
+              purposes={purposes}
+              features={features}
+              showVendorDetails={this.handleVendorDetails}
             />
           </Panel>
           <Footer
