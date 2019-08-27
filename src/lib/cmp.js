@@ -147,8 +147,10 @@ export default class Cmp {
      */
     getConsentData: (_, callback = () => {}) => {
       return this.store.getFullVendorConsentsObject().then(consent => {
+        // NO gdprApplies when no consentString
         const output = {
-          gdprApplies: this.gdprApplies,
+          gdprApplies:
+            consent && consent.consentString ? this.gdprApplies : false,
           hasGlobalScope: this.config.storeConsentGlobally,
           consentData: consent.consentString,
         };
@@ -308,7 +310,6 @@ export default class Cmp {
           selectedAllowedCustomPurposeIds.add(id);
         });
     }
-
     // Encode the persisted data
     return (
       persistedPublisherConsentData &&

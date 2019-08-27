@@ -4,6 +4,7 @@ import config from './config';
 import log from './log';
 import { updateLocalizationSettings } from './localize';
 import { sendPortalCommand } from './portal';
+
 const metadata = require('../../metadata.json');
 
 /**
@@ -11,9 +12,16 @@ const metadata = require('../../metadata.json');
  * list is not found attempt to load it from the global list location
  * using the "portal" for cross domain communication.
  */
-function fetchVendorList() {
+function fetchVendorList(vendors) {
   return fetch(config.globalVendorListLocation)
     .then(res => res.json())
+    .then(globalVendors => {
+      // update selected vendors against global vendor list
+      if (vendors) {
+        return updateSelectedVendors(vendors, globalVendors);
+      }
+      return globalVendors;
+    })
     .catch(() => {
       log.debug('Configured vendors.json not found. Requesting global list');
       return sendPortalCommand({ command: 'readVendorList' });
@@ -56,6 +64,30 @@ function fetchCustomPurposeList() {
         err,
       );
     });
+}
+
+function updateSelectedVendors(selectedVendors, globalVendors) {
+  const updatedVendors = selectedVendors
+    .map(customVendor => {
+      // update selected vendors with fetched global versions
+      return globalVendors.vendors.find(globalVendor => {
+        return customVendor && globalVendor.id === customVendor.id;
+      });
+    })
+    // filter out undefined vendors
+    .filter(customVendor => {
+      return customVendor && customVendor.id;
+    });
+  return {
+    lastUpdated: globalVendors.lastUpdated,
+    version: globalVendors.vendorListVersion,
+    vendorListVersion: globalVendors.vendorListVersion,
+    // is set to highest GVL id, not used id
+    maxVendorId: globalVendors.vendors.reduce((prevMax, currentMax) => {
+      return currentMax.id > prevMax ? currentMax.id : prevMax;
+    }, 0),
+    vendors: updatedVendors,
+  };
 }
 
 export { fetchVendorList, fetchLocalizedPurposeList, fetchCustomPurposeList };

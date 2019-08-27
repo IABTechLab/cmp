@@ -11,27 +11,6 @@
     <script src="https://unpkg.com/qs@6.6.0/dist/qs.js"></script>
     <script>
       (function(window) {
-        var query = Qs.parse(window.location.search.replace('?', ''), {
-          allowDots: true,
-        });
-        console.log(query);
-        var config = {
-          customPurposeListLocation: 'docs/purposes.json',
-          globalVendorListLocation: 'docs/vendors.json',
-          globalConsentLocation: 'docs/portal.html',
-          storeConsentGlobally: false,
-          storePublisherConsentGlobally: false,
-          storePublisherData: true,
-          layout: 'footer',
-          logging: 'debug',
-          blockBrowsing: false,
-          forceLocale: 'en',
-          testingMode: 'always show',
-          showFooterAfterSubmit: true,
-        };
-        for (var param in query) {
-          config[param] = query[param];
-        }
         window.__cmp = (function() {
           window.addEventListener('message', function(event) {
             window.__cmp.receiveMessage(event);
@@ -41,12 +20,8 @@
             commandQueue.push({
               command: command,
               parameter: parameter,
-              callback: callback,
+              callback: callback
             });
-          };
-          cmp.onConfigLoaded = function(config) {
-            console.log(config);
-            var isBrowingBlocked = config.blockBrowsing;
           };
           cmp.commandQueue = commandQueue;
           cmp.receiveMessage = function(event) {
@@ -56,15 +31,27 @@
                 callId: data.callId,
                 command: data.command,
                 parameter: data.parameter,
-                event: event,
+                event: event
               });
             }
           };
-          cmp.config = config;
+          cmp.config = {
+            customPurposeListLocation: 'docs/purposes.json',
+            globalVendorListLocation: 'docs/vendors.json',
+            globalConsentLocation: 'docs/portal.html',
+            storeConsentGlobally: false,
+            storePublisherConsentGlobally: false,
+            storePublisherData: true,
+            layout: 'footer',
+            logging: "debug",
+            blockBrowsing: false,
+            forceLocale: 'en',
+            testingMode: 'always show',
+            showFooterAfterSubmit: true,
+          };
           return cmp;
-        })();
+        }());
       })(window);
-
       window.__cmp('renderCmpIfNeeded');
     </script>
   </head>
