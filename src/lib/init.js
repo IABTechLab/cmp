@@ -114,8 +114,8 @@ export function init(configUpdates) {
   // LOG always
   console.log('Version:', pjson.version);
   // TODO remove
-  let configUrl = 'https://cdn.cpex.cz/cmp/general/cmp-config-demo3.json';
-  // let configUrl = config.remoteConfigUrl;
+  // let configUrl = 'https://cdn.cpex.cz/cmp/general/cmp-config-demo3.json';
+  let configUrl = config.remoteConfigUrl;
 
   if (!!config.abTest === true && Array.isArray(config.variants)) {
     log.info('A/B testing active');
@@ -128,8 +128,7 @@ export function init(configUpdates) {
   return loadConfig(configUrl).then(
     ({ vendors, purposes, features, vendorListVersion, ...rest }) => {
       config.update(rest);
-      config.logging = 'debug';
-      // TODO override all configs
+      // TODO horrible - override all configs
       config.consentScope = 'all';
       const getConsent = areConsentsStoredGlobally(config)
         ? getAndCacheConsentData
@@ -189,6 +188,8 @@ export function init(configUpdates) {
                 });
               }),
               fetchCustomPurposeList().then(store.updateCustomPurposeList),
+              // TODO horrible fix - wait to all data
+              new Promise(resolve => setTimeout(resolve, 100)),
             ]);
           };
 

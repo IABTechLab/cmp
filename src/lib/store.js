@@ -447,7 +447,6 @@ export default class Store {
       ...vendors.map(({ id }) => id),
       ...Array.from(selectedVendorIds),
     );
-    console.log('vendorMM: ', maxVendorId);
 
     this.vendorConsentData.vendorListVersion = version;
     this.publisherConsentData.vendorListVersion = version;
