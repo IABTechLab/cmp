@@ -11,12 +11,19 @@ const metadata = require('../../metadata.json');
 	* list is not found attempt to load it from the global list location
 	* using the "portal" for cross domain communication.
 */
-function fetchVendorList() {
+function fetchVendorList(vendors) {
 	return fetch(config.globalVendorListLocation)
 		.then(res => res.json())
+		.then(globalVendors => {
+			// update selected vendors against global vendor list
+			if (vendors) {
+				return updateSelectedVendors(vendors, globalVendors);
+			}
+			return globalVendors;
+		})
 		.catch(() => {
 			log.debug('Configured vendors.json not found. Requesting global list');
-			return sendPortalCommand({command: 'readVendorList'});
+			return sendPortalCommand({ command: 'readVendorList' });
 		});
 }
 
@@ -42,6 +49,31 @@ function fetchCustomPurposeList() {
 		.catch(err => {
 			log.error(`Failed to load custom purposes list from ${config.customPurposeListLocation}`, err);
 		});
+}
+
+function updateSelectedVendors(selectedVendors, globalVendors) {
+	const updatedVendors = selectedVendors
+		.map(customVendor => {
+			// update selected vendors with fetched global versions
+			return globalVendors.vendors.find(globalVendor => {
+				return customVendor && globalVendor.id === customVendor.id;
+			});
+		})
+		// filter out undefined vendors
+		.filter(customVendor => {
+			return customVendor && customVendor.id;
+		});
+	return {
+		lastUpdated: globalVendors.lastUpdated,
+		version: globalVendors.vendorListVersion,
+		vendorListVersion: globalVendors.vendorListVersion,
+		// is set to highest GVL id, not used id
+		maxVendorId: globalVendors.vendors.reduce((prevMax, currenMax) => {
+			return currenMax.id > prevMax ? currenMax.id : prevMax;
+		}, 0),
+		vendors: updatedVendors,
+		purposes: globalVendors.purposes,
+	};
 }
 
 export {
