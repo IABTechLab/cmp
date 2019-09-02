@@ -461,14 +461,15 @@ function writeLocalVendorConsentCookie(vendorConsentData) {
       '/',
     ),
   ).then(() => {
-    if (config.sasEnabled && config.consentScope === 'all') {
+    if (config.sasEnabled /* && config.consentScope === 'all'*/) {
       return Promise.all(config.sasUrls.map(url => notifySas(url, euconsent)));
     }
   });
 }
 
 function readVendorConsentCookie() {
-  return config.storeConsentGlobally
+  // TODO read global euconsent from other url
+  return config.storeConsentGlobally || config.storePublisherConsentGlobally
     ? readGlobalVendorConsentCookie()
     : readLocalVendorConsentCookie();
 }

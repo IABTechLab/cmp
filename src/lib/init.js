@@ -114,7 +114,6 @@ export function init(configUpdates) {
   // LOG always
   console.log('Version:', pjson.version);
   // TODO remove
-
   let configUrl = 'https://cdn.cpex.cz/cmp/general/cmp-config-demo3.json';
   // let configUrl = config.remoteConfigUrl;
 
@@ -129,7 +128,9 @@ export function init(configUpdates) {
   return loadConfig(configUrl).then(
     ({ vendors, purposes, features, vendorListVersion, ...rest }) => {
       config.update(rest);
-
+      config.logging = 'debug';
+      // TODO override all configs
+      config.consentScope = 'all';
       const getConsent = areConsentsStoredGlobally(config)
         ? getAndCacheConsentData
         : getConsentData;

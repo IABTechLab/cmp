@@ -79,7 +79,8 @@ function checkReprompt(
   vendorConsents,
   publisherConsents,
 ) {
-  const oldestCookieTime = Math.min(
+  // TODO horrible fix
+  const oldestCookieTime = Math.max(
     ...[
       vendorConsents.lastUpdated || 0,
       publisherConsents.lastUpdated || 0,
@@ -182,8 +183,7 @@ function addStyleSheet(url) {
 function areConsentsStoredGlobally(config) {
   // TODO
   return (
-    config.duplicateConsent &&
-    config.storeConsentGlobally &&
-    config.storePublisherConsentGlobally
+    /*config.duplicateConsent &&*/
+    config.storeConsentGlobally || config.storePublisherConsentGlobally
   );
 }
