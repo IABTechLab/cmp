@@ -415,9 +415,10 @@ function writeGlobalVendorConsentCookie(vendorConsentData) {
   log.debug('Write consent data to global cookie', vendorConsentData);
   const euconsent = encodeVendorConsentData(vendorConsentData);
 
-  if (config.consentScope !== 'all') {
+  // TODO write globally for us
+  /*  if (config.consentScope !== 'all') {
     return Promise.resolve();
-  }
+  }*/
 
   return sendPortalCommand({
     command: 'writeVendorConsent',
@@ -430,7 +431,7 @@ function writeGlobalVendorConsentCookie(vendorConsentData) {
         return writeLocalVendorConsentCookie(vendorConsentData);
       }
 
-      if (config.sasEnabled && config.consentScope === 'all') {
+      if (config.sasEnabled /* && config.consentScope === 'all'*/) {
         return Promise.all(
           config.sasUrls.map(url => notifySas(url, euconsent)),
         );
