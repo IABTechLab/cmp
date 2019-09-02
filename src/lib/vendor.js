@@ -90,6 +90,7 @@ function updateSelectedVendors(selectedVendors, globalVendors) {
       return currenMax.id > prevMax ? currenMax.id : prevMax;
     }, 0),
     vendors: updatedVendors,
+    purposes: globalVendors.purposes,
   };
 }
 

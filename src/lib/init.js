@@ -114,8 +114,8 @@ export function init(configUpdates) {
   // LOG always
   console.log('Version:', pjson.version);
   // TODO remove
-  // let configUrl = 'https://cdn.cpex.cz/cmp/general/cmp-config-demo3.json';
-  let configUrl = config.remoteConfigUrl;
+  let configUrl = 'https://cdn.cpex.cz/cmp/general/cmp-config-demo3.json';
+  // let configUrl = config.remoteConfigUrl;
 
   if (!!config.abTest === true && Array.isArray(config.variants)) {
     log.info('A/B testing active');
@@ -188,8 +188,6 @@ export function init(configUpdates) {
                 });
               }),
               fetchCustomPurposeList().then(store.updateCustomPurposeList),
-              // TODO horrible fix - wait to all data
-              new Promise(resolve => setTimeout(resolve, 100)),
             ]);
           };
 
