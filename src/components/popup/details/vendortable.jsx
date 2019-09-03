@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Label } from '../../label';
 import { Switch } from '../../switch';
 import { Link } from '../../link';
-import { Text } from '../../typography';
+import { Text, Header } from '../../typography';
 import style from './vendortable.less';
 import { Chevron } from '../../chevron';
 import { Row } from '../../layout';
@@ -130,16 +130,15 @@ export const Vendortable = (
 
     return (
       <div>
-        <Label style={{ fontSize: 'bold' }} localizeKey={localizedKey} />:
+        <Label is={Header} localizeKey={localizedKey} />
         <div>
           {list
             .filter(item => {
               return selectedIds.indexOf(item.id) !== -1;
             })
             .map(item => {
-              return item.name;
-            })
-            .join(', ')}
+              return <p>{item.name}</p>;
+            })}
         </div>
       </div>
     );

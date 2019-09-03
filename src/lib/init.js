@@ -114,8 +114,8 @@ export function init(configUpdates) {
   // LOG always
   console.log('Version:', pjson.version);
   // TODO remove
-  // let configUrl = 'https://cdn.cpex.cz/cmp/general/cmp-config-demo3.json';
-  let configUrl = config.remoteConfigUrl;
+  let configUrl = 'https://cdn.cpex.cz/cmp/general/cmp-config-demo3.json';
+  // let configUrl = config.remoteConfigUrl;
 
   if (!!config.abTest === true && Array.isArray(config.variants)) {
     log.info('A/B testing active');
