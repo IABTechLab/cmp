@@ -670,9 +670,9 @@ module.exports = {
       description3: 'Pro změnu nastavení pro všechny společnosti najednou ',
       description3Link: 'klikněte zde.',
       details: {
-        purposes: 'Purposes',
-        features: 'Features',
-        legalPurposes: 'Legal purposes',
+        purposes: 'Účely zpracování (na základě souhlasu)',
+        features: 'Funkce',
+        legalPurposes: 'Účely zpracování (na základě oprávněného zájmu)',
       },
     },
     footer: {
