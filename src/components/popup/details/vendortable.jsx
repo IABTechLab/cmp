@@ -131,7 +131,7 @@ export const Vendortable = (
     return (
       <div>
         <Label is={Header} localizeKey={localizedKey} />
-        <div>
+        <div style={{ padding: '5px' }}>
           {list
             .filter(item => {
               return selectedIds.indexOf(item.id) !== -1;
