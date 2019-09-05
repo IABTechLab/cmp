@@ -1,0 +1,165 @@
+@import "../../../style/variables.less";
+@import "../../../style/font-face.less";
+
+.base {
+	display: flex;
+	flex-direction: row;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 99999;
+	height: 60px;
+	align-items: center;
+	justify-content: flex-start;
+	text-align: center;
+	line-height: normal;
+}
+
+.collapsed {
+	border-top: 1px solid grey;
+}
+
+.extended {
+	left: 0;
+	top: 0;
+	align-items: center;
+	border-bottom: 1px solid grey;
+}
+
+.footerV2 {
+	clear: both;
+	margin: 0 -35px;
+}
+
+.message {
+	padding: 5px;
+}
+
+.message2 {
+	font-weight: bold;
+}
+
+.headerMessage {
+	font-size: 24px;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.icon {
+	width: 55px;
+	height: 30px;
+	outline: 0;
+	display: inline-block;
+	user-select: none;
+	cursor: pointer;
+	color: grey;
+
+	font-family: "icomoon";
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	font-size: 50px;
+	line-height: 1;
+}
+
+.icon:before {
+	content: "\ea50";
+}
+
+.container {
+	left: 0;
+	right: 0;
+	bottom: 0;
+	position: absolute;
+	background: white;
+	align-items: center;
+	background-color: white;
+
+	@media (max-width: 440px) {
+		width: 100%;
+	}
+	ul {
+		margin: 0 0 15px 0;
+		padding: 0;
+		list-style-position: inside;
+	}
+}
+
+.wrapper {
+	display: flex;
+	justify-content: space-between;
+}
+
+.content {
+	width: 80%;
+	padding: 12px 24px 0px 24px;
+	font-size: 15px;
+	line-height: 1.25;
+}
+
+.iconDown:extend(.icon) {
+	transform: rotate(-180deg);
+}
+
+.iconDown:before {
+	content: "\ea50";
+}
+
+.optionsWrapper {
+	margin-top: auto;
+}
+
+.infoFooter {
+	display: flex;
+	flex-direction: column;
+	float: right;
+	margin-bottom: 10px;
+}
+
+.button {
+	margin: 5px !important;
+}
+
+.rejectAll {
+	width: 270px;
+	margin-right: 10px !important;
+}
+
+.acceptAll {
+	width: 270px;
+	padding: 14px 12px !important;
+}
+
+@media (max-width: 414px) {
+	.container {
+		font-size: 12px;
+		height: 100%;
+	}
+
+	.infoFooter {
+		padding: 0 !important;
+		margin: 2px;
+	}
+
+	.base {
+		position: absolute;
+		bottom: 0;
+		margin: 0 !important;
+	}
+
+	.content {
+		padding: 6px 24px 0;
+		margin-top: 60px;
+	}
+
+	.headerMessage {
+		font-size: 20px;
+	}
+}
+
+@media (max-width: 615px) {
+	.wrapper {
+		display: block !important;
+	}
+}

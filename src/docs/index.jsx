@@ -1,17 +1,17 @@
-import { h, render } from 'preact';
-import { buildScript } from '../docs/lib/stub';
-import './style';
+import { h, render } from "preact";
+import { buildScript } from "../docs/lib/stub";
+import "./style";
 
 function init() {
-  eval(
-    buildScript({
-      logging: 'debug',
-      storePublisherData: true,
-    }),
-  ); // eslint-disable-line no-eval
+	eval(
+		buildScript({
+			logging: "debug",
+			storePublisherData: true
+		})
+	); // eslint-disable-line no-eval
 
-  let App = require('./components/app').default;
-  render(<App />, document.body);
+	let App = require("./components/app").default;
+	render(<App />, document.body);
 }
 
 init();

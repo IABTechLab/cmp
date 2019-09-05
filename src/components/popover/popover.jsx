@@ -1,60 +1,60 @@
-import { h, Component } from 'preact';
-import Label from '../label/label';
-import style from './popover.less';
+import { h, Component } from "preact";
+import Label from "../label/label";
+import style from "./popover.less";
 
 export default class Popover extends Component {
-  state = {
-    show: false,
-  };
+	state = {
+		show: false
+	};
 
-  static defaultProps = {
-    content: '',
-  };
+	static defaultProps = {
+		content: ""
+	};
 
-  mouseEnter = () => {
-    this.setState({ show: true });
-  };
+	mouseEnter = () => {
+		this.setState({ show: true });
+	};
 
-  mouseLeave = () => {
-    this.setState({ show: false });
-  };
+	mouseLeave = () => {
+		this.setState({ show: false });
+	};
 
-  handleClick = () => {
-    this.setState({ show: !this.state.show });
-  };
+	handleClick = () => {
+		this.setState({ show: !this.state.show });
+	};
 
-  render(props, state) {
-    const {
-      inlineContent,
-      inlineLocalizeKey,
-      popoverContent,
-      popoverLocalizeKey,
-    } = props;
+	render(props, state) {
+		const {
+			inlineContent,
+			inlineLocalizeKey,
+			popoverContent,
+			popoverLocalizeKey
+		} = props;
 
-    const { show } = state;
+		const { show } = state;
 
-    return (
-      <span>
-        <a
-          onClick={this.handleClick}
-          // onMouseEnter={this.mouseEnter}
-          // onMouseLeave={this.mouseLeave}
-        >
-          <Label providedValue={inlineContent} localizeKey={inlineLocalizeKey}>
-            {inlineContent}
-          </Label>
-        </a>
-        {show && (
-          <div class={style.popover}>
-            <Label
-              providedValue={popoverContent}
-              localizeKey={popoverLocalizeKey}
-            >
-              {popoverLocalizeKey}
-            </Label>
-          </div>
-        )}
-      </span>
-    );
-  }
+		return (
+			<span>
+				<a
+					onClick={this.handleClick}
+					// onMouseEnter={this.mouseEnter}
+					// onMouseLeave={this.mouseLeave}
+				>
+					<Label providedValue={inlineContent} localizeKey={inlineLocalizeKey}>
+						{inlineContent}
+					</Label>
+				</a>
+				{show && (
+					<div class={style.popover}>
+						<Label
+							providedValue={popoverContent}
+							localizeKey={popoverLocalizeKey}
+						>
+							{popoverLocalizeKey}
+						</Label>
+					</div>
+				)}
+			</span>
+		);
+	}
 }

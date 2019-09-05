@@ -1,4 +1,4 @@
-import Example from '../example';
+import Example from "../example";
 
 const setup = `
 myLogger('Add eventListener "onSubmit"');
@@ -25,12 +25,12 @@ window.__cmp('getVendorConsents', [0,1,2], function(result){
 `;
 
 export default class ConsentData extends Example {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Require Consent For Vendor',
-      setup,
-      execute,
-    };
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			title: "Require Consent For Vendor",
+			setup,
+			execute
+		};
+	}
 }

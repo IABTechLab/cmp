@@ -1,4 +1,4 @@
-import Example from '../example';
+import Example from "../example";
 
 const setup = `
 myLogger('Add eventListener "onSubmit"');
@@ -18,13 +18,13 @@ window.__cmp('showConsentTool');
 `;
 
 export default class ConsentData extends Example {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Load Ad After Consent',
-      setup,
-      execute,
-      hasContent: true,
-    };
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			title: "Load Ad After Consent",
+			setup,
+			execute,
+			hasContent: true
+		};
+	}
 }
