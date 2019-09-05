@@ -17,9 +17,11 @@ describe("vendor", () => {
 		mockPortal.sendPortalCommand = jest
 			.fn()
 			.mockImplementation(() => Promise.resolve());
-		window.fetch = jest
-			.fn()
-			.mockImplementation(() => Promise.resolve({ json: () => {} }));
+		window.fetch = jest.fn().mockImplementation(() =>
+			Promise.resolve({
+				json: () => {}
+			})
+		);
 	});
 
 	it("fetchVendorList sends requests local vendors.json", done => {

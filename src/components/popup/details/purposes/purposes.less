@@ -1,72 +1,73 @@
-@import '../../../../style/variables';
+@import "../../../../style/variables";
 
 .container {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  min-height: 320px;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	min-height: 320px;
 
-  .disclaimer {
-    font-size: 12px;
-    padding: 10px;
-  }
+	.disclaimer {
+		font-size: 12px;
+		padding: 10px;
+	}
 
-  .switchText {
-    padding-left: 18px;
-  }
+	.switchText {
+		padding-left: 18px;
+	}
 
-  .consentScope {
-    display: flex;
-    flex-direction: row;
-    font-size: 12px;
-    font-weight: normal;
-    align-items: center;
-    padding: 0px 8px;
-  }
+	.consentScope {
+		display: flex;
+		flex-direction: row;
+		font-size: 12px;
+		font-weight: normal;
+		align-items: center;
+		padding: 0px 8px;
+	}
 
-  .consentScopeSwitch {
-    display: inline-block;
-    margin-left: 8px;
-  }
+	.consentScopeSwitch {
+		display: inline-block;
+		margin-left: 8px;
+	}
 
-  .purposes {
-    display: flex;
-    flex: 1;
-    min-height: 0;
+	.purposes {
+		display: flex;
+		flex: 1;
+		min-height: 0;
 
-    .purposeList {
-      font-size: 12px;
-      flex: 1;
-      max-width: 200px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      direction: rtl;
-    }
-    .purposeItem {
-      display: flex;
-      direction: ltr;
-      align-items: center;
-      height: 50px;
-      padding-left: 10px;
-      background-color: @color-border;
-      border-bottom: 1px solid white;
-      text-align: left;
-      cursor: pointer;
+		.purposeList {
+			font-size: 12px;
+			flex: 1;
+			max-width: 200px;
+			overflow-y: auto;
+			overflow-x: hidden;
+			direction: rtl;
+		}
 
-      &:last-child {
-        border-width: 0;
-      }
+		.purposeItem {
+			display: flex;
+			direction: ltr;
+			align-items: center;
+			height: 50px;
+			padding-left: 10px;
+			background-color: @color-border;
+			border-bottom: 1px solid white;
+			text-align: left;
+			cursor: pointer;
 
-      &.selectedPurpose {
-        font-weight: bold;
-        cursor: auto;
-      }
-    }
+			&:last-child {
+				border-width: 0;
+			}
 
-    .purposeDescription {
-      flex: 1;
-      padding: 16px;
-      overflow: auto;
-    }
-  }
+			&.selectedPurpose {
+				font-weight: bold;
+				cursor: auto;
+			}
+		}
+
+		.purposeDescription {
+			flex: 1;
+			padding: 16px;
+			overflow: auto;
+		}
+	}
 }
