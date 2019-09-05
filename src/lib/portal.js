@@ -25,11 +25,8 @@ function openGlobalVendorPortal() {
 	// Only ever create a single iframe
 	if (!globalVendorPortal) {
 		globalVendorPortal = new Promise((resolve, reject) => {
-			// TODO write to PUBLISHER location
 			const url =
-				config.globalPublisherConsentLocation ||
-				config.globalConsentLocation ||
-				metadata.globalConsentLocation;
+				config.globalConsentLocation || metadata.globalConsentLocation;
 			const iframe = document.createElement("iframe");
 			iframe.setAttribute(
 				"style",

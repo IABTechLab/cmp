@@ -113,9 +113,7 @@ export function init(configUpdates) {
 	log.debug("Using configuration:", config);
 	// LOG always
 	console.log("Version:", pjson.version);
-	// TODO remove
-	let configUrl = "https://cdn.cpex.cz/cmp/general/cmp-config-demo3.json";
-	// let configUrl = config.remoteConfigUrl;
+	let configUrl = config.remoteConfigUrl;
 
 	if (!!config.abTest === true && Array.isArray(config.variants)) {
 		log.info("A/B testing active");
@@ -128,8 +126,6 @@ export function init(configUpdates) {
 	return loadConfig(configUrl).then(
 		({ vendors, purposes, features, vendorListVersion, ...rest }) => {
 			config.update(rest);
-			// TODO horrible - override all configs
-			config.consentScope = "all";
 			const getConsent = areConsentsStoredGlobally(config)
 				? getAndCacheConsentData
 				: getConsentData;

@@ -150,8 +150,7 @@ export default class Cmp {
 				// NO gdprApplies when no consentString
 				// TODO hot fixes - implement better solution
 				const output = {
-					gdprApplies:
-						consent && consent.consentString ? this.gdprApplies : false,
+					gdprApplies: this.gdprApplies,
 					hasGlobalScope: this.config.storeConsentGlobally,
 					consentData: consent.consentString
 				};
