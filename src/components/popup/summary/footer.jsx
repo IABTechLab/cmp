@@ -1,14 +1,14 @@
-import { h } from 'preact';
+import { h } from "preact";
 
-import { ConsentButtons } from '../consentbuttons';
-import style from './summary.less';
+import { ConsentButtons } from "../consentbuttons";
+import style from "./summary.less";
 
 export const Footer = ({ onAcceptAll, onShowPurposes }) => {
-  return (
-    <ConsentButtons
-      className={style.footer}
-      onAcceptAll={onAcceptAll}
-      onShowPurposes={onShowPurposes}
-    />
-  );
+	return (
+		<ConsentButtons
+			className={style.footer}
+			onAcceptAll={onAcceptAll}
+			onShowPurposes={onShowPurposes}
+		/>
+	);
 };

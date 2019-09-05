@@ -1,58 +1,73 @@
-@import '../../../../style/variables';
+@import "../../../../style/variables";
 
 .container {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  min-height: 320px;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	min-height: 320px;
 
-  .disclaimer {
-    font-size: 12px;
-    padding: 10px;
-  }
+	.disclaimer {
+		font-size: 12px;
+		padding: 10px;
+	}
 
-  .switchText {
-    padding-left: 18px;
-  }
+	.switchText {
+		padding-left: 18px;
+	}
 
-  .purposes {
-    display: flex;
-    flex: 1;
-    min-height: 0;
+	.consentScope {
+		display: flex;
+		flex-direction: row;
+		font-size: 12px;
+		font-weight: normal;
+		align-items: center;
+		padding: 0px 8px;
+	}
 
-    .purposeList {
-      font-size: 12px;
-      flex: 1;
-      max-width: 200px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      direction: rtl;
-    }
-    .purposeItem {
-      display: flex;
-      direction: ltr;
-      align-items: center;
-      height: 50px;
-      padding-left: 10px;
-      background-color: @color-border;
-      border-bottom: 1px solid white;
-      text-align: left;
-      cursor: pointer;
+	.consentScopeSwitch {
+		display: inline-block;
+		margin-left: 8px;
+	}
 
-      &:last-child {
-        border-width: 0;
-      }
+	.purposes {
+		display: flex;
+		flex: 1;
+		min-height: 0;
 
-      &.selectedPurpose {
-        font-weight: bold;
-        cursor: auto;
-      }
-    }
+		.purposeList {
+			font-size: 12px;
+			flex: 1;
+			max-width: 200px;
+			overflow-y: auto;
+			overflow-x: hidden;
+			direction: rtl;
+		}
 
-    .purposeDescription {
-      flex: 1;
-      padding: 16px;
-      overflow: auto;
-    }
-  }
+		.purposeItem {
+			display: flex;
+			direction: ltr;
+			align-items: center;
+			height: 50px;
+			padding-left: 10px;
+			background-color: @color-border;
+			border-bottom: 1px solid white;
+			text-align: left;
+			cursor: pointer;
+
+			&:last-child {
+				border-width: 0;
+			}
+
+			&.selectedPurpose {
+				font-weight: bold;
+				cursor: auto;
+			}
+		}
+
+		.purposeDescription {
+			flex: 1;
+			padding: 16px;
+			overflow: auto;
+		}
+	}
 }

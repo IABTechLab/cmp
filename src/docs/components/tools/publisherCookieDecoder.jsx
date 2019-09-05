@@ -1,15 +1,15 @@
-import { h, Component } from 'preact';
-import CookieDecoder from './cookieDecoder';
+import { h, Component } from "preact";
+import CookieDecoder from "./cookieDecoder";
 
-import { publisherVersionMap } from '../../../lib/cookie/definitions';
+import { publisherVersionMap } from "../../../lib/cookie/definitions";
 
 export default class PublisherCookieDecoder extends Component {
-  render() {
-    return (
-      <CookieDecoder
-        title="Decode Publisher"
-        versionMap={publisherVersionMap}
-      />
-    );
-  }
+	render() {
+		return (
+			<CookieDecoder
+				title="Decode Publisher"
+				versionMap={publisherVersionMap}
+			/>
+		);
+	}
 }
