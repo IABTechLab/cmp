@@ -1,13 +1,14 @@
-@import '../../style/variables.less';
+@import "../../style/variables.less";
 
-button, input[type=button] {
+button,
+input[type="button"] {
 	&.button {
 		cursor: pointer;
 		outline: none;
 		padding: 12px;
 		background: @color-primary;
+		border: 2px solid @color-primary;
 		color: white;
-		border: none;
 		border-radius: 4px;
 		font-size: 1em;
 		font-weight: bold;
@@ -15,17 +16,10 @@ button, input[type=button] {
 		text-shadow: none;
 		height: auto;
 		white-space: nowrap;
-		&:hover {
-			color: @color-linkColorHover;
-		}
 
 		&.invert {
 			background: white;
-			border: 2px solid @color-primary;
 			color: @color-primary;
-			&:hover {
-				color: lighten(@color-primary, 20%);
-			}
 		}
 	}
 }

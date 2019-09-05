@@ -1,5 +1,4 @@
-
-function buildScript(config, cmpLocation='../cmp.bundle.js') {
+function buildScript(config, cmpLocation = "../cmp.bundle.js") {
 	return `(function(window, document) {
 		if (!window.__cmp) {
 			window.__cmp = (function() {
@@ -59,7 +58,10 @@ function buildScript(config, cmpLocation='../cmp.bundle.js') {
 						});
 					}
 				};
-				cmp.config = ${config ? JSON.stringify(config) : `{
+				cmp.config = ${
+					config
+						? JSON.stringify(config)
+						: `{
 					//
 					// Modify config values here
 					//
@@ -71,7 +73,8 @@ function buildScript(config, cmpLocation='../cmp.bundle.js') {
 					// logging: 'debug',
 					// localization: {},
 					// forceLocale: 'en-us'
-				}`}
+				}`
+				}
 				return cmp;
 			}());
 			var t = document.createElement('script');
@@ -83,6 +86,4 @@ function buildScript(config, cmpLocation='../cmp.bundle.js') {
 	})(window, document);`;
 }
 
-export {
-	buildScript,
-};
+export { buildScript };

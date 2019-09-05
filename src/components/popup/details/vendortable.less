@@ -1,0 +1,65 @@
+@import "../../../style/variables";
+
+table.vendorTable {
+	border: 1px solid @color-border;
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 16px;
+
+	thead tr {
+		background-color: @color-table-background;
+		text-transform: uppercase;
+	}
+
+	tr {
+		min-height: 40px;
+
+		th {
+			font-weight: bold;
+		}
+
+		td,
+		th {
+			text-align: left;
+			font-size: 14px;
+			padding: 5px;
+
+			&:nth-child(1) {
+				font-size: 14px;
+				font-weight: normal;
+			}
+
+			&:nth-child(2n) {
+				background-color: transparent;
+			}
+
+			&:nth-child(2n + 1) {
+				background-color: transparent;
+			}
+
+			&:first-child {
+				width: 100%;
+			}
+
+			&:last-child {
+				padding-right: 25px;
+			}
+		}
+	}
+
+	tr.even {
+		background-color: @color-table-background;
+	}
+
+	.vendorName {
+		text-align: left;
+	}
+}
+
+.vendorDetail {
+	padding: 5px;
+
+	span {
+		font-weight: bold;
+	}
+}

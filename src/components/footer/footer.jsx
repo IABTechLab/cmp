@@ -1,57 +1,42 @@
-import { h, Component } from 'preact';
-import style from './footer.less';
-import Label from '../label/label';
-import CloseButton from '../closebutton/closebutton';
+import { h, Component } from "preact";
+import PropTypes from "prop-types";
 
-class LocalLabel extends Label {
-	static defaultProps = {
-		prefix: 'footer'
-	};
-}
+import style from "./footer.less";
+import { Label } from "../label";
+import { CloseButton } from "../closebutton";
+import { Text } from "../typography";
+import { LocalizedLink } from "../link";
 
 export default class Footer extends Component {
-
 	static defaultProps = {
 		onShowConsent: () => {},
+		onClose: () => {}
 	};
 
-	handleClose = () => {
-		const { store } = this.props;
-		const { toggleFooterShowing } = store;
-		toggleFooterShowing(false);
+	static contextTypes = {
+		theme: PropTypes.object.isRequired
 	};
 
-	handleShowConsent = () => {
-		const { store } = this.props;
-		const { showConsentTool } = store.cmp.commands;
-		showConsentTool();
-	};
-
-	componentDidMount() {
-		this.props.updateCSSPrefs();
-	}
-
-	render(props) {
-		const { store, localization, config, updateCSSPrefs } = props;
-		const { isFooterShowing } = store;
-
+	render() {
 		return (
 			<div
 				class={style.footer}
-				style={{ display: isFooterShowing && config.showFooterAfterSubmit ? 'flex' : 'none' }}
-				>
+				style={{
+					backgroundColor: this.context.theme.colorBackground
+				}}
+			>
 				<CloseButton
 					hasBorder={false}
 					class={style.close}
-					onClick={this.handleClose}
-					config={config}
-					updateCSSPrefs={updateCSSPrefs}
+					onClick={this.props.onClose}
 				/>
 				<div class={style.message}>
-					<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessage : ''} localizeKey='closedMessage'>A reminder you can control your user privacy preferences</LocalLabel>
-					<a class={style.openConsent} onClick={this.handleShowConsent}>
-						<LocalLabel providedValue={localization && localization.footer ? localization.footer.closedMessageLink : ''} localizeKey='closedMessageLink'>here</LocalLabel>
-					</a>
+					<Label is={Text} localizeKey="footer.closedMessage" />{" "}
+					<LocalizedLink
+						localizeKey="footer.closedMessageLink"
+						class={style.openConsent}
+						onClick={this.props.onShowConsent}
+					/>
 				</div>
 			</div>
 		);

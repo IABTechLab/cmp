@@ -1,7 +1,7 @@
 /* eslint-disable max-nested-callbacks */
-import { expect } from 'chai';
-import customPurposeList from '../../docs/assets/purposes.json';
-import config from '../config';
+import { expect } from "chai";
+import customPurposeList from "../../docs/assets/purposes.json";
+import config from "../config";
 
 import {
 	readCookie,
@@ -17,104 +17,103 @@ import {
 	convertVendorsToRanges,
 	PUBLISHER_CONSENT_COOKIE_NAME,
 	VENDOR_CONSENT_COOKIE_NAME
-} from './cookie';
+} from "./cookie";
 
-jest.mock('../portal');
-const mockPortal = require('../portal');
+jest.mock("../portal");
+const mockPortal = require("../portal");
 
 const vendorList = {
-	"version": 1,
-	"origin": "http://ib.adnxs.com/vendors.json",
-	"purposes": [
+	version: 1,
+	origin: "http://ib.adnxs.com/vendors.json",
+	purposes: [
 		{
-			"id": 1,
-			"name": "Accessing a Device or Browser"
+			id: 1,
+			name: "Accessing a Device or Browser"
 		},
 		{
-			"id": 2,
-			"name": "Advertising Personalisation"
+			id: 2,
+			name: "Advertising Personalisation"
 		},
 		{
-			"id": 3,
-			"name": "Analytics"
+			id: 3,
+			name: "Analytics"
 		},
 		{
-			"id": 4,
-			"name": "Content Personalisation"
+			id: 4,
+			name: "Content Personalisation"
 		}
 	],
-	"vendors": [
+	vendors: [
 		{
-			"id": 1,
-			"name": "Globex"
+			id: 1,
+			name: "Globex"
 		},
 		{
-			"id": 2,
-			"name": "Initech"
+			id: 2,
+			name: "Initech"
 		},
 		{
-			"id": 3,
-			"name": "CRS"
+			id: 3,
+			name: "CRS"
 		},
 		{
-			"id": 4,
-			"name": "Umbrella"
+			id: 4,
+			name: "Umbrella"
 		},
 		{
-			"id": 10,
-			"name": "Pierce and Pierce"
+			id: 10,
+			name: "Pierce and Pierce"
 		},
 		{
-			"id": 8,
-			"name": "Aperture"
+			id: 8,
+			name: "Aperture"
 		}
 	]
 };
 
-describe('cookie', () => {
-
-	const aDate = new Date('2018-07-15 PDT');
+describe("cookie", () => {
+	const aDate = new Date("2018-07-15 PDT");
 
 	beforeEach(() => {
 		// Reset url
-		window.history.pushState({}, '', '/');
+		window.history.pushState({}, "", "/");
 		// Remove all cookies
-		const value = document.cookie.split(';');
+		const value = document.cookie.split(";");
 		value.forEach(cookie => {
-			const parts = cookie.trim().split('=');
+			const parts = cookie.trim().split("=");
 			if (parts.length === 2) {
-				writeCookie(parts[0], '', 0);
+				writeCookie(parts[0], "", 0);
 			}
 		});
-		mockPortal.sendPortalCommand = jest.fn().mockImplementation(() => Promise.resolve());
+		mockPortal.sendPortalCommand = jest
+			.fn()
+			.mockImplementation(() => Promise.resolve());
 	});
 
-	it('can read a cookie based on its name', () => {
+	it("can read a cookie based on its name", () => {
 		document.cookie = `${VENDOR_CONSENT_COOKIE_NAME}=consentstring;path=/`;
 		const cookieValue = readCookie(VENDOR_CONSENT_COOKIE_NAME);
 
 		expect(cookieValue).to.equal("consentstring");
-
 	});
 
-	it('it returns the last occurence, if there are multiple cookies with the same name', () => {
-		window.history.pushState({}, '', '/random/cookie/path');
+	it("it returns the last occurence, if there are multiple cookies with the same name", () => {
+		window.history.pushState({}, "", "/random/cookie/path");
 
 		document.cookie = `${VENDOR_CONSENT_COOKIE_NAME}=consentstringwithoutpathset`;
 		document.cookie = `${VENDOR_CONSENT_COOKIE_NAME}=consentstringwithpathset;path=/`;
 
 		const cookieValue = readCookie(VENDOR_CONSENT_COOKIE_NAME);
 		expect(cookieValue).to.equal("consentstringwithpathset");
-
 	});
 
-	it('encodes and decodes the vendor cookie object back to original value', () => {
+	it("encodes and decodes the vendor cookie object back to original value", () => {
 		const vendorConsentData = {
 			cookieVersion: 1,
 			cmpId: 1,
 			cmpVersion: 1,
 			consentScreen: 2,
-			consentLanguage: 'DE',
+			consentLanguage: "DE",
 			vendorListVersion: 1,
 			maxVendorId: vendorList.vendors[vendorList.vendors.length - 1].id,
 			created: aDate,
@@ -123,14 +122,20 @@ describe('cookie', () => {
 			selectedVendorIds: new Set([1, 2, 4])
 		};
 
-		const encodedString = encodeVendorConsentData({...vendorConsentData, vendorList});
+		const encodedString = encodeVendorConsentData({
+			...vendorConsentData,
+			vendorList
+		});
 		const decoded = decodeVendorConsentData(encodedString, "local");
-		const output = Object.assign({consentString: encodedString, source: "local"}, vendorConsentData);
+		const output = Object.assign(
+			{ consentString: encodedString, source: "local" },
+			vendorConsentData
+		);
 
 		expect(decoded).to.deep.equal(output);
 	});
 
-	it('encodes and decodes the publisher cookie object back to original value', () => {
+	it("encodes and decodes the publisher cookie object back to original value", () => {
 		const vendorConsentData = {
 			cookieVersion: 1,
 			cmpId: 15,
@@ -140,7 +145,7 @@ describe('cookie', () => {
 			vendorListVersion: 1,
 			created: aDate,
 			lastUpdated: aDate,
-			selectedPurposeIds: new Set([1, 2]),
+			selectedPurposeIds: new Set([1, 2])
 		};
 
 		const publisherConsentData = {
@@ -150,21 +155,25 @@ describe('cookie', () => {
 			publisherPurposesVersion: 1,
 			created: aDate,
 			lastUpdated: aDate,
-			source: 'local',
+			source: "local",
 			selectedCustomPurposeIds: new Set([25, 26])
 		};
 
 		const encodedString = encodePublisherConsentData({
-			...vendorConsentData, ...publisherConsentData,
+			...vendorConsentData,
+			...publisherConsentData,
 			vendorList,
 			customPurposeList
 		});
-		const decoded = decodePublisherConsentData(encodedString, 'local');
+		const decoded = decodePublisherConsentData(encodedString, "local");
 
-		expect(decoded).to.deep.include({...vendorConsentData, ...publisherConsentData});
+		expect(decoded).to.deep.include({
+			...vendorConsentData,
+			...publisherConsentData
+		});
 	});
 
-	it('writes and reads the local cookie when globalConsent = false', () => {
+	it("writes and reads the local cookie when globalConsent = false", () => {
 		config.update({
 			storeConsentGlobally: false
 		});
@@ -174,7 +183,7 @@ describe('cookie', () => {
 			cmpId: 1,
 			vendorListVersion: 1,
 			created: aDate,
-			lastUpdated: aDate,
+			lastUpdated: aDate
 		};
 
 		return writeVendorConsentCookie(vendorConsentData).then(() => {
@@ -185,7 +194,7 @@ describe('cookie', () => {
 		});
 	});
 
-	it('writes the global cookie to the local domain when globalConsent = true and writing to portal domain is unsupported', () => {
+	it("writes the global cookie to the local domain when globalConsent = true and writing to portal domain is unsupported", () => {
 		config.update({
 			storeConsentGlobally: true
 		});
@@ -195,16 +204,18 @@ describe('cookie', () => {
 			cmpId: 1,
 			vendorListVersion: 1,
 			created: aDate,
-			lastUpdated: aDate,
+			lastUpdated: aDate
 		};
 
 		return writeVendorConsentCookie(vendorConsentData).then(() => {
-			expect(mockPortal.sendPortalCommand.mock.calls[0][0].command).to.deep.equal('writeVendorConsent');
+			expect(
+				mockPortal.sendPortalCommand.mock.calls[0][0].command
+			).to.deep.equal("writeVendorConsent");
 			expect(document.cookie).to.contain(VENDOR_CONSENT_COOKIE_NAME);
 		});
 	});
 
-	it('reads the global cookie when globalConsent = true', () => {
+	it("reads the global cookie when globalConsent = true", () => {
 		config.update({
 			storeConsentGlobally: true
 		});
@@ -214,15 +225,17 @@ describe('cookie', () => {
 			cmpId: 1,
 			vendorListVersion: 1,
 			created: aDate,
-			lastUpdated: aDate,
+			lastUpdated: aDate
 		};
 
 		return readVendorConsentCookie(vendorConsentData).then(() => {
-			expect(mockPortal.sendPortalCommand.mock.calls[0][0].command).to.deep.equal('readVendorConsent');
+			expect(
+				mockPortal.sendPortalCommand.mock.calls[0][0].command
+			).to.deep.equal("readVendorConsent");
 		});
 	});
 
-	it('writes and reads the publisher consent cookie locally', () => {
+	it("writes and reads the publisher consent cookie locally", () => {
 		config.update({
 			storePublisherConsentGlobally: false,
 			storePublisherData: true
@@ -238,7 +251,7 @@ describe('cookie', () => {
 			publisherPurposesVersion: 1,
 			created: aDate,
 			lastUpdated: aDate,
-			source: 'local',
+			source: "local",
 			vendorList,
 			customPurposeList,
 			selectedPurposeIds: new Set([1, 2]),
@@ -246,27 +259,27 @@ describe('cookie', () => {
 		};
 
 		return writePublisherConsentCookie(publisherConsentData).then(() => {
-			return readPublisherConsentCookie().then((cookie) => {
+			return readPublisherConsentCookie().then(cookie => {
 				expect(document.cookie).to.contain(PUBLISHER_CONSENT_COOKIE_NAME);
 				expect(cookie).to.deep.include({
-					"cookieVersion":1,
-					"cmpId":15,
-					"cmpVersion":2,
-					"consentScreen":1,
-					"consentLanguage":"EN",
-					"vendorListVersion":1,
-					"publisherPurposesVersion":1,
-					"created": aDate,
-					"lastUpdated": aDate,
-					"source":"local",
-					"selectedPurposeIds": new Set([1, 2]),
-					"selectedCustomPurposeIds": new Set([25, 26])
+					cookieVersion: 1,
+					cmpId: 15,
+					cmpVersion: 2,
+					consentScreen: 1,
+					consentLanguage: "EN",
+					vendorListVersion: 1,
+					publisherPurposesVersion: 1,
+					created: aDate,
+					lastUpdated: aDate,
+					source: "local",
+					selectedPurposeIds: new Set([1, 2]),
+					selectedCustomPurposeIds: new Set([25, 26])
 				});
 			});
 		});
 	});
 
-	it('writes and reads the publisher consent cookie on a third party domain', () => {
+	it("writes and reads the publisher consent cookie on a third party domain", () => {
 		config.update({
 			storePublisherConsentGlobally: true,
 			globalPublisherConsentLocation: "https://www.example.com",
@@ -279,30 +292,40 @@ describe('cookie', () => {
 			publisherPurposesVersion: 1,
 			created: aDate,
 			lastUpdated: aDate,
-			source: 'global'
+			source: "global"
 		};
 
 		return writePublisherConsentCookie(publisherConsentData).then(() => {
-			expect(mockPortal.sendPortalCommand.mock.calls[0][0].command).to.deep.equal('writePublisherConsent');
+			expect(
+				mockPortal.sendPortalCommand.mock.calls[0][0].command
+			).to.deep.equal("writePublisherConsent");
 			expect(document.cookie).to.contain(PUBLISHER_CONSENT_COOKIE_NAME);
 		});
 	});
 
-	it('converts selected vendor list to a range', () => {
-		const maxVendorId = Math.max(...vendorList.vendors.map(vendor => vendor.id));
+	it("converts selected vendor list to a range", () => {
+		const maxVendorId = Math.max(
+			...vendorList.vendors.map(vendor => vendor.id)
+		);
 		const ranges = convertVendorsToRanges(maxVendorId, new Set([2, 3, 4]));
 
-		expect(ranges).to.deep.equal([{
-			isRange: true,
-			startVendorId: 2,
-			endVendorId: 4
-		}]);
+		expect(ranges).to.deep.equal([
+			{
+				isRange: true,
+				startVendorId: 2,
+				endVendorId: 4
+			}
+		]);
 	});
 
-
-	it('converts selected vendor list to multiple ranges', () => {
-		const maxVendorId = Math.max(...vendorList.vendors.map(vendor => vendor.id));
-		const ranges = convertVendorsToRanges(maxVendorId, new Set([2, 3, 5, 6, 10]));
+	it("converts selected vendor list to multiple ranges", () => {
+		const maxVendorId = Math.max(
+			...vendorList.vendors.map(vendor => vendor.id)
+		);
+		const ranges = convertVendorsToRanges(
+			maxVendorId,
+			new Set([2, 3, 5, 6, 10])
+		);
 
 		expect(ranges).to.deep.equal([
 			{

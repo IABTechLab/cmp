@@ -1,18 +1,19 @@
-@import '../../../style/variables';
+@import "../../../style/variables";
 
 .imagePadding {
 	padding-left: 10px;
 }
 
 div.intro {
-padding: 0 32px;
-max-height: 100%;
+	padding: 0 32px;
+	max-height: 100%;
 
 	.logo {
-		width: calc(calc(30px * @line-height) * 1.0);
-		height: calc(calc(30px * @line-height) * 1.0);
+		width: calc(calc(30px * @line-height) * 1);
+		height: calc(calc(30px * @line-height) * 1);
 		float: left;
 	}
+
 	.topWrapper {
 		display: inline-flex;
 
@@ -30,10 +31,12 @@ max-height: 100%;
 					line-height: 1.5;
 				}
 			}
+
 			.description {
 				padding: 10px 10px 10px 0px;
 			}
 		}
+
 		.options {
 			display: flex;
 			flex: 1;
@@ -61,7 +64,6 @@ max-height: 100%;
 	}
 }
 
-
 @media (max-width: 414px) {
 	.intro {
 		display: flex;
@@ -82,6 +84,7 @@ max-height: 100%;
 			padding: 10px !important;
 			display: block !important;
 		}
+
 		.options {
 			margin: 0 auto !important;
 		}
@@ -107,6 +110,7 @@ max-height: 100%;
 	.contentMessage {
 		padding-right: 0px !important;
 	}
+
 	.topWrapper {
 		display: block !important;
 
@@ -119,6 +123,7 @@ max-height: 100%;
 			max-height: 100px;
 			float: none !important;
 		}
+
 		.options {
 			margin: 0 auto !important;
 		}

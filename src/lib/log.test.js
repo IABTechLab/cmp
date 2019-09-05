@@ -1,10 +1,9 @@
-import { expect } from 'chai';
+import { expect } from "chai";
 
-import config from './config';
-import log from './log';
+import config from "./config";
+import log from "./log";
 
-describe('log', () => {
-
+describe("log", () => {
 	beforeEach(() => {
 		window.console.log = jest.fn();
 		window.console.info = jest.fn();
@@ -12,12 +11,11 @@ describe('log', () => {
 		window.console.error = jest.fn();
 	});
 
-	it('defaults to not logging', () => {
-
-		log.debug('debug');
-		log.info('info');
-		log.warn('warn');
-		log.error('error');
+	it("defaults to not logging", () => {
+		log.debug("debug");
+		log.info("info");
+		log.warn("warn");
+		log.error("error");
 
 		expect(window.console.log.mock.calls).to.be.empty;
 		expect(window.console.info.mock.calls).to.be.empty;
@@ -27,23 +25,23 @@ describe('log', () => {
 
 	it('use console.log for "debug"', () => {
 		config.update({
-			logging: 'debug'
+			logging: "debug"
 		});
 
-		log.debug('debug');
+		log.debug("debug");
 
 		expect(window.console.log.mock.calls).to.have.length(1);
 	});
 
 	it('respects logging level "error"', () => {
 		config.update({
-			logging: 'error'
+			logging: "error"
 		});
 
-		log.debug('debug');
-		log.info('info');
-		log.warn('warn');
-		log.error('error');
+		log.debug("debug");
+		log.info("info");
+		log.warn("warn");
+		log.error("error");
 
 		expect(window.console.log.mock.calls).to.be.empty;
 		expect(window.console.info.mock.calls).to.be.empty;

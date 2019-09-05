@@ -1,34 +1,51 @@
-import Promise from 'promise-polyfill';
-import 'whatwg-fetch';
-import config from './config';
-import log from './log';
-import { updateLocalizationSettings } from './localize';
-import { sendPortalCommand } from './portal';
-const metadata = require('../../metadata.json');
+import Promise from "promise-polyfill";
+import "whatwg-fetch";
+import config from "./config";
+import log from "./log";
+import { updateLocalizationSettings } from "./localize";
+import { sendPortalCommand } from "./portal";
+
+const metadata = require("../../metadata.json");
 
 /**
-	* Attempt to load a vendor list from the local domain. If a
-	* list is not found attempt to load it from the global list location
-	* using the "portal" for cross domain communication.
-*/
-function fetchVendorList() {
+ * Attempt to load a vendor list from the local domain. If a
+ * list is not found attempt to load it from the global list location
+ * using the "portal" for cross domain communication.
+ */
+function fetchVendorList(vendors) {
 	return fetch(config.globalVendorListLocation)
 		.then(res => res.json())
+		.then(globalVendors => {
+			// update selected vendors against global vendor list
+			if (vendors) {
+				return updateSelectedVendors(vendors, globalVendors);
+			}
+			return globalVendors;
+		})
 		.catch(() => {
-			log.debug('Configured vendors.json not found. Requesting global list');
-			return sendPortalCommand({command: 'readVendorList'});
+			log.debug("Configured vendors.json not found. Requesting global list");
+			return sendPortalCommand({ command: "readVendorList" });
 		});
 }
 
 function fetchLocalizedPurposeList() {
-	let interpolate = (string, args) => string.replace(/\${(\w+)}/g, (_, v) => args[v]);
+	let interpolate = (string, args) =>
+		string.replace(/\${(\w+)}/g, (_, v) => args[v]);
 
-	const consentLanguage = updateLocalizationSettings({forceLocale: config.forceLocale, localization: config.localization});
-	let url = interpolate(metadata.localizedVendorListProvider, {consentLanguage: consentLanguage.toLowerCase()});
+	const consentLanguage = updateLocalizationSettings({
+		forceLocale: config.forceLocale,
+		localization: config.localization
+	});
+	let url = interpolate(metadata.localizedVendorListProvider, {
+		consentLanguage: consentLanguage.toLowerCase()
+	});
 	return fetch(url)
 		.then(res => res.json())
 		.catch(err => {
-			log.error(`Failed to load standard purposes in the selected language`, err);
+			log.error(
+				`Failed to load standard purposes in the selected language`,
+				err
+			);
 		});
 }
 
@@ -40,12 +57,41 @@ function fetchCustomPurposeList() {
 	return fetch(config.customPurposeListLocation)
 		.then(res => res.json())
 		.catch(err => {
-			log.error(`Failed to load custom purposes list from ${config.customPurposeListLocation}`, err);
+			log.error(
+				`Failed to load custom purposes list from ${
+					config.customPurposeListLocation
+				}`,
+				err
+			);
 		});
 }
 
-export {
-	fetchVendorList,
-	fetchLocalizedPurposeList,
-	fetchCustomPurposeList,
-};
+function updateSelectedVendors(selectedVendors, globalVendors) {
+	// TODO test atributes
+	// probably obsolete
+	const updatedVendors = selectedVendors
+		.map(customVendor => {
+			// update selected vendors with fetched global versions
+			return globalVendors.vendors.find(globalVendor => {
+				return customVendor && globalVendor.id === customVendor.id;
+			});
+		})
+		// filter out undefined vendors
+		.filter(customVendor => {
+			return customVendor && customVendor.id;
+		});
+	return {
+		lastUpdated: globalVendors.lastUpdated,
+		// probably obsolete
+		version: globalVendors.vendorListVersion,
+		vendorListVersion: globalVendors.vendorListVersion,
+		// is set to highest GVL id, not used id
+		maxVendorId: globalVendors.vendors.reduce((prevMax, currenMax) => {
+			return currenMax.id > prevMax ? currenMax.id : prevMax;
+		}, 0),
+		vendors: updatedVendors,
+		purposes: globalVendors.purposes
+	};
+}
+
+export { fetchVendorList, fetchLocalizedPurposeList, fetchCustomPurposeList };

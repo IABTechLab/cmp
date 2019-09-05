@@ -1,16 +1,22 @@
-import { h, Component } from 'preact';
-import style from './popup.less';
-import Intro from './intro/intro';
-import Details from './details/details';
-import Panel from '../panel/panel';
+import { h, Component } from "preact";
+import cx from "classnames";
 
+import { Panel } from "../panel";
+import { Intro } from "./intro";
+import { Summary } from "./summary";
+import { Details } from "./details";
+import style from "./popup.less";
 
 const SECTION_INTRO = 0;
-const SECTION_DETAILS = 1;
+const SECTION_SUMMARY = 1;
+const SECTION_DETAILS = 2;
+// const SECTION_PURPOSES = 2;
+const SECTION_VENDORS = 3;
 
 export default class Popup extends Component {
 	state = {
-		selectedPanelIndex: SECTION_INTRO
+		selectedPanelIndex: SECTION_INTRO,
+		directVendors: false
 	};
 
 	onAcceptAll = () => {
@@ -27,55 +33,80 @@ export default class Popup extends Component {
 		});
 	};
 
-	handleShowDetails = () => {
+	showSection = section => {
 		this.setState({
-			selectedPanelIndex: SECTION_DETAILS
+			selectedPanelIndex: section
+		});
+	};
+
+	showIntro = () => {
+		this.showSection(SECTION_INTRO);
+	};
+
+	showSummary = () => {
+		this.showSection(SECTION_SUMMARY);
+	};
+
+	showDetails = () => {
+		this.setState({
+			directVendors: false
+		});
+		this.showSection(SECTION_DETAILS);
+	};
+
+	showDirectVendors = () => {
+		// TODO this is semi-temporary directVendors approach
+		this.showSection(SECTION_DETAILS);
+		this.setState({
+			directVendors: true
 		});
 	};
 
 	handleClose = () => {};
 
-	componentDidMount() {
-		this.props.updateCSSPrefs();
-	}
-
 	render(props, state) {
-		const { store, localization, config, updateCSSPrefs } = props;
+		const { store, localization, config, visible } = props;
 		const { selectedPanelIndex } = state;
-		const { isConsentToolShowing } = store;
+
+		if (!visible) {
+			return null;
+		}
 
 		return (
-			<div
-				class={config.blockBrowsing ? style.popup : ''}
-				style={{ display: isConsentToolShowing ? 'flex' : 'none' }}
-			>
-				{config.blockBrowsing &&
-					<div
-						class={style.overlay}
-						onClick={this.handleClose}
-				/>}
-				<div name='content' class={config.blockBrowsing ? style.content : style.noOverlayContent}>
-					<Panel selectedIndex={selectedPanelIndex}>
-						<Intro
-							onAcceptAll={this.onAcceptAll}
-							onShowPurposes={this.handleShowDetails}
-							onClose={this.handleClose}
-							localization={localization}
-							store={store}
-							config={config}
-							updateCSSPrefs={updateCSSPrefs}
-						/>
-						<Details
-							onSave={this.props.onSave}
-							onCancel={this.onCancel}
-							store={this.props.store}
-							onClose={this.handleClose}
-							localization={localization}
-							config={config}
-							updateCSSPrefs={updateCSSPrefs}
-						/>
-					</Panel>
-				</div>
+			<div class={cx(style.popup, style[`popup-${config.layout}`])}>
+				{config.blockBrowsing && (
+					<div class={style.overlay} onClick={this.handleClose} />
+				)}
+				<Panel selectedIndex={selectedPanelIndex}>
+					<Intro
+						onAcceptAll={this.onAcceptAll}
+						onShowSummary={this.showSummary}
+						onShowPurposes={this.showDetails}
+						onShowDirectVendors={this.showDirectVendors}
+						onClose={this.handleClose}
+						localization={localization}
+						store={store}
+						config={config}
+					/>
+					<Summary
+						onAcceptAll={this.onAcceptAll}
+						onShowIntro={this.showIntro}
+						onShowPurposes={this.showDetails}
+						onClose={this.handleClose}
+						localization={localization}
+						store={store}
+						layout={config.layout}
+					/>
+					<Details
+						onSave={this.props.onSave}
+						onCancel={this.onCancel}
+						store={this.props.store}
+						onClose={this.handleClose}
+						localization={localization}
+						config={config}
+						directVendors={this.state.directVendors}
+					/>
+				</Panel>
 			</div>
 		);
 	}

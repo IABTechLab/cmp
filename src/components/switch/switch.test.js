@@ -1,33 +1,43 @@
 /* eslint-disable react/jsx-no-bind */
-import { h, render } from 'preact';
-import { expect } from 'chai';
-import style from './switch.less';
+import { h } from "preact";
+import { expect } from "chai";
+import style from "./switch.less";
 
-import Switch from './switch';
+import Switch from "./switch";
+import { renderWithThemeProvider } from "../../test/helpers";
 
-describe('Switch', () => {
+describe("Switch", () => {
 	let scratch;
 
 	beforeEach(() => {
-		scratch = document.createElement('div');
+		scratch = document.createElement("div");
 	});
 
+	it("should render switch component selected", () => {
+		const switchEl = renderWithThemeProvider(<Switch isSelected />);
 
-	it('should render switch component selected', () => {
-		const switchComponent = <Switch isSelected />;
-		expect(switchComponent).to.contain(style.isSelected);
+		expect(switchEl.querySelectorAll(`.${style.isSelected}`)).to.have.length(1);
 	});
 
-	it('should render switch component not selected', () => {
-		const switchComponent = <Switch isSelected={false} />;
-		expect(switchComponent).to.not.contain(style.isSelected);
+	it("should render switch component not selected", () => {
+		const switchEl = renderWithThemeProvider(<Switch isSelected={false} />);
+		expect(switchEl.querySelectorAll(`.${style.isSelected}`)).to.have.length(0);
 	});
 
-	it('should handle a click event', (done) => {
-		const switchComponent = (<Switch isSelected onClick={() => {
-			done();
-		}} />);
-		const rendered = render(switchComponent, scratch);
-		rendered.click();
+	it("should handle a click event", done => {
+		let ref = null;
+		renderWithThemeProvider(
+			<Switch
+				isSelected
+				ref={el => {
+					ref = el;
+				}}
+				onClick={() => {
+					done();
+				}}
+			/>,
+			scratch
+		);
+		ref.handleClicked();
 	});
 });

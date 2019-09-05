@@ -1,16 +1,14 @@
-@import '../../style/variables';
+@import "../../style/variables";
 
 .popup {
-	display: none;
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
 	z-index: 99999;
-	justify-content: center;
-	align-items: center;
 }
+
+.header {
+	padding: 8px;
+	flex-shrink: 0;
+}
+
 .overlay {
 	position: fixed;
 	top: 0;
@@ -21,39 +19,37 @@
 }
 
 .content {
-	width: 700px;
-	height: 500px;
-	background: white;
-	display: flex;
-	position: relative;
+	position: fixed;
 	background-color: white;
-	box-shadow: 0px 0px 0px 3px @color-primary;
-
-	@media @smartphone {
-		width: 98%;
-		height: 98%;
-	}
-
-	@media screen and (max-width: 750px) {
-		width: 100%;
-		height: 100%;
-	}
+	border-width: 3px;
+	border-color: @color-border;
+	border-style: solid;
 }
 
-.noOverlayContent {
-	position: fixed;
+.content.modal {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 700px;
-	height: 500px;
-	background: white;
+	width: 96%;
+	max-height: 96%;
 	display: flex;
-	background-color: white;
-	box-shadow: 0px 0px 0px 3px @color-primary;
+	flex-direction: column;
 
-	@media @smartphone {
-		width: 98%;
-		height: 98%;
+	@media screen and (min-width: 750px) {
+		width: 700px;
+		max-height: 500px;
+	}
+}
+
+.content.footer {
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	@media (max-width: 414px) {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		width: 100%;
 	}
 }

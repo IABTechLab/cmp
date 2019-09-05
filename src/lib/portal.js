@@ -1,5 +1,6 @@
 import config from "./config";
 import Promise from "promise-polyfill";
+
 const metadata = require("../../metadata.json");
 
 const PORTAL_LOAD_TIMEOUT_MILLISECONDS = 5000;
@@ -24,39 +25,46 @@ function openGlobalVendorPortal() {
 	// Only ever create a single iframe
 	if (!globalVendorPortal) {
 		globalVendorPortal = new Promise((resolve, reject) => {
-			const url = (config.globalConsentLocation || metadata.globalConsentLocation);
-			const iframe = document.createElement('iframe');
-			iframe.setAttribute('style', 'width:1px;height:1px;position:absolute;left:-99px;top:-99px;');
-			iframe.setAttribute('src', url);
+			const url =
+				config.globalConsentLocation || metadata.globalConsentLocation;
+			const iframe = document.createElement("iframe");
+			iframe.setAttribute(
+				"style",
+				"width:1px;height:1px;position:absolute;left:-99px;top:-99px;"
+			);
+			iframe.setAttribute("src", url);
 
 			if (document.body) {
 				document.body.appendChild(iframe);
 			} else {
-				document.addEventListener('DOMContentLoaded', () => {
+				document.addEventListener("DOMContentLoaded", () => {
 					document.body.appendChild(iframe);
 				});
 			}
 
 			let portalTimeout = setTimeout(() => {
-				reject(new Error(`Communication could not be established with the vendor domain within ${PORTAL_LOAD_TIMEOUT_MILLISECONDS} milliseconds`));
+				reject(
+					new Error(
+						`Communication could not be established with the vendor domain within ${PORTAL_LOAD_TIMEOUT_MILLISECONDS} milliseconds`
+					)
+				);
 			}, PORTAL_LOAD_TIMEOUT_MILLISECONDS);
 
 			// Add listener for messages from iframe
-			window.addEventListener('message', event => {
+			window.addEventListener("message", event => {
 				// Only look at messages with the vendorConsent property
 				const data = event && event.data && event.data.vendorConsent;
 				if (data) {
 					// The iframe has loaded
-					if (data.command === 'isLoaded' && portalTimeout) {
+					if (data.command === "isLoaded" && portalTimeout) {
 						clearTimeout(portalTimeout);
 						portalTimeout = undefined;
 						resolve(iframe);
-					}
-					else {
+					} else {
 						// Resolve the promise mapped by callId
 						const queued = portalCallMap[data.callId];
 						if (queued) {
-							const {resolve, timeout} = queued;
+							const { resolve, timeout } = queued;
 							delete portalCallMap[data.callId];
 							clearTimeout(timeout);
 							resolve(data.result);
@@ -81,28 +89,35 @@ function sendPortalCommand(message) {
 
 	return new Promise((resolve, reject) => {
 		// Make sure iframe is loaded
-		return openGlobalVendorPortal().then(iframe => {
+		return openGlobalVendorPortal()
+			.then(iframe => {
+				let timeout = setTimeout(() => {
+					delete portalCallMap[callId];
+					reject(
+						new Error(
+							`${
+								message.command
+							} response not received from vendor domain within ${PORTAL_COMMAND_TIMEOUT_MILLISECONDS} milliseconds`
+						)
+					);
+				}, PORTAL_COMMAND_TIMEOUT_MILLISECONDS);
 
-			let timeout = setTimeout(() => {
-				delete portalCallMap[callId];
-				reject(new Error(`${message.command} response not received from vendor domain within ${PORTAL_COMMAND_TIMEOUT_MILLISECONDS} milliseconds`));
-			}, PORTAL_COMMAND_TIMEOUT_MILLISECONDS);
+				// Store the resolve function and timeout in the map
+				portalCallMap[callId] = { resolve, timeout };
 
-			// Store the resolve function and timeout in the map
-			portalCallMap[callId] = {resolve, timeout};
-
-			// Send the message to the portal
-			iframe.contentWindow.postMessage({
-				vendorConsent: {
-					callId,
-					...message
-				}
-			}, '*');
-		}).catch(reject);
+				// Send the message to the portal
+				iframe.contentWindow.postMessage(
+					{
+						vendorConsent: {
+							callId,
+							...message
+						}
+					},
+					"*"
+				);
+			})
+			.catch(reject);
 	});
 }
 
-export {
-	openGlobalVendorPortal,
-	sendPortalCommand
-};
+export { openGlobalVendorPortal, sendPortalCommand };

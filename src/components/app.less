@@ -1,11 +1,11 @@
-@import '../style/variables';
+@import "../style/variables";
 
 .gdpr {
-	@import '../style/normalize';
+	@import "../style/normalize";
 
-	font-family: 'acumin-pro-wide', sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 400;
-	font-size: 16px;
+	font-size: 14px;
 	line-height: @line-height;
 	text-align: left;
 
@@ -18,6 +18,7 @@
 		text-decoration: none;
 		color: @color-linkColor;
 		cursor: pointer;
+
 		&:hover {
 			color: @color-linkColorHover;
 		}
@@ -27,19 +28,36 @@
 		margin: 0;
 	}
 
+	ul {
+		padding: 0;
+		margin: 0;
+		margin-bottom: 16px;
+	}
+
 	li {
+		margin-top: 0;
+		background: none;
+		padding-left: none;
+		margin-bottom: 2px;
+		font-size: 14px;
 		list-style-type: disc;
 		list-style-position: inside;
+
+		&:before {
+			background-image: none;
+		}
 	}
 
 	p {
 		padding: 0;
-		font-size: 16px;
+		font-size: 14px;
 		margin-top: 0;
 		margin-bottom: 15px;
 	}
 
-	input:not([type]), input[type="text"], input[type="password"] {
+	input:not([type]),
+	input[type="text"],
+	input[type="password"] {
 		box-sizing: border-box;
 		box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05) inset;
 		background-color: #fff;
@@ -57,5 +75,3 @@
 		font-size: 14px;
 	}
 }
-
-

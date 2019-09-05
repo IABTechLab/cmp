@@ -1,15 +1,15 @@
-import log from '../log';
+import log from "../log";
 import {
 	NUM_BITS_VERSION,
 	metadataVersionMap,
 	vendorVersionMap,
 	publisherVersionMap
-} from './definitions';
+} from "./definitions";
 
 const SIX_BIT_ASCII_OFFSET = 65;
 
-function repeat(count, string='0') {
-	let padString = '';
+function repeat(count, string = "0") {
+	let padString = "";
 	for (let i = 0; i < count; i++) {
 		padString += string;
 	}
@@ -25,8 +25,8 @@ function padRight(string, padding) {
 }
 
 function encodeIntToBits(number, numBits) {
-	let bitString = '';
-	if (typeof number === 'number' && !isNaN(number)) {
+	let bitString = "";
+	if (typeof number === "number" && !isNaN(number)) {
 		bitString = parseInt(number, 10).toString(2);
 	}
 
@@ -47,10 +47,19 @@ function encodeIntToBits(number, numBits) {
  * with [aA]=0 through [zZ]=25
  */
 function encode6BitCharacters(string, numBits) {
-	const encoded = typeof string !== 'string' ? '' : string.split('').map(char => {
-		const int = Math.max(0, char.toUpperCase().charCodeAt(0) - SIX_BIT_ASCII_OFFSET);
-		return encodeIntToBits(int > 25 ? 0 : int, 6);
-	}).join('');
+	const encoded =
+		typeof string !== "string"
+			? ""
+			: string
+					.split("")
+					.map(char => {
+						const int = Math.max(
+							0,
+							char.toUpperCase().charCodeAt(0) - SIX_BIT_ASCII_OFFSET
+						);
+						return encodeIntToBits(int > 25 ? 0 : int, 6);
+					})
+					.join("");
 	return padRight(encoded, numBits).substr(0, numBits);
 }
 
@@ -76,51 +85,64 @@ function decodeBitsToDate(bitString, start, length) {
 function decodeBitsToBool(bitString, start) {
 	return parseInt(bitString.substr(start, 1), 2) === 1;
 }
+
 function decode6BitCharacters(bitString, start, length) {
-	let decoded = '';
+	let decoded = "";
 	let decodeStart = start;
 	while (decodeStart < start + length) {
-		decoded += String.fromCharCode(SIX_BIT_ASCII_OFFSET + decodeBitsToInt(bitString, decodeStart, 6));
+		decoded += String.fromCharCode(
+			SIX_BIT_ASCII_OFFSET + decodeBitsToInt(bitString, decodeStart, 6)
+		);
 		decodeStart += 6;
 	}
 	return decoded;
 }
 
-
 function encodeField({ input, field }) {
 	const { name, type, numBits, encoder, validator } = field;
-	if (typeof validator === 'function') {
+	if (typeof validator === "function") {
 		if (!validator(input)) {
-			return '';
+			return "";
 		}
 	}
-	if (typeof encoder === 'function') {
+	if (typeof encoder === "function") {
 		return encoder(input);
 	}
 
-	const bitCount = typeof numBits === 'function' ? numBits(input) : numBits;
+	const bitCount = typeof numBits === "function" ? numBits(input) : numBits;
 
 	const inputValue = input[name];
-	const fieldValue = inputValue === null || inputValue === undefined ? '' : inputValue;
+	const fieldValue =
+		inputValue === null || inputValue === undefined ? "" : inputValue;
 	switch (type) {
-		case 'int':
+		case "int":
 			return encodeIntToBits(fieldValue, bitCount);
-		case 'bool':
+		case "bool":
 			return encodeBoolToBits(fieldValue);
-		case 'date':
+		case "date":
 			return encodeDateToBits(fieldValue, bitCount);
-		case 'bits':
-			return padRight(fieldValue, bitCount - fieldValue.length).substring(0, bitCount);
-		case '6bitchar':
+		case "bits":
+			return padRight(fieldValue, bitCount - fieldValue.length).substring(
+				0,
+				bitCount
+			);
+		case "6bitchar":
 			return encode6BitCharacters(fieldValue, bitCount);
-		case 'list':
-			return fieldValue.reduce((acc, listValue) => acc + encodeFields({
-				input: listValue,
-				fields: field.fields
-			}), '');
+		case "list":
+			return fieldValue.reduce(
+				(acc, listValue) =>
+					acc +
+					encodeFields({
+						input: listValue,
+						fields: field.fields
+					}),
+				""
+			);
 		default:
-			log.warn(`Cookie definition field found without encoder or type: ${name}`);
-			return '';
+			log.warn(
+				`Cookie definition field found without encoder or type: ${name}`
+			);
+			return "";
 	}
 }
 
@@ -128,51 +150,62 @@ function encodeFields({ input, fields }) {
 	return fields.reduce((acc, field) => {
 		acc += encodeField({ input, field });
 		return acc;
-	}, '');
+	}, "");
 }
 
 function decodeField({ input, output, startPosition, field }) {
 	const { type, numBits, decoder, validator, listCount } = field;
-	if (typeof validator === 'function') {
+	if (typeof validator === "function") {
 		if (!validator(output)) {
 			// Not decoding this field so make sure we start parsing the next field at
 			// the same point
-			return {newPosition: startPosition};
+			return { newPosition: startPosition };
 		}
 	}
-	if (typeof decoder === 'function') {
+	if (typeof decoder === "function") {
 		return decoder(input, output, startPosition);
 	}
 
-	const bitCount = typeof numBits === 'function' ? numBits(output) : numBits;
-	const listEntryCount = typeof listCount === 'function' ?
-		listCount(output) : typeof listCount === 'number' ? listCount : 0;
+	const bitCount = typeof numBits === "function" ? numBits(output) : numBits;
+	const listEntryCount =
+		typeof listCount === "function"
+			? listCount(output)
+			: typeof listCount === "number"
+				? listCount
+				: 0;
 
 	switch (type) {
-		case 'int':
+		case "int":
 			return { fieldValue: decodeBitsToInt(input, startPosition, bitCount) };
-		case 'bool':
+		case "bool":
 			return { fieldValue: decodeBitsToBool(input, startPosition) };
-		case 'date':
+		case "date":
 			return { fieldValue: decodeBitsToDate(input, startPosition, bitCount) };
-		case 'bits':
+		case "bits":
 			return { fieldValue: input.substr(startPosition, bitCount) };
-		case '6bitchar':
-			return { fieldValue: decode6BitCharacters(input, startPosition, bitCount) };
-		case 'list':
-			return new Array(listEntryCount).fill().reduce((acc) => {
-				const { decodedObject, newPosition } = decodeFields({
-					input,
-					fields: field.fields,
-					startPosition: acc.newPosition
-				});
-				return {
-					fieldValue: [...acc.fieldValue, decodedObject],
-					newPosition
-				};
-			}, { fieldValue: [], newPosition: startPosition });
+		case "6bitchar":
+			return {
+				fieldValue: decode6BitCharacters(input, startPosition, bitCount)
+			};
+		case "list":
+			return new Array(listEntryCount).fill().reduce(
+				acc => {
+					const { decodedObject, newPosition } = decodeFields({
+						input,
+						fields: field.fields,
+						startPosition: acc.newPosition
+					});
+					return {
+						fieldValue: [...acc.fieldValue, decodedObject],
+						newPosition
+					};
+				},
+				{ fieldValue: [], newPosition: startPosition }
+			);
 		default:
-			log.warn(`Cookie definition field found without decoder or type: ${name}`);
+			log.warn(
+				`Cookie definition field found without decoder or type: ${name}`
+			);
 			return {};
 	}
 }
@@ -192,8 +225,7 @@ function decodeFields({ input, fields, startPosition = 0 }) {
 		}
 		if (newPosition !== undefined) {
 			position = newPosition;
-		}
-		else if (typeof numBits === 'number') {
+		} else if (typeof numBits === "number") {
 			position += numBits;
 		}
 		return acc;
@@ -212,13 +244,13 @@ function decodeFields({ input, fields, startPosition = 0 }) {
 function encodeDataToBits(data, definitionMap) {
 	const { cookieVersion } = data;
 
-	if (typeof cookieVersion !== 'number') {
-		log.error('Could not find cookieVersion to encode');
-	}
-	else if (!definitionMap[cookieVersion]) {
-		log.error(`Could not find definition to encode cookie version ${cookieVersion}`);
-	}
-	else {
+	if (typeof cookieVersion !== "number") {
+		log.error("Could not find cookieVersion to encode");
+	} else if (!definitionMap[cookieVersion]) {
+		log.error(
+			`Could not find definition to encode cookie version ${cookieVersion}`
+		);
+	} else {
 		const cookieFields = definitionMap[cookieVersion].fields;
 		return encodeFields({ input: data, fields: cookieFields });
 	}
@@ -231,21 +263,23 @@ function encodeDataToBits(data, definitionMap) {
 function encodeCookieValue(data, definitionMap) {
 	const binaryValue = encodeDataToBits(data, definitionMap);
 	if (binaryValue) {
-
 		// Pad length to multiple of 8
-		const paddedBinaryValue = padRight(binaryValue, 7 - (binaryValue.length + 7) % 8);
+		const paddedBinaryValue = padRight(
+			binaryValue,
+			7 - ((binaryValue.length + 7) % 8)
+		);
 
 		// Encode to bytes
-		let bytes = '';
+		let bytes = "";
 		for (let i = 0; i < paddedBinaryValue.length; i += 8) {
 			bytes += String.fromCharCode(parseInt(paddedBinaryValue.substr(i, 8), 2));
 		}
 
 		// Make base64 string URL friendly
 		return btoa(bytes)
-			.replace(/\+/g, '-')
-			.replace(/\//g, '_')
-			.replace(/=+$/, '');
+			.replace(/\+/g, "-")
+			.replace(/\//g, "_")
+			.replace(/=+$/, "");
 	}
 }
 
@@ -261,20 +295,18 @@ function encodePublisherCookieValue(publisherData) {
 	return encodeCookieValue(publisherData, publisherVersionMap);
 }
 
-
 /**
  * Decode the (URL safe Base64) value of a cookie into an object.
  */
 function decodeCookieValue(cookieValue, definitionMap) {
-
 	// Replace safe characters
-	const unsafe = cookieValue
-		.replace(/-/g, '+')
-		.replace(/_/g, '/') + '=='.substring(0, (3 * cookieValue.length) % 4);
+	const unsafe =
+		cookieValue.replace(/-/g, "+").replace(/_/g, "/") +
+		"==".substring(0, (3 * cookieValue.length) % 4);
 
 	const bytes = atob(unsafe);
 
-	let inputBits = '';
+	let inputBits = "";
 	for (let i = 0; i < bytes.length; i++) {
 		const bitString = bytes.charCodeAt(i).toString(2);
 		inputBits += padLeft(bitString, 8 - bitString.length);
@@ -285,16 +317,20 @@ function decodeCookieValue(cookieValue, definitionMap) {
 
 function decodeCookieBitValue(bitString, definitionMap) {
 	const cookieVersion = decodeBitsToInt(bitString, 0, NUM_BITS_VERSION);
-	if (typeof cookieVersion !== 'number') {
-		log.error('Could not find cookieVersion to decode');
+	if (typeof cookieVersion !== "number") {
+		log.error("Could not find cookieVersion to decode");
 		return {};
-	}
-	else if (!vendorVersionMap[cookieVersion]) {
-		log.error(`Could not find definition to decode cookie version ${cookieVersion}`);
+	} else if (!vendorVersionMap[cookieVersion]) {
+		log.error(
+			`Could not find definition to decode cookie version ${cookieVersion}`
+		);
 		return {};
 	}
 	const cookieFields = definitionMap[cookieVersion].fields;
-	const { decodedObject } = decodeFields({ input: bitString, fields: cookieFields });
+	const { decodedObject } = decodeFields({
+		input: bitString,
+		fields: cookieFields
+	});
 	return decodedObject;
 }
 

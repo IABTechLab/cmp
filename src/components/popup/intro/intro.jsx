@@ -1,76 +1,65 @@
-import { h, Component } from 'preact';
-import style from './intro.less';
-import Button from '../../button/button';
-import Label from '../../label/label';
-import IntroFooter from './footer';
+import { h, Component } from "preact";
+import cx from "classnames";
 
-class LocalLabel extends Label {
-	static defaultProps = {
-		prefix: 'intro'
-	};
-}
+import { Label } from "../../label";
+import { Title, Paragraph } from "../../typography";
+import { ConsentButtons } from "../consentbuttons";
+import { PopupContent } from "../popupcontent";
+import { Footer } from "./footer";
+import style from "./intro.less";
+import { LocalizedLink } from "../../link";
 
-const HOST_PARTS = ((window && window.location && window.location.hostname) || '').split('.');
-
-export default class Intro extends Component {
-
-	static defaultProps = {};
-
-	componentDidMount() {
-		this.props.updateCSSPrefs();
+export class Intro extends Component {
+	renderTitle() {
+		const { config } = this.props;
+		return (
+			<Title alignment={config.layout === "footer" && "left"}>
+				<Label localizeKey="intro.title" />
+				{config && config.companyName && <span>{config.companyName}</span>}
+			</Title>
+		);
 	}
 
-	render(props, state) {
-
+	render(props) {
 		const {
 			onAcceptAll,
 			onShowPurposes,
-			onClose,
-			localization,
-			store,
-			updateCSSPrefs,
+			onShowSummary,
+			onShowDirectVendors,
 			config
 		} = props;
 
 		return (
-			<div class={config.logoUrl ? style.flexColumn + " " + style.intro : style.intro}>
-				<div class={style.top}>
-					{config.logoUrl &&
-						<img class={style.logo} src={config.logoUrl} />
-					}
-					<div class={style.title + " primaryText"}>
-						<LocalLabel providedValue={localization && localization.intro ? localization.intro.title : ''} localizeKey='title'>Thanks for visiting </LocalLabel>
-						{config && config.companyName &&
-							<span>{config.companyName}</span>
-						}
-					</div>
-					<div class={style.description + " primaryText"}>
-						<LocalLabel providedValue={localization && localization.intro ? localization.intro.description : ''} localizeKey='description'>Ads help us run this site. When you use our site selected companies may access and use information on your device for various purposes including to serve relevant ads or personalised content.</LocalLabel>
-					</div>
-					<div class={style.options}>
-						<Button
-							class={style.rejectAll}
-							invert={true}
-							onClick={onShowPurposes}
-						>
-							<LocalLabel providedValue={localization && localization.intro ? localization.intro.showPurposes : ''} localizeKey='showPurposes'>Learn more</LocalLabel>
-						</Button>
-						<Button
-							class={style.acceptAll}
-							onClick={onAcceptAll}
-						>
-							<LocalLabel providedValue={localization && localization.intro ? localization.intro.acceptAll : ''} localizeKey='acceptAll'>Accept all</LocalLabel>
-						</Button>
-					</div>
+			<PopupContent layout={config.layout}>
+				<div class={cx(style.container, style[`container-${config.layout}`])}>
+					{config.logoUrl && (
+						<img id="companyLogo" class={style.logo} src={config.logoUrl} />
+					)}
+					{config.layout === "modal" && this.renderTitle()}
+					<Paragraph
+						alignment={config.layout === "footer" ? "left" : "center"}
+						class={style.description}
+					>
+						{config.layout === "footer" && this.renderTitle()}
+						<Label localizeKey="intro.description" />
+						{/*TODO move to middle to the text - link click action handler*/}
+						&nbsp;
+						<LocalizedLink
+							localizeKey="intro.directVendorsLink"
+							onClick={onShowDirectVendors}
+						/>
+						&nbsp;
+						<Label localizeKey="intro.description_part_2" />
+					</Paragraph>
+					<ConsentButtons
+						layout={config.layout}
+						className={style.btns}
+						onAcceptAll={onAcceptAll}
+						onShowPurposes={onShowPurposes}
+					/>
 				</div>
-				<IntroFooter
-					onShowPurposes={onShowPurposes}
-					onAcceptAll={onAcceptAll}
-					localization={localization}
-					store={store}
-					updateCSSPrefs={updateCSSPrefs}
-				/>
-			</div>
+				<Footer onShowSummary={onShowSummary} />
+			</PopupContent>
 		);
 	}
 }
