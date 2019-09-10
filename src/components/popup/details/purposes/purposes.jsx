@@ -1,6 +1,5 @@
 import { h, Component } from 'preact';
 import style from './purposes.less';
-import Switch from '../../../switch/switch';
 import Label from '../../../label/label';
 import Purpose from './purpose/purpose';
 
