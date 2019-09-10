@@ -21,10 +21,10 @@
 			font-weight: bold;
 			flex: 1;
 			overflow: auto;
-			@media @smartphone {
+			@media @smartphone, @galaxy, @iPhone5678, @pixel2, @pixel2XL {
 				max-width: 100%;
 			}
-			@media @desktop {
+			@media @desktop, @iPad {
 				max-width: 200px;
 			}
 			border-right: 1px solid @color-border;
@@ -47,7 +47,7 @@
 				transition: all 0.25s ease-out;
 
 				&::after {
-					@media @desktop {
+					@media @desktop, @iPad {
 						display: none;
 					}
 					content: ' ';
@@ -69,7 +69,7 @@
 				max-height: 0px;
 				overflow: hidden;
 				transition: max-height .25s ease-in-out;
-				@media @desktop {
+				@media @desktop, @iPad {
 					display: none;
 				}
 				.contentInner {
@@ -111,12 +111,13 @@
 		}
 		.purposeWrapper {
 			overflow: auto;
-			@media @smartphone {
+			@media @smartphone, @galaxy, @iPhone5678, @pixel2, @pixel2XL {
 				display: none;
 			}
 
-			@media @desktop {
+			@media @desktop, @iPad {
 				width: 70%;
+				display: flex;
 			}
 		}
 	}
