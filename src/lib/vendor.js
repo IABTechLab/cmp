@@ -67,7 +67,6 @@ function fetchCustomPurposeList() {
 }
 
 function updateSelectedVendors(selectedVendors, globalVendors) {
-	// TODO test atributes
 	// probably obsolete
 	const updatedVendors = selectedVendors
 		.map(customVendor => {

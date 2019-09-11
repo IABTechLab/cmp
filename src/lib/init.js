@@ -13,6 +13,7 @@ import log from "./log";
 import config from "./config";
 import { pickVariant } from "./abTesting";
 import { notifySas } from "./sas";
+import { notifyTimer } from "./timer";
 
 const metadata = require("../../metadata.json");
 
@@ -109,6 +110,8 @@ const loadConfig = configUrl => {
 };
 
 export function init(configUpdates) {
+	// TODO PROJ-98 - proper placement ? - when exactly to call this
+	notifyTimer("cmp_init");
 	config.update(configUpdates);
 	log.debug("Using configuration:", config);
 	// LOG always
@@ -132,6 +135,8 @@ export function init(configUpdates) {
 
 			return getConsent()
 				.then(({ publisherConsentData, vendorConsentData }) => {
+					// TODO PROJ-98 - proper placement ? - when exactly to call this
+					notifyTimer("cmp_synced");
 					if (config.sasEnabled && config.sasUrls.length > 0) {
 						log.info("SAS enabled");
 
@@ -278,6 +283,8 @@ export function init(configUpdates) {
 									cmp.notify("isLoaded");
 									cmp.cmpReady = true;
 									cmp.notify("cmpReady");
+									// TODO PROJ-98 - proper placement ? - when exactly to call this
+									notifyTimer("cmp_ready");
 									cmp.processCommandQueue();
 								})
 								.catch(err => {
