@@ -110,7 +110,6 @@ const loadConfig = configUrl => {
 };
 
 export function init(configUpdates) {
-	// TODO PROJ-98 - proper placement ? - when exactly to call this
 	notifyTimer("cmp_init");
 	config.update(configUpdates);
 	log.debug("Using configuration:", config);
@@ -135,8 +134,6 @@ export function init(configUpdates) {
 
 			return getConsent()
 				.then(({ publisherConsentData, vendorConsentData }) => {
-					// TODO PROJ-98 - proper placement ? - when exactly to call this
-					notifyTimer("cmp_synced");
 					if (config.sasEnabled && config.sasUrls.length > 0) {
 						log.info("SAS enabled");
 
@@ -283,8 +280,11 @@ export function init(configUpdates) {
 									cmp.notify("isLoaded");
 									cmp.cmpReady = true;
 									cmp.notify("cmpReady");
-									// TODO PROJ-98 - proper placement ? - when exactly to call this
+									// TODO those event will be separated when CORE CMP loader will be introduced
+									// CMP is ready to provide consent (via getConsent)
 									notifyTimer("cmp_ready");
+									// 1st and 3rd party cookies are synchronized
+									notifyTimer("cmp_synced");
 									cmp.processCommandQueue();
 								})
 								.catch(err => {
