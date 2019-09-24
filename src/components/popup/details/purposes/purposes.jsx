@@ -32,7 +32,6 @@ export default class Purposes extends Component {
 				showLocalVendors: false,
 				localVendors: []
 			}, this.props.updateCSSPrefs);
-			this.scrollRef.scrollTop = 0;
 		};
 	};
 

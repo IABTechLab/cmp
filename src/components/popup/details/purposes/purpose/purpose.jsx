@@ -22,7 +22,7 @@ export default class Purpose extends Component {
             showLocalVendors,
             onShowLocalVendors
         } = props;
-
+        
         return (
         <div class={style.purposeDescription} ref={scrollRef => this.scrollRef = scrollRef}>
             <div class={style.purposeDetail + " primaryText"}>
