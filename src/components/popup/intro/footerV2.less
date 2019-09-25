@@ -136,7 +136,7 @@
 }
 
 // iPhone 6,7,8 Portrait
-@media (min-width : 375px) and (max-width : 667px) and (orientation : portrait) { 
+@media (min-width : 375px) and (max-width : 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2) { 
     .container {
         font-size: 12px;
         height: 52.8%;
@@ -163,8 +163,48 @@
     }
 }
 
+// iPhone 6,7,8 Landscape
+@media (min-width : 375px) and (max-width : 667px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2) { 
+    .container {
+        height: 159%!important;
+
+        .base {
+            .headerMessage {
+                font-size: 18px!important;
+            }
+        }
+        .wrapper {
+            flex-direction: column!important;
+
+            .optionsWrapper {
+                .infoFooter {
+                    flex-direction: row!important;
+                }
+            }
+        }
+    }
+
+    // .infoFooter {
+    //     padding: 0 !important;
+    //     margin: 2px;
+    // }
+
+    // .base {
+    //     bottom: 0;
+    //     margin: 0 !important;
+    // }
+
+    // .content {
+    //     padding: 6px 24px 0;
+    // }
+
+    // .headerMessage {
+    //     font-size: 20px;
+    // }
+}
+
 // iPhone 6,7,8+ Portrait
-@media (min-width : 414px) and (max-width : 736px) and (orientation : portrait) {
+@media (min-width : 414px) and (max-width : 736px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2) {
     .container {
         font-size: 12px;
         height: 48%;
