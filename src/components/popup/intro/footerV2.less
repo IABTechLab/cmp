@@ -28,7 +28,8 @@
 
 .footerV2 {
     clear: both;
-    margin: 0 -35px;
+    // margin: 0 -35px;
+    width: 100%;
 }
 
 .message {
@@ -134,10 +135,13 @@
     padding: 14px 12px !important;
 }
 
-@media (max-width: 414px) {
+// iPhone 6,7,8 Portrait
+@media (min-width : 375px) and (max-width : 667px) and (orientation : portrait) { 
     .container {
         font-size: 12px;
-        height: 100%;
+        height: 52.8%;
+        position: fixed;
+        border-top: 1px solid rgb(234, 234, 234);
     }
 
     .infoFooter {
@@ -146,14 +150,40 @@
     }
 
     .base {
-        position: absolute;
         bottom: 0;
         margin: 0 !important;
     }
 
     .content {
         padding: 6px 24px 0;
-        margin-top: 60px;
+    }
+
+    .headerMessage {
+        font-size: 20px;
+    }
+}
+
+// iPhone 6,7,8+ Portrait
+@media (min-width : 414px) and (max-width : 736px) and (orientation : portrait) {
+    .container {
+        font-size: 12px;
+        height: 48%;
+        position: fixed;
+        border-top: 1px solid rgb(234, 234, 234);
+    }
+
+    .infoFooter {
+        padding: 0 !important;
+        margin: 2px;
+    }
+
+    .base {
+        bottom: 0;
+        margin: 0 !important;
+    }
+
+    .content {
+        padding: 6px 24px 0;
     }
 
     .headerMessage {

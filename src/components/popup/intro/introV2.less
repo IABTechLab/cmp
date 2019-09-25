@@ -5,7 +5,7 @@
 }
 
 div.intro {
-padding: 0 32px;
+// padding: 0 32px;
 max-height: 100%;
 
 	.logo {
@@ -15,6 +15,7 @@ max-height: 100%;
 	}
 	.topWrapper {
 		display: inline-flex;
+		padding: 0 32px;
 
 		.textWrapper {
 			display: flex;
@@ -67,6 +68,16 @@ max-height: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+
+		.topWrapper {
+			padding: 0px!important;
+
+			.textWrapper {
+				.titleContainer {
+					margin: 0 auto;
+				}
+			}
+		}
 	}
 
 	.title {
