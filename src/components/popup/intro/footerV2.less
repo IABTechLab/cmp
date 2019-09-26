@@ -78,9 +78,9 @@
     background-color: white;
     overflow-y: scroll;
 
-	@media (max-width: 440px) {
-		width: 100%;
-    }
+	// @media (max-width: 440px) {
+	// 	width: 100%;
+    // }
 	ul {
 		margin: 0 0 15px 0;
 		padding: 0;
@@ -192,12 +192,15 @@
 }
 
 // iPhone 6,7,8+ Portrait
-@media (min-width : 414px) and (max-width : 736px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2) {
+@media (min-width : 414px) and (max-width : 736px) and (orientation : portrait) {
     .container {
         font-size: 12px;
-        height: 48%;
-        position: fixed;
+        height: 132.2%;
         border-top: 1px solid rgb(234, 234, 234);
+
+        .wrapper {
+            flex-direction: column;
+        }
     }
 
     .infoFooter {
