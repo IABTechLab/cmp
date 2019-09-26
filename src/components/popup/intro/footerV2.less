@@ -139,7 +139,7 @@
 @media (min-width : 375px) and (max-width : 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2) { 
     .container {
         font-size: 12px;
-        height: 52.8%;
+        height: 44.1%;
         position: fixed;
         border-top: 1px solid rgb(234, 234, 234);
     }
@@ -152,6 +152,12 @@
     .base {
         bottom: 0;
         margin: 0 !important;
+        text-align: left;
+        padding: 10px;
+    }
+
+    .wrapper {
+        flex-direction: column;
     }
 
     .content {
@@ -231,8 +237,8 @@
     }
 }
 
-@media (max-width: 615px) {
-    .wrapper {
-        display: block !important;
-    }
-}
+// @media (max-width: 615px) {
+//     .wrapper {
+//         display: block !important;
+//     }
+// }
