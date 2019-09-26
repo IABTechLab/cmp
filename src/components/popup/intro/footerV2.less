@@ -221,3 +221,25 @@
         font-size: 20px;
     }
 }
+
+// iPhone 6+, 7+, 8+ Landscape
+@media (min-width: 414px) and (max-height: 736px) and (orientation : landscape) {
+    .container {
+        height: 147.1%;
+
+        .base {
+            .headerMessage {
+                font-size: 20px;
+            }
+        }
+        .wrapper {
+            flex-direction: column!important;
+
+            .optionsWrapper {
+                .infoFooter {
+                    flex-direction: row!important;
+                }
+            }
+        }
+    }
+}
