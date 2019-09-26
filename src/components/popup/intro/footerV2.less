@@ -74,7 +74,8 @@
     position: absolute;
 	background: white;
 	align-items: center;
-	background-color: white;
+    background-color: white;
+    overflow-y: scroll;
 
 	@media (max-width: 440px) {
 		width: 100%;
@@ -92,7 +93,7 @@
 }
 
 .content {
-    width: 80%;
+    width: 100%;
     padding: 12px 24px 0px 24px;
     font-size: 15px;
     line-height: 1.25;
@@ -108,6 +109,8 @@
 
 .optionsWrapper {
     margin-top: auto;
+    display: flex;
+    justify-content: center;
 }
 
 .infoFooter {
