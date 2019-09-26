@@ -4,7 +4,7 @@ describe('intro page', () => {
 
   beforeEach(() => {
     utils.clearCookies();
-    // browser.waitForAngularEnabled(false);
+    browser.waitForAngularEnabled(false);
     browser.get("/");
     browser.sleep(300);
   });

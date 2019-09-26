@@ -3,7 +3,7 @@ const utils = require('./support/utils');
 describe('purposes page', () => {
   beforeEach(() => {
     utils.clearCookies();
-    // browser.waitForAngularEnabled(false);
+    browser.waitForAngularEnabled(false);
     browser.get("/");
     browser.sleep(300);
     // explicitly wait for desired element

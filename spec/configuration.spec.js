@@ -4,7 +4,7 @@ describe('different configurations', () => {
 
   beforeEach(() => {
     utils.clearCookies();
-    // browser.waitForAngularEnabled(false);
+    browser.waitForAngularEnabled(false);
   });
 
   describe('Layout - Modal', () => {
