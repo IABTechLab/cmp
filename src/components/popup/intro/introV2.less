@@ -62,6 +62,76 @@ max-height: 100%;
 	}
 }
 
+// iPhone 5 Portrait
+@media (min-width: 320px) and (max-height: 568px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2) {
+	.intro {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		.topWrapper {
+			display: block !important;
+			padding: 5px 15px!important;
+
+			.textWrapper {
+				.titleContainer {
+					margin: 0 auto;
+					padding: 0px!important;
+					
+					.title {
+						font-size: 20px;
+					}
+				}
+				.description {
+					padding: 5px 0px!important;
+					
+					.contentMessage {
+						font-size: 16px;
+						line-height: 1.0;
+					}
+				}
+			}
+			.options {
+				flex-direction: row!important;
+				justify-content: center;
+				padding-top: 0px!important;
+
+				button {
+					width: 50%;
+					display: flex;
+					justify-content: center;
+				}
+			}
+		}
+	}
+}
+
+
+// iPhone 5 Landscape
+@media (min-width: 320px) and (max-height: 568px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2) {
+	.intro {
+		.topWrapper {
+			.textWrapper {
+				.titleContainer {
+					.title {
+						font-size: 16px!important;
+					}
+				}
+				.description {
+					.contentMessage {
+						line-height: 1.1!important;
+					}
+				}
+			}
+			.options {
+				button {
+					width: auto!important;
+					height: auto!important;
+				}
+			}
+		}
+	}
+}
 
 // iPhone 6,7,8 Portrait
 @media (min-width: 375px) and (max-height: 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2) { 
