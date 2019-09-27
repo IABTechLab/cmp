@@ -11,7 +11,7 @@ import {
 
 import { sendPortalCommand } from "../portal";
 import config from "../config";
-import { notifySas } from "../sas";
+import { bundleSasNotify } from "../sas";
 import { areConsentsStoredGlobally } from "../utils";
 
 const metadata = require("../../../metadata.json");
@@ -433,9 +433,7 @@ function writeGlobalVendorConsentCookie(vendorConsentData) {
 			}
 
 			if (config.sasEnabled /* && config.consentScope === 'all'*/) {
-				return Promise.all(
-					config.sasUrls.map(url => notifySas(url, euconsent))
-				);
+				return bundleSasNotify(config, euconsent);
 			}
 
 			return Promise.resolve();
@@ -463,7 +461,7 @@ function writeLocalVendorConsentCookie(vendorConsentData) {
 		)
 	).then(() => {
 		if (config.sasEnabled /* && config.consentScope === 'all'*/) {
-			return Promise.all(config.sasUrls.map(url => notifySas(url, euconsent)));
+			return bundleSasNotify(config, euconsent);
 		}
 	});
 }
