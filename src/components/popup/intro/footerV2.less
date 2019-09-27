@@ -308,7 +308,29 @@
 }
 
 // Google Pixel 2 Portrait
-@media only screen and (min-width: 411px) and (orientation: portrait) { 
-	height: 134%;
+@media (min-width: 411px) and (max-width: 767px) and (orientation: portrait) { 
+	.container {
+        height: 134%;
+
+        .base {
+            .headerMessage {
+                font-size: 18px;
+            }
+        }
+        .wrapper {
+            flex-direction: column!important;
+
+            .optionsWrapper {
+                .infoFooter {
+                    flex-direction: row!important;
+
+                    button {
+                        width: auto;
+                        height: auto;
+                    }
+                }
+            }
+        }
+    }
 }
 	
