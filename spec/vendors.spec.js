@@ -6,12 +6,25 @@ describe('vendors page', () => {
     browser.waitForAngularEnabled(false);
     browser.get("/");
     browser.sleep(300);
-    element(by.css('[class*=introV2_rejectAll]')).click();
-    const purposesVendorEl = element.all(by.css('[class*=purposes_vendorLink]')).first().click();
+
+    // explicitly wait for desired element
+    const introV2El = element(by.css('[class*=introV2_rejectAll]'));
+    browser.wait(protractor.ExpectedConditions.presenceOf(introV2El), 5000);
+    introV2El.click();
+    
+    // element(by.css('[class*=introV2_rejectAll]')).click();
+
+    const purposesVendorEl = element.all(by.css('[class*=purposes_vendorLink]')).first();
+    browser.wait(protractor.ExpectedConditions.presenceOf(purposesVendorEl), 5000);
+    purposesVendorEl.click();
+
+    // element.all(by.css('[class*=purposes_vendorLink]')).first().click();
   });
 
   it('renders the vendors disclaimer', () => {
     const el = element(by.css('[class*=vendors_description]'));
+    browser.wait(protractor.ExpectedConditions.presenceOf(el), 5000);
+
     expect(el.getText()).toContain("Companies carefully selected by us will use your information. " +
       "Depending on the type of data they collect, use, process and other factors, certain companies " +
       "rely on your consent while others require you to opt-out. For information on each partner and to " +
@@ -22,6 +35,11 @@ describe('vendors page', () => {
     const el = element(by.name('selectAll'));
     let switch1 = element.all(by.css('[class*=switch_switch]')).first();
     let switch2 = element.all(by.css('[class*=switch_switch]')).last();
+
+    browser.wait(protractor.ExpectedConditions.presenceOf(switch1), 5000);
+    browser.wait(protractor.ExpectedConditions.presenceOf(switch2), 5000);
+    browser.wait(protractor.ExpectedConditions.presenceOf(el), 5000);
+
     expect(switch1.getAttribute('class')).toContain('switch_isSelected')
     expect(switch2.getAttribute('class')).toContain('switch_isSelected')
     el.click();
@@ -34,13 +52,20 @@ describe('vendors page', () => {
 
   describe('vendors table', () => {
     it('renders', () => {
-      const table = element(by.css('[class*=vendors_vendorContent]')).element(by.css('[class*=vendors_vendorList]'));
+      // const table = element(by.css('[class*=vendors_vendorContent]')).element(by.css('[class*=vendors_vendorList]'));
+      const vendorContent = element(by.css('[class*=vendors_vendorContent]'));
+      browser.wait(protractor.ExpectedConditions.presenceOf(vendorContent), 5000);
+      const table= vendorContent.element(by.css('[class*=vendors_vendorList]'));
+      browser.wait(protractor.ExpectedConditions.presenceOf(table), 5000);
+
       expect(table.getText()).toContain('Globex');
       expect(table.getText()).toContain('Initech');
     });
 
     it('renders links to vendor privacy pages', () => {
       const el = element.all(by.name('vendorLink')).first();
+      browser.wait(protractor.ExpectedConditions.presenceOf(el), 5000);
+
       expect(el.getText()).toContain('Globex');
       expect(el.getAttribute('href')).toContain('www.example.com');
     });
@@ -50,13 +75,18 @@ describe('vendors page', () => {
   describe('vendor controls', () => {
     it('clicking a toggle works', () => {
       const switchEl = element.all(by.css('[class*=switch_switch]')).first();
+      browser.wait(protractor.ExpectedConditions.presenceOf(switchEl), 5000);
+
       expect(switchEl.getAttribute('class')).toContain('switch_isSelected')
       switchEl.click();
       expect(switchEl.getAttribute('class')).not.toContain('switch_isSelected')
     });
 
     it('clicking a toggle and submitting changes the cookie', () => {
-      element(by.css('[class*=details_save]')).click();
+      const el = element(by.css('[class*=details_save]'));
+      browser.wait(protractor.ExpectedConditions.presenceOf(el), 5000);
+      el.click();
+      // element(by.css('[class*=details_save]')).click();
       let vendorCookie1;
       utils.getCookies().then((firstCookies) => {
         expect(firstCookies.length).toEqual(2);

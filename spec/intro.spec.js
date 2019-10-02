@@ -15,19 +15,33 @@ describe('intro page', () => {
   });
 
   it('has a page title', () => {
+    // explicitly wait for desired element 
     const el = element.all(by.css('[class^=introV2_title]')).first();
+    browser.wait(protractor.ExpectedConditions.presenceOf(el), 5000);
+
+    // const el = element.all(by.css('[class^=introV2_title]')).first();
     expect(el.getText()).toContain("Thanks for visiting");
   });
 
   it('does not write a cookie when Learn More is clicked', () => {
-    element(by.css('[class*=introV2_rejectAll]')).click();
+    // explicitly wait for desired element 
+    const el = element(by.css('[class*=introV2_rejectAll]'));
+    browser.wait(protractor.ExpectedConditions.presenceOf(el), 5000);
+    el.click();
+
+    // element(by.css('[class*=introV2_rejectAll]')).click();
     utils.getCookies().then((cookies) => {
       expect(cookies.length).toEqual(0);
     });
   });
 
   it('writes a cookie when submitted', () => {
-    element(by.css('[class*=introV2_acceptAll]')).click();
+    // explicitly wait for desired element 
+    const el = element(by.css('[class*=introV2_acceptAll]'));
+    browser.wait(protractor.ExpectedConditions.presenceOf(el), 5000);
+    el.click();
+
+    // element(by.css('[class*=introV2_acceptAll]')).click();
     utils.getCookies().then((cookies) => {
       expect(cookies.length).toEqual(2);
       for (let i in cookies) {
@@ -41,7 +55,12 @@ describe('intro page', () => {
 
   describe('clicking the caret to expand the footer', () => {
     beforeEach(() => {
-      element.all(by.css('[class*=footerV2_icon]')).first().click();
+      // explicitly wait for desired element 
+      const el = element.all(by.css('[class*=footerV2_icon]')).first();
+      browser.wait(protractor.ExpectedConditions.presenceOf(el), 5000); 
+      el.click();
+
+      // element.all(by.css('[class*=footerV2_icon]')).first().click();
       browser.sleep(300);
     })
 
