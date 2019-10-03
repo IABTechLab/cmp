@@ -26,12 +26,7 @@ describe('different configurations', () => {
     });
 
     it('writes a cookie when submitted', () => {
-      // explicitly wait for desired element 
-      const el = element(by.css('[class*=intro_acceptAll]'));
-      browser.wait(protractor.ExpectedConditions.presenceOf(el), 5000);
-      el.click();
-
-      // element(by.css('[class*=intro_acceptAll]')).click();
+      element(by.css('[class*=intro_acceptAll]')).click();
       utils.getCookies().then((cookies) => {
         expect(cookies.length).toEqual(2);
         for (let i in cookies) {
@@ -92,12 +87,7 @@ describe('different configurations', () => {
     });
 
     it('writes a cookie when submitted', () => {
-      // explicitly wait for desired element 
-      const el = element(by.css('[class*=introThin_acceptAll]'));
-      browser.wait(protractor.ExpectedConditions.presenceOf(el), 5000);
-      el.click();
-
-      // element(by.css('[class*=introThin_acceptAll]')).click();
+      element(by.css('[class*=introThin_acceptAll]')).click();
       utils.getCookies().then((cookies) => {
         expect(cookies.length).toEqual(2);
         for (let i in cookies) {
