@@ -35,14 +35,14 @@ describe('vendors page', () => {
   describe('vendors table', () => {
     it('renders', () => {
       const table = element(by.css('[class*=vendors_vendorContent]')).element(by.css('[class*=vendors_vendorList]'));
-      expect(table.getText()).toContain('Globex');
-      expect(table.getText()).toContain('Initech');
+      expect(table.getText()).toContain('Exponential Interactive, Inc');
+      expect(table.getText()).toContain('Captify Technologies Limited');
     });
 
     it('renders links to vendor privacy pages', () => {
       const el = element.all(by.name('vendorLink')).first();
-      expect(el.getText()).toContain('Globex');
-      expect(el.getAttribute('href')).toContain('www.example.com');
+      expect(el.getText()).toContain('Exponential Interactive, Inc');
+      expect(el.getAttribute('href')).toContain('http://exponential.com/privacy');
     });
   });
 

@@ -14,8 +14,8 @@ describe('different configurations', () => {
     });
 
     it('has a page title', () => {
-      const el = element.all(by.css('[class^=intro_title]')).first();
-      expect(el.getText()).toContain("Thanks for visiting");
+      const el = element.all(by.css('[class^=introV2_title]')).first();
+      expect(el.getAttribute('innerText')).toContain("Thanks for visiting");
     });
 
     it('does not write a cookie when Learn More is clicked', () => {

@@ -62,8 +62,8 @@ describe('purposes page', () => {
   describe('renders the purpose list', () => {
     it('lists standard purposes', () => {
       const purposeList = element(by.css('[class*=purposes_purposeList]'));
-      expect(purposeList.getText()).toContain('Storage and access of information');
-      expect(purposeList.getText()).toContain('Measurement');
+      expect(purposeList.getAttribute('innerText')).toContain('Information storage and access');
+      expect(purposeList.getAttribute('innerText')).toContain('Measurement');
     });
 
     it('lists custom purposes', () => {
@@ -75,18 +75,18 @@ describe('purposes page', () => {
     describe('interactions with the purpose list', () => {
       it('highlighted purposes have explanatory text', () => {
         const el = element(by.css('[class*=purposes_body]'));
-        expect(el.getText()).toContain("The storage of information, or access to information that is already stored, on your device such as accessing advertising identifiers and/or other device identifiers, and/or using cookies or similar technologies.");
-        expect(el.getText()).not.toContain("The collection and processing of information about your use of this site to subsequently personalize advertising for you in other contexts, i.e. on other sites or apps, over time. Typically, the content of the site or app is used to make inferences about your interests which inform future selections.");
+        expect(el.getAttribute('innerText')).toContain("The storage of information, or access to information that is already stored, on your device such as advertising identifiers, device identifiers, cookies, and similar technologies.");
+        expect(el.getAttribute('innerText')).not.toContain("The collection and processing of information about your use of this site to subsequently personalize advertising for you in other contexts, i.e. on other sites or apps, over time. Typically, the content of the site or app is used to make inferences about your interests which inform future selections.");
       });
 
       it('clicking on an unselected purpose selects it', () => {
         let el = element(by.css('[class*=purposes_body]'));
-        expect(el.getText()).toContain("The storage of information, or access to information that is already stored, on your device such as accessing advertising identifiers and/or other device identifiers, and/or using cookies or similar technologies.");
+        expect(el.getAttribute('innerText')).toContain("The storage of information, or access to information that is already stored, on your device such as advertising identifiers, device identifiers, cookies, and similar technologies.");
         const purposes = element.all(by.css("[class*=purposes_purposeItem]"));
         purposes.get(1).click();
         el = element(by.css('[class*=purposes_body]'));
-        expect(el.getText()).toContain("The collection and processing of information about your use of this site to subsequently personalize advertising for you in other contexts, i.e. on other sites or apps, over time. Typically, the content of the site or app is used to make inferences about your interests which inform future selections.");
-        expect(el.getText()).not.toContain("The storage of information, or access to information that is already stored, on your device such as accessing advertising identifiers and/or other device identifiers, and/or using cookies or similar technologies.");
+        expect(el.getAttribute('innerText')).toContain("The collection and processing of information about your use of this service to subsequently personalise advertising and/or content for you in other contexts, such as on other websites or apps, over time. Typically, the content of the site or app is used to make inferences about your interests, which inform future selection of advertising and/or content.");
+        expect(el.getAttribute('innerText')).not.toContain("The storage of information, or access to information that is already stored, on your device such as advertising identifiers, device identifiers, cookies, and similar technologies.");
       });
     });
   });
@@ -95,11 +95,13 @@ describe('purposes page', () => {
     it('clicking a toggle works', () => {
       const switchEl = element(by.css('[class*=switch_switch]'));
       const parentEl = element(by.css('[class*=purposes_active]'));
-      expect(switchEl.getAttribute('class')).toContain('switch_isSelected')
-      expect(parentEl.getText()).not.toContain('Inactive')
+      expect(switchEl.getAttribute('class')).toContain('switch_isSelected');
+      expect(parentEl.getText()).not.toContain('Inactive');
+      const labelWrapper = element(by.css('[class*=purposes_labelWrapper]'));
+      labelWrapper.click();
       switchEl.click();
-      expect(switchEl.getAttribute('class')).not.toContain('switch_isSelected')
-      expect(parentEl.getText()).toContain('Inactive')
+      expect(switchEl.getAttribute('class')).not.toContain('switch_isSelected');
+      expect(parentEl.getText()).toContain('Inactive');
     });
 
     it('clicking a toggle and submitting changes the cookie', () => {
@@ -120,6 +122,8 @@ describe('purposes page', () => {
 
         let vendorCookie2;
         const switchEl = element(by.css('[class*=switch_switch]'));
+        const labelWrapper = element(by.css('[class*=purposes_labelWrapper]'));
+        labelWrapper.click();
         switchEl.click();
         element(by.css('[class*=details_save]')).click();
         utils.getCookies().then((secondCookies) => {
@@ -138,7 +142,10 @@ describe('purposes page', () => {
 
     it('clicking show companies expands the list of companies', () => {
       expect(element(by.css('[class*=purposes_vendorList]')).isPresent()).toBe(false);
-      element(by.css('[class*=purposes_body]')).element(by.css('[class*=purposes_vendorLink]')).click();
+      const labelWrapper = element(by.css('[class*=purposes_labelWrapper]'));
+      labelWrapper.click();
+      const vendorLink = element(by.css('[class*=purposes_body]')).element(by.css('[class*=purposes_vendorLink]'));
+      browser.actions().mouseMove(vendorLink).perform();
       browser.sleep(300);
       expect(element(by.css('[class*=purposes_vendorList]')).isPresent()).toBe(true);
     });

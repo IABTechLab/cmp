@@ -65,10 +65,12 @@ export default class Purposes extends Component {
 			if (	vendor.purposeIds.indexOf(purposeId) !== -1 ||
 						vendor.legIntPurposeIds.indexOf(purposeId) !== -1 ) return vendor;
 		}).filter((vendor) => vendor);
+
+		console.log('clicked show companies: ', localVendors);
 		this.setState({
 			showLocalVendors: true,
 			localVendors: localVendors
-		}, updateCSSPrefs);
+		}, () => {console.log(this.state.showLocalVendors); updateCSSPrefs});
 	};
 
 	onHideLocalVendors = () => {
@@ -156,7 +158,7 @@ export default class Purposes extends Component {
 														<div class={style.active}>
 															<Switch
 																isSelected={purposeIsActive}
-																onClick={handleSelectPurpose}
+																onClick={this.handleSelectPurpose}
 															/>
 															{purposeIsActive &&
 																<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.active : ''} localizeKey='active'>Active</LocalLabel>
@@ -170,12 +172,12 @@ export default class Purposes extends Component {
 														</span>
 													</div>
 													{!showLocalVendors &&
-													<a class={style.vendorLink} onClick={onShowLocalVendors}>
+													<a class={style.vendorLink} onClick={this.onShowLocalVendors}>
 														<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.showVendors : ''} localizeKey='showVendors'>Show companies</LocalLabel>
 													</a>
 													}
 													{showLocalVendors &&
-													<a class={style.vendorLink} onClick={onHideLocalVendors}>
+													<a class={style.vendorLink} onClick={this.onHideLocalVendors}>
 														<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.hideVendors : ''} localizeKey='hideVendors'>Hide companies</LocalLabel>
 													</a>
 													}
@@ -234,7 +236,7 @@ export default class Purposes extends Component {
 											<div class={style.active}>
 												<Switch
 													isSelected={purposeIsActive}
-													onClick={handleSelectPurpose}
+													onClick={this.handleSelectPurpose}
 												/>
 												{purposeIsActive &&
 													<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.active : ''} localizeKey='active'>Active</LocalLabel>
@@ -248,12 +250,12 @@ export default class Purposes extends Component {
 											</span>
 										</div>
 										{!showLocalVendors &&
-										<a class={style.vendorLink} onClick={onShowLocalVendors}>
+										<a class={style.vendorLink} onClick={this.onShowLocalVendors}>
 											<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.showVendors : ''} localizeKey='showVendors'>Show companies</LocalLabel>
 										</a>
 										}
 										{showLocalVendors &&
-										<a class={style.vendorLink} onClick={onHideLocalVendors}>
+										<a class={style.vendorLink} onClick={this.onHideLocalVendors}>
 											<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.hideVendors : ''} localizeKey='hideVendors'>Hide companies</LocalLabel>
 										</a>
 										}
