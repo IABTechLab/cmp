@@ -4,7 +4,7 @@ describe('different configurations', () => {
 
   beforeEach(() => {
     utils.clearCookies();
-    // browser.waitForAngularEnabled(false);
+    browser.waitForAngularEnabled(false);
   });
 
   describe('Layout - Modal', () => {
@@ -15,7 +15,7 @@ describe('different configurations', () => {
 
     it('has a page title', () => {
       const el = element.all(by.css('[class^=intro_title]')).first();
-      expect(el.getText()).toContain("Thanks for visiting");
+      expect(el.getAttribute('innerText')).toContain("Thanks for visiting");
     });
 
     it('does not write a cookie when Learn More is clicked', () => {
@@ -26,12 +26,7 @@ describe('different configurations', () => {
     });
 
     it('writes a cookie when submitted', () => {
-      // explicitly wait for desired element 
-      const el = element(by.css('[class*=intro_acceptAll]'));
-      browser.wait(protractor.ExpectedConditions.presenceOf(el), 5000);
-      el.click();
-
-      // element(by.css('[class*=intro_acceptAll]')).click();
+      element(by.css('[class*=intro_acceptAll]')).click();
       utils.getCookies().then((cookies) => {
         expect(cookies.length).toEqual(2);
         for (let i in cookies) {
@@ -92,12 +87,7 @@ describe('different configurations', () => {
     });
 
     it('writes a cookie when submitted', () => {
-      // explicitly wait for desired element 
-      const el = element(by.css('[class*=introThin_acceptAll]'));
-      browser.wait(protractor.ExpectedConditions.presenceOf(el), 5000);
-      el.click();
-
-      // element(by.css('[class*=introThin_acceptAll]')).click();
+      element(by.css('[class*=introThin_acceptAll]')).click();
       utils.getCookies().then((cookies) => {
         expect(cookies.length).toEqual(2);
         for (let i in cookies) {

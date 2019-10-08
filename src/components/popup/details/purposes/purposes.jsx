@@ -1,7 +1,7 @@
-import { h, Component } from 'preact';
+import { h, createRef, Component } from 'preact';
 import style from './purposes.less';
+import Switch from '../../../switch/switch';
 import Label from '../../../label/label';
-import Purpose from './purpose/purpose';
 
 class LocalLabel extends Label {
 	static defaultProps = {
@@ -63,10 +63,11 @@ export default class Purposes extends Component {
 			if (	vendor.purposeIds.indexOf(purposeId) !== -1 ||
 						vendor.legIntPurposeIds.indexOf(purposeId) !== -1 ) return vendor;
 		}).filter((vendor) => vendor);
+
 		this.setState({
 			showLocalVendors: true,
 			localVendors: localVendors
-		}, updateCSSPrefs);
+		}, () => { this.setState({ showLocalVendors: true, localVendors: localVendors }) });
 	};
 
 	onHideLocalVendors = () => {
@@ -123,47 +124,174 @@ export default class Purposes extends Component {
 				</div>
 				<div class={style.purposes}>
 					<div class={style.purposeList}>
-						{allPurposes.map((purpose, index) => (
+						{allPurposes.map((purpose, index) => {
+
+						const ref = createRef();
+						const handleClick = () =>
+						  ref.current.scrollIntoView({
+							behavior: 'smooth',
+							block: 'start',
+						});
+
+						return (
 							<div class={[style.purposeItem, selectedPurposeIndex === index ? style.selectedPurpose : ''].join(' ')}
 								onClick={this.handleSelectPurposeDetail(index)}
 							>
-								<input type="radio" id={`collapsible${index}`} name="purposeSelection"/>
-								<label class={style.labelWrapper} for={`collapsible${index}`}>
+								<input type="radio" id={`collapsible${index}`} name="purposeSelection" onClick={handleClick}/>
+								<label class={style.labelWrapper} for={`collapsible${index}`} ref={ref}>
 									<LocalLabel localizeKey={`${index >= purposes.length ? 'customPurpose' : 'purpose'}${purpose.id}.menu`}>{purpose.name}</LocalLabel>
 								</label>
 							
 								<div class={style.collapsibleContent}>
 									<div class={style.contentInner}>
+										<div class={style.purposeDescription}>
+											<div class={style.purposeDetail + " primaryText"}>
+												<div class={style.detailHeader}>
+													<div class={style.title}>
+														<LocalLabel localizeKey={`${currentPurposeLocalizePrefix}.title`}>{selectedPurpose.name}</LocalLabel>
+													</div>
+												</div>
 
-										<Purpose 
-											currentPurposeLocalizePrefix={currentPurposeLocalizePrefix}
-											selectedPurpose={selectedPurpose}
-											features={features}
-											localization={localization}
-            								purposeIsActive={purposeIsActive}
-											handleSelectPurpose={this.handleSelectPurpose}
-											onShowLocalVendors={this.onShowLocalVendors}
-											showLocalVendors={showLocalVendors}
-             							/>
-		
+												<div class={style.body}>
+													<p><LocalLabel providedValue={selectedPurpose.description} localizeKey={`${currentPurposeLocalizePrefix}.description`} /></p>
+													<p><LocalLabel providedValue={localization && localization.purposes ? localization.purposes.featureHeader : ''} localizeKey='featureHeader'>This will include the following features:</LocalLabel></p>
+													<ul>
+													{features.map((feature, index) => (
+														<li><LocalLabel class='featureItem' providedValue={feature.description} /></li>
+													))}
+													</ul>
+													<div class={style.switchWrap}>
+														<div class={style.active}>
+															<Switch
+																isSelected={purposeIsActive}
+																onClick={this.handleSelectPurpose}
+															/>
+															{purposeIsActive &&
+																<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.active : ''} localizeKey='active'>Active</LocalLabel>
+															}
+															{!purposeIsActive &&
+																<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.inactive : ''} localizeKey='inactive'>Inactive</LocalLabel>
+															}
+														</div>
+														<span class={style.switchText}>
+															<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.switchText : ''} localizeKey="switchText">Publisher and their partners could collect anonymized information in order to improve your experience on our site.</LocalLabel>
+														</span>
+													</div>
+													{!showLocalVendors &&
+													<a class={style.vendorLink} onClick={this.onShowLocalVendors}>
+														<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.showVendors : ''} localizeKey='showVendors'>Show companies</LocalLabel>
+													</a>
+													}
+													{showLocalVendors &&
+													<a class={style.vendorLink} onClick={this.onHideLocalVendors}>
+														<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.hideVendors : ''} localizeKey='hideVendors'>Hide companies</LocalLabel>
+													</a>
+													}
+													{showLocalVendors &&
+														(<div>
+															<div class={style.vendorHeader}>
+																<table class={style.vendorList}>
+																	<thead>
+																	<tr>
+																		<th><LocalLabel providedValue={localization && localization.purposes ? localization.purposes.company : ''} localizeKey='company'>Company</LocalLabel></th>
+																	</tr>
+																	</thead>
+																</table>
+															</div>
+															<div class={style.vendorContent}>
+																<table class={style.vendorList}>
+																	<tbody>
+																	{localVendors.map(({name, policyUrl}, index) => (
+																		<tr key={index + name} class={index % 2 === 1 ? style.even : ''}>
+																			<td><a href={policyUrl} target='_blank'><div class={style.vendorName}>{name}</div></a></td>
+																		</tr>
+																	))}
+																	</tbody>
+																</table>
+															</div>
+														</div>)
+													}
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-						))}
+						)})}
 					</div>
 					
 					{selectedPurpose && 
 						<div class={style.purposeWrapper}>
-							<Purpose 
-								currentPurposeLocalizePrefix={currentPurposeLocalizePrefix}
-								selectedPurpose={selectedPurpose}
-								features={features}
-								localization={localization}
-								purposeIsActive={purposeIsActive}
-								handleSelectPurpose={this.handleSelectPurpose}
-								onShowLocalVendors={this.onShowLocalVendors}
-								showLocalVendors={showLocalVendors}
-							/>
+							<div class={style.purposeDescription}>
+								<div class={style.purposeDetail + " primaryText"}>
+									<div class={style.detailHeader}>
+										<div class={style.title}>
+											<LocalLabel localizeKey={`${currentPurposeLocalizePrefix}.title`}>{selectedPurpose.name}</LocalLabel>
+										</div>
+									</div>
+
+									<div class={style.body}>
+										<p><LocalLabel providedValue={selectedPurpose.description} localizeKey={`${currentPurposeLocalizePrefix}.description`} /></p>
+										<p><LocalLabel providedValue={localization && localization.purposes ? localization.purposes.featureHeader : ''} localizeKey='featureHeader'>This will include the following features:</LocalLabel></p>
+										<ul>
+										{features.map((feature, index) => (
+											<li><LocalLabel class='featureItem' providedValue={feature.description} /></li>
+										))}
+										</ul>
+										<div class={style.switchWrap}>
+											<div class={style.active}>
+												<Switch
+													isSelected={purposeIsActive}
+													onClick={this.handleSelectPurpose}
+												/>
+												{purposeIsActive &&
+													<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.active : ''} localizeKey='active'>Active</LocalLabel>
+												}
+												{!purposeIsActive &&
+													<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.inactive : ''} localizeKey='inactive'>Inactive</LocalLabel>
+												}
+											</div>
+											<span class={style.switchText}>
+												<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.switchText : ''} localizeKey="switchText">Publisher and their partners could collect anonymized information in order to improve your experience on our site.</LocalLabel>
+											</span>
+										</div>
+										{!showLocalVendors &&
+										<a class={style.vendorLink} onClick={this.onShowLocalVendors}>
+											<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.showVendors : ''} localizeKey='showVendors'>Show companies</LocalLabel>
+										</a>
+										}
+										{showLocalVendors &&
+										<a class={style.vendorLink} onClick={this.onHideLocalVendors}>
+											<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.hideVendors : ''} localizeKey='hideVendors'>Hide companies</LocalLabel>
+										</a>
+										}
+										{showLocalVendors &&
+											(<div>
+												<div class={style.vendorHeader}>
+													<table class={style.vendorList}>
+														<thead>
+														<tr>
+															<th><LocalLabel providedValue={localization && localization.purposes ? localization.purposes.company : ''} localizeKey='company'>Company</LocalLabel></th>
+														</tr>
+														</thead>
+													</table>
+												</div>
+												<div class={style.vendorContent}>
+													<table class={style.vendorList}>
+														<tbody>
+														{localVendors.map(({name, policyUrl}, index) => (
+															<tr key={index + name} class={index % 2 === 1 ? style.even : ''}>
+																<td><a href={policyUrl} target='_blank'><div class={style.vendorName}>{name}</div></a></td>
+															</tr>
+														))}
+														</tbody>
+													</table>
+												</div>
+											</div>)
+										}
+									</div>
+								</div>
+							</div>
 						</div>
 					}
 				</div>

@@ -75,7 +75,7 @@ function updateSelectedVendors(selectedVendors) {
 			vendors: updatedVendors,
 			purposes: globalVendors.purposes,
 		};
-	})
+	});
 }
 
 export {
