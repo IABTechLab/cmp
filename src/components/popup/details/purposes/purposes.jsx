@@ -1,8 +1,7 @@
-import { h, Component } from 'preact';
+import { h, createRef, Component } from 'preact';
 import style from './purposes.less';
 import Switch from '../../../switch/switch';
 import Label from '../../../label/label';
-// import Purpose from './purpose/purpose';
 
 class LocalLabel extends Label {
 	static defaultProps = {
@@ -33,7 +32,6 @@ export default class Purposes extends Component {
 				showLocalVendors: false,
 				localVendors: []
 			}, this.props.updateCSSPrefs);
-			this.scrollRef.scrollTop = 0;
 		};
 	};
 
@@ -70,7 +68,7 @@ export default class Purposes extends Component {
 		this.setState({
 			showLocalVendors: true,
 			localVendors: localVendors
-		}, () => {console.log(this.state.showLocalVendors); updateCSSPrefs});
+		}, () => { this.setState({ showLocalVendors: true, localVendors: localVendors }) });
 	};
 
 	onHideLocalVendors = () => {
@@ -127,18 +125,27 @@ export default class Purposes extends Component {
 				</div>
 				<div class={style.purposes}>
 					<div class={style.purposeList}>
-						{allPurposes.map((purpose, index) => (
+						{allPurposes.map((purpose, index) => {
+
+						const ref = createRef();
+						const handleClick = () =>
+						  ref.current.scrollIntoView({
+							behavior: 'smooth',
+							block: 'start',
+						});
+
+						return (
 							<div class={[style.purposeItem, selectedPurposeIndex === index ? style.selectedPurpose : ''].join(' ')}
 								onClick={this.handleSelectPurposeDetail(index)}
 							>
-								<input type="radio" id={`collapsible${index}`} name="purposeSelection"/>
-								<label class={style.labelWrapper} for={`collapsible${index}`}>
+								<input type="radio" id={`collapsible${index}`} name="purposeSelection" onClick={handleClick}/>
+								<label class={style.labelWrapper} for={`collapsible${index}`} ref={ref}>
 									<LocalLabel localizeKey={`${index >= purposes.length ? 'customPurpose' : 'purpose'}${purpose.id}.menu`}>{purpose.name}</LocalLabel>
 								</label>
 							
 								<div class={style.collapsibleContent}>
 									<div class={style.contentInner}>
-										<div class={style.purposeDescription} ref={scrollRef => (this.scrollRef = scrollRef)}>
+										<div class={style.purposeDescription}>
 											<div class={style.purposeDetail + " primaryText"}>
 												<div class={style.detailHeader}>
 													<div class={style.title}>
@@ -211,12 +218,12 @@ export default class Purposes extends Component {
 									</div>
 								</div>
 							</div>
-						))}
+						)})}
 					</div>
 					
 					{selectedPurpose && 
 						<div class={style.purposeWrapper}>
-							<div class={style.purposeDescription} ref={scrollRef => (this.scrollRef = scrollRef)}>
+							<div class={style.purposeDescription}>
 								<div class={style.purposeDetail + " primaryText"}>
 									<div class={style.detailHeader}>
 										<div class={style.title}>
