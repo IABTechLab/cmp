@@ -64,7 +64,6 @@ export default class Purposes extends Component {
 						vendor.legIntPurposeIds.indexOf(purposeId) !== -1 ) return vendor;
 		}).filter((vendor) => vendor);
 
-		console.log('clicked show companies: ', localVendors);
 		this.setState({
 			showLocalVendors: true,
 			localVendors: localVendors

@@ -14,7 +14,7 @@ describe('different configurations', () => {
     });
 
     it('has a page title', () => {
-      const el = element.all(by.css('[class^=introV2_title]')).first();
+      const el = element.all(by.css('[class^=intro_title]')).first();
       expect(el.getAttribute('innerText')).toContain("Thanks for visiting");
     });
 
