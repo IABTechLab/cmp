@@ -144,8 +144,7 @@ describe('purposes page', () => {
       expect(element(by.css('[class*=purposes_vendorList]')).isPresent()).toBe(false);
       const labelWrapper = element(by.css('[class*=purposes_labelWrapper]'));
       labelWrapper.click();
-      const vendorLink = element(by.css('[class*=purposes_body]')).element(by.css('[class*=purposes_vendorLink]'));
-      browser.actions().mouseMove(vendorLink).perform();
+      element(by.css('[class*=purposes_body]')).element(by.css('[class*=purposes_vendorLink]')).click();
       browser.sleep(300);
       expect(element(by.css('[class*=purposes_vendorList]')).isPresent()).toBe(true);
     });
