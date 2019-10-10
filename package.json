@@ -113,6 +113,7 @@
     "promise-polyfill": "^7.1.0",
     "proptypes": "^1.0.0",
     "query-string": "^5.0.1",
+    "react": "^16.10.2",
     "react-codemirror2": "^4.0.0",
     "react-router-dom": "^4.2.2",
     "serve": "^6.0.0",

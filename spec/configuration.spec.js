@@ -10,23 +10,28 @@ describe('different configurations', () => {
   describe('Layout - Modal', () => {
     beforeEach(() => {
       browser.get("/e2e/layout-modal.html");
-      browser.sleep(300);
+      browser.sleep(800);
     });
 
     it('has a page title', () => {
       const el = element.all(by.css('[class^=intro_title]')).first();
+      browser.wait(protractor.ExpectedConditions.visibilityOf(el), 2000);   
       expect(el.getAttribute('innerText')).toContain("Thanks for visiting");
     });
 
     it('does not write a cookie when Learn More is clicked', () => {
-      element(by.css('[class*=intro_rejectAll]')).click();
+      const el = element(by.css('[class*=intro_rejectAll]'));
+      browser.wait(protractor.ExpectedConditions.visibilityOf(el), 2000); 
+      el.click();
       utils.getCookies().then((cookies) => {
         expect(cookies.length).toEqual(0);
       });
     });
 
     it('writes a cookie when submitted', () => {
-      element(by.css('[class*=intro_acceptAll]')).click();
+      const el = element(by.css('[class*=intro_acceptAll]'));
+      browser.wait(protractor.ExpectedConditions.visibilityOf(el), 2000);
+      el.click()
       utils.getCookies().then((cookies) => {
         expect(cookies.length).toEqual(2);
         for (let i in cookies) {

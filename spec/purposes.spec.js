@@ -5,7 +5,7 @@ describe('purposes page', () => {
     utils.clearCookies();
     browser.waitForAngularEnabled(false);
     browser.get("/");
-    browser.sleep(300);
+    browser.sleep(800);
     element(by.css('[class*=introV2_rejectAll]')).click();
   });
 
