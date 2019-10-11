@@ -9,6 +9,7 @@ describe('different configurations', () => {
 
   describe('Layout - Modal', () => {
     beforeEach(() => {
+      browser.driver.manage().window().maximize();
       browser.get("/e2e/layout-modal.html");
       browser.sleep(800);
     });
@@ -45,7 +46,9 @@ describe('different configurations', () => {
 
     describe('clicking the caret to expand the footer', () => {
       beforeEach(() => {
-        element.all(by.css('[class*=footer_icon]')).first().click();
+        const el = element.all(by.css('[class*=footer_icon]')).first();
+        browser.wait(protractor.ExpectedConditions.visibilityOf(el), 2000);
+        el.click()
         browser.sleep(300);
       })
 
