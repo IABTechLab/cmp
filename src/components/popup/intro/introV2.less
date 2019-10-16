@@ -1,4 +1,4 @@
-@import '../../../style/variables';
+@import '../../../style/variables.less';
 
 .imagePadding {
 	padding-left: 10px;
@@ -62,8 +62,7 @@ max-height: 100%;
 	}
 }
 
-// iPhone 5 Portrait
-@media (min-width: 320px) and (max-height: 568px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2) {
+@media @smartPhonePortrait {
 	.intro {
 		display: flex;
 		flex-direction: column;
@@ -106,9 +105,7 @@ max-height: 100%;
 	}
 }
 
-
-// iPhone 5 Landscape
-@media (min-width: 320px) and (max-height: 568px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2) {
+@media @smartPhoneLandscape {
 	.intro {
 		.topWrapper {
 			.textWrapper {
@@ -127,235 +124,6 @@ max-height: 100%;
 				button {
 					width: auto!important;
 					height: auto!important;
-				}
-			}
-		}
-	}
-}
-
-// iPhone 6,7,8 Portrait
-@media (min-width: 375px) and (max-height: 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2) { 
-	.intro {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-
-		.topWrapper {
-			display: block !important;
-			padding: 5px 32px!important;
-
-			.textWrapper {
-				.titleContainer {
-					margin: 0 auto;
-					padding: 0px!important;
-					
-					.title {
-						font-size: 25px;
-					}
-				}
-				.description {
-					padding: 5px 0px!important;
-					
-					.contentMessage {
-						font-size: 16px;
-					}
-				}
-			}
-			.options {
-				flex-direction: row!important;
-				justify-content: center;
-				padding-top: 0px!important;
-
-				button {
-					width: 50%;
-					display: flex;
-					justify-content: center;
-				}
-			}
-		}
-	}
-}
-
-// iPhone 6,7,8 Landscape
-@media (min-width: 375px) and (max-height: 667px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2) { 
-	.intro {
-		.topWrapper {
-			padding: 0 15px!important;
-
-			.textWrapper {
-				.titleContainer {
-					padding: 0px!important;
-					
-					.title {
-						font-size: 16px;
-					}
-				}
-				.description {
-					padding: 5px 0px!important;
-					line-height: 1.3;
-
-					.contentMessage {
-						font-size: 13px;
-					}
-				}
-			}
-			.options {
-				justify-content: center;
-				padding-top: 0px!important;
-				align-items: center;
-				flex-direction: row!important;
-				button {
-					width: 50%;
-					display: flex;
-					justify-content: center;
-				}
-			}
-		}
-	}
-}
-
-// iPhone 6+, 7+, 8+ Portrait
-@media (min-width: 414px) and (max-height: 736px) and (orientation : portrait) {
-	.intro {
-		.topWrapper {
-			display: flex !important;
-			flex-direction: column !important;
-			align-items: center !important;
-
-			.textWrapper {
-				.titleContainer {
-					padding: 0px!important;
-					margin: 0 auto!important;
-					.title {
-						font-size: 25px;
-					}
-				}
-			}
-			.options {
-				flex-direction: row!important;
-				justify-content: center;
-				padding-top: 0px!important;
-
-				button {
-					width: 50%;
-					display: flex;
-					justify-content: center;
-				}
-			}
-		}
-	}
-}
-
-// iPhone 6+, 7+, 8+ Landscape
-@media (min-width: 414px) and (max-height: 736px) and (orientation : landscape) {
-	.intro {
-		.topWrapper {
-			padding: 0 20px;
-
-			.textWrapper {
-				padding: 10px 0px!important;
-
-				.titleContainer {
-					padding: 0px!important;
-					
-					.title {
-						font-size: 22px;
-					}
-				}
-
-				.description {
-					padding: 0px!important;
-					line-height: 1.3;
-				}
-			}
-
-			.options {
-				flex-direction: row!important;
-				padding-top: 0px!important;
-				align-items: center;
-
-				button {
-					width: 50%;
-					height: 60px;
-				}
-			}
-		}
-	}
-}
-
-// iPhone X Portrait
-@media (min-width: 375px) and (max-height: 812px) and (orientation : portrait) {
-	.intro {
-		.topWrapper {
-			padding: 0 25px;
-			flex-direction: column;
-
-			.textWrapper {
-				padding: 10px 0px!important;
-
-				.titleContainer {
-					padding: 0px!important;
-					margin: 0 auto;
-					
-					.title {
-						font-size: 22px;
-					}
-				}
-
-				.description {
-					padding: 0px!important;
-					line-height: 1.3;
-				}
-			}
-
-			.options {
-				flex-direction: row!important;
-				padding-top: 0px!important;
-				align-items: center;
-
-				button {
-					width: 50%;
-					height: 50px;
-				}
-			}
-		}
-	}
-}
-
-// Google Pixel 2XL Portrait
-@media (min-width: 411px) and (max-height: 823px) and (orientation: portrait) {
-	.intro {
-		.topWrapper {
-			padding: 0 25px;
-			flex-direction: column!important;
-			display: flex!important;
-
-			.textWrapper {
-				padding: 10px 0px!important;
-
-				.titleContainer {
-					padding: 0px!important;
-					margin: 0 auto;
-					
-					.title {
-						font-size: 22px;
-					}
-				}
-
-				.description {
-					padding: 0px!important;
-					line-height: 1.3;
-				}
-			}
-
-			.options {
-				flex-direction: row!important;
-				padding-top: 0px!important;
-				align-items: center;
-
-				button {
-					width: 50%;
-					height: 50px;
 				}
 			}
 		}
