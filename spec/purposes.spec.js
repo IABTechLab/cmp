@@ -3,9 +3,10 @@ const utils = require('./support/utils');
 describe('purposes page', () => {
   beforeEach(() => {
     utils.clearCookies();
+    browser.driver.manage().window().maximize();
     browser.waitForAngularEnabled(false);
     browser.get("/");
-    browser.sleep(300);
+    browser.sleep(800);
     element(by.css('[class*=introV2_rejectAll]')).click();
   });
 
@@ -92,22 +93,23 @@ describe('purposes page', () => {
   });
 
   describe('purpose controls', () => {
-    it('clicking a toggle works', () => {
+    it('clicking a toggle works', async () => {
       const switchEl = element(by.css('[class*=switch_switch]'));
       const parentEl = element(by.css('[class*=purposes_active]'));
       expect(switchEl.getAttribute('class')).toContain('switch_isSelected');
       expect(parentEl.getText()).not.toContain('Inactive');
-      const labelWrapper = element(by.css('[class*=purposes_labelWrapper]'));
-      labelWrapper.click();
-      switchEl.click();
+      await browser.executeScript('arguments[0].click()', switchEl);
+      
+      browser.sleep(800);
       expect(switchEl.getAttribute('class')).not.toContain('switch_isSelected');
-      expect(parentEl.getText()).toContain('Inactive');
+      expect(parentEl.getAttribute('innerText')).toContain('Inactive');
     });
 
     it('clicking a toggle and submitting changes the cookie', () => {
       element(by.css('[class*=details_save]')).click();
+      browser.sleep(800);
       let vendorCookie1;
-      utils.getCookies().then((firstCookies) => {
+      utils.getCookies().then( async (firstCookies) => {
         expect(firstCookies.length).toEqual(2);
         for (let i in firstCookies) {
           const cookie = firstCookies[i];
@@ -117,14 +119,14 @@ describe('purposes page', () => {
         utils.clearCookies();
 
         browser.get("/");
-        browser.sleep(300);
+        browser.sleep(800);
         element(by.css('[class*=introV2_rejectAll]')).click();
-
+        browser.sleep(800);
         let vendorCookie2;
         const switchEl = element(by.css('[class*=switch_switch]'));
-        const labelWrapper = element(by.css('[class*=purposes_labelWrapper]'));
-        labelWrapper.click();
-        switchEl.click();
+        await browser.executeScript('arguments[0].click()', switchEl);
+        
+        browser.sleep(800);
         element(by.css('[class*=details_save]')).click();
         utils.getCookies().then((secondCookies) => {
           expect(secondCookies.length).toEqual(2);
@@ -140,12 +142,11 @@ describe('purposes page', () => {
       });
     });
 
-    it('clicking show companies expands the list of companies', () => {
+    it('clicking show companies expands the list of companies', async () => {
       expect(element(by.css('[class*=purposes_vendorList]')).isPresent()).toBe(false);
-      const labelWrapper = element(by.css('[class*=purposes_labelWrapper]'));
-      labelWrapper.click();
-      element(by.css('[class*=purposes_body]')).element(by.css('[class*=purposes_vendorLink]')).click();
-      browser.sleep(300);
+      const vendorLink = element(by.css('[class*=purposes_body]')).element(by.css('[class*=purposes_vendorLink]'));
+      await browser.executeScript('arguments[0].click()', vendorLink);
+      browser.sleep(800);
       expect(element(by.css('[class*=purposes_vendorList]')).isPresent()).toBe(true);
     });
   });
