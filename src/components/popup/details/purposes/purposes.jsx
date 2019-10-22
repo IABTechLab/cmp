@@ -13,7 +13,18 @@ export default class Purposes extends Component {
 	state = {
 		selectedPurposeIndex: 0,
 		showLocalVendors: false,
-		localVendors: []
+		localVendors: [],
+		selectedPurposeIdList: {
+			0: false,
+			1: false,
+			2: false,
+			3: false, 
+			4: false, 
+			5: false, 
+			6: false, 
+			7: false, 
+			8: false
+		}
 	};
 
 	static defaultProps = {
@@ -24,19 +35,24 @@ export default class Purposes extends Component {
 		selectedCustomPurposeIds: new Set()
 	};
 
+	handleSelectPurposeDetail = (index, e) => {
+		console.log('event', e)
+		// e.stopPropagation();
+		let updatedSelection = { ...this.state.selectedPurposeIdList };
+		updatedSelection[index] = !updatedSelection[index];
 
-	handleSelectPurposeDetail = index => {
-		return () => {
-			this.setState({
-				selectedPurposeIndex: index,
-				showLocalVendors: false,
-				localVendors: []
-			}, this.props.updateCSSPrefs);
-		};
+		this.setState({
+			selectedPurposeIndex: index,
+			showLocalVendors: false,
+			localVendors: [],
+			selectedPurposeIdList: updatedSelection
+		}, this.props.updateCSSPrefs);
 	};
 
-	handleSelectPurpose = ({isSelected}) => {
-		const {selectedPurposeIndex} = this.state;
+	handleSelectPurpose = ({isSelected, dataId}) => {
+		// const { selectedPurposeIndex } = this.state;
+		// this.setState({selectedPurposeIndex: dataId});
+
 		const {
 			purposes,
 			customPurposes,
@@ -45,9 +61,13 @@ export default class Purposes extends Component {
 			updateCSSPrefs
 		} = this.props;
 		const allPurposes = [...purposes, ...customPurposes];
-		const id = allPurposes[selectedPurposeIndex].id;
+		console.log('dataId', dataId)
+		console.log('allpurposes: ', allPurposes);
+		console.log('selectedPurpose: ', allPurposes[dataId]);
 
-		if (selectedPurposeIndex < purposes.length) {
+		const id = allPurposes[dataId].id;
+		console.log('dataId', dataId, 'purposes length: ', purposes.length)
+		if (dataId < purposes.length) {
 			selectPurpose(id, isSelected);
 		}
 		else {
@@ -114,6 +134,26 @@ export default class Purposes extends Component {
 			selectedPurposeIds.has(selectedPurposeId) :
 			selectedCustomPurposeIds.has(selectedPurposeId);
 
+		let selectedPurposesList = Object.keys(selectedPurposeIdList).map((_, purposeId) => allPurposes[purposeId]);
+		let selectedPurposesIds = selectedPurposesList.map((_, index) => {
+			return selectedPurposeIdList[index] ? selectedPurposesList[index].id : -1;
+		});
+
+		let purposeLocalizePrefixes = selectedPurposesIds.map((selectedId, index) => {
+			return selectedId > -1 ? (selectedId >= purposes.length ? `customPurpose${selectedId}` : `purpose${selectedId}`) : '';
+		});
+
+		let purposesAreActive = selectedPurposesIds.map((id, index) => {
+			console.log('purposes active id: ', id)
+			if (id > -1) {
+				return index < purposes.length ? selectedPurposeIds.has(id) : selectedCustomPurposeIds.has(id);
+			} else {
+				return false;
+			}
+		});
+
+		console.log('purposesAreActive', purposesAreActive)
+
 		return (
 			<div class={style.container} >
 				<div class={style.disclaimer + " primaryText"}>
@@ -134,11 +174,11 @@ export default class Purposes extends Component {
 						});
 
 						return (
-							<div class={[style.purposeItem, selectedPurposeIndex === index ? style.selectedPurpose : ''].join(' ')}
-								onClick={this.handleSelectPurposeDetail(index)}
+							<div class={[style.purposeItem, window.outerWidth >= 812 ? (selectedPurposeIndex === index ? style.selectedPurpose : '') : (selectedPurposeIdList[index] === true ? style.selectedPurpose : '')].join(' ')}
+								
 							>
-								<input type="radio" id={`collapsible${index}`} name="purposeSelection" onClick={handleClick}/>
-								<label class={style.labelWrapper} for={`collapsible${index}`} ref={ref}>
+								<input type="checkbox" id={`collapsible${index}`} name="purposeSelection" onClick={handleClick} />
+								<label class={style.labelWrapper} for={`collapsible${index}`} ref={ref} onClick={(e) => this.handleSelectPurposeDetail(index, e)}>
 									<LocalLabel localizeKey={`${index >= purposes.length ? 'customPurpose' : 'purpose'}${purpose.id}.menu`}>{purpose.name}</LocalLabel>
 								</label>
 							
@@ -148,12 +188,12 @@ export default class Purposes extends Component {
 											<div class={style.purposeDetail + " primaryText"}>
 												<div class={style.detailHeader}>
 													<div class={style.title}>
-														<LocalLabel localizeKey={`${currentPurposeLocalizePrefix}.title`}>{selectedPurpose.name}</LocalLabel>
+														<LocalLabel localizeKey={`${purposeLocalizePrefixes[index]}.title`}>{selectedPurposesList[index].name}</LocalLabel>
 													</div>
 												</div>
 
 												<div class={style.body}>
-													<p><LocalLabel providedValue={selectedPurpose.description} localizeKey={`${currentPurposeLocalizePrefix}.description`} /></p>
+													<p><LocalLabel providedValue={selectedPurposesList[index].description} localizeKey={`${purposeLocalizePrefixes[index]}.description`} /></p>
 													<p><LocalLabel providedValue={localization && localization.purposes ? localization.purposes.featureHeader : ''} localizeKey='featureHeader'>This will include the following features:</LocalLabel></p>
 													<ul>
 													{features.map((feature, index) => (
@@ -163,13 +203,14 @@ export default class Purposes extends Component {
 													<div class={style.switchWrap}>
 														<div class={style.active}>
 															<Switch
-																isSelected={purposeIsActive}
+																isSelected={purposesAreActive[index]}
 																onClick={this.handleSelectPurpose}
+																dataId={index}
 															/>
-															{purposeIsActive &&
+															{purposesAreActive[index] &&
 																<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.active : ''} localizeKey='active'>Active</LocalLabel>
 															}
-															{!purposeIsActive &&
+															{!purposesAreActive[index] &&
 																<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.inactive : ''} localizeKey='inactive'>Inactive</LocalLabel>
 															}
 														</div>
@@ -243,6 +284,7 @@ export default class Purposes extends Component {
 												<Switch
 													isSelected={purposeIsActive}
 													onClick={this.handleSelectPurpose}
+													dataId={selectedPurposeIndex}
 												/>
 												{purposeIsActive &&
 													<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.active : ''} localizeKey='active'>Active</LocalLabel>
