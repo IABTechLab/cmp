@@ -36,7 +36,6 @@ export default class Purposes extends Component {
 	};
 
 	handleSelectPurposeDetail = (index, e) => {
-		console.log('event', e)
 		// e.stopPropagation();
 		let updatedSelection = { ...this.state.selectedPurposeIdList };
 		updatedSelection[index] = !updatedSelection[index];
@@ -50,9 +49,6 @@ export default class Purposes extends Component {
 	};
 
 	handleSelectPurpose = ({isSelected, dataId}) => {
-		// const { selectedPurposeIndex } = this.state;
-		// this.setState({selectedPurposeIndex: dataId});
-
 		const {
 			purposes,
 			customPurposes,
@@ -61,12 +57,8 @@ export default class Purposes extends Component {
 			updateCSSPrefs
 		} = this.props;
 		const allPurposes = [...purposes, ...customPurposes];
-		console.log('dataId', dataId)
-		console.log('allpurposes: ', allPurposes);
-		console.log('selectedPurpose: ', allPurposes[dataId]);
-
 		const id = allPurposes[dataId].id;
-		console.log('dataId', dataId, 'purposes length: ', purposes.length)
+
 		if (dataId < purposes.length) {
 			selectPurpose(id, isSelected);
 		}
@@ -144,15 +136,12 @@ export default class Purposes extends Component {
 		});
 
 		let purposesAreActive = selectedPurposesIds.map((id, index) => {
-			console.log('purposes active id: ', id)
 			if (id > -1) {
 				return index < purposes.length ? selectedPurposeIds.has(id) : selectedCustomPurposeIds.has(id);
 			} else {
 				return false;
 			}
 		});
-
-		console.log('purposesAreActive', purposesAreActive)
 
 		return (
 			<div class={style.container} >
