@@ -12,9 +12,29 @@ class LocalLabel extends Label {
 export default class Purposes extends Component {
 	state = {
 		selectedPurposeIndex: 0,
-		showLocalVendors: false,
-		localVendors: [],
 		selectedPurposeIdList: {
+			0: false,
+			1: false,
+			2: false,
+			3: false, 
+			4: false, 
+			5: false, 
+			6: false, 
+			7: false, 
+			8: false
+		},
+		localVendors: {
+			0: [],
+			1: [],
+			2: [],
+			3: [], 
+			4: [], 
+			5: [], 
+			6: [], 
+			7: [], 
+			8: []
+		},
+		showLocalVendors: {
 			0: false,
 			1: false,
 			2: false,
@@ -35,15 +55,12 @@ export default class Purposes extends Component {
 		selectedCustomPurposeIds: new Set()
 	};
 
-	handleSelectPurposeDetail = (index, e) => {
-		// e.stopPropagation();
+	handleSelectPurposeDetail = (index) => {
 		let updatedSelection = { ...this.state.selectedPurposeIdList };
 		updatedSelection[index] = !updatedSelection[index];
 
 		this.setState({
 			selectedPurposeIndex: index,
-			showLocalVendors: false,
-			localVendors: [],
 			selectedPurposeIdList: updatedSelection
 		}, this.props.updateCSSPrefs);
 	};
@@ -56,36 +73,50 @@ export default class Purposes extends Component {
 			selectCustomPurpose,
 			updateCSSPrefs
 		} = this.props;
+
 		const allPurposes = [...purposes, ...customPurposes];
 		const id = allPurposes[dataId].id;
 
 		if (dataId < purposes.length) {
 			selectPurpose(id, isSelected);
-		}
-		else {
+		} else {
 			selectCustomPurpose(id, isSelected);
 		}
 	};
 
-	onShowLocalVendors = () => {
-		const { selectedPurposeIndex } = this.state;
+	onShowLocalVendors = (index = this.state.selectedPurposeIndex) => {
+		const { localVendors, showLocalVendors } = this.state;
 		const { vendors, updateCSSPrefs } = this.props;
-		const localVendors = vendors.map((vendor) => {
-			let purposeId = selectedPurposeIndex + 1;
+		
+		const localVendorList = vendors.map((vendor) => {
+			let purposeId = index + 1;
 			if (	vendor.purposeIds.indexOf(purposeId) !== -1 ||
 						vendor.legIntPurposeIds.indexOf(purposeId) !== -1 ) return vendor;
 		}).filter((vendor) => vendor);
 
+		let updatedLocalVendors = { ...localVendors };
+		updatedLocalVendors[index] = localVendorList;
+
+		let updatedShowLocalVendors = { ...showLocalVendors };
+		updatedShowLocalVendors[index] = true;
+
 		this.setState({
-			showLocalVendors: true,
-			localVendors: localVendors
-		}, () => { this.setState({ showLocalVendors: true, localVendors: localVendors }) });
+			localVendors: updatedLocalVendors,
+			showLocalVendorss: updatedShowLocalVendors
+		}, () => { this.setState({ localVendors: updatedLocalVendors, showLocalVendors: updatedShowLocalVendors }) });
 	};
 
-	onHideLocalVendors = () => {
+	onHideLocalVendors = (index) => {
+		const { showLocalVendors, localVendors } = this.state;
+		let updatedShowLocalVendors = { ...showLocalVendors };
+		updatedShowLocalVendors[index] = false;
+
+		let updatedLocalVendors = { ...localVendors };
+		updatedLocalVendors[index] = [];
+
 		this.setState({
-			showLocalVendors: false,
-			localVendors: []
+			showLocalVendors: updatedShowLocalVendors,
+			localVendors: updatedLocalVendors
 		});
 	};
 
@@ -112,7 +143,7 @@ export default class Purposes extends Component {
 		const {
 			selectedPurposeIndex,
 			showLocalVendors,
-			selectedPurposeIdList
+			selectedPurposeIdList,
 		} = state;
 		let {
 			localVendors
@@ -163,11 +194,9 @@ export default class Purposes extends Component {
 						});
 
 						return (
-							<div class={[style.purposeItem, window.outerWidth >= 812 ? (selectedPurposeIndex === index ? style.selectedPurpose : '') : (selectedPurposeIdList[index] === true ? style.selectedPurpose : '')].join(' ')}
-								
-							>
+							<div class={[style.purposeItem, window.outerWidth >= 812 ? (selectedPurposeIndex === index ? style.selectedPurpose : '') : (selectedPurposeIdList[index] === true ? style.selectedPurpose : '')].join(' ')}>
 								<input type="checkbox" id={`collapsible${index}`} name="purposeSelection" onClick={handleClick} />
-								<label class={style.labelWrapper} for={`collapsible${index}`} ref={ref} onClick={(e) => this.handleSelectPurposeDetail(index, e)}>
+								<label class={style.labelWrapper} for={`collapsible${index}`} ref={ref} onClick={() => this.handleSelectPurposeDetail(index)}>
 									<LocalLabel localizeKey={`${index >= purposes.length ? 'customPurpose' : 'purpose'}${purpose.id}.menu`}>{purpose.name}</LocalLabel>
 								</label>
 							
@@ -207,17 +236,17 @@ export default class Purposes extends Component {
 															<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.switchText : ''} localizeKey="switchText">Publisher and their partners could collect anonymized information in order to improve your experience on our site.</LocalLabel>
 														</span>
 													</div>
-													{!showLocalVendors &&
-													<a class={style.vendorLink} onClick={this.onShowLocalVendors}>
+													{!showLocalVendors[index] &&
+													<a class={style.vendorLink} onClick={() => this.onShowLocalVendors(index)}>
 														<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.showVendors : ''} localizeKey='showVendors'>Show companies</LocalLabel>
 													</a>
 													}
-													{showLocalVendors &&
-													<a class={style.vendorLink} onClick={this.onHideLocalVendors}>
+													{showLocalVendors[index] &&
+													<a class={style.vendorLink} onClick={() => this.onHideLocalVendors(index)}>
 														<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.hideVendors : ''} localizeKey='hideVendors'>Hide companies</LocalLabel>
 													</a>
 													}
-													{showLocalVendors &&
+													{showLocalVendors[index] &&
 														(<div>
 															<div class={style.vendorHeader}>
 																<table class={style.vendorList}>
@@ -231,7 +260,7 @@ export default class Purposes extends Component {
 															<div class={style.vendorContent}>
 																<table class={style.vendorList}>
 																	<tbody>
-																	{localVendors.map(({name, policyUrl}, index) => (
+																	{localVendors[index].map(({name, policyUrl}, index) => (
 																		<tr key={index + name} class={index % 2 === 1 ? style.even : ''}>
 																			<td><a href={policyUrl} target='_blank'><div class={style.vendorName}>{name}</div></a></td>
 																		</tr>
@@ -286,17 +315,17 @@ export default class Purposes extends Component {
 												<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.switchText : ''} localizeKey="switchText">Publisher and their partners could collect anonymized information in order to improve your experience on our site.</LocalLabel>
 											</span>
 										</div>
-										{!showLocalVendors &&
-										<a class={style.vendorLink} onClick={this.onShowLocalVendors}>
+										{!showLocalVendors[selectedPurposeIndex] &&
+										<a class={style.vendorLink} onClick={() => this.onShowLocalVendors(selectedPurposeIndex)}>
 											<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.showVendors : ''} localizeKey='showVendors'>Show companies</LocalLabel>
 										</a>
 										}
-										{showLocalVendors &&
-										<a class={style.vendorLink} onClick={this.onHideLocalVendors}>
+										{showLocalVendors[selectedPurposeIndex] &&
+										<a class={style.vendorLink} onClick={() => this.onHideLocalVendors(selectedPurposeIndex)}>
 											<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.hideVendors : ''} localizeKey='hideVendors'>Hide companies</LocalLabel>
 										</a>
 										}
-										{showLocalVendors &&
+										{showLocalVendors[selectedPurposeIndex] &&
 											(<div>
 												<div class={style.vendorHeader}>
 													<table class={style.vendorList}>
@@ -310,7 +339,7 @@ export default class Purposes extends Component {
 												<div class={style.vendorContent}>
 													<table class={style.vendorList}>
 														<tbody>
-														{localVendors.map(({name, policyUrl}, index) => (
+														{localVendors[selectedPurposeIndex].map(({name, policyUrl}, index) => (
 															<tr key={index + name} class={index % 2 === 1 ? style.even : ''}>
 																<td><a href={policyUrl} target='_blank'><div class={style.vendorName}>{name}</div></a></td>
 															</tr>
