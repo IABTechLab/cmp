@@ -81,11 +81,12 @@ describe('purposes page', () => {
       });
 
       it('clicking on an unselected purpose selects it', () => {
-        let el = element(by.css('[class*=purposes_body]'));
+        let el = element(by.css('[class*=purposes_purposeWrapper]'));
         expect(el.getAttribute('innerText')).toContain("The storage of information, or access to information that is already stored, on your device such as advertising identifiers, device identifiers, cookies, and similar technologies.");
         const purposes = element.all(by.css("[class*=purposes_purposeItem]"));
+        
         purposes.get(1).click();
-        el = element(by.css('[class*=purposes_body]'));
+        el = element(by.css('[class*=purposes_purposeWrapper]'));
         expect(el.getAttribute('innerText')).toContain("The collection and processing of information about your use of this service to subsequently personalise advertising and/or content for you in other contexts, such as on other websites or apps, over time. Typically, the content of the site or app is used to make inferences about your interests, which inform future selection of advertising and/or content.");
         expect(el.getAttribute('innerText')).not.toContain("The storage of information, or access to information that is already stored, on your device such as advertising identifiers, device identifiers, cookies, and similar technologies.");
       });
@@ -94,8 +95,9 @@ describe('purposes page', () => {
 
   describe('purpose controls', () => {
     it('clicking a toggle works', async () => {
-      const switchEl = element(by.css('[class*=switch_switch]'));
-      const parentEl = element(by.css('[class*=purposes_active]'));
+      const switchEl = element(by.css('[class*=purposes_purposeWrapper]')).element(by.css('[class*=switch_switch]'));
+      const parentEl = element(by.css('[class*=purposes_purposeWrapper]')).element(by.css('[class*=purposes_active]'));
+     
       expect(switchEl.getAttribute('class')).toContain('switch_isSelected');
       expect(parentEl.getText()).not.toContain('Inactive');
       await browser.executeScript('arguments[0].click()', switchEl);

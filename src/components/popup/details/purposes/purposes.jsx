@@ -351,11 +351,11 @@ export default class Purposes extends Component {
 										}
 									</div>
 								</div>
-							</div>
+							</div> 
 						</div>
 					}
+					</div>
 				</div>
-			</div>
 		);
 	}
 }
