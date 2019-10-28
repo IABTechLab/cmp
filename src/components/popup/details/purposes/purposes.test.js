@@ -26,6 +26,7 @@ describe('Purposes', () => {
 		/>, scratch);
 
 		const purposeLinks = purposes.querySelectorAll(`.${style.purposeItem}`);
+
 		expect(purposeLinks.length).to.equal(3);
 	});
 
@@ -46,7 +47,7 @@ describe('Purposes', () => {
 			selectCustomPurpose={selectCustomPurpose}
 		/>, scratch);
 
-		purposes.handleSelectPurposeDetail(1);
+		purposes.handleSelectPurposeDetail(1)();
 		purposes.handleSelectPurpose({isSelected: true, dataId: 1});
 
 		expect(selectPurpose.mock.calls[0][0]).to.equal(2);
@@ -74,7 +75,7 @@ describe('Purposes', () => {
 			selectCustomPurpose={selectCustomPurpose}
 		/>, scratch);
 
-		purposes.handleSelectPurposeDetail(2);
+		purposes.handleSelectPurposeDetail(2)();
 		purposes.handleSelectPurpose({isSelected: true, dataId: 2});
 
 		expect(selectCustomPurpose.mock.calls[0][0]).to.equal(1);
