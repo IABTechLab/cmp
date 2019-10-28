@@ -26,6 +26,7 @@ describe('Purposes', () => {
 		/>, scratch);
 
 		const purposeLinks = purposes.querySelectorAll(`.${style.purposeItem}`);
+
 		expect(purposeLinks.length).to.equal(3);
 	});
 
@@ -47,7 +48,7 @@ describe('Purposes', () => {
 		/>, scratch);
 
 		purposes.handleSelectPurposeDetail(1)();
-		purposes.handleSelectPurpose({isSelected: true});
+		purposes.handleSelectPurpose({isSelected: true, dataId: 1});
 
 		expect(selectPurpose.mock.calls[0][0]).to.equal(2);
 		expect(selectPurpose.mock.calls[0][1]).to.equal(true);
@@ -75,7 +76,7 @@ describe('Purposes', () => {
 		/>, scratch);
 
 		purposes.handleSelectPurposeDetail(2)();
-		purposes.handleSelectPurpose({isSelected: true});
+		purposes.handleSelectPurpose({isSelected: true, dataId: 2});
 
 		expect(selectCustomPurpose.mock.calls[0][0]).to.equal(1);
 		expect(selectCustomPurpose.mock.calls[0][1]).to.equal(true);

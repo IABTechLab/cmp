@@ -5,7 +5,7 @@
 }
 
 div.intro {
-padding: 0 32px;
+// padding: 0 32px;
 max-height: 100%;
 
     .topWrapper {
@@ -27,7 +27,7 @@ max-height: 100%;
                 }
             }
             .description {
-                padding: 10px 10px 10px 0px;
+                padding: 10px;
             }
         }
         .options {
@@ -45,38 +45,93 @@ max-height: 100%;
     }
     .rejectAll {
         width: 270px;
-        margin-right: 10px !important;
+        margin-right: 10px;
     }
 
     .acceptAll {
         width: 270px;
-        margin-right: -25px !important;
+        margin-right: -25px;
     }
 }
 
-@media (max-width: 800px) {
-    .topWrapper {
-        display: block !important;
+@media @smartPhonePortrait {
+	.intro {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 
-        .description {
-            padding: 10px !important;
-            display: block !important;
-        }
-        .options {
-            margin: 0 auto !important;
-        }
-    }
+		.topWrapper {
+			display: block !important;
+			padding: 5px 15px!important;
+
+			.textWrapper {
+				.description {
+					padding: 5px 0px!important;
+					
+					.contentMessage {
+						font-size: 16px;
+						line-height: 1.0;
+					}
+				}
+			}
+			.options {
+				flex-direction: row!important;
+				justify-content: center;
+				padding-top: 0px!important;
+
+				button {
+					width: 50%;
+					display: flex;
+					justify-content: center;
+				}
+			}
+		}
+	}
 }
 
-@media (max-width: 620px) {
-    .description {
-        display: block !important;
-    }
-    .topWrapper {
-        display: block !important;
-
-        .options {
-            margin: 0 auto !important;
-        }
-    }
+@media @smartPhoneLandscape {
+	.intro {
+		.topWrapper {
+			.textWrapper {
+				.description {
+					.contentMessage {
+						line-height: 1.1!important;
+					}
+				}
+			}
+			.options {
+				button {
+					width: auto!important;
+					height: auto!important;
+				}
+			}
+		}
+	}
 }
+
+// @media (max-width: 800px) {
+//     .topWrapper {
+//         display: block !important;
+
+//         .description {
+//             padding: 10px !important;
+//             display: block !important;
+//         }
+//         .options {
+//             margin: 0 auto !important;
+//         }
+//     }
+// }
+
+// @media (max-width: 620px) {
+//     .description {
+//         display: block !important;
+//     }
+//     .topWrapper {
+//         display: block !important;
+
+//         .options {
+//             margin: 0 auto !important;
+//         }
+//     }
+// }
