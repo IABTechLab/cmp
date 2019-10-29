@@ -150,7 +150,6 @@ export default class Purposes extends Component {
 					</div>
 					{selectedPurpose &&
 						<div class={style.purposeWrapper}>
-							<div class={style.purposeDescription}>
 							<Item
 								purposes={purposes}
 								features={features}
@@ -170,7 +169,6 @@ export default class Purposes extends Component {
 								onHideLocalVendors={this.onHideLocalVendors}
 								handleSelectPurpose={this.handleSelectPurpose}
 							/>
-							</div>
 						</div>
 					}
 				</div>
