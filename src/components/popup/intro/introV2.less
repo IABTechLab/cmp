@@ -1,11 +1,11 @@
-@import '../../../style/variables';
+@import '../../../style/variables.less';
 
 .imagePadding {
 	padding-left: 10px;
 }
 
 div.intro {
-padding: 0 32px;
+// padding: 0 32px;
 max-height: 100%;
 
 	.logo {
@@ -15,6 +15,7 @@ max-height: 100%;
 	}
 	.topWrapper {
 		display: inline-flex;
+		padding: 0 32px;
 
 		.textWrapper {
 			display: flex;
@@ -61,66 +62,70 @@ max-height: 100%;
 	}
 }
 
-
-@media (max-width: 414px) {
+@media @smartPhonePortrait {
 	.intro {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-	}
 
-	.title {
-		font-size: 28px !important;
-	}
-}
-
-@media (max-width: 800px) {
-	.topWrapper {
-		display: block !important;
-
-		.description {
-			padding: 10px !important;
+		.topWrapper {
 			display: block !important;
-		}
-		.options {
-			margin: 0 auto !important;
+			padding: 5px 15px!important;
+
+			.textWrapper {
+				.titleContainer {
+					margin: 0 auto;
+					padding: 0px!important;
+					
+					.title {
+						font-size: 20px;
+					}
+				}
+				.description {
+					padding: 5px 0px!important;
+					
+					.contentMessage {
+						font-size: 16px;
+						line-height: 1.0;
+					}
+				}
+			}
+			.options {
+				flex-direction: row!important;
+				justify-content: center;
+				padding-top: 0px!important;
+
+				button {
+					width: 50%;
+					display: flex;
+					justify-content: center;
+				}
+			}
 		}
 	}
 }
 
-@media (max-width: 620px) {
-	.description {
-		flex-direction: column;
-		text-align: center;
-	}
-
-	.options {
-		align-items: center !important;
-		flex-direction: column;
-	}
-
-	.rejectAll {
-		margin-right: 0px !important;
-		margin-bottom: 10px !important;
-	}
-
-	.contentMessage {
-		padding-right: 0px !important;
-	}
-	.topWrapper {
-		display: block !important;
-
-		.logo {
-			display: block;
-			margin: 0 auto;
-			width: initial !important;
-			height: initial !important;
-			max-width: 80%;
-			max-height: 100px;
-			float: none !important;
-		}
-		.options {
-			margin: 0 auto !important;
+@media @smartPhoneLandscape {
+	.intro {
+		.topWrapper {
+			.textWrapper {
+				.titleContainer {
+					.title {
+						font-size: 16px!important;
+					}
+				}
+				.description {
+					.contentMessage {
+						line-height: 1.1!important;
+					}
+				}
+			}
+			.options {
+				button {
+					width: auto!important;
+					height: auto!important;
+				}
+			}
 		}
 	}
 }

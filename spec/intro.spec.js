@@ -6,7 +6,7 @@ describe('intro page', () => {
     utils.clearCookies();
     browser.waitForAngularEnabled(false);
     browser.get("/");
-    browser.sleep(300);
+    browser.sleep(800);
   });
 
   it('smoke test', () => {

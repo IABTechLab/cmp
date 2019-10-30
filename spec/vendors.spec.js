@@ -5,7 +5,7 @@ describe('vendors page', () => {
     utils.clearCookies();
     browser.waitForAngularEnabled(false);
     browser.get("/");
-    browser.sleep(300);
+    browser.sleep(800);
     element(by.css('[class*=introV2_rejectAll]')).click();
     element.all(by.css('[class*=purposes_vendorLink]')).first().click();
   });
@@ -35,14 +35,14 @@ describe('vendors page', () => {
   describe('vendors table', () => {
     it('renders', () => {
       const table = element(by.css('[class*=vendors_vendorContent]')).element(by.css('[class*=vendors_vendorList]'));
-      expect(table.getText()).toContain('Globex');
-      expect(table.getText()).toContain('Initech');
+      expect(table.getText()).toContain('Exponential Interactive, Inc');
+      expect(table.getText()).toContain('Captify Technologies Limited');
     });
 
     it('renders links to vendor privacy pages', () => {
       const el = element.all(by.name('vendorLink')).first();
-      expect(el.getText()).toContain('Globex');
-      expect(el.getAttribute('href')).toContain('www.example.com');
+      expect(el.getText()).toContain('Exponential Interactive, Inc');
+      expect(el.getAttribute('href')).toContain('http://exponential.com/privacy');
     });
   });
 

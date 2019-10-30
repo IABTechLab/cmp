@@ -28,7 +28,8 @@
 
 .footerV2 {
     clear: both;
-    margin: 0 -35px;
+    // margin: 0 -35px;
+    width: 100%;
 }
 
 .message {
@@ -74,11 +75,12 @@
     position: absolute;
 	background: white;
 	align-items: center;
-	background-color: white;
+    background-color: white;
+    overflow-y: scroll;
 
-	@media (max-width: 440px) {
-		width: 100%;
-    }
+	// @media (max-width: 440px) {
+	// 	width: 100%;
+    // }
 	ul {
 		margin: 0 0 15px 0;
 		padding: 0;
@@ -92,7 +94,7 @@
 }
 
 .content {
-    width: 80%;
+    width: 100%;
     padding: 12px 24px 0px 24px;
     font-size: 15px;
     line-height: 1.25;
@@ -108,6 +110,8 @@
 
 .optionsWrapper {
     margin-top: auto;
+    display: flex;
+    justify-content: center;
 }
 
 .infoFooter {
@@ -131,35 +135,58 @@
     padding: 14px 12px !important;
 }
 
-@media (max-width: 414px) {
+@media @smartPhonePortrait {
     .container {
-        font-size: 12px;
-        height: 100%;
-    }
+        height: 51.5%;
+        position: fixed;
 
-    .infoFooter {
-        padding: 0 !important;
-        margin: 2px;
-    }
+        .base {
+            .headerMessage {
+                font-size: 15px!important;
+            }
+        }
 
-    .base {
-        position: absolute;
-        bottom: 0;
-        margin: 0 !important;
-    }
+        .wrapper {
+            flex-direction: column!important;
 
-    .content {
-        padding: 6px 24px 0;
-        margin-top: 60px;
-    }
+            .optionsWrapper {
+                .infoFooter {
+                    flex-direction: row!important;
 
-    .headerMessage {
-        font-size: 20px;
+                    button {
+                        width: auto!important;
+                        height: auto!important;
+                    }
+                }
+            }
+        }
     }
 }
 
-@media (max-width: 615px) {
-    .wrapper {
-        display: block !important;
+@media @smartPhoneLandscape {
+    .container {
+        height: 61.5%;
+        position: fixed;
+
+        .base {
+            .headerMessage {
+                font-size: 15px!important;
+            }
+        }
+
+        .wrapper {
+            flex-direction: column!important;
+
+            .optionsWrapper {
+                .infoFooter {
+                    flex-direction: row!important;
+
+                    button {
+                        width: auto!important;
+                        height: auto!important;
+                    }
+                }
+            }
+        }
     }
 }

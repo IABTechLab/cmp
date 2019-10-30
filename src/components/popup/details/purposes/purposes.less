@@ -11,17 +11,6 @@
 		border-bottom: 1px solid @color-border;
 	}
 
-	.switchWrap {
-		display: flex;
-
-		.switchText {
-			font-size: 14px;
-			line-height: 24px;
-			padding-top: 6px;
-			padding-left: 18px;
-		}
-	}
-
 	.purposes {
 		display: flex;
 		flex: 1;
@@ -31,20 +20,189 @@
 			font-size: 12px;
 			font-weight: bold;
 			flex: 1;
-			max-width: 200px;
+			overflow: auto;
+			@media @smartPhonePortrait, @smartPhoneLandscape {
+				max-width: 100%;
+			}
+			@media @desktop, @iPad {
+				max-width: 200px;
+			}
 			border-right: 1px solid @color-border;
-			overflow-y: auto;
-			overflow-x: hidden;
 		}
 		.purposeItem {
-			display: flex;
-			align-items: center;
-			height: 50px;
-			padding-left: 10px;
+			display: block;
+			overflow: hidden;
 			background-color: @color-border;
-			border-bottom: 1px solid white;
+			border-bottom: 1px solid white!important;
 			text-align: left;
+			position: relative;
 			cursor: pointer;
+
+			.labelWrapper {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				min-height: 50px;
+				padding: 1em;
+				transition: all 0.25s ease-out;
+
+				&::after {
+					@media @desktop, @iPad {
+						display: none;
+					}
+					content: ' ';
+					display: inline-block;
+					
+					border-top: 5px solid transparent;
+					border-bottom: 5px solid transparent;
+					border-left: 5px solid currentColor;
+					
+					vertical-align: middle;
+					margin-right: .7rem;
+					transform: translateY(-2px);
+					
+					transition: transform .2s ease-out;
+				}
+			}
+
+			.collapsibleContent {
+				// max-height: 0px;
+				height: 0;
+				overflow: hidden;
+				transition: max-height .25s ease-in-out;
+				@media @desktop, @iPad {
+					display: none;
+				}
+				.contentInner {
+					color: black;
+					background: white;
+					padding: .5rem 1rem;
+
+					.purposeDescription {
+						flex: 1;
+						padding: 20px;
+						overflow: auto;
+					
+						.purposeDetail {
+						
+							.detailHeader {
+								display: flex;
+							}
+							.title {
+								font-size: 24px;
+								font-weight: bold;
+								flex: 1 1 auto;
+								@media @smartPhonePortrait, @smartPhoneLandscape {
+									font-size: 20px;
+									padding-bottom: 5px;
+								}
+							}
+						
+							.active {
+								font-size: 10px;
+								color: @color-primary;
+								text-align: center;
+								padding-top: 6px;
+								@media @smartPhonePortrait, @smartPhoneLandscape {
+									flex: 1 1 auto;
+								}
+							}
+							.body {
+								margin: 5% 0;
+								font-weight: 400;
+								.switchWrap {
+									display: flex;
+							
+									.switchText {
+										font-size: 14px;
+										line-height: 24px;
+										padding-top: 6px;
+										padding-left: 18px;
+									}
+								}
+
+								.vendorLink {
+									display: block;
+									margin-top: 30px;
+									font-size: 12px;
+									margin-bottom: 20px;
+								}
+								.vendorHeader {
+									display: flex;
+									flex-shrink: 0;
+								}
+								.vendorContent {
+									display: flex;
+								}
+								.vendorList {
+									border: 1px solid @color-border;
+								}
+								.vendorName {
+									min-height: 30px;
+									display: flex;
+									align-items: center;
+								}
+								ul {
+									margin: 0 0 15px 0;
+									padding: 0;
+									list-style-position: inside;
+								}
+								table {
+									width: 100%;
+									border-collapse: collapse;
+								
+									thead tr {
+										background-color: @color-table-background;
+										border: 1px solid @color-border;
+										text-transform: uppercase;
+									}
+								
+									tr {
+										min-height: 40px;
+										th {
+											font-weight: bold;
+										}
+										td, th {
+											text-align: left;
+											padding: 5px;
+											&:first-child {
+												width: 100%;
+											}
+											&:last-child {
+												padding-right: 25px;
+											}
+										}
+									}
+								
+									tr.even {
+										background-color: @color-table-background;
+									}
+								}
+							}
+						}
+					}
+					
+				}
+			}
+
+			input {
+				display: none;
+				position: absolute;
+			}
+
+			input:checked ~ .collapsibleContent {
+				// max-height: 100%;
+				height: 100%;
+			}
+
+			input:checked + .labelWrapper::after {
+				transform: rotate(90deg) translateX(-3px);
+			}
+			  
+			input:checked + .labelWrapper {
+				border-bottom-right-radius: 0;
+				border-bottom-left-radius: 0;
+			}
 
 			&:last-child {
 				border-bottom: 1px solid @color-border;
@@ -58,94 +216,120 @@
 		.featureItem {
 
 		}
-		.purposeDescription {
-			flex: 1;
-			padding: 20px;
+		.purposeWrapper {
 			overflow: auto;
-		}
-		.purposeDetail {
+			@media @smartPhonePortrait, @smartPhoneLandscape {
+				display: none;
+			}
 
-			.detailHeader {
+			@media @desktop, @iPad {
+				width: 70%;
 				display: flex;
 			}
-			.title {
-				font-size: 24px;
-				font-weight: bold;
-				flex: 1 1 auto;
-				@media @smartphone {
-					font-size: 20px;
-					padding-bottom: 5px;
-				}
-			}
 
-			.active {
-				font-size: 10px;
-				color: @color-primary;
-				text-align: center;
-				padding-top: 6px;
-				@media @smartphone {
-					flex: 1 1 auto;
-				}
-			}
-			.body {
-				margin: 5% 0;
-			}
-		}
-		.vendorLink {
-			display: block;
-			margin-top: 30px;
-			font-size: 12px;
-			margin-bottom: 20px;
-		}
-		.vendorHeader {
-			display: flex;
-			flex-shrink: 0;
-		}
-		.vendorContent {
-			display: flex;
-		}
-		.vendorList {
-			border: 1px solid @color-border;
-		}
-		.vendorName {
-			min-height: 30px;
-			display: flex;
-			align-items: center;
-		}
-        ul {
-            margin: 0 0 15px 0;
-            padding: 0;
-            list-style-position: inside;
-        }
-		table {
-			width: 100%;
-			border-collapse: collapse;
-
-			thead tr {
-				background-color: @color-table-background;
-				border: 1px solid @color-border;
-				text-transform: uppercase;
-			}
-
-			tr {
-				min-height: 40px;
-				th {
-					font-weight: bold;
-				}
-				td, th {
-					text-align: left;
-					padding: 5px;
-					&:first-child {
-						width: 100%;
+			.purposeDescription {
+				flex: 1;
+				padding: 20px;
+				overflow: auto;
+			
+				.purposeDetail {
+				
+					.detailHeader {
+						display: flex;
 					}
-					&:last-child {
-						padding-right: 25px;
+					.title {
+						font-size: 24px;
+						font-weight: bold;
+						flex: 1 1 auto;
+						@media @smartPhonePortrait, @smartPhoneLandscape {
+							font-size: 20px;
+							padding-bottom: 5px;
+						}
+					}
+				
+					.active {
+						font-size: 10px;
+						color: @color-primary;
+						text-align: center;
+						padding-top: 6px;
+						@media @smartPhonePortrait, @smartPhoneLandscape {
+							flex: 1 1 auto;
+						}
+					}
+					.body {
+						margin: 5% 0;
+						font-weight: 400;
+						.switchWrap {
+							display: flex;
+					
+							.switchText {
+								font-size: 14px;
+								line-height: 24px;
+								padding-top: 6px;
+								padding-left: 18px;
+							}
+						}
+
+						.vendorLink {
+							display: block;
+							margin-top: 30px;
+							font-size: 12px;
+							margin-bottom: 20px;
+							cursor: pointer;
+						}
+						.vendorHeader {
+							display: flex;
+							flex-shrink: 0;
+						}
+						.vendorContent {
+							display: flex;
+						}
+						.vendorList {
+							border: 1px solid @color-border;
+						}
+						.vendorName {
+							min-height: 30px;
+							display: flex;
+							align-items: center;
+						}
+						ul {
+							margin: 0 0 15px 0;
+							padding: 0;
+							list-style-position: inside;
+						}
+						table {
+							width: 100%;
+							border-collapse: collapse;
+						
+							thead tr {
+								background-color: @color-table-background;
+								border: 1px solid @color-border;
+								text-transform: uppercase;
+							}
+						
+							tr {
+								min-height: 40px;
+								th {
+									font-weight: bold;
+								}
+								td, th {
+									text-align: left;
+									padding: 5px;
+									&:first-child {
+										width: 100%;
+									}
+									&:last-child {
+										padding-right: 25px;
+									}
+								}
+							}
+						
+							tr.even {
+								background-color: @color-table-background;
+							}
+						}
 					}
 				}
-			}
-
-			tr.even {
-				background-color: @color-table-background;
 			}
 		}
 	}

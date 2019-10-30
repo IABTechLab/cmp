@@ -29,11 +29,14 @@ export default class App extends Component {
 
 		// Footer
 		"div[class*=footer_footer]": {
-			"border-top": "3px solid " + this.props.config.css["color-border"],
+			// "border-top": "3px solid " + this.props.config.css["color-border"],
 			"background-color": this.props.config.css["color-background"]
 		},
-		"div[class*=footerV2_extended]": {"border-top": "3px solid " + this.props.config.css["color-border"]},
-		"div[class*=footerV2_container]": {"background-color": this.props.config.css["color-background"]},
+		// "div[class*=footerV2_extended]": {"border-top": "3px solid " + this.props.config.css["color-border"]},
+		"div[class*=footerV2_container]": {
+			"background-color": this.props.config.css["color-background"],
+			"border-top": "3px solid " + this.props.config.css["color-border"]
+		},
 		"svg": {
 			"background-color": this.props.config.css["color-background"],
 			"fill": this.props.config.css["color-primary"]
