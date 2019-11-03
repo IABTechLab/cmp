@@ -27,6 +27,15 @@ const getConsentData = () => {
 	});
 };
 
+const getLocalConsentData = () => {
+	return Promise.all([
+		cookie.readLocalVendorConsentCookie(),
+		cookie.readLocalPublisherConsentCookie()
+	]).then(([vendorConsentData, publisherConsentData]) => {
+		return { vendorConsentData, publisherConsentData };
+	});
+};
+
 const storeConsentLocally = (vendorConsent, publisherConsent) => {
 	log.info("Save consent locally");
 
@@ -80,6 +89,9 @@ const loadGlobalConsent = ({
 };
 
 const getAndCacheConsentData = () => {
+	// TODO  according to config read vendor and publisher FIRST party cookies
+	// TODO if FIRST party cookies - CONTINUE and read THIRD party async on the background
+
 	return Promise.all([
 		cookie.readLocalVendorConsentCookie(),
 		cookie.readLocalPublisherConsentCookie()
@@ -113,6 +125,9 @@ export function init(configUpdates) {
 	log.debug("Using configuration:", config);
 	// LOG always
 	console.log("Version:", pjson.version);
+
+	// LOAD CONFIG EXTENSION
+	// SETUP AB - TESTING
 	let configUrl = config.remoteConfigUrl;
 
 	if (!!config.abTest === true && Array.isArray(config.variants)) {
@@ -252,6 +267,7 @@ export function init(configUpdates) {
 									store.updateIsEU(response.applies);
 
 									// Render the UI
+									console.log("cmp.cmpShown:", cmp.cmpShown);
 									const App = require("../components/app").default;
 									render(
 										<App

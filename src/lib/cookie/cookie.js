@@ -366,6 +366,39 @@ function writePublisherConsentCookie(publisherConsentData) {
 	return Promise.resolve();
 }
 
+function readVendorFirstPartyConsentCookies() {
+	// TODO
+	// read first party consent cookie
+	log.debug("readFirstPartConsentCookies");
+	return readLocalVendorConsentCookie().catch(err => {
+		log.error("Failed reading global vendor consent cookie", err);
+	});
+}
+
+function readVendorThirdPartyConsentCookies(fallbackToLocal) {
+	// TODO
+	// read third party consent cookie
+	log.debug("readVendorThirdPartyConsentCookies");
+
+	return (
+		sendPortalCommand({
+			command: "readVendorConsent"
+		})
+			.then(result => {
+				log.debug("Read consent data from global cookie", result);
+
+				if (result) {
+					return decodeVendorConsentData(result, "global");
+				}
+				return null;
+			})
+			// TODO move up - error handling up
+			.catch(err => {
+				log.error("Failed reading global vendor consent cookie", err);
+			})
+	);
+}
+
 /**
  * Read vendor consent data from third-party cookie on the
  * global vendor list domain. Fallback to first-party cookie
@@ -467,10 +500,16 @@ function writeLocalVendorConsentCookie(vendorConsentData) {
 }
 
 function readVendorConsentCookie() {
-	// TODO read global euconsent from other url
+	return readLocalVendorConsentCookie().then(cookie => {
+		if (cookie) {
+			return Promise.resolve(cookie);
+		}
+		return readGlobalVendorConsentCookie();
+	});
+	/*	// TODO read global euconsent from other url
 	return config.storeConsentGlobally || config.storePublisherConsentGlobally
 		? readGlobalVendorConsentCookie()
-		: readLocalVendorConsentCookie();
+		: readLocalVendorConsentCookie();*/
 }
 
 function writeVendorConsentCookie(vendorConsentData) {
