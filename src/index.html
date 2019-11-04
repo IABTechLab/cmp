@@ -12,36 +12,48 @@
 	<script>
 		myCustomCallback = (isTrackingReady) => {
 			if(isTrackingReady){
-				(function(window) {
-					window.__cmp = (function() {
-						window.addEventListener('message', function(event) {
+				(function (window) {
+					var query = Qs.parse(window.location.search.replace('?', ''), {
+						allowDots: true,
+					});
+					console.log('Query: ', query);
+					var config = {};
+					for (var param in query) {
+						config[ param ] = query[ param ];
+					}
+					window.__cmp = (function () {
+						window.addEventListener('message', function (event) {
 							window.__cmp.receiveMessage(event);
 						});
 						var commandQueue = [];
-						var cmp = function(command, parameter, callback) {
+						var cmp = function (command, parameter, callback) {
 							commandQueue.push({
 								command: command,
 								parameter: parameter,
-								callback: callback
+								callback: callback,
 							});
 						};
+						cmp.onConfigLoaded = function (config) {
+							var isBrowingBlocked = config.blockBrowsing;
+						};
 						cmp.commandQueue = commandQueue;
-						cmp.receiveMessage = function(event) {
+						cmp.receiveMessage = function (event) {
 							var data = event && event.data && event.data.__cmpCall;
 							if (data) {
 								commandQueue.push({
 									callId: data.callId,
 									command: data.command,
 									parameter: data.parameter,
-									event: event
+									event: event,
 								});
 							}
 						};
-						// TODO testing config - introduce default here
-						// cmp.config = {};
+						cmp.config = config;
 						return cmp;
-					}());
+					})();
 				})(window);
+
+				window.__cmp('renderCmpIfNeeded');(window);
 
 				window.__cmp('renderCmpIfNeeded');
 			} else {
