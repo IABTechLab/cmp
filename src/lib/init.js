@@ -89,9 +89,6 @@ const loadGlobalConsent = ({
 };
 
 const getAndCacheConsentData = () => {
-	// TODO  according to config read vendor and publisher FIRST party cookies
-	// TODO if FIRST party cookies - CONTINUE and read THIRD party async on the background
-
 	return Promise.all([
 		cookie.readLocalVendorConsentCookie(),
 		cookie.readLocalPublisherConsentCookie()
