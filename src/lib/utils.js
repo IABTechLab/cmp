@@ -82,8 +82,9 @@ function checkReprompt(
 	// TODO horrible fix
 	const oldestCookieTime = Math.max(
 		...[
-			vendorConsents.lastUpdated || 0,
-			publisherConsents.lastUpdated || 0
+			vendorConsents.lastUpdated || 0
+			// TODO horrible fix
+			// publisherConsents.lastUpdated || 0
 		].map(getTimestamp)
 	);
 
