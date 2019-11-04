@@ -12,7 +12,7 @@ import { checkIfUserInEU, areConsentsStoredGlobally } from "./utils";
 import log from "./log";
 import config from "./config";
 import { pickVariant } from "./abTesting";
-import { notifySas } from "./sas";
+import { bundleSasNotify } from "./sas";
 
 const metadata = require("../../metadata.json");
 
@@ -143,14 +143,7 @@ export function init(configUpdates) {
 							return cookie
 								.readLocalVendorConsentCookie()
 								.then(euconsent => {
-									return Promise.all(
-										config.sasUrls.map(url => {
-											return notifySas(
-												url,
-												euconsent ? euconsent.consentString : ""
-											);
-										})
-									);
+									return bundleSasNotify(config, euconsent);
 								})
 								.then(() => ({ publisherConsentData, vendorConsentData }));
 						}
