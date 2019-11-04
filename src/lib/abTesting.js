@@ -21,7 +21,9 @@ export const pickVariant = (variants = []) => {
 		log.info(`Using previously selected variantId: ${variantId}`);
 		const variant = findVariantById(variantId, variants);
 		log.info("Variant picked", variant);
-		return variant;
+		if (variant) {
+			return variant;
+		}
 	}
 
 	const probabilitilized = Probability(mapVariants(variants));

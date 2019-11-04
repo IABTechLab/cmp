@@ -174,7 +174,6 @@ export function init(configUpdates) {
 									store.updateIsEU(response.applies);
 
 									// Render the UI
-									console.log("cmp.cmpShown:", cmp.cmpShown);
 									const App = require("../components/app").default;
 									render(
 										<App

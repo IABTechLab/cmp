@@ -83,7 +83,6 @@ function checkReprompt(
 	const oldestCookieTime = Math.max(
 		...[
 			vendorConsents.lastUpdated || 0
-			// TODO horrible fix
 			// publisherConsents.lastUpdated || 0
 		].map(getTimestamp)
 	);
@@ -187,15 +186,4 @@ function areConsentsStoredGlobally(config) {
 		/*config.duplicateConsent &&*/
 		config.storeConsentGlobally || config.storePublisherConsentGlobally
 	);
-}
-
-export function endTimer(startTime) {
-	let endTime = new Date();
-	var timeDiff = endTime - startTime; //in ms
-	// strip the ms
-	timeDiff /= 1000;
-
-	// get seconds
-	var seconds = Math.round(timeDiff);
-	console.log(seconds + " seconds");
 }
