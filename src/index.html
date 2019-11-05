@@ -17,6 +17,7 @@
 						allowDots: true,
 					});
 					console.log('Query: ', query);
+					// TODO default config
 					var config = {};
 					for (var param in query) {
 						config[ param ] = query[ param ];
@@ -52,8 +53,6 @@
 						return cmp;
 					})();
 				})(window);
-
-				window.__cmp('renderCmpIfNeeded');(window);
 
 				window.__cmp('renderCmpIfNeeded');
 			} else {

@@ -5,7 +5,7 @@ const defaultConfig = {
 	companyName: null,
 	storePublisherData: true,
 	customPurposeListLocation: null,
-	storeConsentGlobally: true,
+	storeConsentGlobally: false,
 	storePublisherConsentGlobally: false,
 	globalVendorListLocation: metadata.globalVendorListLocation,
 	globalConsentLocation: metadata.globalConsentLocation,

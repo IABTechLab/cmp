@@ -18,20 +18,23 @@ import { bundleSasNotify } from "./sas";
 import { notifyTimer } from "./timer";
 import { init } from "init";
 import { pickVariant } from "./abTesting";
+import { writeLocalVendorConsentCookie } from "./cookie/cookie";
 
 const metadata = require("../../metadata.json");
 
 export function coreInit(config) {
 	notifyTimer("cmp_init");
 	// USE DEFAULT CONFIG
+	console.log(config);
 	log.debug("Using configuration:", config);
 
 	// Fetch the current local vendor consent before initializing
 	return getLocalConsentData().then(
 		({ publisherConsentData, vendorConsentData }) => {
-			// THERE IS SOMETHING
-			// prepare cmp and stuff
-			if (publisherConsentData || vendorConsentData) {
+			if (vendorConsentData) {
+				console.log("consent:", vendorConsentData);
+				// THERE IS SOMETHING
+				// prepare cmp and stuff
 				const store = new Store({
 					vendorConsentData,
 					publisherConsentData,
@@ -39,11 +42,6 @@ export function coreInit(config) {
 					cmpVersion: metadata.cmpVersion,
 					cookieVersion: 1
 				});
-
-				// THERE IS NOT SOMETHING
-				// fallback to global
-				// getGlobalConsents
-				// Initialize the store with all of our consent data
 
 				const loadVendorsAndPurposes = () => {
 					const _fetchLocalizedPurposeList =
@@ -66,14 +64,25 @@ export function coreInit(config) {
 
 				return loadVendorsAndPurposes()
 					.then(() => {
+						console.log("loadVendorsAndPurposes:");
 						// Pull queued command from __cmp stub
 						const { commandQueue = [], onConfigLoaded } =
 							window[CMP_GLOBAL_NAME] || {};
 
 						// Replace the __cmp with our implementation
-						const cmp = new Cmp(store, config);
-						store.updateCmpHandle(cmp);
+						console.log("pre cmp:");
+						console.log("store:", store);
+						console.log("config:", config);
+						let cmp;
+						try {
+							cmp = new Cmp(store, config);
+						} catch (e) {
+							console.log(e);
+						}
 
+						console.log("cmupdateCmpHandlep:");
+						store.updateCmpHandle(cmp);
+						console.log("cmp:");
 						// Expose `processCommand` as the CMP implementation
 						window[CMP_GLOBAL_NAME] = cmp.processCommand;
 						window[CMP_GLOBAL_NAME].onConfigLoaded = onConfigLoaded;
@@ -81,27 +90,6 @@ export function coreInit(config) {
 						// Execute any previously queued command
 						cmp.commandQueue = commandQueue;
 
-						// set cookies on digitrust domain after consent submitted
-						const { addEventListener, getVendorConsents } = cmp.commands;
-						if (config.digitrust.redirects) {
-							addEventListener("consentStringUpdated", digitrustRedirect);
-						}
-
-						function digitrustRedirect() {
-							getVendorConsents([64], result => {
-								if (
-									result &&
-									result.vendorConsents &&
-									result.vendorConsents[64]
-								) {
-									window.location.replace(
-										`${config.digitrustRedirectUrl}${encodeURIComponent(
-											window.location.href
-										)}`
-									);
-								}
-							});
-						}
 						function addLocatorFrame() {
 							if (!window.frames["__cmpLocator"]) {
 								if (document.body) {
@@ -114,7 +102,7 @@ export function coreInit(config) {
 								}
 							}
 						}
-
+						console.log("addLocatorFrame:");
 						addLocatorFrame();
 
 						// Notify listeners that the CMP is loaded
@@ -127,19 +115,23 @@ export function coreInit(config) {
 						cmp.notify("cmpReady");
 						notifyTimer("cmp_ready");
 						cmp.processCommandQueue();
-						return afterSync(config);
+						return afterSync(config, store);
 					})
 					.catch(err => {
 						log.error("Failed to load lists. CMP not ready", err);
 					});
 			}
-			// No data, get new
+
+			// THERE IS NOT SOMETHING
+			// fallback to global
+			// getGlobalConsents
+			// Initialize the store with all of our consent data
 			return init(config);
 		}
 	);
 }
 
-const afterSync = config => {
+const afterSync = (config, store) => {
 	let configUrl = config.remoteConfigUrl;
 
 	if (!!config.abTest === true && Array.isArray(config.variants)) {
@@ -152,7 +144,8 @@ const afterSync = config => {
 	// Fetch the current vendor consent before initializing
 	return loadConfig(configUrl).then(
 		({ vendors, purposes, features, vendorListVersion, ...rest }) => {
-			config.update(rest);
+			console.log("loadConfig");
+			// config.update(rest);
 
 			return getAndCacheConsentData()
 				.then(({ publisherConsentData, vendorConsentData }) => {
@@ -177,13 +170,8 @@ const afterSync = config => {
 				})
 				.then(({ publisherConsentData, vendorConsentData }) => {
 					// Initialize the store with all of our consent data
-					const store = new Store({
-						vendorConsentData,
-						publisherConsentData,
-						cmpId: metadata.cmpId,
-						cmpVersion: metadata.cmpVersion,
-						cookieVersion: 1
-					});
+					// Update consent strings
+					// writeLocalVendorConsentCookie(vendorConsentData);
 
 					const updateVendorsAndPurposes = () => {
 						return fetchVendorList(vendors).then(res => {
@@ -191,16 +179,20 @@ const afterSync = config => {
 							store.updateLocalizedPurposeList({ purposes, features });
 						});
 					};
-
+					console.log("updateVendorsAndPurposes");
 					return updateVendorsAndPurposes()
 						.then(() => {
+							console.log("in updateVendorsAndPurposes");
+
 							const cmp = store.cmp;
+							console.log("cmp:", cmp);
 							return checkIfUserInEU(config.geoIPVendor, response => {
 								cmp.gdprApplies = response.applies;
 								cmp.gdprAppliesLanguage = response.language;
 								cmp.gdprAppliesLocation = response.location;
 							})
 								.then(response => {
+									console.log("checkIfUserInEU", response);
 									function addLocatorFrame() {
 										if (!window.frames["__cmpLocator"]) {
 											if (document.body) {
@@ -215,7 +207,9 @@ const afterSync = config => {
 									}
 
 									addLocatorFrame();
+									console.log("addLocatorFrame");
 									store.updateIsEU(response.applies);
+									console.log("updateIsEU");
 									notifyTimer("cmp_synced");
 								})
 								.catch(err => {
