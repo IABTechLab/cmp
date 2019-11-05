@@ -25,14 +25,12 @@ const metadata = require("../../metadata.json");
 export function coreInit(config) {
 	notifyTimer("cmp_init");
 	// USE DEFAULT CONFIG
-	console.log(config);
 	log.debug("Using configuration:", config);
 
 	// Fetch the current local vendor consent before initializing
 	return getLocalConsentData().then(
 		({ publisherConsentData, vendorConsentData }) => {
 			if (vendorConsentData) {
-				console.log("consent:", vendorConsentData);
 				// THERE IS SOMETHING
 				// prepare cmp and stuff
 				const store = new Store({
@@ -64,25 +62,14 @@ export function coreInit(config) {
 
 				return loadVendorsAndPurposes()
 					.then(() => {
-						console.log("loadVendorsAndPurposes:");
 						// Pull queued command from __cmp stub
 						const { commandQueue = [], onConfigLoaded } =
 							window[CMP_GLOBAL_NAME] || {};
 
 						// Replace the __cmp with our implementation
-						console.log("pre cmp:");
-						console.log("store:", store);
-						console.log("config:", config);
-						let cmp;
-						try {
-							cmp = new Cmp(store, config);
-						} catch (e) {
-							console.log(e);
-						}
+						const cmp = new Cmp(store, config);
 
-						console.log("cmupdateCmpHandlep:");
 						store.updateCmpHandle(cmp);
-						console.log("cmp:");
 						// Expose `processCommand` as the CMP implementation
 						window[CMP_GLOBAL_NAME] = cmp.processCommand;
 						window[CMP_GLOBAL_NAME].onConfigLoaded = onConfigLoaded;
@@ -102,7 +89,6 @@ export function coreInit(config) {
 								}
 							}
 						}
-						console.log("addLocatorFrame:");
 						addLocatorFrame();
 
 						// Notify listeners that the CMP is loaded
@@ -144,7 +130,6 @@ const afterSync = (config, store) => {
 	// Fetch the current vendor consent before initializing
 	return loadConfig(configUrl).then(
 		({ vendors, purposes, features, vendorListVersion, ...rest }) => {
-			console.log("loadConfig");
 			// config.update(rest);
 
 			return getAndCacheConsentData()
@@ -179,20 +164,15 @@ const afterSync = (config, store) => {
 							store.updateLocalizedPurposeList({ purposes, features });
 						});
 					};
-					console.log("updateVendorsAndPurposes");
 					return updateVendorsAndPurposes()
 						.then(() => {
-							console.log("in updateVendorsAndPurposes");
-
 							const cmp = store.cmp;
-							console.log("cmp:", cmp);
 							return checkIfUserInEU(config.geoIPVendor, response => {
 								cmp.gdprApplies = response.applies;
 								cmp.gdprAppliesLanguage = response.language;
 								cmp.gdprAppliesLocation = response.location;
 							})
 								.then(response => {
-									console.log("checkIfUserInEU", response);
 									function addLocatorFrame() {
 										if (!window.frames["__cmpLocator"]) {
 											if (document.body) {
@@ -207,9 +187,7 @@ const afterSync = (config, store) => {
 									}
 
 									addLocatorFrame();
-									console.log("addLocatorFrame");
 									store.updateIsEU(response.applies);
-									console.log("updateIsEU");
 									notifyTimer("cmp_synced");
 								})
 								.catch(err => {

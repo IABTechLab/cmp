@@ -9,7 +9,6 @@ import { coreInit } from "./lib/core";
 import { CMP_GLOBAL_NAME } from "./lib/cmp";
 function start() {
 	const { config } = window[CMP_GLOBAL_NAME] || {};
-	console.log("Config:", config);
 	coreInit({
 		theme: {
 			colorPrimary: "#0a82be",

@@ -17,8 +17,6 @@ import { getAndCacheConsentData, loadConfig } from "./initUtils";
 const metadata = require("../../metadata.json");
 import { notifyTimer } from "./timer";
 
-const pjson = require("../../package.json");
-
 const getConsentData = () => {
 	return Promise.all([
 		cookie.readVendorConsentCookie(),
@@ -31,8 +29,6 @@ const getConsentData = () => {
 export function init(configUpdates) {
 	config.update(configUpdates);
 	log.debug("Using configuration:", config);
-	// LOG always
-	console.log("Version:", pjson.version);
 
 	// LOAD CONFIG EXTENSION
 	// SETUP AB - TESTING
