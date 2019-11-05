@@ -15,12 +15,14 @@ import {
 } from "./initUtils";
 import log from "./log";
 import { bundleSasNotify } from "./sas";
+import { notifyTimer } from "./timer";
 import { init } from "init";
 import { pickVariant } from "./abTesting";
 
 const metadata = require("../../metadata.json");
 
-export function coreInit(config, startTime) {
+export function coreInit(config) {
+	notifyTimer("cmp_init");
 	// USE DEFAULT CONFIG
 	log.debug("Using configuration:", config);
 
@@ -30,7 +32,6 @@ export function coreInit(config, startTime) {
 			// THERE IS SOMETHING
 			// prepare cmp and stuff
 			if (publisherConsentData || vendorConsentData) {
-				console.log("Fast tracked");
 				const store = new Store({
 					vendorConsentData,
 					publisherConsentData,
@@ -124,6 +125,7 @@ export function coreInit(config, startTime) {
 						cmp.notify("isLoaded");
 						cmp.cmpReady = true;
 						cmp.notify("cmpReady");
+						notifyTimer("cmp_ready");
 						cmp.processCommandQueue();
 						return afterSync(config);
 					})
@@ -132,7 +134,6 @@ export function coreInit(config, startTime) {
 					});
 			}
 			// No data, get new
-			console.log("Normal");
 			return init(config);
 		}
 	);
@@ -215,6 +216,7 @@ const afterSync = config => {
 
 									addLocatorFrame();
 									store.updateIsEU(response.applies);
+									notifyTimer("cmp_synced");
 								})
 								.catch(err => {
 									log.error("Failed to check user location. SYNC", err);

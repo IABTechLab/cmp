@@ -9,9 +9,8 @@ import { init } from "./lib/init";
 import { coreInit } from "./lib/core";
 import { CMP_GLOBAL_NAME } from "./lib/cmp";
 function start() {
-	let start = new Date();
 	const { config } = window[CMP_GLOBAL_NAME] || {};
-	coreInit(config, start);
+	coreInit(config);
 }
 
 start();

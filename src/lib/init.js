@@ -15,6 +15,7 @@ import { pickVariant } from "./abTesting";
 import { bundleSasNotify } from "./sas";
 import { getAndCacheConsentData, loadConfig } from "./initUtils";
 const metadata = require("../../metadata.json");
+import { notifyTimer } from "./timer";
 
 const pjson = require("../../package.json");
 
@@ -172,6 +173,7 @@ export function init(configUpdates) {
 
 									addLocatorFrame();
 									store.updateIsEU(response.applies);
+									notifyTimer("cmp_synced");
 
 									// Render the UI
 									const App = require("../components/app").default;
@@ -193,6 +195,7 @@ export function init(configUpdates) {
 									cmp.notify("isLoaded");
 									cmp.cmpReady = true;
 									cmp.notify("cmpReady");
+									notifyTimer("cmp_ready");
 									cmp.processCommandQueue();
 								})
 								.catch(err => {
