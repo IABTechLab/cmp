@@ -46,6 +46,7 @@ export default class Cmp {
 				const vendorConsents = store.getVendorConsentsObject();
 				const publisherConsents = (config.storePublisherData &&
 					store.getPublisherConsentsObject()) || { lastUpdated: Date.now() }; // if publisher consent is not enabled mark - cookie as valid
+				// console.log('repromptConfig', config);
 				const shouldBePrompted = checkReprompt(
 					config.repromptOptions,
 					store.getVendorList(),

@@ -18,119 +18,126 @@ import { bundleSasNotify } from "./sas";
 import { notifyTimer } from "./timer";
 import { init } from "init";
 import { pickVariant } from "./abTesting";
+import config from "./config";
 import { writeLocalVendorConsentCookie } from "./cookie/cookie";
 
 const metadata = require("../../metadata.json");
 
-export function coreInit(config) {
+export function coreInit(configUpdates) {
+	config.update(configUpdates);
 	notifyTimer("cmp_init");
 	// USE DEFAULT CONFIG
-	log.debug("Using configuration:", config);
+	// console.log("Using configuration:", config);
+	let configUrl = config.remoteConfigUrl;
 
 	// Fetch the current local vendor consent before initializing
-	return getLocalConsentData().then(
-		({ publisherConsentData, vendorConsentData }) => {
-			if (vendorConsentData) {
-				// THERE IS SOMETHING
-				// prepare cmp and stuff
-				const store = new Store({
-					vendorConsentData,
-					publisherConsentData,
-					cmpId: metadata.cmpId,
-					cmpVersion: metadata.cmpVersion,
-					cookieVersion: 1
-				});
+	return loadConfig(configUrl).then(
+		({ vendors, purposes, features, vendorListVersion, ...rest }) => {
+			config.update(rest);
 
-				const loadVendorsAndPurposes = () => {
-					const _fetchLocalizedPurposeList =
-						store.consentLanguage.toLowerCase() === "en"
-							? Promise.resolve
-							: fetchLocalizedPurposeList;
+			return getLocalConsentData().then(
+				({ publisherConsentData, vendorConsentData }) => {
+					if (vendorConsentData) {
+						// THERE IS SOMETHING
+						// prepare cmp and stuff
+						const store = new Store({
+							vendorConsentData,
+							publisherConsentData,
+							cmpId: metadata.cmpId,
+							cmpVersion: metadata.cmpVersion,
+							cookieVersion: 1
+						});
 
-					// Request lists
-					return Promise.all([
-						fetchVendorList().then(resp => {
-							store.updateVendorList(resp);
+						const loadVendorsAndPurposes = () => {
+							const _fetchLocalizedPurposeList =
+								store.consentLanguage.toLowerCase() === "en"
+									? Promise.resolve
+									: fetchLocalizedPurposeList;
 
-							_fetchLocalizedPurposeList().then(localized => {
-								localized && store.updateLocalizedPurposeList(localized);
-							});
-						}),
-						fetchCustomPurposeList().then(store.updateCustomPurposeList)
-					]);
-				};
+							// Request lists
+							return Promise.all([
+								fetchVendorList().then(resp => {
+									store.updateVendorList(resp);
 
-				return loadVendorsAndPurposes()
-					.then(() => {
-						// Pull queued command from __cmp stub
-						const { commandQueue = [], onConfigLoaded } =
-							window[CMP_GLOBAL_NAME] || {};
+									_fetchLocalizedPurposeList().then(localized => {
+										localized && store.updateLocalizedPurposeList(localized);
+									});
+								}),
+								fetchCustomPurposeList().then(store.updateCustomPurposeList)
+							]);
+						};
 
-						// Replace the __cmp with our implementation
-						const cmp = new Cmp(store, config);
+						return loadVendorsAndPurposes()
+							.then(() => {
+								// Pull queued command from __cmp stub
+								const { commandQueue = [], onConfigLoaded } =
+									window[CMP_GLOBAL_NAME] || {};
 
-						store.updateCmpHandle(cmp);
-						// Expose `processCommand` as the CMP implementation
-						window[CMP_GLOBAL_NAME] = cmp.processCommand;
-						window[CMP_GLOBAL_NAME].onConfigLoaded = onConfigLoaded;
+								// Replace the __cmp with our implementation
+								const cmp = new Cmp(store, config);
 
-						// Execute any previously queued command
-						cmp.commandQueue = commandQueue;
+								store.updateCmpHandle(cmp);
+								// Expose `processCommand` as the CMP implementation
+								window[CMP_GLOBAL_NAME] = cmp.processCommand;
+								window[CMP_GLOBAL_NAME].onConfigLoaded = onConfigLoaded;
 
-						function addLocatorFrame() {
-							if (!window.frames["__cmpLocator"]) {
-								if (document.body) {
-									var frame = document.createElement("iframe");
-									frame.style.display = "none";
-									frame.name = "__cmpLocator";
-									document.body.appendChild(frame);
-								} else {
-									setTimeout(addLocatorFrame, 5);
+								// Execute any previously queued command
+								cmp.commandQueue = commandQueue;
+
+								function addLocatorFrame() {
+									if (!window.frames["__cmpLocator"]) {
+										if (document.body) {
+											var frame = document.createElement("iframe");
+											frame.style.display = "none";
+											frame.name = "__cmpLocator";
+											document.body.appendChild(frame);
+										} else {
+											setTimeout(addLocatorFrame, 5);
+										}
+									}
 								}
-							}
-						}
-						addLocatorFrame();
 
-						// Notify listeners that the CMP is loaded
-						log.debug(
-							`Successfully loaded CMP version: ${metadata.cmpVersion}`
-						);
-						cmp.isLoaded = true;
-						cmp.notify("isLoaded");
-						cmp.cmpReady = true;
-						cmp.notify("cmpReady");
-						notifyTimer("cmp_ready");
-						cmp.processCommandQueue();
-						return afterSync(config, store);
-					})
-					.catch(err => {
-						log.error("Failed to load lists. CMP not ready", err);
-					});
-			}
+								addLocatorFrame();
 
-			// THERE IS NOT SOMETHING
-			// fallback to global
-			// getGlobalConsents
-			// Initialize the store with all of our consent data
-			return init(config);
+								// Notify listeners that the CMP is loaded
+								log.debug(
+									`Successfully loaded CMP version: ${metadata.cmpVersion}`
+								);
+								cmp.isLoaded = true;
+								cmp.notify("isLoaded");
+								cmp.cmpReady = true;
+								cmp.notify("cmpReady");
+								notifyTimer("cmp_ready");
+								cmp.processCommandQueue();
+								return afterSync(config, store);
+							})
+							.catch(err => {
+								log.error("Failed to load lists. CMP not ready", err);
+							});
+					}
+
+					// THERE IS NOT SOMETHING
+					// fallback to global
+					// getGlobalConsents
+					// Initialize the store with all of our consent data
+					return init(config);
+				}
+			);
 		}
 	);
 }
 
 const afterSync = (config, store) => {
-	let configUrl = config.remoteConfigUrl;
-
 	if (!!config.abTest === true && Array.isArray(config.variants)) {
 		log.info("A/B testing active");
 		const variant = pickVariant(config.variants);
-		configUrl = variant.configUrl;
 		config.update({ activeVariant: variant });
 	}
 
 	// Fetch the current vendor consent before initializing
-	return loadConfig(configUrl).then(
+	return loadConfig(config.remoteConfigUrl).then(
 		({ vendors, purposes, features, vendorListVersion, ...rest }) => {
-			// config.update(rest);
+			config.update(rest);
 
 			return getAndCacheConsentData()
 				.then(({ publisherConsentData, vendorConsentData }) => {

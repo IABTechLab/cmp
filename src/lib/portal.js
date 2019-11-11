@@ -27,7 +27,7 @@ function openGlobalVendorPortal() {
 		globalVendorPortal = new Promise((resolve, reject) => {
 			let url = config.globalConsentLocation || metadata.globalConsentLocation;
 			// TODO TEMP fix - we use only publisher location, but we use it to store euconsest - rewrite location, when publisher consent should be used
-			console.log("Config:", config);
+			// console.log("Config:", config);
 			if (config.storePublisherConsentGlobally) {
 				url =
 					config.globalPublisherConsentLocation ||
