@@ -1,15 +1,16 @@
 import log from "./log";
 
 const metadata = require("../../metadata.json");
+// TODO start with default, update only changes
 const defaultConfig = {
 	companyName: null,
 	storePublisherData: true,
 	customPurposeListLocation: null,
 	storeConsentGlobally: false,
-	storePublisherConsentGlobally: false,
+	storePublisherConsentGlobally: true,
 	globalVendorListLocation: metadata.globalVendorListLocation,
 	globalConsentLocation: metadata.globalConsentLocation,
-	globalPublisherConsentLocation: null,
+	globalPublisherConsentLocation: metadata.globalPublisherConsentLocation,
 	logging: false,
 	localization: {},
 	forceLocale: null,

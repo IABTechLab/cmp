@@ -5,13 +5,13 @@ import "core-js/fn/array/for-each";
 import "core-js/fn/array/filter";
 import "core-js/fn/array/from";
 
-import { init } from "./lib/init";
+import { coreInit } from "./lib/core";
 import { CMP_GLOBAL_NAME } from "./lib/cmp";
 
 const { config } = window[CMP_GLOBAL_NAME] || {};
 const configUpdates = {
 	...config
 };
-init(configUpdates).then(() => {
+coreInit(configUpdates).then(() => {
 	window.__cmp("renderCmpIfNeeded");
 });
