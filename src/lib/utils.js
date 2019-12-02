@@ -4,14 +4,15 @@ import Promise from 'promise-polyfill';
 import config from './config';
 
 export {
-	checkReprompt,
-	checkIfGDPRApplies,
-	checkIfLanguageLocaleApplies,
-	checkIfUserInEU,
-	getAmountOfConsentGiven,
-	checkIfCookieIsOld,
-	getTimestamp,
-	getConsentsCount
+  checkReprompt,
+  checkIfGDPRApplies,
+  checkIfLanguageLocaleApplies,
+  checkIfUserInEU,
+  getAmountOfConsentGiven,
+  checkIfCookieIsOld,
+  getTimestamp,
+  getConsentsCount,
+  addStyleSheet,
 };
 
 const metadata = require('../../metadata.json');
@@ -142,4 +143,15 @@ function checkIfCookieIsOld(cookieTime, days) {
 	const daysInMS = (1000 * 60 * 60 * 24 * days);
 
 	return (now - daysInMS) > cookieTimestamp;
+}
+
+function addStyleSheet(url) {
+  if (url && url.length) {
+    const head = document.head;
+    const link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = url;
+    head.appendChild(link);
+  }
 }

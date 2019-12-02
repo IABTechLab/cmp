@@ -11,6 +11,7 @@ import {
 
 import { sendPortalCommand } from '../portal';
 import config from '../config';
+import { notifySas } from '../sas';
 const metadata = require('../../../metadata.json');
 
 const PUBLISHER_CONSENT_COOKIE_NAME = 'pubconsent';
@@ -224,19 +225,19 @@ function decodePublisherConsentData(cookieValue, source) {
 }
 
 function readCookie(name) {
-	const values = document.cookie.split('; ').reduce((acc,str) => {
-		const pair = str.split('=');
-		if (pair[0] === name) {
-			acc.push(pair[1]);
-		}
-		return acc;
-	},[]);
+  const values = document.cookie.split('; ').reduce((acc, str) => {
+    const pair = str.split('=');
+    if (pair[0] === name) {
+      acc.push(pair[1]);
+    }
+    return acc;
+  }, []);
 
-	if (values.length > 0) {
-		return values.pop();
-	}
+  if (values.length > 0) {
+    return values.pop();
+  }
 
-	return null;
+  return null;
 }
 
 function writeCookie(name, value, maxAgeSeconds, path = '/') {
@@ -251,19 +252,24 @@ function writeCookie(name, value, maxAgeSeconds, path = '/') {
  *
  * @returns Promise resolved with decoded cookie object
  */
-function readGlobalPublisherConsentCookie() {
-	log.debug('Request publisher consent data from global cookie');
-	return sendPortalCommand({
-		command: 'readPublisherConsent',
-	}).then(result => {
-		log.debug('Read publisher consent data from global cookie', result);
-		if (result) {
-			return decodePublisherConsentData(result, "global");
-		}
-		return readLocalPublisherConsentCookie();
-	}).catch(err => {
-		log.error('Failed reading third party publisher consent cookie', err);
-	});
+function readGlobalPublisherConsentCookie(fallbackToLocal) {
+  log.debug('Request publisher consent data from global cookie');
+  return sendPortalCommand({
+    command: 'readPublisherConsent',
+  })
+    .then(result => {
+      log.debug('Read publisher consent data from global cookie', result);
+      if (!result && !fallbackToLocal) {
+        return null;
+      }
+      if (result) {
+        return decodePublisherConsentData(result, 'global');
+      }
+      return readLocalPublisherConsentCookie();
+    })
+    .catch(err => {
+      log.error('Failed reading third party publisher consent cookie', err);
+    });
 }
 
 /**
@@ -329,19 +335,36 @@ function writePublisherConsentCookie(publisherConsentData) {
  *
  * @returns Promise resolved with decoded cookie object
  */
-function readGlobalVendorConsentCookie() {
-	log.debug('Request consent data from global cookie');
-	return sendPortalCommand({
-		command: 'readVendorConsent',
-	}).then(result => {
-		log.debug('Read consent data from global cookie', result);
-		if (result) {
-			return decodeVendorConsentData(result, "global");
-		}
-		return readLocalVendorConsentCookie();
-	}).catch(err => {
-		log.error('Failed reading global vendor consent cookie', err);
-	});
+function readGlobalVendorConsentCookie(fallbackToLocal) {
+  log.debug('Request consent data from global cookie');
+  return sendPortalCommand({
+    command: 'readVendorConsent',
+  })
+    .then(result => {
+      log.debug('Read consent data from global cookie', result);
+      if (!result && !fallbackToLocal) {
+        return null;
+      }
+      if (result) {
+        return decodeVendorConsentData(result, 'global');
+      }
+      return readLocalVendorConsentCookie();
+    })
+    .catch(err => {
+      log.error('Failed reading global vendor consent cookie', err);
+    });
+}
+
+/**
+ * Read vendor consent data from first-party cookie on the
+ * local domain.
+ *
+ * @returns Promise resolved with decoded cookie object
+ */
+function readLocalVendorConsentCookie() {
+  const cookie = readCookie(VENDOR_CONSENT_COOKIE_NAME);
+  log.debug('Read consent data from local cookie', cookie);
+  return Promise.resolve(cookie && decodeVendorConsentData(cookie, 'local'));
 }
 
 /**
@@ -352,34 +375,30 @@ function readGlobalVendorConsentCookie() {
  * @returns Promise resolved after cookie is written
  */
 function writeGlobalVendorConsentCookie(vendorConsentData) {
-	log.debug('Write consent data to global cookie', vendorConsentData);
-	return sendPortalCommand({
-		command: 'writeVendorConsent',
-		encodedValue: encodeVendorConsentData(vendorConsentData),
-		vendorConsentData,
-		cmpVersion: metadata.cmpVersion
-	})
-		.then((succeeded) => {
-			if ( !succeeded ) {
-				return writeLocalVendorConsentCookie(vendorConsentData);
-			}
-			return Promise.resolve();
-		})
-		.catch(err => {
-			log.error('Failed writing global vendor consent cookie', err);
-		});
-}
+  log.debug('Write consent data to global cookie', vendorConsentData);
+  const euconsent = encodeVendorConsentData(vendorConsentData);
+  return sendPortalCommand({
+    command: 'writeVendorConsent',
+    encodedValue: euconsent,
+    vendorConsentData,
+    cmpVersion: metadata.cmpVersion,
+  })
+    .then(succeeded => {
+      if (!succeeded) {
+        return writeLocalVendorConsentCookie(vendorConsentData);
+      }
 
-/**
- * Read vendor consent data from first-party cookie on the
- * local domain.
- *
- * @returns Promise resolved with decoded cookie object
- */
-function readLocalVendorConsentCookie() {
-	const cookie = readCookie(VENDOR_CONSENT_COOKIE_NAME);
-	log.debug('Read consent data from local cookie', cookie);
-	return Promise.resolve(cookie && decodeVendorConsentData(cookie, "local"));
+      if (config.sasEnabled) {
+        return Promise.all(
+          config.sasUrls.map(url => notifySas(url, euconsent)),
+        );
+      }
+
+      return Promise.resolve();
+    })
+    .catch(err => {
+      log.error('Failed writing global vendor consent cookie', err);
+    });
 }
 
 /**
@@ -389,11 +408,20 @@ function readLocalVendorConsentCookie() {
  * @returns Promise resolved after cookie is written
  */
 function writeLocalVendorConsentCookie(vendorConsentData) {
-	log.debug('Write consent data to local cookie', vendorConsentData);
-	return Promise.resolve(writeCookie(VENDOR_CONSENT_COOKIE_NAME,
-		encodeVendorConsentData(vendorConsentData),
-		VENDOR_CONSENT_COOKIE_MAX_AGE,
-		'/'));
+  log.debug('Write consent data to local cookie', vendorConsentData);
+  const euconsent = encodeVendorConsentData(vendorConsentData);
+  return Promise.resolve(
+    writeCookie(
+      VENDOR_CONSENT_COOKIE_NAME,
+      euconsent,
+      VENDOR_CONSENT_COOKIE_MAX_AGE,
+      '/',
+    ),
+  ).then(() => {
+    if (config.sasEnabled) {
+      return Promise.all(config.sasUrls.map(url => notifySas(url, euconsent)));
+    }
+  });
 }
 
 function readVendorConsentCookie() {
@@ -402,31 +430,37 @@ function readVendorConsentCookie() {
 }
 
 function writeVendorConsentCookie(vendorConsentData) {
-	return config.storeConsentGlobally && (config.globalVendorListLocation === metadata.globalVendorListLocation || config.globalConsentLocation !== metadata.globalConsentLocation) ?
-		writeGlobalVendorConsentCookie(vendorConsentData) : writeLocalVendorConsentCookie(vendorConsentData);
+  if (config.duplicateConsent) {
+    return writeGlobalVendorConsentCookie(vendorConsentData).then(() =>
+      writeLocalVendorConsentCookie(vendorConsentData),
+    );
+  }
+  return config.storeConsentGlobally &&
+    (config.globalVendorListLocation === metadata.globalVendorListLocation ||
+      config.globalConsentLocation !== metadata.globalConsentLocation)
+    ? writeGlobalVendorConsentCookie(vendorConsentData)
+    : writeLocalVendorConsentCookie(vendorConsentData);
 }
 
 export {
-	readCookie,
-	writeCookie,
-	encodeVendorConsentData,
-	decodeVendorConsentData,
-
-	convertVendorsToRanges,
-
-	encodePublisherConsentData,
-	decodePublisherConsentData,
-
-	readGlobalVendorConsentCookie,
-	writeGlobalVendorConsentCookie,
-	readLocalVendorConsentCookie,
-	writeLocalVendorConsentCookie,
-	readVendorConsentCookie,
-	writeVendorConsentCookie,
-
-	readPublisherConsentCookie,
-	writePublisherConsentCookie,
-
-	PUBLISHER_CONSENT_COOKIE_NAME,
-	VENDOR_CONSENT_COOKIE_NAME
+  readCookie,
+  writeCookie,
+  encodeVendorConsentData,
+  decodeVendorConsentData,
+  convertVendorsToRanges,
+  encodePublisherConsentData,
+  decodePublisherConsentData,
+  readGlobalVendorConsentCookie,
+  readGlobalPublisherConsentCookie,
+  readLocalPublisherConsentCookie,
+  writeGlobalVendorConsentCookie,
+  writeGlobalPublisherConsentCookie,
+  readLocalVendorConsentCookie,
+  writeLocalVendorConsentCookie,
+  readVendorConsentCookie,
+  writeVendorConsentCookie,
+  readPublisherConsentCookie,
+  writePublisherConsentCookie,
+  PUBLISHER_CONSENT_COOKIE_NAME,
+  VENDOR_CONSENT_COOKIE_NAME,
 };

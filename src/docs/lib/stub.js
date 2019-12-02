@@ -59,7 +59,10 @@ function buildScript(config, cmpLocation='../cmp.bundle.js') {
 						});
 					}
 				};
-				cmp.config = ${config ? JSON.stringify(config) : `{
+				cmp.config = ${
+  config
+    ? JSON.stringify(config)
+    : `{
 					//
 					// Modify config values here
 					//
@@ -71,7 +74,8 @@ function buildScript(config, cmpLocation='../cmp.bundle.js') {
 					// logging: 'debug',
 					// localization: {},
 					// forceLocale: 'en-us'
-				}`}
+				}`
+}
 				return cmp;
 			}());
 			var t = document.createElement('script');

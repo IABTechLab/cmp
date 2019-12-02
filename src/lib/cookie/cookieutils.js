@@ -47,11 +47,20 @@ function encodeIntToBits(number, numBits) {
  * with [aA]=0 through [zZ]=25
  */
 function encode6BitCharacters(string, numBits) {
-	const encoded = typeof string !== 'string' ? '' : string.split('').map(char => {
-		const int = Math.max(0, char.toUpperCase().charCodeAt(0) - SIX_BIT_ASCII_OFFSET);
-		return encodeIntToBits(int > 25 ? 0 : int, 6);
-	}).join('');
-	return padRight(encoded, numBits).substr(0, numBits);
+  const encoded =
+    typeof string !== 'string'
+      ? ''
+      : string
+        .split('')
+        .map(char => {
+          const int = Math.max(
+            0,
+            char.toUpperCase().charCodeAt(0) - SIX_BIT_ASCII_OFFSET,
+          );
+          return encodeIntToBits(int > 25 ? 0 : int, 6);
+        })
+        .join('');
+  return padRight(encoded, numBits).substr(0, numBits);
 }
 
 function encodeBoolToBits(value) {
@@ -88,40 +97,51 @@ function decode6BitCharacters(bitString, start, length) {
 
 
 function encodeField({ input, field }) {
-	const { name, type, numBits, encoder, validator } = field;
-	if (typeof validator === 'function') {
-		if (!validator(input)) {
-			return '';
-		}
-	}
-	if (typeof encoder === 'function') {
-		return encoder(input);
-	}
+  const { name, type, numBits, encoder, validator } = field;
+  if (typeof validator === 'function') {
+    if (!validator(input)) {
+      return '';
+    }
+  }
+  if (typeof encoder === 'function') {
+    return encoder(input);
+  }
 
-	const bitCount = typeof numBits === 'function' ? numBits(input) : numBits;
+  const bitCount = typeof numBits === 'function' ? numBits(input) : numBits;
 
-	const inputValue = input[name];
-	const fieldValue = inputValue === null || inputValue === undefined ? '' : inputValue;
-	switch (type) {
-		case 'int':
-			return encodeIntToBits(fieldValue, bitCount);
-		case 'bool':
-			return encodeBoolToBits(fieldValue);
-		case 'date':
-			return encodeDateToBits(fieldValue, bitCount);
-		case 'bits':
-			return padRight(fieldValue, bitCount - fieldValue.length).substring(0, bitCount);
-		case '6bitchar':
-			return encode6BitCharacters(fieldValue, bitCount);
-		case 'list':
-			return fieldValue.reduce((acc, listValue) => acc + encodeFields({
-				input: listValue,
-				fields: field.fields
-			}), '');
-		default:
-			log.warn(`Cookie definition field found without encoder or type: ${name}`);
-			return '';
-	}
+  const inputValue = input[name];
+  const fieldValue =
+    inputValue === null || inputValue === undefined ? '' : inputValue;
+  switch (type) {
+  case 'int':
+    return encodeIntToBits(fieldValue, bitCount);
+  case 'bool':
+    return encodeBoolToBits(fieldValue);
+  case 'date':
+    return encodeDateToBits(fieldValue, bitCount);
+  case 'bits':
+    return padRight(fieldValue, bitCount - fieldValue.length).substring(
+      0,
+      bitCount,
+    );
+  case '6bitchar':
+    return encode6BitCharacters(fieldValue, bitCount);
+  case 'list':
+    return fieldValue.reduce(
+      (acc, listValue) =>
+        acc +
+          encodeFields({
+            input: listValue,
+            fields: field.fields,
+          }),
+      '',
+    );
+  default:
+    log.warn(
+      `Cookie definition field found without encoder or type: ${name}`,
+    );
+    return '';
+  }
 }
 
 function encodeFields({ input, fields }) {
@@ -132,49 +152,60 @@ function encodeFields({ input, fields }) {
 }
 
 function decodeField({ input, output, startPosition, field }) {
-	const { type, numBits, decoder, validator, listCount } = field;
-	if (typeof validator === 'function') {
-		if (!validator(output)) {
-			// Not decoding this field so make sure we start parsing the next field at
-			// the same point
-			return {newPosition: startPosition};
-		}
-	}
-	if (typeof decoder === 'function') {
-		return decoder(input, output, startPosition);
-	}
+  const { type, numBits, decoder, validator, listCount } = field;
+  if (typeof validator === 'function') {
+    if (!validator(output)) {
+      // Not decoding this field so make sure we start parsing the next field at
+      // the same point
+      return { newPosition: startPosition };
+    }
+  }
+  if (typeof decoder === 'function') {
+    return decoder(input, output, startPosition);
+  }
 
-	const bitCount = typeof numBits === 'function' ? numBits(output) : numBits;
-	const listEntryCount = typeof listCount === 'function' ?
-		listCount(output) : typeof listCount === 'number' ? listCount : 0;
+  const bitCount = typeof numBits === 'function' ? numBits(output) : numBits;
+  const listEntryCount =
+    typeof listCount === 'function'
+      ? listCount(output)
+      : typeof listCount === 'number'
+        ? listCount
+        : 0;
 
-	switch (type) {
-		case 'int':
-			return { fieldValue: decodeBitsToInt(input, startPosition, bitCount) };
-		case 'bool':
-			return { fieldValue: decodeBitsToBool(input, startPosition) };
-		case 'date':
-			return { fieldValue: decodeBitsToDate(input, startPosition, bitCount) };
-		case 'bits':
-			return { fieldValue: input.substr(startPosition, bitCount) };
-		case '6bitchar':
-			return { fieldValue: decode6BitCharacters(input, startPosition, bitCount) };
-		case 'list':
-			return new Array(listEntryCount).fill().reduce((acc) => {
-				const { decodedObject, newPosition } = decodeFields({
-					input,
-					fields: field.fields,
-					startPosition: acc.newPosition
-				});
-				return {
-					fieldValue: [...acc.fieldValue, decodedObject],
-					newPosition
-				};
-			}, { fieldValue: [], newPosition: startPosition });
-		default:
-			log.warn(`Cookie definition field found without decoder or type: ${name}`);
-			return {};
-	}
+  switch (type) {
+  case 'int':
+    return { fieldValue: decodeBitsToInt(input, startPosition, bitCount) };
+  case 'bool':
+    return { fieldValue: decodeBitsToBool(input, startPosition) };
+  case 'date':
+    return { fieldValue: decodeBitsToDate(input, startPosition, bitCount) };
+  case 'bits':
+    return { fieldValue: input.substr(startPosition, bitCount) };
+  case '6bitchar':
+    return {
+      fieldValue: decode6BitCharacters(input, startPosition, bitCount),
+    };
+  case 'list':
+    return new Array(listEntryCount).fill().reduce(
+      acc => {
+        const { decodedObject, newPosition } = decodeFields({
+          input,
+          fields: field.fields,
+          startPosition: acc.newPosition,
+        });
+        return {
+          fieldValue: [...acc.fieldValue, decodedObject],
+          newPosition,
+        };
+      },
+      { fieldValue: [], newPosition: startPosition },
+    );
+  default:
+    log.warn(
+      `Cookie definition field found without decoder or type: ${name}`,
+    );
+    return {};
+  }
 }
 
 function decodeFields({ input, fields, startPosition = 0 }) {
