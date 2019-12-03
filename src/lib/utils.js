@@ -30,12 +30,12 @@ const EU_COUNTRY_CODES = new Set(metadata.countryCodes);
 function initConstants() {
 	if (EU_COUNTRY_CODES.size === 0) {
 		for (var i in metadata.countryCodes) {
-			if (metadata.countryCodes.hasOwnProperty(i)) {
+			if (Object.prototype.hasOwnProperty.call(metadata.countryCodes, i)) {
 				EU_COUNTRY_CODES.add(metadata.countryCodes[i]);
 			}
 		}
 		for (var j in metadata.languageCodes) {
-			if (metadata.languageCodes.hasOwnProperty(j)) {
+			if (Object.prototype.hasOwnProperty.call(metadata.languageCodes, j)) {
 				EU_LANGUAGE_CODES.add(metadata.languageCodes[j]);
 			}
 		}

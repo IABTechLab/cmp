@@ -69,7 +69,7 @@ class Config {
 		if (updates && typeof updates === "object") {
 			const { validUpdates, invalidKeys } = Object.keys(updates).reduce(
 				(acc, key) => {
-					if (defaultConfig.hasOwnProperty(key)) {
+					if (Object.prototype.hasOwnProperty.call(defaultConfig, key)) {
 						if (self.individualOverwritesAllowed[key]) {
 							let obj = defaultConfig[key];
 							Object.assign(obj, updates[key]);
