@@ -1,29 +1,27 @@
-import translations from './translations';
-import config from './config';
+import translations from "./translations";
+import config from "./config";
 
-export let currentLocale = 'en-us';
+export let currentLocale = "en-us";
 let localizedValues = {};
 let localizedMap = {};
 
 function findLocale(forceLocale) {
-	const locale = forceLocale ||
-		(navigator && (
-			navigator.language ||
-			navigator.browserLanguage ||
-			navigator.userLanguage ||
-			(navigator.languages && navigator.languages[0]) ||
-			'en-us'
-		));
+	const locale =
+		forceLocale ||
+		(navigator &&
+			(navigator.language ||
+				navigator.browserLanguage ||
+				navigator.userLanguage ||
+				(navigator.languages && navigator.languages[0]) ||
+				"en-us"));
 	return locale.toLowerCase();
 }
 
 export function updateLocalizationSettings(userConfig) {
-	const {
-		forceLocale,
-	} = userConfig;
+	const { forceLocale } = userConfig;
 
 	currentLocale = findLocale(forceLocale);
-	const [language] = currentLocale.split('-');
+	const [language] = currentLocale.split("-");
 	localizedValues = {
 		...localizedMap[language],
 		...localizedMap[currentLocale]
@@ -34,7 +32,7 @@ export function updateLocalizationSettings(userConfig) {
 function processLocalized(data = {}) {
 	const locales = Object.keys(data);
 	return locales.reduce((acc, locale) => {
-		const [language] = locale.toLowerCase().split('-');
+		const [language] = locale.toLowerCase().split("-");
 		return {
 			...acc,
 			[locale]: {
@@ -54,7 +52,7 @@ export function flattenObject(data) {
 			const prop = prefix ? `${prefix}.${key}` : key;
 			const val = part[key];
 
-			if (typeof val === 'object') {
+			if (typeof val === "object") {
 				return flatten(val, prop);
 			}
 

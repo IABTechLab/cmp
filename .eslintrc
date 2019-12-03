@@ -24,7 +24,7 @@
     }
   },
   "globals": {
-    "sleep": 1
+    // "sleep": 1
   },
   "rules": {
     "react/jsx-no-bind": [2, { "ignoreRefs": true }],
@@ -49,6 +49,7 @@
     "no-empty-pattern": 0,
     "no-cond-assign": 1,
     "semi": 1,
+    "no-mixed-spaces-and-tabs": 0,
     "camelcase": 0,
     "comma-style": 2,
     "comma-dangle": 0,

@@ -37,9 +37,9 @@ const GDPR_COUNTRIES = new Set([
 function parseCookies(headers) {
 	const parsedCookie = {};
 	if (headers.cookie) {
-		headers.cookie[0].value.split(';').forEach((cookie) => {
+		headers.cookie[0].value.split(";").forEach(cookie => {
 			if (cookie) {
-				const parts = cookie.split('=');
+				const parts = cookie.split("=");
 				parsedCookie[parts[0].trim()] = parts[1].trim();
 			}
 		});
@@ -50,9 +50,9 @@ function parseCookies(headers) {
 function parseQueryString(string) {
 	const parsedQueryString = {};
 	if (string) {
-		string.split('&').forEach((param) => {
+		string.split("&").forEach(param => {
 			if (param) {
-				const parts = param.split('=');
+				const parts = param.split("=");
 				parsedQueryString[parts[0].trim()] = parts[1].trim();
 			}
 		});
@@ -71,8 +71,13 @@ function performMacroSubstitution(queryString, gdprApplies, consentString) {
 	return queryString;
 }
 
-function encodeQueryString(gdprApplies, consentString, addParms, redirectContainsMacros) {
-	if ( (addParms && addParms === '1') || !redirectContainsMacros ) {
+function encodeQueryString(
+	gdprApplies,
+	consentString,
+	addParms,
+	redirectContainsMacros
+) {
+	if ((addParms && addParms === "1") || !redirectContainsMacros) {
 		return `?gdpr=${gdprApplies}&gdpr_consent=${consentString}`;
 	}
 }
@@ -84,58 +89,82 @@ exports.handler = (event, context, callback) => {
 	const parsedCookies = parseCookies(headers);
 	const parsedQueryString = parseQueryString(queryString);
 
-	let origin = '';
-	if (headers['origin'] && (headers['origin'].length > 0)) {
-		origin = headers['origin'][0]['value'];
+	let origin = "";
+	if (headers["origin"] && headers["origin"].length > 0) {
+		origin = headers["origin"][0]["value"];
 	}
 
-	let countryCode = '';
-	if (headers['cloudfront-viewer-country'] && (headers['cloudfront-viewer-country'].length > 0)) {
-		countryCode = headers['cloudfront-viewer-country'][0].value.toUpperCase();
+	let countryCode = "";
+	if (
+		headers["cloudfront-viewer-country"] &&
+		headers["cloudfront-viewer-country"].length > 0
+	) {
+		countryCode = headers["cloudfront-viewer-country"][0].value.toUpperCase();
 	}
 
-	const gdprApplies = parsedQueryString.gdpr === '1' || GDPR_COUNTRIES.has(countryCode) ? 1 : 0;
+	const gdprApplies =
+		parsedQueryString.gdpr === "1" || GDPR_COUNTRIES.has(countryCode) ? 1 : 0;
 	const consentString = parsedCookies[VENDOR_COOKIE_NAME];
 
 	let response;
 	if (!parsedQueryString.redirect) {
 		response = {
-			status: '200',
-			statusDescription: 'OK',
+			status: "200",
+			statusDescription: "OK",
 			headers: {
-				'access-control-allow-credentials': [{
-					key: 'Access-Control-Allow-Credentials',
-					value: 'true'
-				}],
-				'access-control-allow-methods': [{
-					key: 'Access-Control-Allow-Methods',
-					value: 'GET, OPTIONS'
-				}],
-				'access-control-allow-origin': [{
-					key: 'Access-Control-Allow-Origin',
-					value: origin
-				}],
-				'content-type': [{
-					key: 'Content-Type',
-					value: 'application/json'
-				}],
+				"access-control-allow-credentials": [
+					{
+						key: "Access-Control-Allow-Credentials",
+						value: "true"
+					}
+				],
+				"access-control-allow-methods": [
+					{
+						key: "Access-Control-Allow-Methods",
+						value: "GET, OPTIONS"
+					}
+				],
+				"access-control-allow-origin": [
+					{
+						key: "Access-Control-Allow-Origin",
+						value: origin
+					}
+				],
+				"content-type": [
+					{
+						key: "Content-Type",
+						value: "application/json"
+					}
+				]
 			},
 			body: JSON.stringify({
 				gdpr: gdprApplies,
-				gdpr_consent: consentString,
+				gdpr_consent: consentString
 			})
 		};
 	} else {
 		const redirectContainsMacros = containsMacros(parsedQueryString.redirect);
 		response = {
-			status: '302',
-			statusDescription: 'Found',
+			status: "302",
+			statusDescription: "Found",
 			headers: {
-				location: [{
-					key: 'Location',
-					value: performMacroSubstitution(parsedQueryString.redirect, gdprApplies, consentString) +
-					encodeQueryString(gdprApplies, consentString, parsedQueryString.add_parms, redirectContainsMacros),
-				}]
+				location: [
+					{
+						key: "Location",
+						value:
+							performMacroSubstitution(
+								parsedQueryString.redirect,
+								gdprApplies,
+								consentString
+							) +
+							encodeQueryString(
+								gdprApplies,
+								consentString,
+								parsedQueryString.add_parms,
+								redirectContainsMacros
+							)
+					}
+				]
 			}
 		};
 	}
