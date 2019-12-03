@@ -20,7 +20,10 @@ function copyData(dataObject) {
 	}
 	const copy = { ...dataObject };
 	for (let key in copy) {
-		if (copy.hasOwnProperty(key) && copy[key] instanceof Set) {
+		if (
+			Object.prototype.hasOwnProperty.call(copy, key) &&
+			copy[key] instanceof Set
+		) {
 			let set = new Set();
 			copy[key].forEach(val => {
 				set.add(val);
@@ -112,13 +115,13 @@ export default class Store {
 		// No consent will be allowed for vendors or purposes not on the list
 		const allowedVendorIds = new Set();
 		for (let i in vendors) {
-			if (vendors.hasOwnProperty(i)) {
+			if (Object.prototype.hasOwnProperty.call(vendors, i)) {
 				allowedVendorIds.add(vendors[i].id);
 			}
 		}
 		const allowedPurposeIds = new Set();
 		for (let j in purposes) {
-			if (purposes.hasOwnProperty(j)) {
+			if (Object.prototype.hasOwnProperty.call(purposes, j)) {
 				allowedPurposeIds.add(purposes[j].id);
 			}
 		}
@@ -230,7 +233,7 @@ export default class Store {
 		// No consent will be allowed for purposes not on the list
 		const allowedPurposeIds = new Set();
 		for (let i in purposes) {
-			if (purposes.hasOwnProperty(i)) {
+			if (Object.prototype.hasOwnProperty.call(purposes, i)) {
 				allowedPurposeIds.add(purposes[i].id);
 			}
 		}
@@ -436,13 +439,13 @@ export default class Store {
 		if (!created) {
 			this.vendorConsentData.selectedPurposeIds = new Set();
 			for (let i in purposes) {
-				if (purposes.hasOwnProperty(i)) {
+				if (Object.prototype.hasOwnProperty.call(purposes, i)) {
 					this.vendorConsentData.selectedPurposeIds.add(purposes[i].id);
 				}
 			}
 			this.vendorConsentData.selectedVendorIds = new Set();
 			for (let j in vendors) {
-				if (vendors.hasOwnProperty(j)) {
+				if (Object.prototype.hasOwnProperty.call(vendors, j)) {
 					this.vendorConsentData.selectedVendorIds.add(vendors[j].id);
 				}
 			}
@@ -471,7 +474,7 @@ export default class Store {
 			const { purposes = [] } = customPurposeList || {};
 			this.publisherConsentData.selectedCustomPurposeIds = new Set();
 			for (let i in purposes) {
-				if (purposes.hasOwnProperty(i)) {
+				if (Object.prototype.hasOwnProperty.call(purposes, i)) {
 					this.publisherConsentData.selectedCustomPurposeIds.add(
 						purposes[i].id
 					);
