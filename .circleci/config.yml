@@ -45,4 +45,4 @@ jobs:
           command: |
             npm run build
             sudo apt-get -y -qq install awscli
-            aws s3 ls ldbc-snb --request-payer build/ s3://cmp-origin-$CIRCLE_BRANCH.digitru.st/1/ --delete
+            aws s3 sync --request-payer requester build/ s3://cmp-origin-$CIRCLE_BRANCH.digitru.st/1/ --delete
