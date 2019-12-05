@@ -15,14 +15,15 @@ export default class Switch extends Component {
 	};
 
 	handleClicked = () => {
-		const { onClick, dataId, isSelected } = this.props;
-		onClick({dataId, isSelected: !isSelected});
+		const { onClick, dataId, isSelected, currentPurposeIndex } = this.props;
+		onClick({dataId, isSelected: !isSelected, currentPurposeIndex});
 	};
 
   render(props) {
     const { isSelected, isDisabled, color, displayLabel } = props;
     const { theme } = this.context;
     const switchLabelKey = isSelected ? 'active' : 'inactive';
+
     return (
       <div>
         <span
