@@ -53,7 +53,7 @@ describe(utils.suiteTitle("Purposes page"), () => {
 
 	it("should show a submit button", () => {
 		const el = element(by.name("detailsSave"));
-		expect(el.getText()).toContain("OK, CONTINUE TO SITE");
+		expect(el.getText()).toContain("SAVE & EXIT");
 	});
 
 	it("should display standard purposes correctly", () => {
