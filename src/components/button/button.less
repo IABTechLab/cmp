@@ -16,6 +16,16 @@ input[type='button'] {
     text-shadow: none;
     height: auto;
     white-space: nowrap;
+    opacity: 2;
+    -webkit-transition: opacity 0.25s ease-in-out;
+    -moz-transition: opacity 0.25s ease-in-out;
+    -ms-transition: opacity 0.25s ease-in-out;
+    -o-transition: opacity 0.25s ease-in-out;
+    transition: opacity 0.25s ease-in-out;
+
+    &:hover {
+      opacity: 0.9;
+    }
 
     &.invert {
       background: white;
