@@ -29,7 +29,7 @@ module.exports = {
     details: {
       title: 'Privacy preferences',
       back: 'Back',
-      save: 'OK, Continue to site',
+      save: 'Save & Exit',
       showVendors: 'Show all companies',
       enableAll: 'Enable all',
       disableAll: 'Disable all',
