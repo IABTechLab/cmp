@@ -7,9 +7,9 @@ import { PurposeDetail } from "./detail";
 
 export class Purposes extends Component {
 	state = {
-		selectedPurposeIndex: 0,
-		showLocalVendors: false,
-		localVendors: []
+		selectedPurposeIndices: {},
+		selectedLocalVendors: {},
+		showSelectedLocalVendors: {}
 	};
 
 	static defaultProps = {
@@ -21,18 +21,29 @@ export class Purposes extends Component {
 	};
 
 	handleSelectPurposeDetail = index => {
+		let selectedPurposeIndices = {...this.state.selectedPurposeIndices};
+		let selectedLocalVendors = {...this.state.selectedLocalVendors};
+		let showSelectedLocalVendors = {...this.state.showSelectedLocalVendors};
+
+		if (selectedPurposeIndices.hasOwnProperty(index)) {
+			delete selectedPurposeIndices[index];
+			delete selectedLocalVendors[index];
+		} else {
+			selectedPurposeIndices[index] = index;
+		}
+
+		showSelectedLocalVendors[index] = false;
+
 		return () => {
 			this.setState({
-				selectedPurposeIndex: index,
-				showLocalVendors: false,
-				localVendors: []
+				selectedPurposeIndices,
+				selectedLocalVendors,
+				showSelectedLocalVendors
 			});
-			this.scrollRef.scrollTop = 0;
 		};
 	};
 
-	handleSelectPurpose = ({ isSelected }) => {
-		const { selectedPurposeIndex } = this.state;
+	handleSelectPurpose = ({isSelected, currentPurposeIndex}) => {
 		const {
 			purposes,
 			customPurposes,
@@ -40,21 +51,22 @@ export class Purposes extends Component {
 			selectCustomPurpose
 		} = this.props;
 		const allPurposes = [...purposes, ...customPurposes];
-		const id = allPurposes[selectedPurposeIndex].id;
-
-		if (selectedPurposeIndex < purposes.length) {
+		const id = allPurposes[currentPurposeIndex].id;
+		
+		if (currentPurposeIndex < purposes.length) {
 			selectPurpose(id, isSelected);
 		} else {
 			selectCustomPurpose(id, isSelected);
 		}
 	};
 
-	onShowLocalVendors = () => {
-		const { selectedPurposeIndex } = this.state;
+	onShowLocalVendors = (currentSelectedPurposeIndex) => {
+		let selectedLocalVendors = {...this.state.selectedLocalVendors};
+		let showSelectedLocalVendors = {...this.state.showSelectedLocalVendors};
 		const { vendors } = this.props;
 		const localVendors = vendors
 			.map(vendor => {
-				let purposeId = selectedPurposeIndex + 1;
+				let purposeId = currentSelectedPurposeIndex + 1;
 				if (
 					vendor.purposeIds.indexOf(purposeId) !== -1 ||
 					vendor.legIntPurposeIds.indexOf(purposeId) !== -1
@@ -62,28 +74,37 @@ export class Purposes extends Component {
 					return vendor;
 			})
 			.filter(vendor => vendor);
+		
+		selectedLocalVendors[currentSelectedPurposeIndex] = localVendors;
+		showSelectedLocalVendors[currentSelectedPurposeIndex] = true;
 		this.setState({
-			showLocalVendors: true,
-			localVendors
+			selectedLocalVendors,
+			showSelectedLocalVendors
 		});
 	};
 
-	onHideLocalVendors = () => {
+	onHideLocalVendors = (currentSelectedPurposeIndex) => {
+		let showSelectedLocalVendors = {...this.state.showSelectedLocalVendors};
+		let selectedLocalVendors = {...this.state.selectedLocalVendors};
+
+		showSelectedLocalVendors[currentSelectedPurposeIndex] = false;
+		delete selectedLocalVendors[currentSelectedPurposeIndex];
+		
 		this.setState({
-			showLocalVendors: false,
-			localVendors: []
+			showSelectedLocalVendors,
+			selectedLocalVendors
 		});
 	};
 
-	onToggleLocalVendors = () => {
-		if (this.state.showLocalVendors) {
-			this.onHideLocalVendors();
+	onToggleLocalVendors = (currentSelectedPurposeIndex) => {
+		let showSelectedLocalVendors = {...this.state.showSelectedLocalVendors};
+
+		if (showSelectedLocalVendors[currentSelectedPurposeIndex]) {
+			this.onHideLocalVendors(currentSelectedPurposeIndex);
 		} else {
-			this.onShowLocalVendors();
+			this.onShowLocalVendors(currentSelectedPurposeIndex);
 		}
 	};
-
-	setScrollRef = scrollRef => (this.scrollRef = scrollRef);
 
 	render(props, state) {
 		const {
@@ -97,19 +118,15 @@ export class Purposes extends Component {
 			config
 		} = props;
 
-		const { selectedPurposeIndex, showLocalVendors } = state;
-		let { localVendors } = state;
+		let { selectedPurposeIndex, showLocalVendors, selectedPurposeIndices, selectedLocalVendors, showSelectedLocalVendors } = state;
 
 		const allPurposes = [...purposes, ...customPurposes];
-		const selectedPurpose = allPurposes[selectedPurposeIndex];
-		const selectedPurposeId = selectedPurpose && selectedPurpose.id;
-		const currentPurposeLocalizePrefix = `${
-			selectedPurposeIndex >= purposes.length ? "customPurpose" : "purpose"
-		}${selectedPurposeId}`;
-		let purposeIsActive =
-			selectedPurposeIndex < purposes.length
-				? selectedPurposeIds.has(selectedPurposeId)
-				: selectedCustomPurposeIds.has(selectedPurposeId);
+
+		let purposesAreActive = 
+			allPurposes.map(({ id }, index)=> {
+				if (index < purposes.length) return selectedPurposeIds.has(id)
+				else return selectedCustomPurposeIds.has(id)
+			});
 
 		return (
 			<div class={style.container}>
@@ -119,22 +136,18 @@ export class Purposes extends Component {
 						allPurposes={allPurposes}
 						purposes={purposes}
 						selectedPurposeIndex={selectedPurposeIndex}
+						selectedPurposeIndices={selectedPurposeIndices}
+						selectedLocalVendors={selectedLocalVendors}
+						showSelectedLocalVendors={showSelectedLocalVendors}
 						onPurposeClick={this.handleSelectPurposeDetail}
+						onToggleLocalVendors={this.onToggleLocalVendors}
+						handleSelectPurpose={this.handleSelectPurpose}
+						localization={localization}
+						features={features}
+						showLocalVendors={showLocalVendors}
+						purposesAreActive={purposesAreActive}
+						purposes={purposes}
 					/>
-					{selectedPurpose && (
-						<PurposeDetail
-							setScrollRef={this.setScrollRef}
-							onToggleLocalVendors={this.onToggleLocalVendors}
-							handleSelectPurpose={this.handleSelectPurpose}
-							selectedPurpose={selectedPurpose}
-							currentPurposeLocalizePrefix={currentPurposeLocalizePrefix}
-							localization={localization}
-							features={features}
-							purposeIsActive={purposeIsActive}
-							showLocalVendors={showLocalVendors}
-							localVendors={localVendors}
-						/>
-					)}
 				</div>
 			</div>
 		);
