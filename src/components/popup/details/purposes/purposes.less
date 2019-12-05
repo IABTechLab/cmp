@@ -23,10 +23,10 @@
     .purposeList {
       font-size: 12px;
       flex: 1;
-      max-width: 200px;
+      // max-width: 200px;
       overflow-y: auto;
       overflow-x: hidden;
-      direction: rtl;
+      direction: ltr;
     }
     .purposeItem {
       display: flex;
@@ -38,6 +38,44 @@
       border-bottom: 1px solid white;
       text-align: left;
       cursor: pointer;
+      flex-direction: column;
+      height: auto;
+      -webkit-transition: background-color 0.2s ease-in-out;
+      -moz-transition: background-color 0.2s ease-in-out;
+      -ms-transition: background-color 0.2s ease-in-out;
+      -o-transition: background-color 0.2s ease-in-out;
+      transition: background-color 0.2s ease-in-out;
+      padding: 0 1.5em;
+
+      &:hover {
+        background-color: #cccccc;
+      }
+
+      .purposeHeader {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 50px;
+        align-items: center;
+        cursor: pointer;
+
+        .purposeChevron {
+          width: 10px;
+          height: 10px;
+          border-top: 1px solid #000;
+          border-right: 1px solid #000;
+          -moz-transition: all .15s linear;
+          -webkit-transition: all .15s linear;
+          transition: all .15s linear;
+          transform: rotate(135deg);
+
+          &.up {
+            -moz-transform:rotate(-45deg);
+            -webkit-transform:rotate(-45deg);
+            transform: rotate(-45deg);
+          }
+        }
+      }
 
       &:last-child {
         border-width: 0;
