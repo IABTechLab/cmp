@@ -4,9 +4,14 @@ import PropTypes from "prop-types";
 
 import { Label } from "../../../label";
 import style from "./purposes.less";
+import { PurposeDetail } from "./detail";
 
 export const PurposeList = (
-	{ allPurposes, selectedPurposeIndex, purposes, onPurposeClick },
+	{ allPurposes, selectedPurposeIndex, purposes, onPurposeClick,
+		onToggleLocalVendors, handleSelectPurpose,localization,
+		features, showLocalVendors, purposesAreActive, 
+		selectedPurposeIndices, selectedLocalVendors, showSelectedLocalVendors
+	},
 	{ theme }
 ) => (
 	<div class={style.purposeList}>
@@ -34,16 +39,36 @@ export const PurposeList = (
 						[style.purposeItem]: true,
 						[style.selectedPurpose]: isActive
 					})}
-					style={{ ...itemStyles, fontFamily: theme.fontFamily }}
-					onClick={onPurposeClick(i)}
+					style={{ /*...itemStyles,*/ fontFamily: theme.fontFamily }}
 				>
-					<Label
-						localizeKey={`purposes.${
-							i >= purposes.length ? "customPurpose" : "purpose"
-						}${purpose.id}.menu`}
-					>
-						{purpose.name}
-					</Label>
+					<div class={style.purposeHeader} onClick={onPurposeClick(i)}>
+						<Label
+							localizeKey={`purposes.${
+								i >= purposes.length ? "customPurpose" : "purpose"
+							}${purpose.id}.menu`}
+							
+						>
+							{purpose.name}
+						</Label>
+						{ selectedPurposeIndices[i] >= 0 ?
+							<span class={`${style.purposeChevron} ${style.up}`}/> :
+							<span class={style.purposeChevron}/>
+						}
+					</div>
+					<PurposeDetail
+						onToggleLocalVendors={onToggleLocalVendors}
+						handleSelectPurpose={handleSelectPurpose}
+						localization={localization}
+						features={features}
+						showLocalVendors={showLocalVendors}
+						purposesAreActive={purposesAreActive}
+						currentPurposeIndex={i}
+						currentPurpose={purpose}
+						selectedPurposeIndices={selectedPurposeIndices}
+						selectedLocalVendors={selectedLocalVendors}
+						showSelectedLocalVendors={showSelectedLocalVendors}
+						purposes={purposes}
+					/>
 				</div>
 			);
 		})}
