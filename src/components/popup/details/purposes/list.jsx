@@ -7,7 +7,7 @@ import style from "./purposes.less";
 import { PurposeDetail } from "./detail";
 
 export const PurposeList = (
-	{ allPurposes, selectedPurposeIndex, purposes, onPurposeClick,
+	{ allPurposes, purposes, onPurposeClick,
 		onToggleLocalVendors, handleSelectPurpose,localization,
 		features, showLocalVendors, purposesAreActive, 
 		selectedPurposeIndices, selectedLocalVendors, showSelectedLocalVendors
@@ -16,22 +16,20 @@ export const PurposeList = (
 ) => (
 	<div class={style.purposeList}>
 		{allPurposes.map((purpose, i) => {
-			const isActive = selectedPurposeIndex === i;
+			const isActive = selectedPurposeIndices.hasOwnProperty(i);
 			const itemStyles = isActive
 				? {
-						backgroundColor: theme.activeTabBackground || theme.colorPrimary,
-						color: theme.activeTabTextColor || "white",
-						borderColor: theme.colorBorder
-				  }
+					backgroundColor: theme.activeTabBackground || theme.colorBackground,
+					color: theme.activeTabTextColor || theme.colorTextPrimary,
+					borderColor: theme.colorBorder,
+				}
 				: {
-						backgroundColor:
-							theme.inactiveTabBackground || theme.colorSecondary,
-						color: theme.inactiveTabTextColor || theme.colorTextSecondary,
-						borderColor: theme.colorBorder,
-						borderRightWidth: 1,
-						borderRightStyle: "solid",
-						fontWeight: "bold"
-				  };
+					backgroundColor: theme.inactiveTabBackground || theme.colorPrimary,
+					color: theme.inactiveTabTextColor || 'white',
+					borderColor: theme.colorBorder,
+					borderRightWidth: 1,
+					borderRightStyle: 'solid',
+				};
 
 			return (
 				<div

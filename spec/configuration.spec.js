@@ -115,11 +115,14 @@ describe(utils.suiteTitle("Configuration"), () => {
 			});
 
 		element(by.name("footerReject")).click();
+		
 
 		element.all(by.css("[class^=CMP_purposes_purposeItem]")).then(els => {
 			els[0].getCssValue("background-color").then(val => {
 				expect(val).toBe(cssColor);
 			});
+			// Click first item to render CMP_switch_visualizationContainer and pass next test
+			els[0].click(); 
 		});
 
 		element(by.css("[class^=CMP_switch_visualizationContainer]"))
@@ -202,7 +205,10 @@ describe(utils.suiteTitle("Configuration"), () => {
 
 		// check purposes
 		element(by.name("footerReject")).click();
-
+		element.all(by.css("[class^=CMP_purposes_purposeItem]"))
+			.first()
+			.click()
+			
 		element(by.css("[class^=CMP_purposes_switchText]"))
 			.getCssValue("color")
 			.then(val => {
