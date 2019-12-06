@@ -6,9 +6,9 @@ import { Disclaimer } from "./disclaimer";
 
 export class Purposes extends Component {
 	state = {
-		selectedPurposeIndices: {},
+		selectedPurposeIndices: {0: 0},
 		selectedLocalVendors: {},
-		showSelectedLocalVendors: {}
+		showSelectedLocalVendors: {0: false}
 	};
 
 	static defaultProps = {

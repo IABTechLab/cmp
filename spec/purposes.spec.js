@@ -87,13 +87,15 @@ describe(utils.suiteTitle("Purposes page"), () => {
 		);
 		const purposes = element.all(by.css("[class*=purposes_purposeItem]"));
 		purposes.get(1).click();
-		el = element(by.css("[class*=purposes_purposeDescription]"));
-		expect(el.getText()).toContain(
-			"The collection and processing of information about your use of this service to subsequently personalise advertising and/or content for you in other contexts, such as on other websites or apps, over time. Typically, the content of the site or app is used to make inferences about your interests, which inform future selection of advertising and/or content."
-		);
-		expect(el.getText()).not.toContain(
-			"The storage of information, or access to information that is already stored, on your device such as advertising identifiers, device identifiers, cookies, and similar technologies."
-		);
+		element.all(by.css("[class*=purposes_purposeDescription]")).then(els => {
+			expect(els[1].getText()).toContain(
+				"The collection and processing of information about your use of this service to subsequently personalise advertising and/or content for you in other contexts, such as on other websites or apps, over time. Typically, the content of the site or app is used to make inferences about your interests, which inform future selection of advertising and/or content."
+			);
+			expect(els[1].getText()).not.toContain(
+				"The storage of information, or access to information that is already stored, on your device such as advertising identifiers, device identifiers, cookies, and similar technologies."
+			);
+		});
+		
 	});
 
 	it("should correctly handle toggling of a selected purpose", () => {
