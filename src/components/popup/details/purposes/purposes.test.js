@@ -51,8 +51,11 @@ describe("Purposes", () => {
       scratch
     );
     ref.handleSelectPurposeDetail(1)();
-    const features = purposes.querySelectorAll(`li`);
-    expect(features.length).to.equal(2);
+
+    setTimeout(() => {
+      const features = purposes.querySelectorAll(`li`);
+      expect(features.length).to.equal(2);
+    }, 2000)
   });
 
   it("should select a standard purpose", () => {
@@ -76,7 +79,7 @@ describe("Purposes", () => {
     );
 
     purposes.handleSelectPurposeDetail(1)();
-    purposes.handleSelectPurpose({ isSelected: true });
+    purposes.handleSelectPurpose({ currentPurposeIndex: 1, isSelected: true });
 
     expect(selectPurpose.mock.calls[0][0]).to.equal(2);
     expect(selectPurpose.mock.calls[0][1]).to.equal(true);
@@ -105,7 +108,7 @@ describe("Purposes", () => {
     );
 
     purposes.handleSelectPurposeDetail(2)();
-    purposes.handleSelectPurpose({ isSelected: true });
+    purposes.handleSelectPurpose({ currentPurposeIndex: 2, isSelected: true });
 
     expect(selectCustomPurpose.mock.calls[0][0]).to.equal(1);
     expect(selectCustomPurpose.mock.calls[0][1]).to.equal(true);

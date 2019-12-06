@@ -3,7 +3,6 @@ import { h, Component } from "preact";
 import style from "./purposes.less";
 import { PurposeList } from "./list";
 import { Disclaimer } from "./disclaimer";
-import { PurposeDetail } from "./detail";
 
 export class Purposes extends Component {
 	state = {

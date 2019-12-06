@@ -39,8 +39,8 @@ describe(utils.suiteTitle("Configuration"), () => {
 				.getSize()
 		]).then(([size, location, browserSize]) => {
 			// check size of the modal
-			expect(size.width).toEqual(700);
-			expect(size.height).toBeLessThanOrEqual(500);
+			expect(size.width).toEqual(520);
+			expect(size.height).toBeLessThanOrEqual(560);
 
 			// check position of the modal
 			expect(location.x).toBe((browserSize.width - size.width) / 2);

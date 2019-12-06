@@ -39,7 +39,7 @@ export const PurposeList = (
 						[style.purposeItem]: true,
 						[style.selectedPurpose]: isActive
 					})}
-					style={{ /*...itemStyles,*/ fontFamily: theme.fontFamily }}
+					style={{ ...itemStyles, fontFamily: theme.fontFamily }}
 				>
 					<div class={style.purposeHeader} onClick={onPurposeClick(i)}>
 						<Label
