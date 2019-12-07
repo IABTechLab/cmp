@@ -27,6 +27,7 @@ const getConsentData = () => {
 };
 
 export function init(configUpdates) {
+	configUpdates.layout = "footer";
 	config.update(configUpdates);
 	log.debug("Using configuration:", config);
 
