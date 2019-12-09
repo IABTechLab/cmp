@@ -30,7 +30,7 @@ export const PurposeList = (
 					borderRightWidth: 1,
 					borderRightStyle: 'solid',
 				};
-
+				
 			return (
 				<div
 					class={cx({
@@ -48,7 +48,7 @@ export const PurposeList = (
 						>
 							{purpose.name}
 						</Label>
-						{ selectedPurposeIndices[i] >= 0 ?
+						{ selectedPurposeIndices.hasOwnProperty(i) ?
 							<span class={`${style.purposeChevron} ${style.up}`}/> :
 							<span class={`${style.purposeChevron} ${style.down}`}/>
 						}
