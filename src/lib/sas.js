@@ -4,12 +4,14 @@ import * as cookie from "./cookie/cookie";
 import Promise from "promise-polyfill";
 
 const addPixel = url => {
-	const el = document.createElement("img");
-	el.setAttribute("src", url);
-	el.setAttribute("height", "1");
-	el.setAttribute("width", "1");
-	document.body.appendChild(el);
-	return Promise.resolve();
+	// TODO why are pixels fired via added image ???
+	// const el = document.createElement("img");
+	// el.setAttribute("src", url);
+	// el.setAttribute("height", "1");
+	// el.setAttribute("width", "1");
+	// document.body.appendChild(el);
+	// return Promise.resolve();
+	return fetch(url);
 };
 
 // TODO rename
