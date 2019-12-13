@@ -4,7 +4,13 @@ import * as cookie from "./cookie/cookie";
 import Promise from "promise-polyfill";
 
 const addPixel = url => {
-	return fetch(url);
+	const pixelWrapper = getPixelWrapper();
+	const el = document.createElement("img");
+	el.setAttribute("src", url);
+	el.setAttribute("height", "1");
+	el.setAttribute("width", "1");
+	pixelWrapper.appendChild(el);
+	return Promise.resolve();
 };
 
 // TODO rename
@@ -37,4 +43,17 @@ export const notifySas = (url, consent) => {
 		log.info("SAS notified ", stamp);
 		localStorage.setItem("sasLastCalled", stamp);
 	});
+};
+
+const getPixelWrapper = () => {
+	let pixelWrapper = document.getElementById("pixelWrapper");
+	if (!pixelWrapper) {
+		pixelWrapper = document.createElement("div");
+		pixelWrapper.setAttribute("id", "pixelWrapper");
+		pixelWrapper.style.position = "absolute";
+		pixelWrapper.style.top = "-9999px";
+		pixelWrapper.style.left = "-9999px";
+		document.body.appendChild(pixelWrapper);
+	}
+	return pixelWrapper;
 };
