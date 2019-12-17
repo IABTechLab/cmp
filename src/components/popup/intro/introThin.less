@@ -1,88 +1,137 @@
-@import "../../../style/variables";
+@import '../../../style/variables';
 
 .imagePadding {
-	padding-left: 10px;
+    padding-left: 10px;
 }
 
 div.intro {
-	padding: 0 32px;
-	max-height: 100%;
+// padding: 0 32px;
+max-height: 100%;
 
-	.topWrapper {
+    .topWrapper {
+        display: flex;
+        justify-content: space-between;
+
+        .textWrapper {
+            display: flex;
+            flex-direction: column;
+
+            .titleContainer {
+                padding: 10px 0;
+                font-size: 30px;
+                font-weight: bold;
+
+                .title {
+                    float: left;
+                    line-height: 1.5;
+                }
+            }
+            .description {
+                padding: 10px;
+            }
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            padding-top: 10px;
+
+            button {
+                margin: 5px;
+            }
+        }
+    }
+    .contentMessage {
+        padding-right: 32px;
+    }
+    .rejectAll {
+        width: 270px;
+        margin-right: 10px;
+    }
+
+    .acceptAll {
+        width: 270px;
+        margin-right: -25px;
+    }
+}
+
+@media @smartPhonePortrait {
+	.intro {
 		display: flex;
-		justify-content: space-between;
+		flex-direction: column;
+		align-items: center;
 
-		.textWrapper {
-			display: flex;
-			flex-direction: column;
+		.topWrapper {
+			display: block !important;
+			padding: 5px 15px!important;
 
-			.titleContainer {
-				padding: 10px 0;
-				font-size: 30px;
-				font-weight: bold;
+			.textWrapper {
+				.description {
+					padding: 5px 0px!important;
 
-				.title {
-					float: left;
-					line-height: 1.5;
+					.contentMessage {
+						font-size: 16px;
+						line-height: 1.0;
+					}
 				}
 			}
+			.options {
+				flex-direction: row!important;
+				justify-content: center;
+				padding-top: 0px!important;
 
-			.description {
-				padding: 10px 10px 10px 0px;
-			}
-		}
-
-		.options {
-			display: flex;
-			flex-direction: column;
-			padding-top: 10px;
-
-			button {
-				margin: 5px;
+				button {
+					width: 50%;
+					display: flex;
+					justify-content: center;
+				}
 			}
 		}
 	}
-
-	.contentMessage {
-		padding-right: 32px;
-	}
-
-	.rejectAll {
-		width: 270px;
-		margin-right: 10px !important;
-	}
-
-	.acceptAll {
-		width: 270px;
-		margin-right: -25px !important;
-	}
 }
 
-@media (max-width: 800px) {
-	.topWrapper {
-		display: block !important;
-
-		.description {
-			padding: 10px !important;
-			display: block !important;
-		}
-
-		.options {
-			margin: 0 auto !important;
+@media @smartPhoneLandscape {
+	.intro {
+		.topWrapper {
+			.textWrapper {
+				.description {
+					.contentMessage {
+						line-height: 1.1!important;
+					}
+				}
+			}
+			.options {
+				button {
+					width: auto!important;
+					height: auto!important;
+				}
+			}
 		}
 	}
 }
 
-@media (max-width: 620px) {
-	.description {
-		display: block !important;
-	}
+// @media (max-width: 800px) {
+//     .topWrapper {
+//         display: block !important;
 
-	.topWrapper {
-		display: block !important;
+//         .description {
+//             padding: 10px !important;
+//             display: block !important;
+//         }
+//         .options {
+//             margin: 0 auto !important;
+//         }
+//     }
+// }
 
-		.options {
-			margin: 0 auto !important;
-		}
-	}
-}
+// @media (max-width: 620px) {
+//     .description {
+//         display: block !important;
+//     }
+//     .topWrapper {
+//         display: block !important;
+
+//         .options {
+//             margin: 0 auto !important;
+//         }
+//     }
+// }

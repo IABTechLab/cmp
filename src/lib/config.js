@@ -1,16 +1,14 @@
 import log from "./log";
-
 const metadata = require("../../metadata.json");
-// TODO start with default, update only changes
 const defaultConfig = {
 	companyName: null,
 	storePublisherData: true,
 	customPurposeListLocation: null,
-	storeConsentGlobally: false,
-	storePublisherConsentGlobally: true,
+	storeConsentGlobally: true,
+	storePublisherConsentGlobally: false,
 	globalVendorListLocation: metadata.globalVendorListLocation,
 	globalConsentLocation: metadata.globalConsentLocation,
-	globalPublisherConsentLocation: metadata.globalPublisherConsentLocation,
+	globalPublisherConsentLocation: null,
 	logging: false,
 	localization: {},
 	forceLocale: null,
@@ -30,7 +28,7 @@ const defaultConfig = {
 	logoUrl: null,
 	css: {
 		"color-primary": "#0a82be",
-		"color-secondary": "#eaeaea",
+		"color-secondary": "#e1e1e1",
 		"color-border": "#eaeaea",
 		"color-background": "#ffffff",
 		"color-text-primary": "#333333",
@@ -72,7 +70,7 @@ class Config {
 		if (updates && typeof updates === "object") {
 			const { validUpdates, invalidKeys } = Object.keys(updates).reduce(
 				(acc, key) => {
-					if (defaultConfig.hasOwnProperty(key)) {
+					if (Object.prototype.hasOwnProperty.call(defaultConfig, key)) {
 						if (self.individualOverwritesAllowed[key]) {
 							let obj = defaultConfig[key];
 							Object.assign(obj, updates[key]);

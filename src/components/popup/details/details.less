@@ -1,41 +1,40 @@
-@import "../../../style/variables";
+@import '../../../style/variables';
 
 .details {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	max-height: 500px;
-	min-height: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
 
-	.body {
-		display: flex;
-		flex-grow: 1;
-		min-height: 0;
-	}
+  .body {
+    display: flex;
+    flex-grow: 1;
+    min-height: 0;
+  }
 
-	.footer {
-		padding: 8px 0;
-		justify-content: space-between;
-		flex-wrap: wrap-reverse;
-		flex-shrink: 0;
+  .footer {
+    padding: 15px 0;
+    justify-content: space-between;
+    flex-wrap: wrap-reverse;
+    flex-shrink: 0;
 
-		button {
-			flex: 1;
-			margin: 0 8px;
-		}
-	}
+    button {
+      flex: 1;
+      margin: 0 8px;
+    }
+  }
 
-	.footerCta {
-		justify-content: space-between;
-		flex: 2;
-		flex-wrap: wrap;
-		padding: 0 8px;
-	}
+  .footerCta {
+    justify-content: space-between;
+    flex: 2;
+    flex-wrap: wrap;
+    padding: 0 8px;
+  }
 
-	@media screen and (min-width: 730px) {
-		.footer,
-		.footerCta {
-			flex-wrap: nowrap;
-		}
-	}
+  @media screen and (min-width: 730px) {
+    .footer,
+    .footerCta {
+      flex-wrap: nowrap;
+    }
+  }
 }

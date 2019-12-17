@@ -24,7 +24,7 @@
     }
   },
   "globals": {
-    "sleep": 1
+    // "sleep": 1
   },
   "rules": {
     "react/jsx-no-bind": [2, { "ignoreRefs": true }],
@@ -52,7 +52,7 @@
     "camelcase": 0,
     "comma-style": 2,
     "comma-dangle": 0,
-    "indent": [2, "tab", {"SwitchCase": 1}],
+    "indent": ["error", 2],
     "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
     "no-trailing-spaces": [2, { "skipBlankLines": true }],
     "max-nested-callbacks": 0,

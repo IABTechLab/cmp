@@ -5,14 +5,12 @@ import "core-js/fn/array/for-each";
 import "core-js/fn/array/filter";
 import "core-js/fn/array/from";
 
-import { coreInit } from "./lib/core";
+import { init } from "./lib/init";
 import { CMP_GLOBAL_NAME } from "./lib/cmp";
+
 function start() {
-	const { config } = window[CMP_GLOBAL_NAME] || {};
-	const configUpdates = {
-		...config
-	};
-	coreInit(configUpdates);
+  const { config } = window[CMP_GLOBAL_NAME] || {};
+  init(config);
 }
 
 start();

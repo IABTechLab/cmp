@@ -1,77 +1,78 @@
-@import "../style/variables";
+@import '../style/variables';
 
 .gdpr {
-	@import "../style/normalize";
+  @import '../style/normalize';
 
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-weight: 400;
-	font-size: 14px;
-	line-height: @line-height;
-	text-align: left;
+  font-family: 'acumin-pro-wide', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: @line-height;
+  text-align: left;
 
-	* {
-		box-sizing: border-box;
-		z-index: 2147483647;
-	}
+  * {
+	  box-sizing: border-box;
+	  z-index: 2147483647;
+  }
 
-	a {
-		text-decoration: none;
-		color: @color-linkColor;
-		cursor: pointer;
+  a {
+    text-decoration: none;
+    color: @color-linkColor;
+    cursor: pointer;
+    &:hover {
+      color: @color-linkColorHover;
+    }
+  }
 
-		&:hover {
-			color: @color-linkColorHover;
-		}
-	}
+  table {
+    margin: 0;
+  }
 
-	table {
-		margin: 0;
-	}
+  ul {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 16px;
+  }
 
-	ul {
-		padding: 0;
-		margin: 0;
-		margin-bottom: 16px;
-	}
+  li {
+    margin-top: 0;
+    background: none;
+    padding-left: none;
+    margin-bottom: 2px;
+    font-size: 14px;
+    list-style-type: disc;
+    list-style-position: inside;
 
-	li {
-		margin-top: 0;
-		background: none;
-		padding-left: none;
-		margin-bottom: 2px;
-		font-size: 14px;
-		list-style-type: disc;
-		list-style-position: inside;
+    &:before {
+      background-image: none;
+    }
+  }
 
-		&:before {
-			background-image: none;
-		}
-	}
+  p {
+    padding: 0;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
 
-	p {
-		padding: 0;
-		font-size: 14px;
-		margin-top: 0;
-		margin-bottom: 15px;
-	}
+  input:not([type]),
+  input[type='text'],
+  input[type='password'] {
+    box-sizing: border-box;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05) inset;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #c5c5c5;
+    color: #333;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    margin: 0;
+    padding: 0 9px;
+    height: 28px;
+  }
 
-	input:not([type]),
-	input[type="text"],
-	input[type="password"] {
-		box-sizing: border-box;
-		box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05) inset;
-		background-color: #fff;
-		border-radius: 4px;
-		border: 1px solid #c5c5c5;
-		color: #333;
-		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-		font-size: 1em;
-		margin: 0;
-		padding: 0 9px;
-		height: 28px;
-	}
-
-	@media screen and (max-width: 730px) {
-		font-size: 14px;
-	}
+  @media screen and (max-width: 730px) {
+    font-size: 14px;
+  }
 }
+
+

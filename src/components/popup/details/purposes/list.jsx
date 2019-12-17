@@ -4,27 +4,33 @@ import PropTypes from "prop-types";
 
 import { Label } from "../../../label";
 import style from "./purposes.less";
+import { PurposeDetail } from "./detail";
 
 export const PurposeList = (
-	{ allPurposes, selectedPurposeIndex, purposes, onPurposeClick },
+	{ allPurposes, purposes, onPurposeClick,
+		onToggleLocalVendors, handleSelectPurpose,localization,
+		features, showLocalVendors, purposesAreActive,
+		selectedPurposeIndices, selectedLocalVendors, showSelectedLocalVendors
+	},
 	{ theme }
 ) => (
 	<div class={style.purposeList}>
 		{allPurposes.map((purpose, i) => {
-			const isActive = selectedPurposeIndex === i;
+			const isActive = selectedPurposeIndices.hasOwnProperty(i);
 			const itemStyles = isActive
 				? {
-						backgroundColor: theme.activeTabBackground || theme.colorBackground,
-						color: theme.activeTabTextColor || theme.colorTextPrimary,
-						borderColor: theme.colorBorder
-				  }
+					backgroundColor: theme.activeTabBackground || theme.colorBackground,
+					color: theme.activeTabTextColor || theme.colorTextPrimary,
+					borderColor: theme.colorBorder,
+				}
 				: {
-						backgroundColor: theme.inactiveTabBackground || theme.colorPrimary,
-						color: theme.inactiveTabTextColor || "white",
-						borderColor: theme.colorBorder,
-						borderRightWidth: 1,
-						borderRightStyle: "solid"
-				  };
+					backgroundColor: theme.inactiveTabBackground || theme.colorPrimary,
+					color: theme.inactiveTabTextColor || 'white',
+					borderColor: theme.colorBorder,
+					borderRightWidth: 1,
+					borderRightStyle: 'solid',
+				};
+
 			return (
 				<div
 					class={cx({
@@ -32,15 +38,35 @@ export const PurposeList = (
 						[style.selectedPurpose]: isActive
 					})}
 					style={{ ...itemStyles, fontFamily: theme.fontFamily }}
-					onClick={onPurposeClick(i)}
 				>
-					<Label
-						localizeKey={`purposes.${
-							i >= purposes.length ? "customPurpose" : "purpose"
-						}${purpose.id}.menu`}
-					>
-						{purpose.name}
-					</Label>
+					<div class={style.purposeHeader} onClick={onPurposeClick(i)}>
+						<Label
+							localizeKey={`purposes.${
+								i >= purposes.length ? "customPurpose" : "purpose"
+							}${purpose.id}.menu`}
+
+						>
+							{purpose.name}
+						</Label>
+						{ selectedPurposeIndices[i] >= 0 ?
+							<span class={`${style.purposeChevron} ${style.up}`}/> :
+							<span class={style.purposeChevron}/>
+						}
+					</div>
+					<PurposeDetail
+						onToggleLocalVendors={onToggleLocalVendors}
+						handleSelectPurpose={handleSelectPurpose}
+						localization={localization}
+						features={features}
+						showLocalVendors={showLocalVendors}
+						purposesAreActive={purposesAreActive}
+						currentPurposeIndex={i}
+						currentPurpose={purpose}
+						selectedPurposeIndices={selectedPurposeIndices}
+						selectedLocalVendors={selectedLocalVendors}
+						showSelectedLocalVendors={showSelectedLocalVendors}
+						purposes={purposes}
+					/>
 				</div>
 			);
 		})}

@@ -1,73 +1,97 @@
-@import "../../../../style/variables";
+@import '../../../../style/variables';
 
 .container {
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	min-height: 320px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 150px;
 
-	.disclaimer {
-		font-size: 12px;
-		padding: 10px;
-	}
+  .disclaimer {
+    font-size: 12px;
+    padding: 10px;
+  }
 
-	.switchText {
-		padding-left: 18px;
-	}
+  .switchText {
+    padding-left: 18px;
+  }
 
-	.consentScope {
-		display: flex;
-		flex-direction: row;
-		font-size: 12px;
-		font-weight: normal;
-		align-items: center;
-		padding: 0px 8px;
-	}
+  .purposes {
+    display: flex;
+    flex: 1;
+    min-height: 0;
 
-	.consentScopeSwitch {
-		display: inline-block;
-		margin-left: 8px;
-	}
+    .purposeList {
+      font-size: 12px;
+      flex: 1;
+      // max-width: 200px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      direction: ltr;
+    }
+    .purposeItem {
+      display: flex;
+      direction: ltr;
+      align-items: center;
+      height: 50px;
+      background-color: @color-border;
+      border-bottom: 1px solid white;
+      text-align: left;
+      cursor: pointer;
+      flex-direction: column;
+      height: auto;
+      -webkit-transition: opacity 0.2s ease-in-out;
+      -moz-transition: opacity 0.2s ease-in-out;
+      -ms-transition: opacity 0.2s ease-in-out;
+      -o-transition: opacity 0.2s ease-in-out;
+      transition: opacity 0.2s ease-in-out;
+      opacity: 2;
 
-	.purposes {
-		display: flex;
-		flex: 1;
-		min-height: 0;
+      &:hover {
+        opacity: 0.9;
+      }
 
-		.purposeList {
-			font-size: 12px;
-			flex: 1;
-			max-width: 200px;
-			overflow-y: auto;
-			overflow-x: hidden;
-			direction: rtl;
-		}
+      .purposeHeader {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 50px;
+        align-items: center;
+        cursor: pointer;
+        padding: 0 1.5em;
 
-		.purposeItem {
-			display: flex;
-			direction: ltr;
-			align-items: center;
-			height: 50px;
-			padding-left: 10px;
-			background-color: @color-border;
-			border-bottom: 1px solid white;
-			text-align: left;
-			cursor: pointer;
+        .purposeChevron {
+          width: 10px;
+          height: 10px;
+          border-top: 1px solid #000;
+          border-right: 1px solid #000;
+          -moz-transition: all .15s linear;
+          -webkit-transition: all .15s linear;
+          transition: all .15s linear;
+          transform: rotate(135deg);
 
-			&:last-child {
-				border-width: 0;
-			}
+          &.up {
+            -moz-transform:rotate(-45deg);
+            -webkit-transform:rotate(-45deg);
+            transform: rotate(-45deg);
+          }
+        }
+      }
 
-			&.selectedPurpose {
-				font-weight: bold;
-				cursor: auto;
-			}
-		}
+      &:last-child {
+        border-width: 0;
+      }
 
-		.purposeDescription {
-			flex: 1;
-			padding: 16px;
-			overflow: auto;
-		}
-	}
+      &.selectedPurpose {
+        font-weight: bold;
+        cursor: auto;
+      }
+    }
+
+    .purposeDescription {
+      flex: 1;
+      padding: 16px;
+      overflow: auto;
+      background-color: white;
+    }
+  }
 }

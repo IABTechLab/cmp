@@ -12,28 +12,35 @@ import style from "./purposes.less";
 const formatFeature = item => item.description;
 
 export const PurposeDetail = ({
-	selectedPurpose,
-	currentPurposeLocalizePrefix,
 	features,
-	purposeIsActive,
-	showLocalVendors,
-	localVendors,
-	setScrollRef,
 	onToggleLocalVendors,
-	handleSelectPurpose
+	handleSelectPurpose,
+	currentPurpose,
+	purposesAreActive,
+	currentPurposeIndex,
+	selectedPurposeIndices,
+	selectedLocalVendors,
+	showSelectedLocalVendors,
+	purposes
 }) => {
-	const toggleVendorsKey = showLocalVendors ? "hideVendors" : "showVendors";
+	const toggleVendorsKey = showSelectedLocalVendors[currentPurposeIndex] ? "hideVendors" : "showVendors";
+
+	const currentPurposeLocalizePrefix = `${
+		!selectedPurposeIndices.hasOwnProperty(currentPurposeIndex) ? '' : currentPurposeIndex >= purposes.length ? "customPurpose" : "purpose"
+	}${selectedPurposeIndices[currentPurposeIndex] && selectedPurposeIndices[currentPurposeIndex].id}`;
+
 	return (
-		<div class={style.purposeDescription} ref={setScrollRef}>
+		selectedPurposeIndices[currentPurposeIndex] >=0 && (
+		<div class={style.purposeDescription}>
 			<Label
 				is={Title}
 				alignment="left"
-				providedValue={selectedPurpose.name}
+				providedValue={currentPurpose.name}
 				localizeKey={`${currentPurposeLocalizePrefix}.title`}
 			/>
 			<Label
 				is={Paragraph}
-				providedValue={selectedPurpose.description}
+				providedValue={currentPurpose.description}
 				localizeKey={`${currentPurposeLocalizePrefix}.description`}
 			/>
 			<Label is={Paragraph} localizeKey="purposes.featureHeader" />
@@ -42,7 +49,8 @@ export const PurposeDetail = ({
 			<Row>
 				<Switch
 					displayLabel
-					isSelected={purposeIsActive}
+					currentPurposeIndex={currentPurposeIndex}
+					isSelected={purposesAreActive[currentPurposeIndex]}
 					onClick={handleSelectPurpose}
 				/>
 				<Label
@@ -55,11 +63,11 @@ export const PurposeDetail = ({
 			<LocalizedLink
 				id="purposeShowVendors"
 				localizeKey={`purposes.${toggleVendorsKey}`}
-				onClick={onToggleLocalVendors}
+				onClick={() => onToggleLocalVendors(currentPurposeIndex)}
 			/>
-			{showLocalVendors && (
-				<Vendortable vendors={localVendors} displayControls={false} />
+			{showSelectedLocalVendors[currentPurposeIndex] && (
+				<Vendortable vendors={selectedLocalVendors[currentPurposeIndex]} displayControls={false} />
 			)}
-		</div>
+		</div>)
 	);
 };

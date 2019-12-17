@@ -5,13 +5,13 @@
 	"purposes": [
 		{
 			"id": 1,
-			"name": "Storage and access of information",
-			"description": "The storage of information, or access to information that is already stored, on your device such as accessing advertising identifiers and/or other device identifiers, and/or using cookies or similar technologies."
+			"name": "Information storage and access",
+			"description": "The storage of information, or access to information that is already stored, on your device such as advertising identifiers, device identifiers, cookies, and similar technologies."
 		},
 		{
 			"id": 2,
 			"name": "Personalisation",
-			"description": "The collection and processing of information about your use of this site to subsequently personalize advertising for you in other contexts, i.e. on other sites or apps, over time. Typically, the content of the site or app is used to make inferences about your interests which inform future selections."
+			"description": "The collection and processing of information about your use of this service to subsequently personalise advertising and/or content for you in other contexts, such as on other websites or apps, over time. Typically, the content of the site or app is used to make inferences about your interests, which inform future selection of advertising and/or content."
 		},
 		{
 			"id": 3,

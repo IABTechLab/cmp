@@ -1,76 +1,75 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8" />
-	<title>GDPR Documentation</title>
-	<meta
-		name="viewport"
-		content="width=device-width, initial-scale=1.0, minimal-ui"
-	/>
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<script src="https://unpkg.com/qs@6.6.0/dist/qs.js"></script>
-	<script>
-		myCustomCallback = (isTrackingReady) => {
-			if(isTrackingReady){
-				(function (window) {
-					var query = Qs.parse(window.location.search.replace('?', ''), {
-						allowDots: true,
-					});
-					console.log('Query: ', query);
-					// TODO default config
-					var config = {};
-					for (var param in query) {
-						config[ param ] = query[ param ];
-					}
-					window.__cmp = (function () {
-						window.addEventListener('message', function (event) {
-							window.__cmp.receiveMessage(event);
-						});
-						var commandQueue = [];
-						var cmp = function (command, parameter, callback) {
-							commandQueue.push({
-								command: command,
-								parameter: parameter,
-								callback: callback,
-							});
-						};
-						cmp.onConfigLoaded = function (config) {
-							var isBrowingBlocked = config.blockBrowsing;
-						};
-						cmp.commandQueue = commandQueue;
-						cmp.receiveMessage = function (event) {
-							var data = event && event.data && event.data.__cmpCall;
-							if (data) {
-								commandQueue.push({
-									callId: data.callId,
-									command: data.command,
-									parameter: data.parameter,
-									event: event,
-								});
-							}
-						};
-						cmp.config = config;
-						return cmp;
-					})();
-				})(window);
+  <head>
+    <meta charset="utf-8" />
+    <title>GDPR Documentation</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimal-ui"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script src="https://unpkg.com/qs@6.6.0/dist/qs.js"></script>
+    <script>
+      (function(window) {
+        var query = Qs.parse(window.location.search.replace('?', ''), {
+          allowDots: true,
+        });
+        console.log(query);
+        var config = {
+          customPurposeListLocation: 'docs/purposes.json',
+          globalVendorListLocation: 'docs/vendors.json',
+          globalConsentLocation: 'docs/portal.html',
+          storeConsentGlobally: false,
+          storePublisherConsentGlobally: false,
+          storePublisherData: true,
+          layout: 'footer',
+          logging: 'debug',
+          blockBrowsing: false,
+          forceLocale: 'en',
+          testingMode: 'always show',
+          showFooterAfterSubmit: true,
+        };
+        for (var param in query) {
+          config[param] = query[param];
+        }
+        window.__cmp = (function() {
+          window.addEventListener('message', function(event) {
+            window.__cmp.receiveMessage(event);
+          });
+          var commandQueue = [];
+          var cmp = function(command, parameter, callback) {
+            commandQueue.push({
+              command: command,
+              parameter: parameter,
+              callback: callback,
+            });
+          };
+          cmp.onConfigLoaded = function(config) {
+            console.log(config);
+            var isBrowingBlocked = config.blockBrowsing;
+          };
+          cmp.commandQueue = commandQueue;
+          cmp.receiveMessage = function(event) {
+            var data = event && event.data && event.data.__cmpCall;
+            if (data) {
+              commandQueue.push({
+                callId: data.callId,
+                command: data.command,
+                parameter: data.parameter,
+                event: event,
+              });
+            }
+          };
+          cmp.config = config;
+          return cmp;
+        })();
+      })(window);
 
-				window.__cmp('renderCmpIfNeeded');
-			} else {
-				console.log('CMP not run')
-			}
-		};
-
-		/**
-		 * Jakub Kříž (Optimics) <jakub.kriz@optimics.cz>
-		 * Detektor, zda je pixel.cpex.cz použitelný
-		 */
-		// TODO move to separate file - resort all
-		!function(i,o){i=i||24;var c={aamIdSync:"aam_net_ui",aamIdSyncTime:"aam_net_ts"},r={set:function(e,t,n){var a;if(n){var i=new Date;i.setTime(i.getTime()+24*n*60*60*1e3),a="; expires="+i.toGMTString()}else a="";var o=location.hostname.split("."),c=o.pop(),r="."+o.pop()+"."+c;document.cookie=e+"="+t+a+";path=/;domain="+r},get:function(e){if(0<document.cookie.length){var t=document.cookie.indexOf(e+"=");if(-1!=t){t=t+e.length+1;var n=document.cookie.indexOf(";",t);return-1==n&&(n=document.cookie.length),unescape(document.cookie.substring(t,n))}}return""}};function t(){var e=60*i*60*1e3,t=r.get(c.aamIdSyncTime),n=parseInt(1e3*t+e),a=parseInt((new Date).getTime());if(n<a)return o(!0),!0;o(!1)}function n(){o(!1)}function e(){var e="aam_time_sync";window[e]=function(e){try{if(isNaN(e.ts)||"number"!=typeof e.uuid&&"string"!=typeof e.uuid)throw"Bad Data";r.set(c.aamIdSync,e.uuid,60),r.set(c.aamIdSyncTime,e.ts,60),t()}catch(e){o(!1)}},function(e,t,n){try{var a,i,o;i=!1,(a=document.createElement("script")).type="text/javascript",a.src=e,a.onload=a.onreadystatechange=function(){!t||i||this.readyState&&"complete"!=this.readyState||(i=!0,t())},a.onerror=function(){!n||i||this.readyState&&"complete"!=this.readyState||(i=!0,n())},(o=document.getElementsByTagName("script")[0]).parentNode.insertBefore(a,o)}catch(e){}}("//pixel.cpex.cz/uuid.js?jsp="+e,function(){},n)}function a(){return""==r.get(c.aamIdSyncTime)?e():t(),!0}a(),window.isCpexPltaformReady=a}(24,myCustomCallback);
-
-	</script>
-</head>
-<body>
-<a href="#">Some Link</a>
-<div><p>Some Text</p></div>
-</body>
+      window.__cmp('renderCmpIfNeeded');
+    </script>
+  </head>
+  <body>
+    <a href="#">Some Link</a>
+    <div><p>Some Text</p></div>
+  </body>
 </html>
