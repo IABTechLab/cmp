@@ -2,24 +2,30 @@
   "name": "digitrust-cmp",
   "version": "0.0.0",
   "scripts": {
-    "clean": "rm -rf build",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
     "start": "serve build -s -c 1",
     "prestart": "npm run build",
     "build": "cross-env NODE_ENV=production webpack --progress",
     "prebuild": "npm run clean && mkdirp build",
-    "test": "npm run -s lint && jest --coverage && ./node_modules/.bin/webdriver-manager update && ./node_modules/.bin/protractor",
-    "unit_tests": "npm run -s lint && jest --coverage",
-    "protractor": "./node_modules/webdriver-manager/bin/webdriver-manager update && ./node_modules/protractor/bin/protractor protractor.conf.js",
-    "protractor_tests": "./node_modules/protractor/bin/protractor protractor.conf.js",
-    "test:watch": "npm run -s test -- --watch",
-    "lint": "eslint src test",
+    "version": "npm run build",
     "preversion": "npm test",
-    "version": "npm run build"
+    "test": "npm run lint && npm run test:unit && npm run test:e2e",
+    "test:unit": "jest --coverage",
+    "test:e2e": "npm run test:update_webdriver_manager && npm run test:protractor",
+    "test:watch": "npm run -s test:unit -- --watch",
+    "test:update_webdriver_manager": "./node_modules/protractor/bin/webdriver-manager update",
+    "test:protractor": "./node_modules/protractor/bin/protractor protractor.conf.js",
+    "lint": "eslint src test",
+    "format": "prettier \"src/**/*.{js,jsx,less}\" --write",
+    "clean": "rm -rf build"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/digi-trust/cmp.git"
+  },
+  "husky": {
+    "hooks": {
+    }
   },
   "license": "Apache-2.0",
   "author": "DigiTrust",
@@ -50,6 +56,26 @@
       "src/components/**/*.{js,jsx}"
     ]
   },
+  "dependencies": {
+    "browserstack-local": "^1.3.7",
+    "classnames": "^2.2.6",
+    "codemirror": "^5.34.0",
+    "core-js": "^2.5.3",
+    "html-react-parser": "^0.4.7",
+    "js-beautify": "^1.7.5",
+    "lodash": "^4.17.4",
+    "preact": "^8.1.0",
+    "preact-compat": "^3.15.0",
+    "preact-render-to-string": "^3.6.0",
+    "promise-polyfill": "^7.1.0",
+    "prop-types": "^15.6.2",
+    "proptypes": "^1.0.0",
+    "query-string": "^5.0.1",
+    "react-codemirror2": "^4.0.0",
+    "react-router-dom": "^4.2.2",
+    "serve": "^6.0.0",
+    "whatwg-fetch": "^2.0.3"
+  },
   "devDependencies": {
     "autoprefixer": "^7.0.1",
     "babel": "^6.5.2",
@@ -77,16 +103,22 @@
     "file-loader": "^1.1.6",
     "geckodriver": "^1.18.0",
     "html-webpack-plugin": "^2.28.0",
+    "husky": "^1.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jasmine": "^3.1.0",
+    "jasmine-spec-reporter": "^4.2.1",
     "jest": "^22.2.1",
     "json-loader": "^0.5.4",
     "less": "^3.0.0-alpha.3",
     "less-loader": "^4.0.3",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
+    "now": "^13.1.2",
+    "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-loader": "^2.0.3",
     "preact-jsx-chai": "^2.2.1",
+    "prettier": "^1.14.3",
+    "pretty-quick": "^1.8.0",
     "protractor": "^5.3.2",
     "raw-loader": "^1.0.0-beta.0",
     "regenerator-runtime": "^0.11.1",
@@ -99,24 +131,7 @@
     "url-loader": "^0.6.1",
     "webdriver-manager": "^12.1.0",
     "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.11.5"
-  },
-  "dependencies": {
-    "classnames": "^2.2.5",
-    "codemirror": "^5.34.0",
-    "core-js": "^2.5.3",
-    "js-beautify": "^1.7.5",
-    "lodash": "^4.17.15",
-    "preact": "^8.1.0",
-    "preact-compat": "^3.15.0",
-    "preact-render-to-string": "^3.6.0",
-    "promise-polyfill": "^7.1.0",
-    "proptypes": "^1.0.0",
-    "query-string": "^5.0.1",
-    "react": "^16.10.2",
-    "react-codemirror2": "^4.0.0",
-    "react-router-dom": "^4.2.2",
-    "serve": "^6.0.0",
-    "whatwg-fetch": "^2.0.3"
+    "webpack-bundle-analyzer": "^3.0.3",
+    "webpack-dev-server": "^2.4.4"
   }
 }
