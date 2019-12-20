@@ -8,22 +8,4 @@ options.functions = false;
 // activate the JSX assertion extension:
 chai.use(assertJsx);
 
-class LocalStorage {
-  getItem = id => {
-    return this.items[id];
-  };
-
-  setItem = (id, value) => {
-    this.items[id] = value;
-  };
-
-  clear = () => {
-    this.items = {};
-  };
-
-  items = {};
-}
-
-global.localStorage = new LocalStorage();
-
-global.sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+global.sleep = ms => new Promise( resolve => setTimeout(resolve, ms) );

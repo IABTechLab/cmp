@@ -1,40 +1,29 @@
-import { h } from 'preact';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-
+import { h, Component } from 'preact';
 import style from './button.less';
 
-export const Button = (
-  { children, onClick, invert, name, ...rest },
-  { theme },
-) => {
-  const styles = invert
-    ? {
-        borderColor: theme.buttonBackground || theme.colorPrimary,
-        color: theme.buttonBackground || theme.colorPrimary,
-        backgroundColor: theme.colorBackground,
-      }
-    : {
-        borderColor: theme.buttonBackground || theme.colorPrimary,
-        color: theme.buttonTextColor || 'white',
-        backgroundColor: theme.buttonBackground || theme.colorPrimary,
-      };
-  return (
-    <button
-      name={name}
-      class={cx({
-        [style.button]: true,
-        [rest.class]: !!rest.class,
-        [style.invert]: invert,
-      })}
-      style={{ ...styles, fontFamily: theme.fontFamily }}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-};
+export default class Button extends Component {
 
-Button.contextTypes = {
-  theme: PropTypes.object.isRequired,
-};
+	static defaultProps = {
+		onClick: () => {},
+		invert: false
+	};
+
+
+	render(props) {
+		const {
+			children,
+			onClick,
+			invert,
+			name
+		} = props;
+
+		return (
+			<button
+				name={name}
+				class={[style.button, props.class, invert ? style.invert : ''].join(' ')}
+				onClick={onClick}>
+				{children}
+			</button>
+		);
+	}
+}

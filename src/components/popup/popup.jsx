@@ -1,18 +1,12 @@
 import { h, Component } from 'preact';
-import cx from 'classnames';
-
-import { Panel } from '../panel';
-import { Intro } from './intro';
-import { Summary } from './summary';
-import { Details } from './details';
 import style from './popup.less';
+import Intro from './intro/intro';
+import Details from './details/details';
+import Panel from '../panel/panel';
 
 
 const SECTION_INTRO = 0;
-const SECTION_SUMMARY = 1;
-const SECTION_DETAILS = 2;
-// const SECTION_PURPOSES = 2;
-// const SECTION_VENDORS = 3;
+const SECTION_DETAILS = 1;
 
 export default class Popup extends Component {
 	state = {
@@ -33,68 +27,56 @@ export default class Popup extends Component {
 		});
 	};
 
-  showSection = section => {
-    this.setState({
-      selectedPanelIndex: section,
-    });
-  };
+	handleShowDetails = () => {
+		this.setState({
+			selectedPanelIndex: SECTION_DETAILS
+		});
+	};
 
-  showIntro = () => {
-    this.showSection(SECTION_INTRO);
-  };
+	handleClose = () => {};
 
-  showSummary = () => {
-    this.showSection(SECTION_SUMMARY);
-  };
+	componentDidMount() {
+		this.props.updateCSSPrefs();
+	}
 
-  showDetails = () => {
-    this.showSection(SECTION_DETAILS);
-  };
+	render(props, state) {
+		const { store, localization, config, updateCSSPrefs } = props;
+		const { selectedPanelIndex } = state;
+		const { isConsentToolShowing } = store;
 
-  handleClose = () => {};
-
-  render(props, state) {
-    const { store, localization, config, visible } = props;
-    const { selectedPanelIndex } = state;
-
-    if (!visible) {
-      return null;
-    }
-
-    return (
-      <div class={cx(style.popup, style[`popup-${config.layout}`])}>
-        {config.blockBrowsing && (
-          <div class={style.overlay} onClick={this.handleClose} />
-        )}
-        <Panel selectedIndex={selectedPanelIndex}>
-          <Intro
-            onAcceptAll={this.onAcceptAll}
-            onShowSummary={this.showSummary}
-            onShowPurposes={this.showDetails}
-            onClose={this.handleClose}
-            localization={localization}
-            store={store}
-            config={config}
-          />
-          <Summary
-            onAcceptAll={this.onAcceptAll}
-            onShowIntro={this.showIntro}
-            onShowPurposes={this.showDetails}
-            onClose={this.handleClose}
-            localization={localization}
-            store={store}
-            layout={config.layout}
-          />
-          <Details
-            onSave={this.props.onSave}
-            onCancel={this.onCancel}
-            store={this.props.store}
-            onClose={this.handleClose}
-            localization={localization}
-            config={config}
-          />
-        </Panel>
-      </div>
-    );
-  }
+		return (
+			<div
+				class={config.blockBrowsing ? style.popup : ''}
+				style={{ display: isConsentToolShowing ? 'flex' : 'none' }}
+			>
+				{config.blockBrowsing &&
+					<div
+						class={style.overlay}
+						onClick={this.handleClose}
+				/>}
+				<div name='content' class={config.blockBrowsing ? style.content : style.noOverlayContent}>
+					<Panel selectedIndex={selectedPanelIndex}>
+						<Intro
+							onAcceptAll={this.onAcceptAll}
+							onShowPurposes={this.handleShowDetails}
+							onClose={this.handleClose}
+							localization={localization}
+							store={store}
+							config={config}
+							updateCSSPrefs={updateCSSPrefs}
+						/>
+						<Details
+							onSave={this.props.onSave}
+							onCancel={this.onCancel}
+							store={this.props.store}
+							onClose={this.handleClose}
+							localization={localization}
+							config={config}
+							updateCSSPrefs={updateCSSPrefs}
+						/>
+					</Panel>
+				</div>
+			</div>
+		);
+	}
 }

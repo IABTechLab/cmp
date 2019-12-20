@@ -1,41 +1,22 @@
-import { h, createElement } from 'preact';
-import PropTypes from 'prop-types';
-import Parser from 'html-react-parser';
+import { h, Component } from 'preact';
+import Localize from '../../lib/localize';
 
-const replacer = domNode => {
-  console.log(domNode);
-};
+export default class Label extends Component {
+	static defaultProps = {
+		prefix: ''
+	};
 
-export const Label = (
-  {
-    is = 'span',
-    prefix,
-    localizeKey,
-    children,
-    replace = replacer,
-    providedValue,
-    ...rest
-  },
-  { translate = key => key },
-) => {
-  const key = prefix ? `${prefix}.${localizeKey}` : localizeKey;
-  let localizedContent = providedValue || translate(key);
+	render(props, state) {
+		const { prefix, localizeKey, className, children, providedValue } = props;
+		const key = prefix ? `${prefix}.${localizeKey}` : localizeKey;
+		const localizedContent = providedValue || Localize.lookup(key);
 
-  if (localizedContent && localizedContent.indexOf('<') > -1) {
-    localizedContent = Parser(localizedContent, { replace });
-  }
-
-  return createElement(
-    is,
-    {
-      ...rest,
-    },
-    localizedContent || children,
-  );
-};
-
-Label.contextTypes = {
-  translate: PropTypes.theme,
-};
-
-export default Label;
+		return (
+			<span
+				class={props.class || className}
+				dangerouslySetInnerHTML={localizedContent && {__html: localizedContent}}>
+				{!localizedContent && children}
+			</span>
+		);
+	}
+}
