@@ -122,6 +122,10 @@ describe(utils.suiteTitle("Configuration"), () => {
 			});
 		});
 
+		element.all(by.css("[class^=CMP_purposes_purposeItem]"))
+			.first()
+			.click();
+		
 		element(by.css("[class^=CMP_switch_visualizationContainer]"))
 			.getCssValue("background-color")
 			.then(val => {

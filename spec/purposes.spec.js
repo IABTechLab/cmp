@@ -70,17 +70,11 @@ describe(utils.suiteTitle("Purposes page"), () => {
 		expect(purposeList.getText()).toContain("Custom Purpose 2");
 	});
 
-	it("should display default selected purpose correctly", () => {
-		const el = element(by.css("[class*=purposes_purposeDescription]"));
-		expect(el.getText()).toContain(
-			"The storage of information, or access to information that is already stored, on your device such as advertising identifiers, device identifiers, cookies, and similar technologies."
-		);
-		expect(el.getText()).not.toContain(
-			"The collection and processing of information about your use of this site to subsequently personalize advertising for you in other contexts, i.e. on other sites or apps, over time. Typically, the content of the site or app is used to make inferences about your interests which inform future selections."
-		);
-	});
-
 	it("should correctly handle click on a purpose", () => {
+		element.all(by.css("[class^=CMP_purposes_purposeItem]"))
+			.first()
+			.click();
+
 		let el = element(by.css("[class*=purposes_purposeDescription]"));
 		expect(el.getText()).toContain(
 			"The storage of information, or access to information that is already stored, on your device such as advertising identifiers, device identifiers, cookies, and similar technologies."
@@ -99,6 +93,10 @@ describe(utils.suiteTitle("Purposes page"), () => {
 	});
 
 	it("should correctly handle toggling of a selected purpose", () => {
+		element.all(by.css("[class^=CMP_purposes_purposeItem]"))
+			.first()
+			.click();
+
 		const switchEl = element(by.css("[class*=switch_switch]"));
 		const label = element(by.css("[class*=switch_label]"));
 
@@ -128,6 +126,9 @@ describe(utils.suiteTitle("Purposes page"), () => {
 			browser.get("/");
 			browser.sleep(300);
 			element(by.name("footerReject")).click();
+			element.all(by.css("[class^=CMP_purposes_purposeItem]"))
+				.first()
+				.click();
 
 			let vendorCookie2;
 			const switchEl = element(by.css("[class*=switch_switch]"));
@@ -148,6 +149,11 @@ describe(utils.suiteTitle("Purposes page"), () => {
 	});
 
 	it("should display companies for selected purpose when show companies link is clicked", () => {
+		// Expand first purpose
+		element.all(by.css("[class^=CMP_purposes_purposeItem]"))
+			.first()
+			.click();
+
 		// By default table with vendors should be hidden
 		expect(
 			element(by.css("[class*=vendortable_vendorTable]")).isPresent()

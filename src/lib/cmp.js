@@ -10,9 +10,9 @@ import { checkReprompt, checkIfGDPRApplies } from "./utils";
 
 const metadata = require("../../metadata.json");
 const testingModes = {
-	ALWAYS: "always show",
-	NORMAL: "normal",
-	NEVER: "never show"
+  ALWAYS: "always show",
+  NORMAL: "normal",
+  NEVER: "never show"
 };
 
 export const CMP_GLOBAL_NAME = metadata.cmpGlobalName;
@@ -54,43 +54,43 @@ export default class Cmp {
 	      );
 	      const { testingMode } = config;
 
-				if (testingMode !== testingModes.NORMAL) {
-					if (testingMode === testingModes.ALWAYS) {
-						self.notify("cmpStarted");
-						cmp("showConsentTool", callback);
-					} else {
-						if (testingMode === testingModes.NEVER) {
-							window.PageviewCMP = 0;
-						}
-						log.debug("Toolbox can be rendered only manually");
-						callback(false);
-					}
-				} else if (config.gdprAppliesGlobally || self.gdprApplies) {
-					self.gdprApplies = true;
-					if (shouldBePrompted) {
-						self.notify("cmpStarted");
-						cmp("showConsentTool", callback);
-					} else {
-						self.notify("consentNotRequired");
-						window.PageviewCMP = 0;
-						log.debug("rendering the CMP is not needed");
-					}
-				} else {
-					checkIfGDPRApplies(config.geoIPVendor, response => {
-						self.gdprApplies = response.applies;
-						self.gdprAppliesLanguage = response.language;
-						self.gdprAppliesLocation = response.location;
-						if (response.applies && shouldBePrompted) {
-							self.notify("cmpStarted");
-							cmp("showConsentTool", callback);
-						} else {
-							self.notify("consentNotRequired");
-							window.PageviewCMP = 0;
-							log.debug("rendering the CMP is not needed");
-						}
-					});
-				}
-			}
+	      if (testingMode !== testingModes.NORMAL) {
+	        if (testingMode === testingModes.ALWAYS) {
+	          self.notify("cmpStarted");
+	          cmp("showConsentTool", callback);
+	        } else {
+	          if (testingMode === testingModes.NEVER) {
+	            window.PageviewCMP = 0;
+	          }
+	          log.debug("Toolbox can be rendered only manually");
+	          callback(false);
+	        }
+	      } else if (config.gdprAppliesGlobally || self.gdprApplies) {
+	        self.gdprApplies = true;
+	        if (shouldBePrompted) {
+	          self.notify("cmpStarted");
+	          cmp("showConsentTool", callback);
+	        } else {
+	          self.notify("consentNotRequired");
+	          window.PageviewCMP = 0;
+	          log.debug("rendering the CMP is not needed");
+	        }
+	      } else {
+	        checkIfGDPRApplies(config.geoIPVendor, response => {
+	          self.gdprApplies = response.applies;
+	          self.gdprAppliesLanguage = response.language;
+	          self.gdprAppliesLocation = response.location;
+	          if (response.applies && shouldBePrompted) {
+	            self.notify("cmpStarted");
+	            cmp("showConsentTool", callback);
+	          } else {
+	            self.notify("consentNotRequired");
+	            window.PageviewCMP = 0;
+	            log.debug("rendering the CMP is not needed");
+	          }
+	        });
+	      }
+	    }
 
 	    if (cmp && typeof cmp.onConfigLoaded === "function") {
 	      cmp.onConfigLoaded(config);
