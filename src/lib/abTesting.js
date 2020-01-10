@@ -17,11 +17,13 @@ export const mapVariants = variants => {
 
 export const pickVariant = (variants = []) => {
   const variantId = getVariantId();
-  if (variantId !== null) {
+  if (variantId != null) {
     log.info(`Using previously selected variantId: ${variantId}`);
     const variant = findVariantById(variantId, variants);
     log.info("Variant picked", variant);
-    return variant;
+    if (variant) {
+      return variant;
+    }
   }
 
   const probabilitilized = Probability(mapVariants(variants));

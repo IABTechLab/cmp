@@ -28,7 +28,7 @@ export const PurposeDetail = ({
 	const currentPurposeLocalizePrefix = `${
 		!selectedPurposeIndices.hasOwnProperty(currentPurposeIndex) ? '' : currentPurposeIndex >= purposes.length ? "customPurpose" : "purpose"
 	}${selectedPurposeIndices[currentPurposeIndex] && selectedPurposeIndices[currentPurposeIndex].id}`;
-	
+
 	return (
 		selectedPurposeIndices[currentPurposeIndex] >=0 && (
 		<div class={style.purposeDescription}>

@@ -6,7 +6,7 @@ export function Probability(args) {
 
   args.push({
     p: 0,
-    f() {},
+    f() {}
   });
 
   args.forEach(({ p, f }, i) => {
@@ -14,9 +14,9 @@ export function Probability(args) {
       p = Math.abs(parseFloat(p)) / 100.0;
     }
 
-    if (isNaN(p) || typeof f !== 'function') {
+    if (isNaN(p) || typeof f !== "function") {
       throw new TypeError(
-        `Probability.js: Invalid probability object in argument ${i}.`,
+        `Probability.js: Invalid probability object in argument ${i}.`
       );
     }
 
@@ -25,16 +25,16 @@ export function Probability(args) {
     if (sum > 1.0) {
       throw new TypeError(
         'Probability.js: Probability exceeds "1.0" (=100%) in argument ' +
-          i +
-          ': p="' +
-          p +
-          '" (=' +
-          p * 100 +
-          '%), sum="' +
-          sum +
-          '" (=' +
-          sum * 100 +
-          '%).',
+					i +
+					': p="' +
+					p +
+					'" (=' +
+					p * 100 +
+					'%), sum="' +
+					sum +
+					'" (=' +
+					sum * 100 +
+					"%)."
       );
     }
 

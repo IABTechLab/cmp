@@ -50,7 +50,8 @@ const defaultConfig = {
   duplicateConsent: false,
   sasEnabled: false,
   sasInterval: 24,
-  sasUrls: []
+  sasUrls: [],
+  consentScope: "all"
 };
 
 class Config {

@@ -1,30 +1,30 @@
-import { Probability } from './probability';
+import { Probability } from "./probability";
 
 const counter = [0, 0, 0];
 
 const probabilitilized = Probability([
   {
-    p: '30%',
+    p: "30%",
     f() {
       counter[0]++;
-    },
+    }
   },
   {
-    p: '10%',
+    p: "10%",
     f() {
       counter[1]++;
-    },
+    }
   },
   {
-    p: '60%',
+    p: "60%",
     f() {
       counter[2]++;
-    },
-  },
+    }
+  }
 ]);
 
-describe('Probability', () => {
-  it('should handle probability correctly', () => {
+describe("Probability", () => {
+  it("should handle probability correctly", () => {
     for (let i = 0; i < 101; i++) {
       probabilitilized();
     }

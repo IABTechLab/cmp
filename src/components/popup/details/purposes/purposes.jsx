@@ -6,7 +6,7 @@ import { Disclaimer } from "./disclaimer";
 
 export class Purposes extends Component {
 	state = {
-		selectedPurposeIndices: {0: 0},
+		selectedPurposeIndices: {},
 		selectedLocalVendors: {},
 		showSelectedLocalVendors: {0: false}
 	};
@@ -51,7 +51,7 @@ export class Purposes extends Component {
 		} = this.props;
 		const allPurposes = [...purposes, ...customPurposes];
 		const id = allPurposes[currentPurposeIndex].id;
-		
+
 		if (currentPurposeIndex < purposes.length) {
 			selectPurpose(id, isSelected);
 		} else {
@@ -73,7 +73,7 @@ export class Purposes extends Component {
 					return vendor;
 			})
 			.filter(vendor => vendor);
-		
+
 		selectedLocalVendors[currentSelectedPurposeIndex] = localVendors;
 		showSelectedLocalVendors[currentSelectedPurposeIndex] = true;
 		this.setState({
@@ -88,7 +88,7 @@ export class Purposes extends Component {
 
 		showSelectedLocalVendors[currentSelectedPurposeIndex] = false;
 		delete selectedLocalVendors[currentSelectedPurposeIndex];
-		
+
 		this.setState({
 			showSelectedLocalVendors,
 			selectedLocalVendors
@@ -121,7 +121,7 @@ export class Purposes extends Component {
 
 		const allPurposes = [...purposes, ...customPurposes];
 
-		let purposesAreActive = 
+		let purposesAreActive =
 			allPurposes.map(({ id }, index)=> {
 				if (index < purposes.length) return selectedPurposeIds.has(id)
 				else return selectedCustomPurposeIds.has(id)

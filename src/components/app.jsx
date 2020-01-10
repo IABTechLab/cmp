@@ -27,7 +27,6 @@ export default class App extends Component {
     const self = this;
     const { store, config, cmp } = self.props;
     store.subscribe(self.updateState);
-
     // Clicking outside the main app will close it if blockBrowsing is set to false
     // This is to capture clicks outside of the main window and close if necessary while also
     // whitelisting the 'showConsentTool' button

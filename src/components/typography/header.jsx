@@ -1,18 +1,15 @@
 import { h } from "preact";
 import PropTypes from "prop-types";
 
-import style from "./paragraph.less";
-
-export const Paragraph = ({ children, ...rest }, { theme }) => (
-	<p
-		class={style.paragraph}
+export const Header = ({ children, ...rest }, { theme }) => (
+	<h3
 		{...rest}
 		style={{ color: theme.colorTextPrimary, fontFamily: theme.fontFamily }}
 	>
 		{children}
-	</p>
+	</h3>
 );
 
-Paragraph.contextTypes = {
+Header.contextTypes = {
 	theme: PropTypes.object.isRequired
 };
