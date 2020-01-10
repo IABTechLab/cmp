@@ -30,8 +30,19 @@ export const PurposeList = (
 					borderRightWidth: 1,
 					borderRightStyle: 'solid',
 				};
-
+			
+			const chevronStyle = isActive 
+				? {
+					borderTop: `1px solid ${theme.colorPrimary}` || "1px solid black",
+					borderRight: `1px solid ${theme.colorPrimary}` || "1px solid black"
+				}
+				: {
+					borderTop: `1px solid ${theme.colorSecondary}` || "1px solid black",
+					borderRight: `1px solid ${theme.colorSecondary}` || "1px solid black"
+				};
+				
 			return (
+				
 				<div
 					class={cx({
 						[style.purposeItem]: true,
@@ -49,8 +60,8 @@ export const PurposeList = (
 							{purpose.name}
 						</Label>
 						{ selectedPurposeIndices[i] >= 0 ?
-							<span class={`${style.purposeChevron} ${style.up}`}/> :
-							<span class={style.purposeChevron}/>
+							<span class={`${style.purposeChevron} ${style.up}`} style={chevronStyle}/> :
+							<span class={style.purposeChevron} style={chevronStyle}/>
 						}
 					</div>
 					<PurposeDetail
