@@ -77,10 +77,10 @@ export const Vendortable = (
 							>
 								<td>
 									<Row>
-										<Chevron
+										{/* <Chevron
 											direction={display ? "up" : "down"}
 											onClick={onChevronClick(id)}
-										/>
+										/> */}
 										<Link className={style.vendorName} href={policyUrl} blank>
 											{name}
 										</Link>
@@ -123,26 +123,26 @@ export const Vendortable = (
 		</table>
 	);
 
-	function DetailSubList(list, selectedIds, localizedKey) {
-		if (selectedIds.length === 0) {
-			return <div />;
-		}
+	// function DetailSubList(list, selectedIds, localizedKey) {
+	// 	if (selectedIds.length === 0) {
+	// 		return <div />;
+	// 	}
 
-		return (
-			<div>
-				<Label is={Header} localizeKey={localizedKey} />
-				<div style={{ padding: "5px" }}>
-					{list
-						.filter(item => {
-							return selectedIds.indexOf(item.id) !== -1;
-						})
-						.map(item => {
-							return <p>{item.name}</p>;
-						})}
-				</div>
-			</div>
-		);
-	}
+	// 	return (
+	// 		<div>
+	// 			<Label is={Header} localizeKey={localizedKey} />
+	// 			<div style={{ padding: "5px" }}>
+	// 				{list
+	// 					.filter(item => {
+	// 						return selectedIds.indexOf(item.id) !== -1;
+	// 					})
+	// 					.map(item => {
+	// 						return <p>{item.name}</p>;
+	// 					})}
+	// 			</div>
+	// 		</div>
+	// 	);
+	// }
 };
 
 Vendortable.contextTypes = {
