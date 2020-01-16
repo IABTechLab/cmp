@@ -115,13 +115,17 @@ describe(utils.suiteTitle("Configuration"), () => {
 			});
 
 		element(by.name("footerReject")).click();
-		
+
 		element.all(by.css("[class^=CMP_purposes_purposeItem]")).then(els => {
 			els[1].getCssValue("background-color").then(val => {
 				expect(val).toBe(cssColor);
 			});
 		});
 
+		element.all(by.css("[class^=CMP_purposes_purposeItem]"))
+			.first()
+			.click();
+		
 		element(by.css("[class^=CMP_switch_visualizationContainer]"))
 			.getCssValue("background-color")
 			.then(val => {
@@ -205,7 +209,7 @@ describe(utils.suiteTitle("Configuration"), () => {
 		element.all(by.css("[class^=CMP_purposes_purposeItem]"))
 			.first()
 			.click()
-			
+
 		element(by.css("[class^=CMP_purposes_switchText]"))
 			.getCssValue("color")
 			.then(val => {

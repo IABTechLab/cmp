@@ -1,18 +1,18 @@
-import { h, Component } from 'preact';
-import PropTypes from 'prop-types';
-import camelCase from 'lodash/camelCase';
+import { h, Component } from "preact";
+import PropTypes from "prop-types";
+import camelCase from "lodash/camelCase";
 
 const theme = {
-  colorPrimary: '#0a82be',
-  colorSecondary: '#eaeaea',
-  colorBorder: '#dddddd',
-  colorBackground: '#ffffff',
-  colorTextPrimary: '#333333',
-  colorTextSecondary: '#0a82be',
-  colorLinkColor: '#0a82be',
-  colorTableBackground: '#f7f7f7',
+  colorPrimary: "#0a82be",
+  colorSecondary: "#eaeaea",
+  colorBorder: "#dddddd",
+  colorBackground: "#ffffff",
+  colorTextPrimary: "#333333",
+  colorTextSecondary: "#0a82be",
+  colorLinkColor: "#0a82be",
+  colorTableBackground: "#f7f7f7",
   fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-  customFontUrl: null,
+  customFontUrl: null
 };
 
 export const mapLegacyTheme = css => {
@@ -25,16 +25,16 @@ export const mapLegacyTheme = css => {
 export class ThemeProvider extends Component {
   getChildContext() {
     return {
-      theme: { ...theme, ...this.props.theme },
+      theme: { ...theme, ...this.props.theme }
     };
   }
 
   componentWillMount() {
     if (this.props.theme.customFontUrl) {
       const head = document.head;
-      const link = document.createElement('link');
-      link.type = 'text/css';
-      link.rel = 'stylesheet';
+      const link = document.createElement("link");
+      link.type = "text/css";
+      link.rel = "stylesheet";
       link.href = this.props.theme.customFontUrl;
       head.appendChild(link);
     }
@@ -46,13 +46,13 @@ export class ThemeProvider extends Component {
 }
 
 ThemeProvider.defaultProps = {
-  theme: mapLegacyTheme(theme),
+  theme: mapLegacyTheme(theme)
 };
 
 ThemeProvider.contextTypes = {
-  theme: PropTypes.object,
+  theme: PropTypes.object
 };
 
 ThemeProvider.childContextTypes = {
-  theme: PropTypes.object,
+  theme: PropTypes.object
 };

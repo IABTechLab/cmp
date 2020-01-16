@@ -55,7 +55,7 @@ describe("Purposes", () => {
     setTimeout(() => {
       const features = purposes.querySelectorAll(`li`);
       expect(features.length).to.equal(2);
-    }, 2000)
+    }, 2000);
   });
 
   it("should select a standard purpose", () => {

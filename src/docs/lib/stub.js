@@ -35,7 +35,7 @@ function buildScript(config, cmpLocation = "../cmp.bundle.js") {
 							callback({
 								gdprAppliesGlobally: !!(window.__cmp && window.__cmp.config && window.__cmp.config.storeConsentGlobally),
 								cmpLoaded: false
-							}); 
+							});
 						}
 					}
 					else {

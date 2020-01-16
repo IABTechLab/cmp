@@ -9,6 +9,11 @@ import { encodeMetadataValue, decodeMetadataValue } from "./cookie/cookieutils";
 import { checkReprompt, checkIfGDPRApplies } from "./utils";
 
 const metadata = require("../../metadata.json");
+const testingModes = {
+  ALWAYS: "always show",
+  NORMAL: "normal",
+  NEVER: "never show"
+};
 
 export const CMP_GLOBAL_NAME = metadata.cmpGlobalName;
 
@@ -49,11 +54,14 @@ export default class Cmp {
 	      );
 	      const { testingMode } = config;
 
-	      if (testingMode !== "normal") {
-	        if (testingMode === "always show") {
+	      if (testingMode !== testingModes.NORMAL) {
+	        if (testingMode === testingModes.ALWAYS) {
 	          self.notify("cmpStarted");
 	          cmp("showConsentTool", callback);
 	        } else {
+	          if (testingMode === testingModes.NEVER) {
+	            window.PageviewCMP = 0;
+	          }
 	          log.debug("Toolbox can be rendered only manually");
 	          callback(false);
 	        }

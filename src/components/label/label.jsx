@@ -1,41 +1,41 @@
-import { h, createElement } from 'preact';
-import PropTypes from 'prop-types';
-import Parser from 'html-react-parser';
+import { h, createElement } from "preact";
+import PropTypes from "prop-types";
+import Parser from "html-react-parser";
 
 const replacer = domNode => {
-  console.log(domNode);
+	console.log(domNode);
 };
 
 export const Label = (
-  {
-    is = 'span',
-    prefix,
-    localizeKey,
-    children,
-    replace = replacer,
-    providedValue,
-    ...rest
-  },
-  { translate = key => key },
+	{
+		is = "span",
+		prefix,
+		localizeKey,
+		children,
+		replace = replacer,
+		providedValue,
+		...rest
+	},
+	{ translate = key => key }
 ) => {
-  const key = prefix ? `${prefix}.${localizeKey}` : localizeKey;
-  let localizedContent = providedValue || translate(key);
+	const key = prefix ? `${prefix}.${localizeKey}` : localizeKey;
+	let localizedContent = providedValue || translate(key);
 
-  if (localizedContent && localizedContent.indexOf('<') > -1) {
-    localizedContent = Parser(localizedContent, { replace });
-  }
+	if (localizedContent && localizedContent.indexOf("<") > -1) {
+		localizedContent = Parser(localizedContent, { replace });
+	}
 
-  return createElement(
-    is,
-    {
-      ...rest,
-    },
-    localizedContent || children,
-  );
+	return createElement(
+		is,
+		{
+			...rest
+		},
+		localizedContent || children
+	);
 };
 
 Label.contextTypes = {
-  translate: PropTypes.theme,
+	translate: PropTypes.theme
 };
 
 export default Label;
