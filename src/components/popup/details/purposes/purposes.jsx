@@ -1,14 +1,21 @@
-import { h, Component } from "preact";
+import { h, createRef, Component } from 'preact';
+import style from './purposes.less';
+import Label from '../../../label/label';
+import ItemLabel from './label';
+import Item from './item';
 
-import style from "./purposes.less";
-import { PurposeList } from "./list";
-import { Disclaimer } from "./disclaimer";
+class LocalLabel extends Label {
+	static defaultProps = {
+		prefix: 'purposes'
+	};
+}
 
-export class Purposes extends Component {
+export default class Purposes extends Component {
 	state = {
-		selectedPurposeIndices: {},
-		selectedLocalVendors: {},
-		showSelectedLocalVendors: {0: false}
+		selectedPurposeIndex: 0,
+		vendorList: Array.from(
+			{length: this.props.purposes.length + this.props.customPurposes.length}, 
+			() => ({showLocalVendors: false, localVendors: []}))
 	};
 
 	static defaultProps = {
@@ -17,55 +24,40 @@ export class Purposes extends Component {
 		customPurposes: [],
 		selectedPurposeIds: new Set(),
 		selectedCustomPurposeIds: new Set()
-	};
+	}
 
-	handleSelectPurposeDetail = index => {
-		let selectedPurposeIndices = {...this.state.selectedPurposeIndices};
-		let selectedLocalVendors = {...this.state.selectedLocalVendors};
-		let showSelectedLocalVendors = {...this.state.showSelectedLocalVendors};
-
-		if (selectedPurposeIndices.hasOwnProperty(index)) {
-			delete selectedPurposeIndices[index];
-			delete selectedLocalVendors[index];
-		} else {
-			selectedPurposeIndices[index] = index;
-		}
-
-		showSelectedLocalVendors[index] = false;
-
-		return () => {
-			this.setState({
-				selectedPurposeIndices,
-				selectedLocalVendors,
-				showSelectedLocalVendors
-			});
-		};
-	};
-
-	handleSelectPurpose = ({isSelected, currentPurposeIndex}) => {
+	handleSelectPurpose = ({ isSelected, dataId }) => {
 		const {
-			purposes,
+            purposes,
 			customPurposes,
 			selectPurpose,
-			selectCustomPurpose
+            selectCustomPurpose,
 		} = this.props;
-		const allPurposes = [...purposes, ...customPurposes];
-		const id = allPurposes[currentPurposeIndex].id;
+		const id = [...purposes, ...customPurposes][dataId].id;
 
-		if (currentPurposeIndex < purposes.length) {
+		if (dataId < purposes.length) {
 			selectPurpose(id, isSelected);
 		} else {
 			selectCustomPurpose(id, isSelected);
 		}
 	};
 
-	onShowLocalVendors = (currentSelectedPurposeIndex) => {
-		let selectedLocalVendors = {...this.state.selectedLocalVendors};
-		let showSelectedLocalVendors = {...this.state.showSelectedLocalVendors};
+	handleSelectPurposeDetail = index => {
+		return () => {
+			this.setState({
+				selectedPurposeIndex: index
+			}, () => {
+				this.onHideLocalVendors(index);
+				this.props.updateCSSPrefs();
+			});
+		};
+	}
+
+	onShowLocalVendors = index => {
 		const { vendors } = this.props;
 		const localVendors = vendors
 			.map(vendor => {
-				let purposeId = currentSelectedPurposeIndex + 1;
+				let purposeId = index + 1;
 				if (
 					vendor.purposeIds.indexOf(purposeId) !== -1 ||
 					vendor.legIntPurposeIds.indexOf(purposeId) !== -1
@@ -73,36 +65,24 @@ export class Purposes extends Component {
 					return vendor;
 			})
 			.filter(vendor => vendor);
+		
+		let vendorList = [...this.state.vendorList];
+		vendorList[index].localVendors = localVendors;
+		vendorList[index].showLocalVendors = true;
 
-		selectedLocalVendors[currentSelectedPurposeIndex] = localVendors;
-		showSelectedLocalVendors[currentSelectedPurposeIndex] = true;
 		this.setState({
-			selectedLocalVendors,
-			showSelectedLocalVendors
+			vendorList
 		});
 	};
 
-	onHideLocalVendors = (currentSelectedPurposeIndex) => {
-		let showSelectedLocalVendors = {...this.state.showSelectedLocalVendors};
-		let selectedLocalVendors = {...this.state.selectedLocalVendors};
-
-		showSelectedLocalVendors[currentSelectedPurposeIndex] = false;
-		delete selectedLocalVendors[currentSelectedPurposeIndex];
+	onHideLocalVendors = index => {
+		let vendorList = [...this.state.vendorList];
+		vendorList[index].localVendors = [];
+		vendorList[index].showLocalVendors = false;
 
 		this.setState({
-			showSelectedLocalVendors,
-			selectedLocalVendors
+			vendorList
 		});
-	};
-
-	onToggleLocalVendors = (currentSelectedPurposeIndex) => {
-		let showSelectedLocalVendors = {...this.state.showSelectedLocalVendors};
-
-		if (showSelectedLocalVendors[currentSelectedPurposeIndex]) {
-			this.onHideLocalVendors(currentSelectedPurposeIndex);
-		} else {
-			this.onShowLocalVendors(currentSelectedPurposeIndex);
-		}
 	};
 
 	render(props, state) {
@@ -114,39 +94,83 @@ export class Purposes extends Component {
 			selectedPurposeIds,
 			selectedCustomPurposeIds,
 			localization,
-			config
+			selectPurpose,
+			selectCustomPurpose,
+			vendors,
+			updateCSSPrefs
 		} = props;
 
-		let { selectedPurposeIndex, showLocalVendors, selectedPurposeIndices, selectedLocalVendors, showSelectedLocalVendors } = state;
+		const { selectedPurposeIndex, vendorList } = state;
 
 		const allPurposes = [...purposes, ...customPurposes];
-
-		let purposesAreActive =
-			allPurposes.map(({ id }, index)=> {
-				if (index < purposes.length) return selectedPurposeIds.has(id)
-				else return selectedCustomPurposeIds.has(id)
-			});
-
+		const selectedPurpose = allPurposes[selectedPurposeIndex];
+		
 		return (
-			<div class={style.container}>
-				<Disclaimer onShowVendors={onShowVendors} />
+			<div class={style.container} >
+				<div class={style.disclaimer + " primaryText"}>
+					<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.disclaimer : ''} localizeKey='disclaimer'>We and selected companies may access and use information for the purposes outlined. You may customise your choice or continue using our site if you are OK with the purposes. You can see the </LocalLabel>
+					<a class={style.vendorLink} onClick={onShowVendors}>
+						<LocalLabel providedValue={localization && localization.purposes ? localization.purposes.disclaimerVendorLink : ''} localizeKey='disclaimerVendorLink'>complete list of companies here.</LocalLabel>
+					</a>
+				</div>
 				<div class={style.purposes}>
-					<PurposeList
-						allPurposes={allPurposes}
-						purposes={purposes}
-						selectedPurposeIndex={selectedPurposeIndex}
-						selectedPurposeIndices={selectedPurposeIndices}
-						selectedLocalVendors={selectedLocalVendors}
-						showSelectedLocalVendors={showSelectedLocalVendors}
-						onPurposeClick={this.handleSelectPurposeDetail}
-						onToggleLocalVendors={this.onToggleLocalVendors}
-						handleSelectPurpose={this.handleSelectPurpose}
-						localization={localization}
-						features={features}
-						showLocalVendors={showLocalVendors}
-						purposesAreActive={purposesAreActive}
-						purposes={purposes}
-					/>
+					<div class={style.purposeList}>
+						{allPurposes.map((purpose, index) => {
+							return (
+								<ItemLabel
+									purposes={purposes}
+									purpose={purpose}
+									index={index}
+									updateCSSPrefs={updateCSSPrefs}
+									selectedPurposeIndex={selectedPurposeIndex}
+									handleSelectPurposeDetail={this.handleSelectPurposeDetail}
+								>  
+									<Item
+										purposes={purposes}
+										features={features}
+										selectedPurposeIds={selectedPurposeIds}
+										selectedCustomPurposeIds={selectedCustomPurposeIds}
+										localization={localization}
+										index={index}
+										allPurposes={allPurposes}
+										selectPurpose={selectPurpose}
+										selectCustomPurpose={selectCustomPurpose}
+										selectedPurposeIds={selectedPurposeIds}
+										selectedCustomPurposeIds={selectedCustomPurposeIds}
+										vendors={vendors}
+										localVendors={vendorList[index].localVendors}
+										showLocalVendors={vendorList[index].showLocalVendors}
+										onShowLocalVendors={this.onShowLocalVendors}
+										onHideLocalVendors={this.onHideLocalVendors}
+										handleSelectPurpose={this.handleSelectPurpose}
+									/>
+								</ItemLabel>
+							)
+						})}
+					</div>
+					{selectedPurpose &&
+						<div class={style.purposeWrapper}>
+							<Item
+								purposes={purposes}
+								features={features}
+								selectedPurposeIds={selectedPurposeIds}
+								selectedCustomPurposeIds={selectedCustomPurposeIds}
+								localization={localization}
+								index={selectedPurposeIndex}
+								allPurposes={allPurposes}
+								selectPurpose={selectPurpose}
+								selectCustomPurpose={selectCustomPurpose}
+								selectedPurposeIds={selectedPurposeIds}
+								selectedCustomPurposeIds={selectedCustomPurposeIds}
+								vendors={vendors}
+								localVendors={vendorList[selectedPurposeIndex].localVendors}
+								showLocalVendors={vendorList[selectedPurposeIndex].showLocalVendors}
+								onShowLocalVendors={this.onShowLocalVendors}
+								onHideLocalVendors={this.onHideLocalVendors}
+								handleSelectPurpose={this.handleSelectPurpose}
+							/>
+						</div>
+					}
 				</div>
 			</div>
 		);

@@ -1,4 +1,4 @@
-import Example from "../example";
+import Example from '../example';
 
 const setup = `
 myLogger('Add eventListener "onSubmit"');
@@ -44,7 +44,8 @@ function inspectVendorConsents() {
 inspectVendorConsents();
 `;
 
-const execute = `
+const execute =
+	`
 window.__cmp('showConsentTool');
 `;
 
@@ -52,7 +53,7 @@ export default class InspectVendorData extends Example {
 	constructor(props) {
 		super(props);
 		this.state = {
-			title: "Inspect Existing Vendor Consent Information",
+			title: 'Inspect Existing Vendor Consent Information',
 			setup,
 			execute
 		};

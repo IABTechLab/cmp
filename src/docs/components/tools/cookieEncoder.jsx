@@ -1,13 +1,14 @@
-import { h, Component } from "preact";
-import * as _ from "lodash";
-import classnames from "classnames";
-import style from "./coder.less";
-import Checkbox from "../checkbox/checkbox";
+import { h, Component } from 'preact';
+import * as _ from 'lodash';
+import classnames from 'classnames';
+import style from './coder.less';
+import Checkbox from '../checkbox/checkbox';
 import {
 	encodeField,
 	encodeDataToBits,
 	encodeCookieValue
-} from "../../../lib/cookie/cookieutils";
+} from '../../../lib/cookie/cookieutils';
+
 
 export default class CookieEncoder extends Component {
 	constructor(props) {
@@ -33,64 +34,58 @@ export default class CookieEncoder extends Component {
 
 	setDefaultValues = (decodedObject, { name, type, fields }) => {
 		switch (type) {
-			case "bool":
+			case 'bool':
 				decodedObject[name] = false;
 				break;
-			case "int":
+			case 'int':
 				decodedObject[name] = 1;
 				break;
-			case "date":
+			case 'date':
 				decodedObject[name] = new Date();
 				break;
-			case "list":
+			case 'list':
 				decodedObject[name] = [];
-				fields.map(listField =>
-					this.setDefaultValues(decodedObject[name], listField)
-				);
+				fields.map(listField => this.setDefaultValues(decodedObject[name], listField));
 				break;
 		}
 	};
 
 	handleInputChanged = (field, objectPath) => {
-		return e => {
+		return (e) => {
 			const { name, type } = field;
 			const text = e.target.value;
 			const decodedObject = {
 				...this.state.decodedObject
 			};
-			const propertyPath = _.filter([objectPath, name]).join(".");
-			_.set(
-				decodedObject,
-				propertyPath,
-				_.get(decodedObject, propertyPath, "")
-			);
+			const propertyPath = _.filter([objectPath, name]).join('.');
+			_.set(decodedObject, propertyPath, _.get(decodedObject, propertyPath, ''));
 
 			switch (type) {
-				case "bool": {
+				case 'bool': {
 					_.set(decodedObject, propertyPath, e.target.checked);
 					break;
 				}
-				case "int": {
+				case 'int': {
 					const parsedInt = parseInt(text, 10);
 					if (!isNaN(parsedInt)) {
 						_.set(decodedObject, propertyPath, parsedInt);
 					}
 					break;
 				}
-				case "date": {
+				case 'date': {
 					const parsedDate = new Date(text);
 					if (parsedDate) {
 						_.set(decodedObject, propertyPath, parsedDate);
 					}
 					break;
 				}
-				case "bits": {
+				case 'bits': {
 					if (text.match(/^[01]+$/)) {
 						_.set(decodedObject, propertyPath, text);
 					}
 					break;
 				}
-				case "6bitchar": {
+				case '6bitchar': {
 					if (text.match(/[A-z]*/)) {
 						_.set(decodedObject, propertyPath, text);
 					}
@@ -104,11 +99,11 @@ export default class CookieEncoder extends Component {
 		};
 	};
 
-	handleCookieVersionChange = field => {
-		return event => {
+	handleCookieVersionChange = (field) => {
+		return (event) => {
 			const cookieVersion = event.target.value;
 			this.setState({
-				selectedCookieVersion: cookieVersion
+				selectedCookieVersion: cookieVersion,
 			});
 			this.initVersion();
 			this.handleInputChanged(field)(event);
@@ -129,15 +124,15 @@ export default class CookieEncoder extends Component {
 	};
 
 	renderInput = (field, objectPath) => {
-		const { versionMap } = this.props;
+		const {versionMap} = this.props;
 		const { name, type, validator } = field;
 		const { decodedObject } = this.state;
-		const propertyPath = _.filter([objectPath, name]).join(".");
+		const propertyPath = _.filter([objectPath, name]).join('.');
 		const fieldObject = this.lookupFieldObject(field, objectPath);
 		const isDisabled = validator && !validator(fieldObject);
 
 		// Special case for 'cookieVersion' which needs to be of a defined version
-		if (name === "cookieVersion") {
+		if (name === 'cookieVersion') {
 			return (
 				<select onChange={this.handleCookieVersionChange(field)}>
 					{Object.keys(versionMap).map(version => (
@@ -149,53 +144,47 @@ export default class CookieEncoder extends Component {
 
 		// Render generic fields as correct inputs
 		switch (type) {
-			case "bool":
-				return (
-					<Checkbox
-						isDisabled={isDisabled}
-						onChange={this.handleInputChanged(field, objectPath)}
-						isSelected={_.get(decodedObject, propertyPath, false)}
-					/>
-				);
-			case "6bitchar":
-			case "int":
-			case "bits":
-				return (
-					<input
-						disabled={isDisabled}
-						onKeyUp={this.handleInputChanged(field, objectPath)}
-						value={_.get(decodedObject, propertyPath, "")}
-					/>
-				);
-			case "date":
-				return (
-					<input
-						disabled={isDisabled}
-						onChange={this.handleInputChanged(field, objectPath)}
-						value={_.get(decodedObject, propertyPath, "")}
-					/>
-				);
+			case 'bool':
+				return <Checkbox
+					isDisabled={isDisabled}
+					onChange={this.handleInputChanged(field, objectPath)}
+					isSelected={_.get(decodedObject, propertyPath, false)}
+				/>;
+			case '6bitchar':
+			case 'int':
+			case 'bits':
+				return <input
+					disabled={isDisabled}
+					onKeyUp={this.handleInputChanged(field, objectPath)}
+					value={_.get(decodedObject, propertyPath, '')}
+				/>;
+			case 'date':
+				return <input
+					disabled={isDisabled}
+					onChange={this.handleInputChanged(field, objectPath)}
+					value={_.get(decodedObject, propertyPath, '')}
+				/>;
 			default:
-				return "";
+				return '';
 		}
 	};
 
 	getBitCount = ({ numBits }) => {
 		const { decodedObject } = this.state;
-		if (typeof numBits === "function") {
+		if (typeof numBits === 'function') {
 			return numBits(decodedObject);
 		}
-		if (typeof numBits === "number") {
+		if (typeof numBits === 'number') {
 			return numBits;
 		}
-		return "(variable)";
+		return '(variable)';
 	};
 
 	renderInputRow = (field, objectPath) => {
 		const { name, type, validator } = field;
 		const fieldObject = this.lookupFieldObject(field, objectPath);
 		const isDisabled = validator && !validator(fieldObject);
-		const indent = (objectPath || "").split(".").length * 15;
+		const indent = (objectPath || '').split('.').length * 15;
 
 		return (
 			<tr className={classnames({ [style.isDisabled]: isDisabled })}>
@@ -203,14 +192,10 @@ export default class CookieEncoder extends Component {
 				<td>{type}</td>
 				<td>{this.getBitCount(field)}</td>
 				<td>{this.renderInput(field, objectPath)}</td>
-				<td className={style.encodedValue}>
-					{type !== "list"
-						? encodeField({
-								input: fieldObject,
-								field
-						  })
-						: ""}
-				</td>
+				<td className={style.encodedValue}>{type !== 'list' ? encodeField({
+					input: fieldObject,
+					field
+				}) : ''}</td>
 			</tr>
 		);
 	};
@@ -219,41 +204,32 @@ export default class CookieEncoder extends Component {
 		return (
 			<table>
 				<thead>
-					<tr>
-						<th>Field</th>
-						<th>Type</th>
-						<th>Number Bits</th>
-						<th>Value</th>
-						<th>Binary</th>
-					</tr>
+				<tr>
+					<th>Field</th>
+					<th>Type</th>
+					<th>Number Bits</th>
+					<th>Value</th>
+					<th>Binary</th>
+				</tr>
 				</thead>
 				<tbody>
-					{fields.reduce((rows, field) => {
-						const fieldObject = this.lookupFieldObject(field, objectPath);
-						rows.push(this.renderInputRow(field, objectPath));
-						if (field.type === "list") {
-							const { name, listCount, validator } = field;
-							if (!validator || validator(fieldObject)) {
-								const listEntryCount =
-									typeof listCount === "function"
-										? listCount(fieldObject)
-										: typeof listCount === "number"
-											? listCount
-											: 0;
-								for (let i = 0; i < listEntryCount; i++) {
-									_.forEach(field.fields, f => {
-										rows.push(
-											this.renderInputRow(
-												f,
-												_.filter([objectPath, name, `[${i}]`]).join(".")
-											)
-										);
-									});
-								}
+				{fields.reduce((rows, field) => {
+					const fieldObject = this.lookupFieldObject(field, objectPath);
+					rows.push(this.renderInputRow(field, objectPath));
+					if (field.type === 'list') {
+						const { name, listCount, validator } = field;
+						if (!validator || validator(fieldObject)) {
+							const listEntryCount = typeof listCount === 'function' ?
+								listCount(fieldObject) : typeof listCount === 'number' ? listCount : 0;
+							for (let i = 0; i < listEntryCount; i++) {
+								_.forEach(field.fields, f => {
+									rows.push(this.renderInputRow(f, _.filter([objectPath, name, `[${i}]`]).join('.')));
+								});
 							}
 						}
-						return rows;
-					}, [])}
+					}
+					return rows;
+				}, [])}
 				</tbody>
 			</table>
 		);
@@ -271,13 +247,9 @@ export default class CookieEncoder extends Component {
 				<span className={style.sectionTitle}>{title}</span>
 				{this.renderFieldInputs(fieldDefinitions)}
 				<span className={style.sectionTitle}>Binary Cookie Value</span>
-				<div className={classnames(style.encodedValue, style.cookieValue)}>
-					{bitString}
-				</div>
+				<div className={classnames(style.encodedValue, style.cookieValue)}>{bitString}</div>
 				<span className={style.sectionTitle}>Base64 Encoded Cookie Value</span>
-				<div className={classnames(style.encodedValue, style.cookieValue)}>
-					{b64String}
-				</div>
+				<div className={classnames(style.encodedValue, style.cookieValue)}>{b64String}</div>
 			</div>
 		);
 	}

@@ -11,7 +11,6 @@
 			padding: 0;
 			margin: 0;
 		}
-
 		header {
 			width: 100%;
 			font-size: 18px;
@@ -20,7 +19,6 @@
 			color: #2abbb0;
 			font-weight: bold;
 		}
-
 		button {
 			cursor: pointer;
 			outline: none;
@@ -32,14 +30,12 @@
 			border: 2px solid #2abbb0;
 			color: #2abbb0;
 		}
-
 		.content {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			padding: 20px;
 		}
-
 		#log {
 			width: 100%;
 			height: 100%;
@@ -47,7 +43,6 @@
 			overflow: auto;
 			padding: 5px;
 		}
-
 		.logSection {
 			width: 100%;
 			height: 600px;
@@ -66,30 +61,28 @@
 </div>
 
 <script>
-  var log = document.getElementById('log');
-
-  function replacer(key, value) {
-    if (value !== null && typeof value === 'object' && typeof value[ Symbol.iterator ] === 'function') {
-      return Array.from(value);
-    }
-    return value;
-  }
-
-  ['log', 'warn', 'info', 'error'].map(function (func) {
-    const original = console[ func ];
-    console[ func ] = function () {
-      var args = Array.prototype.slice.call(arguments);
-      log.innerHTML += '\n' + args.shift();
-      args.forEach(function (arg) {
-        log.innerHTML += ', ' + JSON.stringify(arg, replacer, 2);
-      });
-      log.scrollTop = log.scrollHeight;
-      original.apply(null, arguments);
-    }
-  });
+	var log = document.getElementById('log');
+	function replacer(key, value) {
+		if (value !== null && typeof value === 'object' && typeof value[Symbol.iterator] === 'function') {
+				return Array.from(value);
+		}
+		return value;
+	}
+	['log', 'warn', 'info', 'error'].map(function(func) {
+		const original = console[func];
+		console[func] = function() {
+			var args = Array.prototype.slice.call(arguments);
+			log.innerHTML += '\n' + args.shift();
+			args.forEach(function(arg) {
+				log.innerHTML += ', ' + JSON.stringify(arg, replacer, 2);
+			});
+			log.scrollTop = log.scrollHeight;
+			original.apply(null, arguments);
+		}
+	});
 </script>
 <script>
-  window.__cmp = {config: {logging: 'debug'}};
+	window.__cmp = {config: {logging: 'debug'}};
 </script>
 <script src="../cmp.complete.bundle.js"></script>
 </body>

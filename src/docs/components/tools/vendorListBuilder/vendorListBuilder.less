@@ -1,4 +1,4 @@
-@import "../../../style/variables";
+@import '../../../style/variables';
 
 .vendorListBuilder {
 	width: 100%;
@@ -6,7 +6,6 @@
 	a {
 		cursor: pointer;
 	}
-
 	.field {
 		font-weight: bold;
 		padding: 10px 10px 10px 0;
@@ -17,34 +16,26 @@
 		justify-content: flex-end;
 		flex: 1;
 	}
-
 	.controls {
 		display: flex;
 	}
-
-	.purposes,
-	.vendors {
+	.purposes, .vendors {
 		padding-bottom: 20px;
-
 		table {
 			width: 100%;
 			border-collapse: collapse;
 
 			thead tr {
 				background: @color-background-gray;
-
 				th {
 					white-space: nowrap;
 					text-align: left;
 				}
 			}
-
 			tr {
 				border: 1px solid @color-background-gray;
 			}
-
-			td,
-			th {
+			td, th {
 				padding: 10px;
 				vertical-align: top;
 			}

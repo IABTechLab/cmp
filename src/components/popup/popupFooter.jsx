@@ -1,9 +1,10 @@
-import { h, Component } from "preact";
-import style from "./popupFooter.less";
-import IntroV2 from "./intro/introV2";
-import IntroFooterV2 from "./intro/footerV2";
-import Details from "./details/details";
-import Panel from "../panel/panel";
+import { h, Component } from 'preact';
+import style from './popupFooter.less';
+import IntroV2 from './intro/introV2';
+import IntroFooterV2 from './intro/footerV2';
+import Details from './details/details';
+import Panel from '../panel/panel';
+
 
 const SECTION_INTRO = 0;
 const SECTION_DETAILS = 1;
@@ -49,16 +50,16 @@ export default class PopupFooter extends Component {
 
 		return (
 			<div
-				class={config.blockBrowsing ? style.popup : ""}
-				style={{ display: isFooterConsentToolShowing ? "flex" : "none" }}
+				class={config.blockBrowsing ? style.popup : ''}
+				style={{ display: isFooterConsentToolShowing ? 'flex' : 'none' }}
 			>
-				{config.blockBrowsing && (
-					<div class={style.overlay} onClick={this.handleClose} />
-				)}
-				<div
-					name="content"
-					class={this.state.isActive ? style.contentClicked : style.content}
-				>
+				{config.blockBrowsing &&
+					<div
+						class={style.overlay}
+						onClick={this.handleClose}
+					/>
+				}
+				<div name='content' class={this.state.isActive ? style.contentClicked : style.content}>
 					<Panel selectedIndex={selectedPanelIndex}>
 						<IntroV2
 							onAcceptAll={this.onAcceptAll}

@@ -1,4 +1,4 @@
-@import "../../style/variables.less";
+@import '../../style/variables.less';
 
 @Switch-height: 28px;
 @Switch-width: 50px;
@@ -16,14 +16,6 @@
 @Switch-handle-offset: 6px;
 @Switch-handle-radius: 8px;
 @Switch-handle-scale: scale(1.125);
-
-.label {
-	font-size: 10px;
-	color: @color-primary;
-	text-align: center;
-	display: block;
-	// padding-top: 6px;
-}
 
 .switch {
 	cursor: pointer;
@@ -83,6 +75,7 @@
 	&:hover .visualizationHandle {
 		transform: @Switch-handle-scale;
 	}
+
 
 	&.isSelected .visualizationContainer {
 		background-color: @color-primary;
