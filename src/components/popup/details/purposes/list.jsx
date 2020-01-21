@@ -61,7 +61,7 @@ export const PurposeList = (
 						</Label>
 						{ selectedPurposeIndices[i] >= 0 ?
 							<span class={`${style.purposeChevron} ${style.up}`} style={chevronStyle}/> :
-							<span class={style.purposeChevron} style={chevronStyle}/>
+							<span class={`${style.purposeChevron} ${style.down}`} style={chevronStyle}/>
 						}
 					</div>
 					<PurposeDetail
