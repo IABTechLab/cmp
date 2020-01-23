@@ -183,10 +183,10 @@ module.exports = {
       purposesPopover: `
         <strong>Zwecke zum Speichern von Informationen:</strong>
         <ul>
-          <li>Speicherung und Zugriff auf Informationen</li>
-          <li>Anzeigenauswahl und Lieferung</li>
-          <li>Inhaltsauswahl und Lieferung</li>
+          <li>Informationsspeicherung und -Zugriff<</li>
           <li>Personalisierung</li>
+          <li>Anzeigenauswahl, Auslieferung, Berichterstellung</li>
+          <li>Inhaltsauswahl, Auslieferung, Berichterstellung</li>
           <li>Messung</li>
         </ul>
       `,
@@ -211,25 +211,25 @@ module.exports = {
       hideVendors: 'Firmen ausblenden',
       featureHeader: 'Dies beinhaltet die folgenden Funktionen:',
       company: 'Firmen',
-      switchText: '',
+      switchText: 'Publisher und ihre Partner können anonymisierte Informationen sammeln, um Ihre Benutzererfahrung auf unserer Website zu verbessern.',
     },
     vendors: {
       company: 'Firmen',
       offOn: 'Aktivieren',
       description:
-        'Unternehmen, die von uns sorgfältig ausgewählt wurden, werden Ihre Informationen verwenden. Je nach der Art der Daten, die sie sammeln, nutzen, verarbeiten und anderen Faktoren, verlassen sich bestimmte Unternehmen auf Ihre Zustimmung, während andere erfordern, dass Sie sich abmelden. Sie können auf den Firmennamen klicken, um ihre Datenschutzrichtlinie einzusehen und die unten stehenden Einwilligungen zu treffen. Wenn Sie sich abmelden möchten, besuchen Sie die ',
+        'Unternehmen, die von uns sorgfältig ausgewählt wurden, werden Ihre Informationen verwenden. Je nach der Art der Daten, die sie sammeln, nutzen, verarbeiten und anderen Faktoren, verlassen sich bestimmte Unternehmen auf Ihre Zustimmung, während andere erfordern, dass Sie sich abmelden. Sie können auf den Firmennamen klicken, um ihre Datenschutzrichtlinie einzusehen und die unten stehenden Einwilligungen zu treffen. Wenn Sie sich abmelden möchten, besuchen Sie die Websites ',
       or: 'oder ',
-      sites: ' Seiten.',
+      sites: ' .',
       description2:
-        'Können Sie anpassen, wie diese Unternehmen Daten verwenden ',
-      description2Link: 'Auf der vorherigen Seite.',
-      description3: '',
-      description3Link: '',
+        'Einstellungen, wie diese Unternehmen Daten verwenden, können Sie auf der ',
+      description2Link: 'vorherigen Seite anpassen.',
+      description3: 'Sie können die Einstellungen für alle Unternehmen gleichzeitig anpassen, indem Sie ',
+      description3Link: 'hier klicken.',
     },
     footer: {
-      message: '',
-      closedMessage: '',
-      closedMessageLink: '',
+      message: 'Lesen Sie mehr über den Zugriff und die Verwendung von Informationen auf Ihrem Gerät für die verschiedenen angegebenen Zwecke.',
+      closedMessage: 'Sie können Ihre Datenschutzeinstellungen ändern, indem Sie ',
+      closedMessageLink: 'hier klicken.',
       deviceInformationHeader: 'Informationen, die verwendet werden können:',
       deviceInformation: `
         <ul>
@@ -542,7 +542,7 @@ module.exports = {
       hideVendors: 'Masquer les entreprises',
       featureHeader: 'Ceci inclura les caractéristiques suivantes:',
       company: 'Entreprise',
-      switchText: '',
+      switchText: 'Cet éditeur ainsi que ses partenaires peuvent collecter des informations anonymisées afin d’améliorer votre expérience sur ce site.',
     },
     vendors: {
       company: 'Entreprise',
@@ -554,13 +554,13 @@ module.exports = {
       description2:
         'Personnalisez la manière dont ces entreprises utilisent votre donnée sur la ',
       description2Link: 'page précédente.',
-      description3: '',
-      description3Link: '',
+      description3: 'Vous pouvez personnaliser vos préférences service par service en ',
+      description3Link: 'cliquant ici.',
     },
     footer: {
-      message: '',
-      closedMessage: '',
-      closedMessageLink: '',
+      message: 'En savoir plus sur l’accès et l’utilisation des informations sur votre appareil à des fins diverses.',
+      closedMessage: 'Vous pouvez toujours gérer vos choix sur les données personelles ',
+      closedMessageLink: 'ici',
       deviceInformationHeader: 'Peuvent être utilisées:',
       deviceInformation: `
         <ul>
