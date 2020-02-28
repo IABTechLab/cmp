@@ -1,78 +1,82 @@
-.flexColumn {
-	@media (max-width: 480px) {
-		flex-direction: row;
-	}
-	@media (min-width: 481px) {
-		flex-direction: column;
-	}
+@import '../../../style/variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
 }
 
+.description {
+  margin-bottom: 16px;
+  overflow: auto;
+}
 
-div.intro {
-	align-items: center;
-	max-height: 100%;
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
 
-	.top {
-		margin-bottom: 75px;
-		padding: 0 4em;
-		overflow: auto;
+.btns {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 100%;
+}
 
-		@media (max-width: 480px) {
-			max-height: calc(100vh - 75px);
-		}
-		@media (min-width: 481px) {
-			max-height: 425px;
-		}
+.footer {
+  padding: 8px;
+}
 
-		.logo {
-			display: block;
-			margin: 20px auto 10px auto;
-			max-width: 75%;
-			max-height: 100px;
-		}
-	}
-	.title {
-		font-size: 30px;
-		font-weight: bold;
-		text-align: center;
-	}
-	.description {
-		margin: 2em 0;
-		overflow: auto;
-		max-height: 150px;
-		text-align: center;
-	}
-	.options {
-		display: flex;
-		flex-shrink: 0;
-		width: 100%;
-	}
-	.rejectAll {
-		flex: 1;
-	}
-	.acceptAll {
-		flex: 1;
-	}
+.container-modal {
+  .description {
+    text-align: center;
+  }
 
-	@media screen and (max-width: 730px) {
-		padding: 0 2em;
-	}
+  .btns {
+    flex-direction: row;
+    flex-wrap: wrap;
+    button {
+      flex: 1;
+      margin: 6px;
+    }
+  }
+}
 
-	@media (max-width: 370px) {
-		.options {
-			flex-direction: column;
-			width: 75%;
-			margin-bottom: 10px;
-		}
+.container-footer,
+.container-thin {
+  .description {
+    text-align: left;
+  }
 
-		.rejectAll {
-			margin-bottom: 10px;
-		}
-	}
+  .btns {
+    justify-content: space-around;
+    flex: 1;
 
-	@media (min-width: 375px) {
-		.rejectAll {
-			margin-right: 10px;
-		}
-	}
+    button {
+      margin: 8px 0;
+      flex: 1;
+    }
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .container-footer,
+  .container-thin {
+    flex-direction: row;
+
+    .description {
+      flex: 3;
+      margin-bottom: 0;
+    }
+
+    .btns {
+      justify-content: flex-end;
+      margin-left: 16px;
+
+      button {
+        flex: none;
+      }
+    }
+  }
 }

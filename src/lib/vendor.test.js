@@ -1,79 +1,86 @@
 /* eslint-disable max-nested-callbacks */
 
-import { expect } from 'chai';
-import config from './config';
+import { expect } from "chai";
+import config from "./config";
 
+jest.mock("./portal");
+const mockPortal = require("./portal");
 
-jest.mock('./portal');
-const mockPortal = require('./portal');
+import {
+  fetchVendorList,
+  fetchLocalizedPurposeList,
+  fetchCustomPurposeList
+} from "./vendor";
 
-import { fetchVendorList, fetchLocalizedPurposeList, fetchCustomPurposeList } from './vendor';
+describe("vendor", () => {
+  beforeEach(() => {
+    mockPortal.sendPortalCommand = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve());
+    window.fetch = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve({ json: () => {} }));
+  });
 
-describe('vendor', () => {
+  it("fetchVendorList sends requests local vendors.json", done => {
+    fetchVendorList().then(() => {
+      expect(window.fetch.mock.calls.length).to.equal(1);
+      done();
+    });
+  });
+  it("fetchVendorList sends a portal command", done => {
+    window.fetch = jest.fn().mockImplementation(() => Promise.reject());
+    fetchVendorList().then(() => {
+      expect(mockPortal.sendPortalCommand.mock.calls[0][0]).to.deep.equal({
+        command: "readVendorList"
+      });
+      done();
+    });
+  });
 
-	beforeEach(() => {
-		mockPortal.sendPortalCommand = jest.fn().mockImplementation(() => Promise.resolve());
-		window.fetch = jest.fn().mockImplementation(() => Promise.resolve({json: () => {}}));
-	});
+  it("fetchLocalizedPurposeList fetches the configured URL based on language params", done => {
+    config.update({
+      forceLocale: "DE"
+    });
 
-	it('fetchVendorList sends requests local vendors.json', (done) => {
-		fetchVendorList()
-			.then(() => {
-				expect(window.fetch.mock.calls.length).to.equal(1);
-				done();
-			});
-	});
-	it('fetchVendorList sends a portal command', (done) => {
-		window.fetch = jest.fn().mockImplementation(() => Promise.reject());
-		fetchVendorList()
-			.then(() => {
-				expect(mockPortal.sendPortalCommand.mock.calls[0][0]).to.deep.equal({ command: 'readVendorList' });
-				done();
-			});
-	});
+    fetchLocalizedPurposeList().then(() => {
+      expect(window.fetch.mock.calls[0][0]).to.equal(
+        "https://vendorlist.consensu.org/purposes-de.json"
+      );
+      done();
+    });
+  });
 
-	it('fetchLocalizedPurposeList fetches the configured URL based on language params', (done) => {
-		config.update({
-			forceLocale: 'DE'
-		});
+  it("fetchCustomPurposeList returns nothing if there is no customPurposeListLocation", done => {
+    config.update({
+      customPurposeListLocation: undefined
+    });
 
-		fetchLocalizedPurposeList().then(() => {
-			expect(window.fetch.mock.calls[0][0]).to.equal('https://vendorlist.consensu.org/purposes-de.json');
-			done();
-		});
-	});
+    fetchCustomPurposeList().then(() => {
+      expect(window.fetch.mock.calls).to.be.empty;
+      done();
+    });
+  });
 
-	it('fetchCustomPurposeList returns nothing if there is no customPurposeListLocation', (done) => {
-		config.update({
-			customPurposeListLocation: undefined
-		});
+  it("fetchCustomPurposeList returns nothing if storePublisherData = false", done => {
+    config.update({
+      storePublisherData: true
+    });
 
-		fetchCustomPurposeList().then(() => {
-			expect(window.fetch.mock.calls).to.be.empty;
-			done();
-		});
-	});
+    fetchCustomPurposeList().then(() => {
+      expect(window.fetch.mock.calls).to.be.empty;
+      done();
+    });
+  });
 
-	it('fetchCustomPurposeList returns nothing if storePublisherData = false', (done) => {
-		config.update({
-			storePublisherData: true
-		});
+  it("fetchCustomPurposeList fetches the configured URL", done => {
+    config.update({
+      customPurposeListLocation: "somepath.json"
+    });
 
-		fetchCustomPurposeList().then(() => {
-			expect(window.fetch.mock.calls).to.be.empty;
-			done();
-		});
-	});
-
-
-	it('fetchCustomPurposeList fetches the configured URL', (done) => {
-		config.update({
-			customPurposeListLocation: 'somepath.json'
-		});
-
-		fetchCustomPurposeList().then(() => {
-			expect(window.fetch.mock.calls[0][0]).to.equal('somepath.json');
-			done();
-		});
-	});
+    fetchCustomPurposeList().then(() => {
+      expect(window.fetch.mock.calls[0][0]).to.equal("somepath.json");
+      done();
+    });
+  });
 });
