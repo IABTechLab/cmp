@@ -39,7 +39,7 @@ You can start a development server that will monitor changes to all CMP and docs
 npm run dev
 ```
 
-Development server can be accessed at:
+Development server can be accessed at url:
 `http://localhost:8080/`
 
 ## Testing
