@@ -13,7 +13,7 @@
     "test:unit": "jest --coverage",
     "test:e2e": "npm run test:update_webdriver_manager && npm run test:protractor",
     "test:watch": "npm run -s test:unit -- --watch",
-    "test:update_webdriver_manager": "./node_modules/protractor/bin/webdriver-manager update --standalone false --gecko false --versions.chrome 2.37",
+    "test:update_webdriver_manager": "npm run ./node_modules/protractor/bin/webdriver-manager update --standalone false --gecko false --versions.chrome 2.37",
     "test:protractor": "./node_modules/protractor/bin/protractor protractor.conf.js",
     "lint": "eslint src test",
     "format": "prettier \"src/**/*.{js,jsx,less}\" --write",
