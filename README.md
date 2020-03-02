@@ -47,3 +47,13 @@ Development server can be accessed at url:
 ```sh
 npm test
 ```
+
+## Releasing
+
+```
+git checkout candidate ; git pull        # pull changes from upstream candidate into local candidate
+git merge --no-ff master                 # merge from master -> candidate
+git tag vX.X.X                           # tag the code for release (please do not use X.X.X)
+git push --tags origin                   # push tags upstream
+git push --force origin vX.X.X:release   # push the vX.X.X code onto the release branch, trigging production release
+```
