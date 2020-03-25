@@ -30,6 +30,9 @@ export default class Cmp {
     this.gdprAppliesLocation = false;
     this.submitted = false;
     this.processCommand.receiveMessage = this.receiveMessage;
+    console.warn("The DigiTrust CMP is deprecated and will not implement TCF v2.");
+    console.warn("As of June 30, 2020 all publishers should transition to a different CMP or risk being out of compliance with GDPR.");
+    console.warn("Please see #TODO for further details");
   }
 
 	commands = {
