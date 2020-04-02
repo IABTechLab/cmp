@@ -1,3 +1,11 @@
+# Deprecated
+
+Note that the DigiTrust CMP is no longer supported and will not support TCF v2. By June 30, 2020 - at the latest - all publishers should _remove_ the DigiTrust CMP and transition to a v2 compliant CMP.
+
+At some point shortly after June 30, 2020, production releases of the DigiTrust CMP will cease to function (the javascript will do nothing) and publishers continuing to use it will no longer be in compliance with GDPR.
+
+For further details please see [this blog post](https://iabtechlab.com/blog/retiring-the-digitrust-cmp-by-end-of-june/).
+
 # DigiTrust CMP
 CMP is a tool for publishers to engage users of their properties and gather & store end user consent.
 
@@ -46,4 +54,14 @@ Development server can be accessed at url:
 
 ```sh
 npm test
+```
+
+## Releasing
+
+```
+git checkout candidate ; git pull        # pull changes from upstream candidate into local candidate
+git merge --no-ff master                 # merge from master -> candidate
+git tag vX.X.X                           # tag the code for release (please do not use X.X.X)
+git push --tags origin                   # push tags upstream
+git push --force origin vX.X.X:release   # push the vX.X.X code onto the release branch, trigging production release
 ```
