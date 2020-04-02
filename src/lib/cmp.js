@@ -30,6 +30,9 @@ export default class Cmp {
     this.gdprAppliesLocation = false;
     this.submitted = false;
     this.processCommand.receiveMessage = this.receiveMessage;
+    console.warn("The DigiTrust CMP (https://github.com/digi-trust/cmp) is deprecated and will not implement the IAB consent framework v2 aka TCF v2 (https://iabeurope.eu/tcf-2-0/).");
+    console.warn("As of June 30 2020 the old v1.1 of the IAB consent framework will be deprecated (https://iabeurope.eu/uncategorized/tcf-v2-0-switchover-qa/), all publishers should transition to a different CMP or risk being out of compliance with GDPR.");
+    console.warn("Please see https://iabtechlab.com/blog/retiring-the-digitrust-cmp-by-end-of-june/ for further details");
   }
 
 	commands = {
